@@ -56,3 +56,13 @@ git push origin main
 ```
 
 UE 引擎、VS、Python 环境各机单独安装。Git 不同步 .venv、Binaries、Intermediate、Saved、日志、备份、机器专用引擎路径；实验 PNG 留在本机 Saved/WISEYE。
+
+## 手工清理临时备份与日志
+
+保存并关闭 UE 与桌面窗口，运行下面命令。省略 -Apply 只预览。
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Clean-Temporary.ps1 -Apply
+```
+
+只清理仓库 runtime、日志和指定临时缓存；保留模型、papers、环境、编译产物和 Saved/WISEYE 实验输出。

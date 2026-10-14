@@ -1,0 +1,58 @@
+{
+  "status": "blocked_by_automatic_approval_review",
+  "deleted": false,
+  "candidate_files": 1214,
+  "candidate_bytes": 234483984.0,
+  "paths": [
+    {
+      "path": "E:\\Projects\\WISEYE-Studio\\runtime",
+      "files": 1173,
+      "bytes": 226844094.0
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-Studio\\logs",
+      "files": 1,
+      "bytes": 2115.0
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\Logs",
+      "files": 25,
+      "bytes": 4318481.0
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\ShaderDebugInfo",
+      "files": 1,
+      "bytes": 3203455.0
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\UnrealBuildTool",
+      "files": 1,
+      "bytes": 132.0
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\AutoScreenshot.png",
+      "files": 1,
+      "bytes": 43220.0
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-Studio\\apps\\__pycache__",
+      "files": 1,
+      "bytes": 115.0
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-Studio\\apps\\desktop_app\\__pycache__",
+      "files": 4,
+      "bytes": 46462.0
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-Studio\\core\\__pycache__",
+      "files": 4,
+      "bytes": 7470.0
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-Studio\\tests\\__pycache__",
+      "files": 3,
+      "bytes": 18440.0
+    }
+  ]
+}
