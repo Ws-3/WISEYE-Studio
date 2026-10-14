@@ -1,5 +1,7 @@
 # 迁移检查（2026-10-14）
 
+完整工程提交 `1b3db2213cde71853c9faf0b819f4979d76b83d6` 已推送 GitHub main，`git ls-remote` 返回相同提交号。核对后删除原机 Backup-Content/Backup-Config，释放 70,598,834 字节；没有删除原工程、Models 或实验输出。
+
 - 将原工程的完整 Content、Config、Source 和 uproject 收入 `ue5/WISEYE`；原始 Models 一起收录。
 - 逐文件 SHA256 比较：迁移后的 Content 与已保存的原工程完全一致。Models + Content 共 570 个文件、131,781,547 字节；完整清单见 `evidence/asset_manifest.json`。
 - 在新仓库路径执行 `scripts/Start-WISEYE.ps1 -EngineRoot D:\Projects\UE_5.8 -BuildOnly`：Succeeded。此前该路径没有 Binaries/Intermediate，完成了独立构建；编译有 HUD 常量 double 转 float 的非阻塞警告。

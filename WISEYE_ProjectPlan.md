@@ -403,6 +403,7 @@ WISEYE/
 ## 11. 当前状态
 
 - **最新迁移状态（2026-10-14）：** 完整源工程、地图及外部 Actor、已导入材质/网格、恢复后的 PTZ 独立资源、原始 FBX/.fbm 已整理入库。普通 Git 存储，无 LFS；不包含引擎、VS、Binaries、Intermediate、Saved 或备份。
+- **同步已完成：** 完整工程提交 `1b3db2213cde71853c9faf0b819f4979d76b83d6` 已推送 GitHub main，并通过 ls-remote 核对一致。随后已删除本机 runtime/Backup-Content 与 Backup-Config（70,598,834 字节），保留原 Models、原工程和实验输出。恢复脚本继续使用已入库的 PTZRecovered 资源。
 - **跨电脑入口：** `scripts/Start-WISEYE.ps1 -EngineRoot <UE路径>`；关联版本改为 5.8，默认地图改为 WISEYE-test。整理后的目录已独立编译成功，详细迁移检查见 `docs/PORTABILITY.md`。
 - **云台恢复：** 被删除的组件已恢复，通用 Mesh 名称冲突通过 `/Game/WISEYE/PTZRecovered` 隔离；用户确认正常。`restore_ptz.py` 使用已入库资源，不依赖旧备份。
 - **历史说明：** 下方原机目录及验证路径仅作历史记录。当前运行、编辑、提交均以本仓库为准。M1 UI、M2 通信和 M5 视觉闭环仍未完成。
