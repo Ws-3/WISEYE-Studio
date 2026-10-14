@@ -2,6 +2,8 @@
 
 > **2026-10-14 迁移更新（优先于下方旧路径记录）：** 仓库现已包含完整 `ue5/WISEYE/test.uproject`、Config/Content/Source 和 Models。源码唯一位置为 `ue5/WISEYE/Source/test`，无需旧电脑 D 盘 Scene 工程。新电脑按根 README 构建启动，AI 先读 `AGENTS.md` 和 `docs/AI_HANDOFF.md`。云台恢复后用户已确认正常，要求直接同步，不再重新调整模型。
 
+> **2026-10-14 后续用户要求覆盖旧的“不调整模型”约定：** 按用户明确提出的四项任务，已调整无人机/云台演示尺寸，增加自动/手动飞行、旋翼动画及云台跟踪/保持切换。尺寸不是厂商计量标定；历史巨大模型尺寸和旧恢复脚本坐标不适用于当前场景。
+
 > **本文档是本项目的唯一长期计划与交接入口。** 本地 Codex、ChatGPT 或其他 AI 每次开始工作前必须先阅读本文档；每次完成工作后必须更新本文档，确保项目状态、决策、风险和下一步任务连续可追踪。
 >
 > **项目原则：** 先检查现状，再增量实现；先建立可验证的最小闭环，不一次性堆砌全部功能；任何未经实际验证的功能都不得标记为完成。
@@ -279,29 +281,29 @@ WISEYE/
 
 验收：有一份真实环境盘点结果；未覆盖已有项目或数据；明确 M1 的最小任务。
 
-### M1：PySide6 桌面 UI — `TODO`
+### M1：PySide6 桌面 UI — `DONE`（最小窗口验收）
 
 任务：
-- [ ] 创建主窗口、菜单、状态栏、日志区和基础参数面板。
-- [ ] 定义核心数据模型、配置读取、统一日志和服务接口。
-- [ ] 增加仿真连接状态显示和启动/停止入口（可先接 Mock）。
+- [x] 创建最小主窗口、状态显示、日志区和基础参数面板。
+- [x] 定义核心数据模型、配置读取、统一日志和服务接口。
+- [x] 增加真实 UE 连接状态、打开 UE、暂停/继续和断开入口。
 
 验收：应用能在目标 Windows 环境启动；界面响应正常；配置错误可读；基础功能有验证记录。
 
-### M2：通信协议与 UE5 Bridge — `TODO`
+### M2：通信协议与 UE5 Bridge — `IN_PROGRESS`（控制桥已验收）
 
 任务：
 - [ ] 先实现 Python Mock Server 和协议单元测试。
-- [ ] 实现 UE5 Bridge 的连接、JSON Lines 解析、响应关联和错误处理。
-- [ ] 实现 `sim.ping`、`sim.get_state`、`gimbal.set_angles`。
-- [ ] 将网络请求对 UE 对象的操作安全地转交游戏线程。
+- [x] 实现 UE5 Bridge 的连接、JSON Lines 解析、响应关联和错误处理。
+- [x] 实现 `sim.ping`、`sim.get_state`、`gimbal.set_angles` 及其他控制。
+- [x] 网络请求对 UE 对象的操作在游戏线程执行。
 
 验收：Mock 测试通过；UE5 启动后能完成 ping、状态查询和云台角度命令往返；异常断连不会卡死 UI。
 
 ### M3：相机图像通道 — `IN_PROGRESS`
 
 任务：
-- [x] UE5 相机/Render Target 输出图像（1280×720，实际 PIE 预览和 PNG 导出已验证）。
+- [x] UE5 相机/Render Target 输出图像（可见光 1920×1080、IR 640×512，原生 PNG 导出和桌面快照已验证）。
 - [ ] 实现图像帧打包、接收、帧编号、尺寸与编码校验。
 - [ ] UI 显示实时图像，并显示帧率、延迟和断连状态。
 
@@ -402,35 +404,62 @@ WISEYE/
 
 ## 11. 当前状态
 
-- **最新迁移状态（2026-10-14）：** 完整源工程、地图及外部 Actor、已导入材质/网格、恢复后的 PTZ 独立资源、原始 FBX/.fbm 已整理入库。普通 Git 存储，无 LFS；不包含引擎、VS、Binaries、Intermediate、Saved 或备份。
-- **同步已完成：** 完整工程提交 `1b3db2213cde71853c9faf0b819f4979d76b83d6` 已推送 GitHub main，并通过 ls-remote 核对一致。随后已删除本机 runtime/Backup-Content 与 Backup-Config（70,598,834 字节），保留原 Models、原工程和实验输出。恢复脚本继续使用已入库的 PTZRecovered 资源。
-- **跨电脑入口：** `scripts/Start-WISEYE.ps1 -EngineRoot <UE路径>`；关联版本改为 5.8，默认地图改为 WISEYE-test。整理后的目录已独立编译成功，详细迁移检查见 `docs/PORTABILITY.md`。
-- **云台恢复：** 被删除的组件已恢复，通用 Mesh 名称冲突通过 `/Game/WISEYE/PTZRecovered` 隔离；用户确认正常。`restore_ptz.py` 使用已入库资源，不依赖旧备份。
-- **历史说明：** 下方原机目录及验证路径仅作历史记录。当前运行、编辑、提交均以本仓库为准。M1 UI、M2 通信和 M5 视觉闭环仍未完成。
+截至 2026-10-14：本机运行、模型演示尺寸、自动/手动飞行、旋翼、云台跟踪/保持、双模态最小传感器、PySide6 主窗口和本机 TCP 控制桥均已完成运行验证。UE 5.8.3、VS 2022/MSVC 14.44、SDK 10.0.26100、Intel Arc B580；桌面 Python 3.14.6 / PySide6 6.11.0。VC++ x64 升级经用户明确同意并运行成功。
 
-- 已读取 GitHub main（起始提交 ac7d735b171fd8eba8833cae280a6745a8116cf1），原仓库仅有 README、计划和 Logo，没有现成软件实现。
-- 本地代码仓库：`D:\Projects\WISEYE-Studio\Repository`；原 `Models` 保留不动。
-- 实际 UE 工程：`D:\Projects\Scene\test\test\test.uproject`，关卡 `/Game/WISEYE-test`，C++ 模块 `test`。
-- 已验证环境：UE 5.8.3、VS 2022 14.44.35229 工具链、Windows SDK 10.0.26100.0；conda WISEYE Python 3.11.17。未升级或重建环境。Python 版本低于原 README 的建议 3.12，本次 C++ 仿真不依赖它。
-- 按用户最新要求先实现 UE 仿真演示，暂不按原顺序先创建 PySide6 UI。
-- 已完成实际 PIE 验证：无人机 8 字航线；bottom 固定、bottom2 水平转动、camera+ptz 水平和俯仰转动；独立轴心；镜头捕获、总览/相机视角、暂停、复位、变焦、PNG 导出。
-- 40 秒集成验证通过，77 个采样，固定底座及转动层级正确，角速度/俯仰限幅检查通过。记录：工程 `Saved/WISEYE/verification.json`。两张不同时间 PNG 的 SHA256 不同，已人工查看图像。
-- M0 尚未全面完成：PySide6/YOLO、GPU 驱动和推理设备、TCP 端口没有盘点。M2 通信和 M5 图像算法闭环仍未实现，不把真值跟随标记为视觉跟踪完成。
-- 当前限制：导入无人机宽约 45 米，仍保留用户缩放，不能作为物理尺度准确的成像实验；镜头安装位置是近似几何标定；可见少量分离的小零件。PNG 元数据时间为导出请求时刻，图像为上一完成渲染帧。
-- 下一步：校准模型实际尺寸和镜头安装位置，再接图像流与视觉算法。当前演示操作说明见 `ue5/README.md`。
+C++ 构建、真实 PIE 40 秒/79 样本、14 项控制、保存后重开、双模态尺寸/热参数/反转/遮挡通过；桌面真实 UE 10 项与协议单元 4 项通过。原始实验数据留在 Saved/WISEYE，摘要在 docs/evidence。
+
+M1 最小窗口 DONE，M2 控制桥已完成而完整扩展协议仍 IN_PROGRESS；M3 已有原生导出与按需快照，实时图像通道尚未实现。M4/M5 视觉检测闭环仍 TODO。当前跟踪读取 UE 真值，飞行无动力学/碰撞，红外是热强度近似，不是物理测温；尺寸/光心未按厂商图纸标定。
+
+跨电脑以本仓库完整 UE Source/Config/Content（含外部 Actor）及 Python 源码为准，保留 test/testEditor。运行与同步见 docs/DESKTOP.md、GIT_WORKFLOW.md；今天上传和清理结果见 WORKLOG_2026-10-14.md。下方变更记录保留各阶段历史描述，不代表当前状态。
 
 ## 12. 下一步任务清单
 
+- [x] **TASK-009：** 可见光 1920×1080 / IR 640×512 最小双模态及图像、遮挡、保存重开验证。
+- [x] **TASK-010：** WISEYE 主窗口与 UE 控制桥，连接/状态/暂停闭环及双模态快照，真实 UE 集成验收通过。
+- [ ] **TASK-011（下一近期目标）：** 持续图像通道、帧编号/时间与 FPS/延迟监测。
 - [x] **TASK-001（优先级 P0）：** 在实际项目根目录盘点现有文件、Git 状态与已有实现。
 - [ ] **TASK-002（优先级 P0）：** 检查 Python、UE5、编译工具链、YOLO 环境和 GPU 状态。
 - [x] **TASK-003（优先级 P1）：** 根据盘点结果确定实际目录结构和首个最小可运行目标（用户指定先完成 UE 云台/无人机演示）。
 - [x] **TASK-005（用户当前目标）：** C++ 运动、两轴云台和相机捕获演示，已编译并运行验证。
+- [x] **TASK-007（2026-10-14）：** 第二台电脑同步 Git、修正 main 跟踪、首次构建、资源完整性和真实 PIE/PNG 验证；已记录两台电脑协作流程。
+- [x] **TASK-008（用户四项要求）：** 合理演示尺寸、自动航线与键盘手动飞行、四组旋翼动画、云台跟踪/保持切换；保存、重开和运行验证通过。
 - [ ] **TASK-006（下一步）：** 按真实设备尺寸校准导入模型和镜头光心，整理分离小零件。
 - [ ] **TASK-004（优先级 P1）：** 设计并测试控制协议 Mock Server。
 
 TASK-001 至 TASK-003 完成并记录后，再决定是否开始 M1。不要在缺乏环境信息时一次性生成整套工程。
 
 ## 13. 变更记录
+
+### 2026-10-14：可见光/红外最小双模态
+
+- 新增 WiseEyeSensors.cpp、组件/参数、原生尺寸、I/B 控制和模态导出元数据；更新 HUD 与 EO 视角比例。新增 configure_sensors.py、verify_sensors.py、prepare_sensor_test.py；创建 M_IR_Minimal/RT_IR，更新 RT_EO、关卡引用、r.CustomDepth=3、云台热标记与 Config/WISEYE/sensors.json。原网格保持。
+- 备份 Content/Config 到忽略的 runtime/Backup-before-sensors。UBT 首次未收录新 CPP，-gather 后构建成功；未暴露的 Python gamma 属性改由 C++ 设置。红外首批 alpha 为 0，补齐材质 Output Alpha/Opacity=1 后验证 alpha 全 255。
+- 测试的 Python deferred spawn API 不可用，transient 编辑器对象未复制 PIE；改用不保存的临时普通 Actor。遮挡样本验证通过后停止 PIE、清理测试体并保存。没有遗留测试障碍。
+- verify_sensors 通过两套分辨率/比例/共位/变焦/模态切换及样本导出；PIL 验证 RGB 单色、alpha 全 255、调色板反转平均误差 0、热强度响应和遮挡隐藏目标。PNG 在 Saved/WISEYE/20261014_174652，已查看图像；证据摘要 docs/evidence/sensors_validation.json。
+- 正常关闭/重开真实编辑器，两套资产、热材质引用/PIE 实例正常；verify_controls 14 项检查再次通过（17:58:21）。当前运行 IR 演示。主窗口、TCP、视觉闭环和物理红外模型仍未实现；未提交推送。
+- 用户随后讨论主窗口；下一近期任务为连接 UE、显示状态、暂停/继续最小闭环，再接双模态图像。
+
+### 2026-10-14：尺寸、飞行操作、旋翼和云台保持
+
+- 用户明确授权调整光电云台与无人机大小，选择“自动航线 + 键盘手动飞行”；新增控制状态和操作提示，保留已有相机导出、变焦、暂停/复位能力。
+- 修改唯一 C++ 源码 WiseEyeDemo.h/.cpp：四个旋翼根组件、600 RPM 动画、对角同向/相邻反向；M 模式切换、WASD/升降/转向/加速、归一化斜向速度、手动高度上下限、无输入悬停；T 锁定当前云台方向；F 旋翼开关；新增第三个无人机近景视角。自动恢复保持当前位置，R 回到保存航线中心。
+- 先保存原编辑器未保存内容，备份 Content/Config 到忽略的 runtime/Backup-before-controls。configure_controls.py 调整根缩放、底座落地、无人机根居中、旋翼轴心及航线/相机；不重导入或修改原始网格。保存更改的 World Partition Actor/对象和地图，更新 Config/WISEYE/calibration.json。
+- 首次链接因编辑器 DLL 尚被占用失败，正常关闭已保存的编辑器后重建成功。布局脚本先后修正 UE Python HitResult 返回值和读取 API；控制验证修正空 StaticMeshComponent 的选择。脚本失败阶段未保存关卡，修正后尺寸检查/保存成功。
+- Start-WISEYE.ps1 -BuildOnly 编译成功；verify_demo 在真实 PIE 40 秒验证通过（79 个样本），图像在 Saved/WISEYE/20261014_170117。verify_controls 14 项检查通过；原图分别 SHA256 1f1c4e8f1f9bd4cbd867650b52857619ac6a040aa1710d68a05efa5fd42f84a0、310579106358b3a1fb1aaa624ab40a6a5d03710657465e6aec21c26c5e30a845，已目视检查。
+- 保存验证最初使用 NullRHI commandlet，World Partition 外部 Actor 未加载，不能据此判定布局失败；改为正常关闭、重新打开真实编辑器，用 validate_controls_scene.py 验证保存内容，随后再次运行 verify_controls 通过。实际键盘 M/T/F 开关测试通过；W 首次因 PIE 未聚焦未观察到位移，聚焦后按住约 900 ms，测得约 278 cm 位移。辅助 key-state 采样因 Key 构造 API 错误未成功，不将其计为通过。
+- 新增 configure_controls.py、verify_controls.py、validate_controls_scene.py；更新 README、ue5/README、交接/长期计划、标定和关卡外部 Actor。证据摘要见 docs/evidence/controls_features_validation.json；原始日志/PNG/临时自动化脚本留在 Saved/runtime，不提交。
+- 未提交或推送。下一步可提交本次源码及配套关卡供另一台电脑同步；实物尺寸/光心精确标定、红外模式、跨进程图像流与 YOLO 仍待后续任务。
+
+### 2026-10-14：第二台电脑运行昨天成果
+
+- 完整阅读计划、AGENTS、AI_HANDOFF、运行与迁移说明，并检查 C++ 演示及维护/验证脚本。实际功能是 UE 真值指向的运动学演示，不是 YOLO 视觉跟踪。
+- `git fetch origin --prune`、`git merge --ff-only origin/main` 同步到 b0b2868，`git branch --set-upstream-to=origin/main main` 修正原本指向已删除 master 的设置；保留未跟踪 papers。
+- `scripts/Start-WISEYE.ps1 -EngineRoot E:\Programs\UE_5.8 -BuildOnly` 首次编译成功（61.09 秒，原有 HUD double/float 常量警告）。570 项 Models/Content 哈希检查全部通过。
+- 初次启动提示 VC++ 14.44.35211 过旧。用户明确授权后运行引擎自带 vc_redist.x64.exe /install /quiet /norestart，注册表确认 14.50.35719，退出码 3010，未重启。之后 UnrealEditor-Cmd + PythonScriptPlugin + validate_portable.py + NullRHI 退出码 0，0 error(s)、0 warning(s)。
+- 首次生成着色器/纹理/网格缓存。自动验证启动脚本最初缺少 keep_python_script_alive，导致脚本返回后 UE 正常退出；修正本地 runtime 脚本并重新启动，没有改动场景或源码。
+- 在真实 DX12/Intel Arc B580 编辑器 PIE 运行 verify_demo.py，40 秒集成验证通过，79 个采样，最大真值指向误差约 0.010725°；该误差不代表实物精度或视觉算法精度。报告在 ue5/WISEYE/Saved/WISEYE/verification.json；两张不同 PNG 在 20261014_163650，已目视核验。
+- 修改 `.gitignore`、README、scripts/Start-WISEYE.ps1、docs/AI_HANDOFF.md、本计划；新增 docs/GIT_WORKFLOW.md、docs/evidence/second_pc_validation.json。本地引擎路径与验证启动辅助脚本保持忽略；原始运行日志/PNG 留在 Saved，不入库。
+- 本次文档和启动入口变更尚未提交/推送。两台电脑开始前 pull --ff-only，结束时保存 UE 资源后检查、提交、push；同一二进制场景轮流修改。下一步仍是比例/光心标定，按用户后续任务推进；M1、M2、M5 尚未完成。
 
 ### 2026-10-14：完整工程迁移与 GitHub 同步准备
 
@@ -473,3 +502,11 @@ TASK-001 至 TASK-003 完成并记录后，再决定是否开始 M1。不要在�
 - 项目品牌确定为 `WISEYE`，软件名称为 `WISEYE Studio`，中文名称为“智瞳——无人机光电仿真与智能感知平台”。
 - 增加 WS / YZ / E 模块释义约定，并说明其为项目内部命名而非标准英文缩写。
 - 文档版本升级至 `0.2`；后续改名应以现有仓库盘点为前提，避免破坏兼容性。
+
+### 2026-10-14：桌面窗口与控制桥、今日整理
+
+- 新增 apps/desktop_app、core、configs、requirements、Start-Desktop 启动脚本，以及 WiseEyeBridge C++ 非阻塞本机 TCP 控制桥。
+- 实现连接/断开、状态轮询、暂停/继续/复位、飞行模式、跟踪/旋翼、模态/调色板/FOV 和双模态快照；断开清除状态、响应超时保持 UI 响应。
+- C++ 构建与真实 UE 桌面 10 项验收、协议 4 项单元测试通过。截图/验收摘要保存到 docs/evidence。
+- 用户授权整理文件代码、上传 GitHub、清理不必要备份日志；更新运行/Git/协议/交接说明，详细结果见今日工作记录。
+- 下一步：持续图像通道与帧时间/性能指标，再接视觉检测。

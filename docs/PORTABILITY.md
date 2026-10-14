@@ -17,3 +17,7 @@
 ```
 
 报告在工程 Saved/WISEYE/portable_validation.json。构建缓存、日志和个人配置不提交。
+
+## 2026-10-14 桌面与最新工程
+
+今日新增 PySide6 主窗口、TCP 控制桥及双模态资源。新机器仍需本机构建 C++，独立创建 .venv 并安装 requirements.txt；不要复制本机环境/编译产物。运行与手工同步分别见 DESKTOP.md、GIT_WORKFLOW.md。今日测试详情见 WORKLOG_2026-10-14.md。

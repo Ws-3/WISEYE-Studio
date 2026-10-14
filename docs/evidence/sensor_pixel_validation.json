@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "palette_inverse_mean_error_8bit": 0.0,
+  "center_intensity": {
+    "white_hot": 166,
+    "black_hot": 89,
+    "adjusted_heat": 217,
+    "occluded_white_hot": 71
+  },
+  "center_roi_mean": {
+    "white_hot": 42.300625,
+    "black_hot": 212.699375,
+    "adjusted_heat": 48.611875,
+    "occluded_white_hot": 70.92625
+  },
+  "checks": [
+    "visible 1920x1080",
+    "IR 640x512",
+    "IR opaque alpha",
+    "IR monochrome",
+    "white/black inversion",
+    "heat parameter changes signal",
+    "occluder hides hot target"
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-14",
+  "build_passed": true,
+  "runtime": {
+    "passed": true,
+    "error": null,
+    "checks": [
+      "two native resolutions",
+      "two capture targets",
+      "visible",
+      "white_hot",
+      "black_hot",
+      "adjusted_heat",
+      "occlusion capture",
+      "shared zoom",
+      "return to visible",
+      "same optical pose",
+      "aspect ratios"
+    ],
+    "captures": {
+      "visible": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261014_174652\\VIS_0000.png",
+      "white_hot": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261014_174652\\IR_WH_0001.png",
+      "black_hot": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261014_174652\\IR_BH_0002.png",
+      "adjusted_heat": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261014_174652\\IR_WH_0003.png",
+      "occluded_white_hot": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261014_174652\\IR_WH_0004.png"
+    },
+    "visible_size": [
+      1920,
+      1080
+    ],
+    "infrared_size": [
+      640,
+      512
+    ],
+    "model": "normalized synthetic heat, not radiometric"
+  },
+  "pixel_validation": {
+    "passed": true,
+    "palette_inverse_mean_error_8bit": 0.0,
+    "center_intensity": {
+      "white_hot": 166,
+      "black_hot": 89,
+      "adjusted_heat": 217,
+      "occluded_white_hot": 71
+    },
+    "center_roi_mean": {
+      "white_hot": 42.300625,
+      "black_hot": 212.699375,
+      "adjusted_heat": 48.611875,
+      "occluded_white_hot": 70.92625
+    },
+    "checks": [
+      "visible 1920x1080",
+      "IR 640x512",
+      "IR opaque alpha",
+      "IR monochrome",
+      "white/black inversion",
+      "heat parameter changes signal",
+      "occluder hides hot target"
+    ]
+  },
+  "reopened_saved_scene": {
+    "passed": true,
+    "checks": [
+      "fresh editor reopened saved sensor assets",
+      "visible 1920x1080",
+      "IR 640x512",
+      "thermal material instance initialized in PIE",
+      "IR mode switched after reopen",
+      "temporary occluder absent"
+    ]
+  },
+  "controls_regression_passed": true,
+  "controls_checks": [
+    "auto",
+    "hold",
+    "rotors_off",
+    "manual_diagonal",
+    "manual_altitude_yaw",
+    "hover",
+    "ceiling",
+    "floor",
+    "resume_auto_tracking",
+    "pause",
+    "reset",
+    "three_camera_views",
+    "scale",
+    "four_rotor_pivots"
+  ],
+  "image_hashes": [
+    {
+      "sample": "visible",
+      "sha256": "445b6887c4e3c8dc8091d370db8c75e44c09df0e236a5a29337844b7872f48f6"
+    },
+    {
+      "sample": "white_hot",
+      "sha256": "3e9991376f9d8da1bf3bf6bd92d83eb55f3872fe6764b05c50b8e105e64f584e"
+    },
+    {
+      "sample": "black_hot",
+      "sha256": "87795c7de239da4aa24e65756ecc28cad493b9aeb50c59d8a981388f0d30620a"
+    },
+    {
+      "sample": "adjusted_heat",
+      "sha256": "d66746ecd698191da841a0513c3f7510e47b569525858fc696749aa3c921cb2f"
+    },
+    {
+      "sample": "occluded_white_hot",
+      "sha256": "d0def139c8e7fcb6b878a1a92b777a9a787f9cf1dd1b43947c1b98fcf56db318"
+    }
+  ],
+  "limitations": [
+    "Normalized synthetic heat, not radiometric",
+    "Shared horizontal FOV with different vertical FOV",
+    "Last completed renders; not hardware synchronized",
+    "Fixed-pattern noise only; no atmosphere or sensor physics"
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-14",
+  "repository": "E:/Projects/WISEYE-Studio",
+  "base_commit": "b0b28683b0f3f3a125cddc3c96dbb576d2219cec",
+  "engine_version": "5.8.3",
+  "engine_root": "E:/Programs/UE_5.8",
+  "gpu": "Intel Arc B580",
+  "gpu_driver": "32.0.101.8991",
+  "msvc": "14.44.35229",
+  "windows_sdk": "10.0.26100.0",
+  "vc_runtime": "14.50.35719",
+  "runtime_installer_exit_code": 3010,
+  "reboot_performed": false,
+  "build_passed": true,
+  "asset_hash_checked": 570,
+  "asset_hash_mismatches": 0,
+  "portable_commandlet_exit_code": 0,
+  "pie_passed": true,
+  "samples": 79,
+  "max_ground_truth_pointing_error_deg": 0.01072486862540245,
+  "checks": [
+    "fixed base and corrected root",
+    "bottom2 yaw only",
+    "camera and ptz move together",
+    "drone moves",
+    "yaw/pitch rate limits",
+    "pause/resume",
+    "FOV controls",
+    "reset",
+    "PNG export invoked"
+  ],
+  "pngs": [
+    {
+      "file": "EO_0000.png",
+      "sha256": "4a5a68cb93a08d8273db2d9ba038c852613a5edea680ab4d1fb341c9f20eb80e",
+      "visually_inspected": true
+    },
+    {
+      "file": "EO_0001.png",
+      "sha256": "badf88e981a5b1279633104c3a1a4540f47c5f2b35c55e73223170fd053fb85e",
+      "visually_inspected": true
+    }
+  ],
+  "raw_report": "ue5/WISEYE/Saved/WISEYE/verification.json",
+  "raw_png_directory": "ue5/WISEYE/Saved/WISEYE/20261014_163650",
+  "limitations": [
+    "UE ground truth pointing; no YOLO visual loop",
+    "Imported physical scale and optical center uncalibrated",
+    "First launch shader and PSO compilation hitches",
+    "Installer requested a reboot; no reboot performed"
+  ]
+}

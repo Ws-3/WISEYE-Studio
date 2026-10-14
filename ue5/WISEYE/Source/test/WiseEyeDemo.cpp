@@ -12,6 +12,23 @@
 #include "HAL/FileManager.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
+#include "WiseEyeBridge.h"
+
+AWiseEyeDemo::~AWiseEyeDemo() { delete Bridge; }
+void AWiseEyeDemo::EndPlay(const EEndPlayReason::Type Reason)
+{
+    delete Bridge;
+    Bridge = nullptr;
+    BridgeReady = false;
+    Super::EndPlay(Reason);
+}
+
+AWiseEyeRotor::AWiseEyeRotor()
+{
+    Pivot = CreateDefaultSubobject<USceneComponent>(TEXT("RotorPivot"));
+    SetRootComponent(Pivot);
+    Pivot->SetMobility(EComponentMobility::Movable);
+}
 
 AWiseEyeDemo::AWiseEyeDemo()
 {
@@ -32,6 +49,12 @@ AWiseEyeDemo::AWiseEyeDemo()
     Capture->bCaptureEveryFrame = true;
     Capture->bCaptureOnMovement = false;
     Capture->bAlwaysPersistRenderingState = true;
+    InfraredCapture = CreateDefaultSubobject<USceneCaptureComponent2D>(TEXT("IR_Capture"));
+    InfraredCapture->SetupAttachment(Camera);
+    InfraredCapture->CaptureSource = ESceneCaptureSource::SCS_FinalColorLDR;
+    InfraredCapture->bCaptureEveryFrame = true;
+    InfraredCapture->bCaptureOnMovement = false;
+    InfraredCapture->bAlwaysPersistRenderingState = true;
     AutoReceiveInput = EAutoReceiveInput::Player0;
 }
 
@@ -45,18 +68,16 @@ void AWiseEyeDemo::BeginPlay()
         return;
     }
     DroneInitialRotation = Drone->GetActorRotation();
-    if (!RenderTarget)
-    {
-        RenderTarget = NewObject<UTextureRenderTarget2D>(this);
-        RenderTarget->RenderTargetFormat = RTF_RGBA8;
-        RenderTarget->InitAutoFormat(1280,720);
-    }
-    Capture->TextureTarget = RenderTarget;
-    Camera->SetFieldOfView(FieldOfView);
-    Capture->FOVAngle = FieldOfView;
+    InitialFlightOrigin = FlightOrigin;
+    RotorInitialRotations.Reset();
+    for (AActor* Rotor : Rotors)
+        RotorInitialRotations.Add(IsValid(Rotor) ? Rotor->GetRootComponent()->GetRelativeRotation().Quaternion() : FQuat::Identity);
+    DroneView = GetWorld()->SpawnActor<ACameraActor>();
+    if (DroneView) DroneView->GetCameraComponent()->SetFieldOfView(65.f);
+    InitializeSensors();
     OutputDirectory = FPaths::Combine(FPaths::ProjectSavedDir(), TEXT("WISEYE"), FDateTime::Now().ToString(TEXT("%Y%m%d_%H%M%S")));
     IFileManager::Get().MakeDirectory(*OutputDirectory, true);
-    FFileHelper::SaveStringToFile(TEXT("time_s,drone_x_cm,drone_y_cm,drone_z_cm,yaw_deg,pitch_deg,pointing_error_deg,fov_deg\n"), *FPaths::Combine(OutputDirectory,TEXT("telemetry.csv")));
+    FFileHelper::SaveStringToFile(TEXT("time_s,drone_x_cm,drone_y_cm,drone_z_cm,yaw_deg,pitch_deg,pointing_error_deg,fov_deg,auto_flight,tracking,rotors,rotor_phase_deg\n"), *FPaths::Combine(OutputDirectory,TEXT("telemetry.csv")));
     APlayerController* PC = GetWorld()->GetFirstPlayerController();
     if (PC)
     {
@@ -66,6 +87,11 @@ void AWiseEyeDemo::BeginPlay()
         InputComponent->BindKey(EKeys::Tab,IE_Pressed,this,&AWiseEyeDemo::SwitchView);
         InputComponent->BindKey(EKeys::R,IE_Pressed,this,&AWiseEyeDemo::ResetSimulation);
         InputComponent->BindKey(EKeys::P,IE_Pressed,this,&AWiseEyeDemo::ExportFrame);
+        InputComponent->BindKey(EKeys::M,IE_Pressed,this,&AWiseEyeDemo::ToggleFlightMode);
+        InputComponent->BindKey(EKeys::T,IE_Pressed,this,&AWiseEyeDemo::ToggleTracking);
+        InputComponent->BindKey(EKeys::F,IE_Pressed,this,&AWiseEyeDemo::ToggleRotors);
+        InputComponent->BindKey(EKeys::I,IE_Pressed,this,&AWiseEyeDemo::ToggleSensorMode);
+        InputComponent->BindKey(EKeys::B,IE_Pressed,this,&AWiseEyeDemo::ToggleThermalPalette);
         InputComponent->BindKey(EKeys::Add,IE_Pressed,this,&AWiseEyeDemo::ZoomIn);
         InputComponent->BindKey(EKeys::Equals,IE_Pressed,this,&AWiseEyeDemo::ZoomIn);
         InputComponent->BindKey(EKeys::Subtract,IE_Pressed,this,&AWiseEyeDemo::ZoomOut);
@@ -73,6 +99,10 @@ void AWiseEyeDemo::BeginPlay()
         PC->SetViewTarget(Overview ? static_cast<AActor*>(Overview) : this);
     }
     StepSimulation(0, true);
+    UpdateDroneView();
+    Bridge = new FWiseEyeBridge(*this);
+    BridgeReady = Bridge->Start(ControlPort,BridgeError);
+    if (!BridgeReady) UE_LOG(LogTemp,Error,TEXT("WISEYE control bridge: %s"),*BridgeError);
     UE_LOG(LogTemp, Display, TEXT("WISEYE: simulation started, output %s"), *OutputDirectory);
 }
 
@@ -80,11 +110,22 @@ void AWiseEyeDemo::Tick(float Dt)
 {
     Super::Tick(Dt);
     if (!IsValid(Drone)) return;
+    if (Bridge) Bridge->Tick();
     if (!Paused)
     {
-        SimulationTime += Dt;
-        StepSimulation(Dt,false);
+        if (AutomaticFlight)
+        {
+            SimulationTime += Dt;
+            StepSimulation(Dt,false);
+        }
+        else
+        {
+            StepManualFlight(Dt);
+            StepGimbal(Dt,false);
+        }
+        StepRotors(Dt);
     }
+    UpdateDroneView();
     TelemetryClock += Dt;
     if (TelemetryClock >= 1)
     {
@@ -93,18 +134,29 @@ void AWiseEyeDemo::Tick(float Dt)
     }
 }
 
+FVector AWiseEyeDemo::FlightOffset(float Time) const
+{
+    const float T = Time*2.f*PI/FMath::Max(1.f,Period);
+    return FVector(FlightRadius*FMath::Sin(T),.65f*FlightRadius*FMath::Sin(2.f*T),VerticalAmplitude*FMath::Sin(T));
+}
+
 void AWiseEyeDemo::StepSimulation(float Dt, bool Snap)
 {
     // Repeatable figure-eight; analytic velocity determines heading.
     const float W = 2*PI/FMath::Max(1.f,Period);
     const float T = SimulationTime*W;
-    const FVector P = FlightOrigin + FVector(FlightRadius*FMath::Sin(T), .65f*FlightRadius*FMath::Sin(2*T), 450*FMath::Sin(T));
-    const FVector V(FlightRadius*W*FMath::Cos(T),1.3f*FlightRadius*W*FMath::Cos(2*T),450*W*FMath::Cos(T));
+    const FVector P = FlightOrigin + FlightOffset(SimulationTime);
+    const FVector V(FlightRadius*W*FMath::Cos(T),1.3f*FlightRadius*W*FMath::Cos(2*T),VerticalAmplitude*W*FMath::Cos(T));
     // Imported model heading offset remains an asset calibration, not a flight-dynamics model.
     FRotator Heading = DroneInitialRotation;
-    Heading.Yaw += V.Rotation().Yaw;
+    Heading.Yaw = V.Rotation().Yaw + ModelHeadingOffset;
     Heading.Roll = 4*FMath::Sin(T);
     Drone->SetActorLocationAndRotation(P, Heading, false, nullptr, ETeleportType::TeleportPhysics);
+    StepGimbal(Dt,Snap);
+}
+
+void AWiseEyeDemo::StepGimbal(float Dt, bool Snap)
+{
     const FVector Target = Drone->GetActorTransform().TransformPosition(TargetOffset);
     // Solve from the displaced optical center, not the importer root or mesh bounds.
     const FVector LocalDirection = Base->GetComponentTransform().InverseTransformVectorNoScale(Target-Camera->GetComponentLocation());
@@ -114,38 +166,117 @@ void AWiseEyeDemo::StepSimulation(float Dt, bool Snap)
     const float Yaw = Snap ? Desired.Yaw : FMath::FixedTurn(OldYaw,Desired.Yaw,FMath::Max(0.f,YawRate)*Dt);
     const float DesiredPitch = FMath::Clamp(Desired.Pitch,MinPitch,MaxPitch);
     const float Pitch = Snap ? DesiredPitch : FMath::FInterpConstantTo(OldPitch,DesiredPitch,Dt,FMath::Max(0.f,PitchRate));
-    YawPivot->SetRelativeRotation(FRotator(0,Yaw,0));
-    PitchPivot->SetRelativeRotation(FRotator(Pitch,0,0));
+    if (TrackingEnabled)
+    {
+        YawPivot->SetRelativeRotation(FRotator(0,Yaw,0));
+        PitchPivot->SetRelativeRotation(FRotator(Pitch,0,0));
+    }
     const FVector Sight = (Target-Camera->GetComponentLocation()).GetSafeNormal();
     PointingError = FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(FVector::DotProduct(Sight,Camera->GetForwardVector()),-1.0,1.0)));
 }
 
+void AWiseEyeDemo::SetManualInput(float Forward, float Right, float Up, float Yaw)
+{
+    ManualInput = FVector(FMath::Clamp(Forward,-1.f,1.f),FMath::Clamp(Right,-1.f,1.f),FMath::Clamp(Up,-1.f,1.f));
+    ManualYawInput = FMath::Clamp(Yaw,-1.f,1.f);
+}
+
+void AWiseEyeDemo::StepManualFlight(float Dt)
+{
+    FVector Input = ManualInput;
+    float Turn = ManualYawInput;
+    float Speed = ManualSpeed;
+    if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
+    {
+        Input.X += float(PC->IsInputKeyDown(EKeys::W))-float(PC->IsInputKeyDown(EKeys::S));
+        Input.Y += float(PC->IsInputKeyDown(EKeys::D))-float(PC->IsInputKeyDown(EKeys::A));
+        Input.Z += float(PC->IsInputKeyDown(EKeys::Up))-float(PC->IsInputKeyDown(EKeys::Down));
+        Turn += float(PC->IsInputKeyDown(EKeys::E))-float(PC->IsInputKeyDown(EKeys::Q));
+        if (PC->IsInputKeyDown(EKeys::LeftShift)) Speed *= 2.f;
+    }
+    Input = Input.GetClampedToMaxSize(1.f);
+    FRotator Heading = Drone->GetActorRotation();
+    Heading.Yaw += FMath::Clamp(Turn,-1.f,1.f)*ManualYawRate*Dt;
+    Heading.Pitch = DroneInitialRotation.Pitch;
+    Heading.Roll = 0;
+    const FRotator TravelHeading(0,Heading.Yaw-ModelHeadingOffset,0);
+    FVector Position = Drone->GetActorLocation() + (TravelHeading.Vector()*Input.X + FRotationMatrix(TravelHeading).GetUnitAxis(EAxis::Y)*Input.Y + FVector::UpVector*Input.Z)*Speed*Dt;
+    Position.Z = FMath::Clamp(Position.Z,MinimumAltitude,MaximumAltitude);
+    Drone->SetActorLocationAndRotation(Position,Heading,false,nullptr,ETeleportType::TeleportPhysics);
+}
+
+void AWiseEyeDemo::StepRotors(float Dt)
+{
+    if (!RotorsRunning) return;
+    RotorPhase = FMath::Fmod(RotorPhase+FMath::Max(0.f,RotorRPM)*6.f*Dt,360.f);
+    for (int32 I=0; I<Rotors.Num(); ++I)
+    {
+        AWiseEyeRotor* Rotor = Cast<AWiseEyeRotor>(Rotors[I]);
+        if (!IsValid(Rotor) || !RotorInitialRotations.IsValidIndex(I)) continue;
+        const FQuat Spin(FVector::UpVector,FMath::DegreesToRadians(RotorPhase*Rotor->Direction));
+        Rotor->SetActorRelativeRotation(RotorInitialRotations[I]*Spin);
+    }
+}
+
+void AWiseEyeDemo::UpdateDroneView()
+{
+    if (!IsValid(DroneView) || !IsValid(Drone)) return;
+    const FVector Target = Drone->GetActorTransform().TransformPosition(TargetOffset);
+    const FVector Forward = FRotator(0,Drone->GetActorRotation().Yaw-ModelHeadingOffset,0).Vector();
+    const FVector Position = Target-Forward*130.f+FVector(0,0,65.f);
+    DroneView->SetActorLocationAndRotation(Position,(Target-Position).Rotation());
+}
+
+void AWiseEyeDemo::ToggleFlightMode()
+{
+    AutomaticFlight = !AutomaticFlight;
+    if (AutomaticFlight && IsValid(Drone)) FlightOrigin = Drone->GetActorLocation()-FlightOffset(SimulationTime);
+    ManualInput = FVector::ZeroVector;
+    ManualYawInput = 0;
+}
+void AWiseEyeDemo::ToggleTracking() { TrackingEnabled = !TrackingEnabled; }
+void AWiseEyeDemo::ToggleRotors() { RotorsRunning = !RotorsRunning; }
+
 void AWiseEyeDemo::TogglePause() { Paused = !Paused; }
-void AWiseEyeDemo::ResetSimulation() { SimulationTime = 0; StepSimulation(0,true); }
+void AWiseEyeDemo::ResetSimulation()
+{
+    SimulationTime = 0;
+    FlightOrigin = InitialFlightOrigin;
+    ManualInput = FVector::ZeroVector;
+    ManualYawInput = 0;
+    StepSimulation(0,true);
+    UpdateDroneView();
+}
 void AWiseEyeDemo::SwitchView()
 {
-    CameraView = !CameraView;
+    ViewMode = (ViewMode+1)%3;
     if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
-        PC->SetViewTargetWithBlend(CameraView || !Overview ? this : static_cast<AActor*>(Overview), .3f);
+    {
+        AActor* Target = ViewMode==2 && DroneView ? static_cast<AActor*>(DroneView) : ViewMode==0 && Overview ? static_cast<AActor*>(Overview) : this;
+        PC->SetViewTargetWithBlend(Target,.3f);
+    }
 }
-void AWiseEyeDemo::ZoomIn() { FieldOfView=FMath::Clamp(FieldOfView-5,5.f,120.f); Camera->SetFieldOfView(FieldOfView); Capture->FOVAngle=FieldOfView; }
-void AWiseEyeDemo::ZoomOut() { FieldOfView=FMath::Clamp(FieldOfView+5,5.f,120.f); Camera->SetFieldOfView(FieldOfView); Capture->FOVAngle=FieldOfView; }
+void AWiseEyeDemo::ZoomIn() { FieldOfView=FMath::Clamp(FieldOfView-5,5.f,120.f); RefreshSensors(); }
+void AWiseEyeDemo::ZoomOut() { FieldOfView=FMath::Clamp(FieldOfView+5,5.f,120.f); RefreshSensors(); }
 void AWiseEyeDemo::ExportFrame()
 {
-    if (!RenderTarget) return;
+    UTextureRenderTarget2D* Target = GetSensorTarget();
+    if (!Target) return;
     // Export the last completed render; never confuse the HUD screenshot with sensor imagery.
-    const FString Name = FString::Printf(TEXT("EO_%04d.png"),FrameNumber++);
-    UKismetRenderingLibrary::ExportRenderTarget(this,RenderTarget,OutputDirectory,Name);
+    const TCHAR* Sensor = InfraredMode ? (BlackHot ? TEXT("IR_BH") : TEXT("IR_WH")) : TEXT("VIS");
+    const FString Name = FString::Printf(TEXT("%s_%04d.png"),Sensor,FrameNumber++);
+    UKismetRenderingLibrary::ExportRenderTarget(this,Target,OutputDirectory,Name);
+    LastExportPath = FPaths::ConvertRelativePathToFull(FPaths::Combine(OutputDirectory,Name));
     const FVector Pos = Camera->GetComponentLocation();
     const FRotator Rot = Camera->GetComponentRotation();
-    const FString Meta=FString::Printf(TEXT("{\"simulation_time_s\":%.6f,\"width\":%d,\"height\":%d,\"fov_deg\":%.4f,\"camera_cm\":[%.4f,%.4f,%.4f],\"rotation_pitch_yaw_roll_deg\":[%.4f,%.4f,%.4f],\"tracking_source\":\"UE ground truth\",\"frame_timing\":\"last completed render\"}"),SimulationTime,RenderTarget->SizeX,RenderTarget->SizeY,FieldOfView,Pos.X,Pos.Y,Pos.Z,Rot.Pitch,Rot.Yaw,Rot.Roll);
+    const FString Meta=FString::Printf(TEXT("{\"simulation_time_s\":%.6f,\"width\":%d,\"height\":%d,\"horizontal_fov_deg\":%.4f,\"modality\":\"%s\",\"palette\":\"%s\",\"thermal_model\":\"%s\",\"camera_cm\":[%.4f,%.4f,%.4f],\"rotation_pitch_yaw_roll_deg\":[%.4f,%.4f,%.4f],\"tracking_source\":\"UE ground truth\",\"frame_timing\":\"last completed render; not hardware synchronized\"}"),SimulationTime,Target->SizeX,Target->SizeY,FieldOfView,InfraredMode?TEXT("infrared"):TEXT("visible"),InfraredMode?(BlackHot?TEXT("black_hot"):TEXT("white_hot")):TEXT("RGB"),InfraredMode?TEXT("normalized synthetic heat; not radiometric"):TEXT("none"),Pos.X,Pos.Y,Pos.Z,Rot.Pitch,Rot.Yaw,Rot.Roll);
     FFileHelper::SaveStringToFile(Meta,*FPaths::Combine(OutputDirectory,Name+TEXT(".json")));
     UE_LOG(LogTemp,Display,TEXT("WISEYE: exported %s/%s"),*OutputDirectory,*Name);
 }
 void AWiseEyeDemo::WriteTelemetry()
 {
     const FVector P=Drone->GetActorLocation();
-    const FString Row=FString::Printf(TEXT("%.4f,%.3f,%.3f,%.3f,%.3f,%.3f,%.6f,%.1f\n"),SimulationTime,P.X,P.Y,P.Z,YawPivot->GetRelativeRotation().Yaw,PitchPivot->GetRelativeRotation().Pitch,PointingError,FieldOfView);
+    const FString Row=FString::Printf(TEXT("%.4f,%.3f,%.3f,%.3f,%.3f,%.3f,%.6f,%.1f,%d,%d,%d,%.3f\n"),SimulationTime,P.X,P.Y,P.Z,YawPivot->GetRelativeRotation().Yaw,PitchPivot->GetRelativeRotation().Pitch,PointingError,FieldOfView,AutomaticFlight,TrackingEnabled,RotorsRunning,RotorPhase);
     FFileHelper::SaveStringToFile(Row,*FPaths::Combine(OutputDirectory,TEXT("telemetry.csv")),FFileHelper::EEncodingOptions::AutoDetect,&IFileManager::Get(),FILEWRITE_Append);
 }
 
@@ -157,17 +288,18 @@ void AWiseEyeHUD::DrawHUD()
     AWiseEyeDemo* Demo=nullptr;
     for (TActorIterator<AWiseEyeDemo> It(GetWorld());It;++It) { Demo=*It; break; }
     if (!Demo) return;
-    DrawRect(FLinearColor(0.015,0.025,0.045,.85),12,12,710,106);
-    DrawText(TEXT("WISEYE  |  UAV / EO SIMULATION"),FLinearColor(.1,.85,1),24,20,nullptr,1.3);
-    DrawText(FString::Printf(TEXT("%s   t=%.1fs   Yaw %.1f   Pitch %.1f   Error %.3f deg"),Demo->Paused?TEXT("PAUSED"):TEXT("TRACKING"),Demo->SimulationTime,Demo->YawPivot->GetRelativeRotation().Yaw,Demo->PitchPivot->GetRelativeRotation().Pitch,Demo->PointingError),FLinearColor::White,24,50,nullptr,1.05);
-    DrawText(TEXT("TAB view   SPACE pause   R restart   +/- zoom   P save PNG   ESC stop"),FLinearColor(.75,.85,.9),24,78,nullptr,1);
-    DrawText(TEXT("Target: UE ground truth | Kinematic flight | Imported scale"),FLinearColor(.75,.85,.9),24,99,nullptr,.85);
-    if (Demo->RenderTarget)
+    DrawRect(FLinearColor(.015f,.025f,.045f,.85f),12,12,790,145);
+    DrawText(TEXT("WISEYE  |  UAV / EO SIMULATION"),FLinearColor(.1f,.85f,1),24,20,nullptr,1.3f);
+    DrawText(FString::Printf(TEXT("%s | Flight %s | Gimbal %s | Rotors %s"),Demo->Paused?TEXT("PAUSED"):TEXT("RUNNING"),Demo->AutomaticFlight?TEXT("AUTO"):TEXT("MANUAL"),Demo->TrackingEnabled?TEXT("TRACK"):TEXT("HOLD"),Demo->RotorsRunning?TEXT("ON"):TEXT("OFF")),FLinearColor::White,24,48,nullptr,1.05f);
+    DrawText(TEXT("M auto/manual | WASD move | UP/DOWN altitude | Q/E turn | SHIFT boost"),FLinearColor(.75f,.85f,.9f),24,73,nullptr,1);
+    DrawText(TEXT("T track/hold | F rotors | TAB overview/EO/drone | SPACE pause | R reset"),FLinearColor(.75f,.85f,.9f),24,96,nullptr,1);
+    DrawText(TEXT("I visible/IR | B white/black hot | +/- zoom | P native PNG | UE truth"),FLinearColor(.75f,.85f,.9f),24,119,nullptr,.95f);
+    if (UTextureRenderTarget2D* Target = Demo->GetSensorTarget())
     {
-        const float W=FMath::Min(520.f,Canvas->SizeX*.4f), H=W*9/16, X=Canvas->SizeX-W-20, Y=Canvas->SizeY-H-40;
-        DrawRect(FLinearColor(.02,.04,.06,1),X-4,Y-29,W+8,H+53);
-        DrawText(FString::Printf(TEXT("EO CAMERA  |  1280 x 720  |  FOV %.0f"),Demo->FieldOfView),FLinearColor(.1,.85,1),X+8,Y-23,nullptr,1);
-        Canvas->K2_DrawTexture(Demo->RenderTarget,FVector2D(X,Y),FVector2D(W,H),FVector2D::ZeroVector,FVector2D::UnitVector,FLinearColor::White,BLEND_Opaque);
+        const float W=FMath::Min(520.f,Canvas->SizeX*.4f), H=W*float(Target->SizeY)/float(Target->SizeX), X=Canvas->SizeX-W-20, Y=Canvas->SizeY-H-40;
+        DrawRect(FLinearColor(.02f,.04f,.06f,1),X-4,Y-29,W+8,H+53);
+        DrawText(FString::Printf(TEXT("%s | %d x %d | FOV %.0f"),Demo->InfraredMode?(Demo->BlackHot?TEXT("IR BLACK HOT"):TEXT("IR WHITE HOT")):TEXT("VISIBLE"),Target->SizeX,Target->SizeY,Demo->FieldOfView),FLinearColor(.1f,.85f,1),X+8,Y-23,nullptr,1);
+        Canvas->K2_DrawTexture(Target,FVector2D(X,Y),FVector2D(W,H),FVector2D::ZeroVector,FVector2D::UnitVector,FLinearColor::White,BLEND_Opaque);
         DrawLine(X+W/2-10,Y+H/2,X+W/2+10,Y+H/2,FLinearColor::Green);
         DrawLine(X+W/2,Y+H/2-10,X+W/2,Y+H/2+10,FLinearColor::Green);
     }

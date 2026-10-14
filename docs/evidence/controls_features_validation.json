@@ -1,0 +1,265 @@
+{
+  "date": "2026-10-14",
+  "build_passed": true,
+  "motion_regression": {
+    "passed": true,
+    "samples": 79,
+    "max_ground_truth_pointing_error_deg": 0.004173034802079201
+  },
+  "saved_scene": {
+    "passed": true,
+    "drone_size_cm": [
+      58.21079991160241,
+      59.99999999999977,
+      14.894195547002255
+    ],
+    "ptz_size_cm": [
+      38.15604747737052,
+      38.03188731026148,
+      40.0
+    ],
+    "rotors": [
+      "WISEYE_Rotor_FL",
+      "WISEYE_Rotor_FR",
+      "WISEYE_Rotor_RL",
+      "WISEYE_Rotor_RR"
+    ],
+    "checks": [
+      "reopened editor scene",
+      "four saved rotor roots and twelve mesh children",
+      "scaled drone and PTZ bounds",
+      "saved flight and camera parameters",
+      "gimbal attachment hierarchy"
+    ]
+  },
+  "controls_after_reopening": {
+    "passed": true,
+    "error": null,
+    "checks": [
+      "auto",
+      "hold",
+      "rotors_off",
+      "manual_diagonal",
+      "manual_altitude_yaw",
+      "hover",
+      "ceiling",
+      "floor",
+      "resume_auto_tracking",
+      "pause",
+      "reset",
+      "three_camera_views",
+      "scale",
+      "four_rotor_pivots"
+    ],
+    "drone_size_cm": [
+      58.21079991160241,
+      59.99999999999977,
+      14.894195547002255
+    ],
+    "ptz_size_cm": [
+      38.15604747737052,
+      38.03188731026148,
+      40.0
+    ],
+    "samples": [
+      {
+        "stage": "auto",
+        "position": [
+          8353.382742395926,
+          1573.686978678743,
+          642.090822077864
+        ],
+        "angles": [
+          -26.86587524414062,
+          20.321346282958995
+        ],
+        "rotor_phase": 51.036163330078125,
+        "world_time": 3.0141767039895058
+      },
+      {
+        "stage": "hold",
+        "position": [
+          8498.020605555106,
+          1716.0355199385085,
+          678.2502878676589
+        ],
+        "angles": [
+          -26.86587524414062,
+          20.321346282958995
+        ],
+        "rotor_phase": 51.4598388671875,
+        "world_time": 4.014294404536486
+      },
+      {
+        "stage": "rotors_off",
+        "position": [
+          8623.875494471122,
+          1767.6868871260085,
+          709.7140100966628
+        ],
+        "angles": [
+          -26.86587524414062,
+          20.321346282958995
+        ],
+        "rotor_phase": 51.4598388671875,
+        "world_time": 5.029941502958536
+      },
+      {
+        "stage": "manual_diagonal",
+        "position": [
+          8840.403773005371,
+          1975.47132816977,
+          709.7140100966628
+        ],
+        "angles": [
+          -26.86587524414062,
+          20.321346282958995
+        ],
+        "rotor_phase": 51.4598388671875,
+        "world_time": 6.0302685014903545
+      },
+      {
+        "stage": "manual_altitude_yaw",
+        "position": [
+          8840.403773005371,
+          1975.47132816977,
+          1011.5725998948749
+        ],
+        "angles": [
+          -26.86587524414062,
+          20.321346282958995
+        ],
+        "rotor_phase": 51.4598388671875,
+        "world_time": 7.036463800817728
+      },
+      {
+        "stage": "hover",
+        "position": [
+          8840.403773005371,
+          1975.47132816977,
+          1011.5725998948749
+        ],
+        "angles": [
+          -26.86587524414062,
+          20.321346282958995
+        ],
+        "rotor_phase": 51.4598388671875,
+        "world_time": 8.046304699033499
+      },
+      {
+        "stage": "ceiling",
+        "position": [
+          8840.403773005371,
+          1975.47132816977,
+          1021.5725708007812
+        ],
+        "angles": [
+          -26.86587524414062,
+          20.321346282958995
+        ],
+        "rotor_phase": 51.4598388671875,
+        "world_time": 9.062515299767256
+      },
+      {
+        "stage": "floor",
+        "position": [
+          8840.403773005371,
+          1975.47132816977,
+          1001.5725708007812
+        ],
+        "angles": [
+          -26.86587524414062,
+          20.321346282958995
+        ],
+        "rotor_phase": 51.4598388671875,
+        "world_time": 10.067226201295853
+      },
+      {
+        "stage": "resume_auto_tracking",
+        "position": [
+          8935.580744440918,
+          1920.3523706502388,
+          1025.366813659668
+        ],
+        "angles": [
+          -47.19515991210938,
+          39.87839889526367
+        ],
+        "rotor_phase": 75.55931091308594,
+        "world_time": 11.073920499533415
+      },
+      {
+        "stage": "pause",
+        "position": [
+          8935.580744440918,
+          1920.3523706502388,
+          1025.366813659668
+        ],
+        "angles": [
+          -47.19515991210938,
+          39.87839889526367
+        ],
+        "rotor_phase": 75.55931091308594,
+        "world_time": 12.078920599073172
+      }
+    ]
+  },
+  "keyboard_toggles": {
+    "passed": true,
+    "keys": [
+      "M",
+      "T",
+      "F",
+      "W"
+    ],
+    "before": {
+      "position": [
+        8197.253515711356,
+        1377.7111180830398,
+        603.0585154067214
+      ],
+      "auto": true,
+      "tracking": true,
+      "rotors": true,
+      "paused": false
+    },
+    "after": {
+      "position": [
+        7483.687347370571,
+        1308.373242128464,
+        187.86354646086693
+      ],
+      "auto": false,
+      "tracking": false,
+      "rotors": false,
+      "paused": false
+    }
+  },
+  "focused_keyboard_w": {
+    "passed": true,
+    "travel_cm": 278.07456068694313,
+    "key_samples": 0,
+    "manual": true,
+    "observations": [],
+    "verification_method": "Physical W key held 900 ms in focused PIE viewport; position delta verified. Optional key-state sampler used an unsupported Key constructor."
+  },
+  "png_directory": "ue5/WISEYE/Saved/WISEYE/20261014_170117",
+  "pngs": [
+    {
+      "file": "EO_0000.png",
+      "sha256": "1f1c4e8f1f9bd4cbd867650b52857619ac6a040aa1710d68a05efa5fd42f84a0",
+      "visually_inspected": true
+    },
+    {
+      "file": "EO_0001.png",
+      "sha256": "310579106358b3a1fb1aaa624ab40a6a5d03710657465e6aec21c26c5e30a845",
+      "visually_inspected": true
+    }
+  ],
+  "limitations": [
+    "Approximate demonstration dimensions and pivots, not manufacturer metrology",
+    "Kinematic flight without obstacle collision or aerodynamics",
+    "Ground-truth gimbal pointing, no YOLO loop",
+    "Rotor toggle controls animation independently of flight"
+  ]
+}

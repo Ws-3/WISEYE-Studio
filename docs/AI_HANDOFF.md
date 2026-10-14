@@ -1,43 +1,25 @@
-# AI 交接（2026-10-14）
+# WISEYE 当前交接（2026-10-14）
 
-## 当前工作
+先读根 README、AGENTS 和长期计划，检查 git status。工程为本仓库 ue5/WISEYE/test.uproject，地图 /Game/WISEYE-test，唯一 UE 源码 ue5/WISEYE/Source/test；桌面源码 apps/desktop_app 与 core。保留 test 模块和 testEditor 目标。
 
-用户已确认修复后的云台正常，要求直接同步可迁移 UE 工程、模型和代码，并让另一台电脑的 AI 继续工作。不要再次重新导入或覆盖已确认的场景。
+## 已完成与运行
 
-完整工程提交 `1b3db22` 已上传 GitHub main，远端提交号已核对。上传确认后按用户要求删除原机 Backup-Content/Backup-Config；恢复模型所需资源已经入库，不需要寻找这些旧备份。此后新电脑直接使用本仓库。
+- 本机成功运行昨天完整工程；UE 5.8.3、VS 2022/MSVC 14.44.35229、SDK 10.0.26100.0、Intel Arc B580。经用户授权升级 VC++ x64 至 14.50.35719，安装提示重启，未自动重启，实际运行通过。
+- 无人机跨度 60 cm、云台高 40 cm；自动航线/键盘手动飞行、四组旋翼、云台跟踪/保持。bottom 固定、bottom2 水平转、camera 与 ptz 共用俯仰。
+- 可见光 1920×1080、IR 640×512，双 Capture/Render Target，共光心/水平 FOV、不同垂直 FOV。IR 以部件模拟热强度生成，有白热/黑热及遮挡。
+- PySide6 桌面主窗口、本机 JSON Lines TCP 控制桥、状态轮询、暂停/继续/复位、飞行模式、跟踪、旋翼、模态/调色板/FOV、原生 PNG 快照显示。
+- 开始时 pull --ff-only，双击 Start-WISEYE.cmd，UE 点击播放，再 Start-Desktop.cmd 连接 127.0.0.1:50051。完整配置见 DESKTOP.md；协议见 PROTOCOL.md；人工上传下载见 GIT_WORKFLOW.md。
 
-先读根 README、AGENTS、长期计划并检查 git status。确认 UE 路径、版本和 VS C++ 工具链。原机验证 UE 5.8.3、MSVC 14.44.35229、SDK 10.0.26100.0；其他版本未验证。
+本机仓库 E:/Projects/WISEYE-Studio，UE E:/Programs/UE_5.8；机器路径在忽略的 scripts/engine-root.local.txt。桌面 .venv 复用已安装 PySide6 6.11.0 的 Python 3.14.6；未更改既有 conda WISEYE 训练环境。新机器自行创建 venv 并安装 requirements。
 
-## 启动、编辑、验证
+## 验收与证据
 
-在仓库根运行：
+C++ 构建成功，真实 PIE 40 秒/79 样本验证通过；14 项控制检查及保存关闭重开后的布局验证通过。双模态尺寸、灰度、不透明 alpha、参数响应、白黑反转、遮挡通过；测试遮挡物已清理并保存。
+桌面真实 UE 集成 10 项通过，包括连接/轮询、时间暂停恢复、跟踪/旋翼、两种原生快照/FOV、TCP 分段合并及错误、断开重连、超时期间 GUI 保持响应；协议单元测试 4 项通过。证据在 docs/evidence，原始实验输出保留于 ue5/WISEYE/Saved/WISEYE。
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Start-WISEYE.ps1 -EngineRoot "实际UE目录"
-```
+## 边界与后续
 
-仅构建用 `-BuildOnly`；已有匹配产物可 `-SkipBuild`。工程 `ue5/WISEYE/test.uproject`，关卡 `/Game/WISEYE-test`，点击播放。
-必须在 UE 内执行 `py "实际仓库路径/ue5/scripts/verify_demo.py"`，不能用普通 Python 运行。报告输出到工程 Saved/WISEYE，持续40秒。
-正常演示不依赖 conda。原机 WISEYE 环境为 Python 3.11.17，本次未升级或安装其依赖。
+当前是真值指向和运动学演示，无 YOLO、动力学/碰撞、物理红外测温或打包程序。桌面图像为按需快照，尚无实时视频或跨机图像通道；PNG 渲染帧与请求时间未精确同步。几何尺寸与轴心是演示近似。
+下一步优先做持续图像通道与帧时间/性能监测，再接单帧视觉检测和闭环。保留已确认场景；旧 setup_scene.py/restore_ptz.py 恢复旧尺度，不要直接运行覆盖当前布局。
 
-代码入口：`ue5/WISEYE/Source/test/WiseEyeDemo.h/.cpp`。AWiseEyeDemo 管运动、云台与相机；AWiseEyeHUD 管显示；AWiseEyeGameMode 管游戏模式。修改后重新构建，不要编辑已经退出使用的旧电脑 `D:/Projects/Scene/test/test`。
-Content 包含地图、World Partition 外部 Actor、所有网格和材质；Config/WISEYE/calibration.json 保存布局。Models 是原始 FBX/.fbm，运行使用已导入资源，不必再次导入。
-
-## 云台约定与已处理问题
-
-bottom 固定，bottom2 挂 YawPivot 只水平转；camera 与 ptz 挂 PitchPivot 同时水平/俯仰；EO_Camera/EO_Capture 跟随镜头。
-网格 +Y 朝前、控制光轴 +X，通过安装变换对齐。Actor 原点不一定是机械轴，要用独立 pivot。
-历史问题：通用 Mesh 命名发生导入冲突；云台组件被删除；World Partition 属性修改不标脏导致运行时读到旧数据。已恢复网格、独立隔离资源并保存。不要覆盖 `/Game/Mesh*`。
-恢复资源位于 `/Game/WISEYE/PTZRecovered`，`restore_ptz.py` 不再依赖本机 Backup-Content。仅损坏时运行，会恢复保存的布局坐标。
-
-## 证据与边界
-
-- 原机 C++ 编译、40秒 PIE 验证通过（77 个采样）；有两张不同时间 PNG 和目视检查。
-- docs/evidence/verification.json 是恢复前的测试，不代表恢复后重新跑过同一测试。
-- docs/evidence/ptz_recovery.json 是恢复后的部件/资源/轴向记录；恢复后用户确认正常，按用户要求没有重复完整运动测试。
-- 本次迁移验证另见 docs/PORTABILITY.md。
-- 尚未接 YOLO、TCP 图像流、PySide6 UI、动力学或打包成品。跟踪读取 UE 真值。
-- 真实比例未校准（历史无人机宽约45米）、光心近似、少量零件分离，不宜用于定量设备性能结论。
-- PNG 为最后完成渲染帧，元数据时间为请求时刻，尚需传感器时间同步。
-
-建议下一步先标定模型尺寸/相机安装，再做最小跨进程图像通道，随后接视觉算法；以用户需求为准，不要按旧计划顺序推翻当前演示。
+World Partition 外部 Actor/对象必须与源码一起提交，不上传 Saved/logs/runtime/.venv 或凭据。用户 papers 保持原状。今天已明确授权整理、上传 GitHub 和删除不必要备份日志；具体上传和清理结果见 WORKLOG_2026-10-14.md。历史阶段状态以本文件当前描述为准。

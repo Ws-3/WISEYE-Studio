@@ -6,6 +6,10 @@ param(
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
 $project = Join-Path $repository 'ue5\WISEYE\test.uproject'
+$localEngineFile = Join-Path $PSScriptRoot 'engine-root.local.txt'
+if (-not $EngineRoot -and (Test-Path -LiteralPath $localEngineFile)) {
+    $EngineRoot = (Get-Content -LiteralPath $localEngineFile -Raw).Trim()
+}
 if (-not $EngineRoot) {
     $installed = Get-ItemProperty 'HKLM:\SOFTWARE\EpicGames\Unreal Engine\5.8' -ErrorAction SilentlyContinue
     if ($installed) { $EngineRoot = $installed.InstalledDirectory }
@@ -24,5 +28,5 @@ if (-not $SkipBuild) {
     if ($LASTEXITCODE -ne 0) { throw "UE build failed ($LASTEXITCODE). Check VS C++ tools and UE version." }
 }
 if (-not $BuildOnly) {
-    Start-Process -FilePath $editor -ArgumentList @(('"' + $project + '"'), '/Game/WISEYE-test') -WindowStyle Normal
+    Start-Process -FilePath $editor -WorkingDirectory (Split-Path -Parent $editor) -ArgumentList @(('"' + $project + '"'), '/Game/WISEYE-test', '-EnablePlugins=PythonScriptPlugin') -WindowStyle Normal
 }

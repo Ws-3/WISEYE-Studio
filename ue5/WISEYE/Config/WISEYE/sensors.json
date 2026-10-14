@@ -1,0 +1,31 @@
+{
+  "visible": {
+    "width": 1920,
+    "height": 1080,
+    "aspect_ratio": "16:9"
+  },
+  "infrared": {
+    "width": 640,
+    "height": 512,
+    "aspect_ratio": "5:4",
+    "palettes": [
+      "white_hot",
+      "black_hot"
+    ],
+    "model": "normalized synthetic heat, not radiometric"
+  },
+  "pose": "shared optical mount and horizontal FOV; different vertical FOV",
+  "heat_defaults": {
+    "body": 0.65,
+    "motors": 0.92,
+    "rotors": 0.48,
+    "ground": 0.27,
+    "sky": 0.08,
+    "noise_strength": 0.008
+  },
+  "keys": {
+    "I": "visible/infrared",
+    "B": "white/black hot",
+    "P": "export active native-resolution PNG"
+  }
+}

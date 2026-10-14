@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "checks": [
+    "real UE handshake and state polling",
+    "pause freezes UE time; resume advances it",
+    "gimbal hold and tracking from UI",
+    "rotor controls",
+    "IR black-hot native snapshot rendered in UI",
+    "visible native snapshot rendered in UI",
+    "FOV control",
+    "UE fragmented/coalesced TCP messages and argument errors",
+    "disconnect clears stale state; reconnect succeeds",
+    "response timeout does not block GUI"
+  ],
+  "heartbeats": 296,
+  "last_state": {
+    "application": "WISEYE Studio",
+    "drone_position_cm": [
+      8345.973898401786,
+      1565.0143559980788,
+      640.2386110793288
+    ],
+    "flight_mode": "auto",
+    "fov_deg": 25,
+    "frame_path": "E:/Projects/WISEYE-Studio/ue5/WISEYE/Saved/WISEYE/20261014_183417/IR_WH_0002.png",
+    "height": 512,
+    "last_export_path": "E:/Projects/WISEYE-Studio/ue5/WISEYE/Saved/WISEYE/20261014_183417/IR_WH_0002.png",
+    "palette": "white_hot",
+    "paused": false,
+    "pitch_deg": 20.199823379516612,
+    "pointing_error_deg": 0.017924323678016663,
+    "rotor_rpm": 600,
+    "rotors_running": true,
+    "sensor_mode": "infrared",
+    "simulation_time_s": 192.9567413330078,
+    "thermal_model": "synthetic normalized heat",
+    "tracking": true,
+    "tracking_source": "UE ground truth",
+    "width": 640,
+    "yaw_deg": -26.553955078124986
+  },
+  "last_image": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261014_183417\\IR_WH_0002.png"
+}
