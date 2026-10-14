@@ -1,115 +1,52 @@
 # WISEYE Studio（智瞳）
 
-<div align="center">
-  <img src="LOGO.jpg" alt="WISEYE Studio Logo" width="200"/>
-  
-  **智瞳——无人机光电仿真与智能感知平台**
-  
-  *面向无人机目标感知的三维光电仿真、云台控制与智能跟踪验证平台*
-</div>
+无人机光电仿真与智能感知平台。目前已实现 UE 无人机运动、两轴地面云台真值跟随、镜头预览和 PNG 导出。视觉算法、跨进程图像流及独立桌面界面尚未接入。
 
----
+## 在另一台电脑运行
 
-## 🎯 项目定位
+1. 安装 Windows 版 **UE 5.8（验证版本 5.8.3）**、**Visual Studio 2022 的“使用 C++ 的游戏开发”工作负载、MSVC v143 和 Windows SDK**。这是 C++ 工程，只有 UE 不能首次构建。其他引擎版本尚未验证，旧版本不保证能读取资源。
+2. 克隆仓库，或 Code → Download ZIP 后解压。模型、纹理、关卡均已包含；无需 Git LFS 或外部资源下载。
+3. 在仓库目录执行，将引擎路径替换为新电脑实际路径：
 
-**WISEYE Studio** 是一个面向无人机光电仿真与视觉算法验证的桌面软件平台，重点解决：
-- 🎮 **三维仿真环境** - 基于 Unreal Engine 5 的场景、目标、云台与光电相机仿真
-- 🔭 **云台精确控制** - 角度/角速度限制、相机变焦、状态查询
-- 🤖 **智能目标检测与跟踪** - 接入 YOLO 等检测模型，实现自动指向与目标跟踪
-- 📊 **实验管理与数据生成** - 自动生成 YOLO 格式真值标签、困难样本采集、实验复现
-
-## 🏗️ 系统架构
-
-采用三进程解耦架构：
-
-| 进程 | 技术栈 | 职责 |
-|------|--------|------|
-| **desktop_app** | Python + PySide6 | 桌面主界面、参数配置、日志、实验管理 |
-| **ue_simulator** | UE5 (C++ + Blueprint) | 三维场景、目标运动、云台相机、图像渲染输出 |
-| **vision_worker** | Python + YOLO | 目标检测、跟踪、推理性能统计 |
-
-## 📁 仓库结构
-
-```
-WISEYE-Studio/
-├── README.md                    # 本文件
-├── LOGO.jpg                     # 项目Logo
-├── WISEYE_ProjectPlan.md        # 详细项目计划与交接文档
-├── .gitignore
-├── requirements.txt
-├── apps/
-│   └── desktop_app/             # 桌面主程序
-├── core/                        # 核心模型、协议、配置
-├── adapters/                    # 仿真适配器
-├── services/                    # 业务服务（云台、相机、视觉、数据集、实验）
-├── configs/                     # 配置文件
-├── ue5/                         # UE5 项目
-├── data/                        # 本地数据（不入库）
-├── logs/                        # 运行日志（不入库）
-└── tests/                       # 测试代码
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Start-WISEYE.ps1 -EngineRoot "C:\Program Files\Epic Games\UE_5.8"
 ```
 
-## 🚀 快速开始
+脚本编译 `testEditor`，打开 `ue5/WISEYE/test.uproject` 和 `WISEYE-test` 关卡。也可双击 `Start-WISEYE.cmd` 自动寻找 UE 5.8；找不到时用上面的命令指定路径。首次编译/着色器准备需要等待。
 
-> **当前状态**：项目处于 **M0 环境与仓库盘点** 阶段，详见 [项目计划文档](WISEYE_ProjectPlan.md)
+4. 点击 UE 绿色“播放”，点击游戏画面获取键盘焦点。
 
-### 环境要求
-- Windows 10/11
-- Python 3.12+
-- Unreal Engine 5.3+
-- NVIDIA GPU (推荐 RTX 5060 8GB+)
+| 按键 | 功能 |
+|---|---|
+| Tab | 总览 / 云台相机视角 |
+| 空格 | 暂停 / 继续 |
+| R | 重置航线 |
+| + / - | 放大 / 缩小 |
+| P | 导出 1280×720 PNG 与相机参数 |
+| Esc | 停止播放 |
 
-### 安装步骤
-```bash
-# 1. 克隆仓库
-git clone https://github.com/Ws-3/WISEYE-Studio.git
-cd WISEYE-Studio
+输出在 `ue5/WISEYE/Saved/WISEYE/日期_时间/`。当前仿真无需 conda/Python 依赖；UE Python 只用于可选维护脚本。
 
-# 2. 创建并激活 conda 环境
-conda create -n WISEYE python=3.12 -y
-conda activate WISEYE
+## 当前状态
 
-# 3. 安装 Python 依赖
-pip install -r requirements.txt
+- 无人机沿“8”字航线运动，云台使用 UE 目标位置进行指向。
+- bottom 固定；bottom2 只水平转；camera 和 ptz 同时水平、俯仰转。
+- 独立旋转轴、转速限制、俯仰限位、实时相机画面、暂停/复位/变焦/截图。
+- 已恢复被删除的云台模型，资源隔离在 `/Game/WISEYE/PTZRecovered`；用户已确认恢复正常。
+- 模型真实尺寸与光心尚未标定，飞行是运动学演示，尚不是 YOLO 视觉闭环。
 
-# 4. 启动桌面应用（开发中）
-python -m apps.desktop_app.main
+## 内容和接手
+
+```text
+Models/                   原始 FBX 与附带纹理
+ue5/WISEYE/               完整 UE 源工程（Config、Content、Source、test.uproject）
+ue5/scripts/              编辑器维护/验证脚本
+scripts/Start-WISEYE.ps1  跨电脑构建启动入口
+docs/AI_HANDOFF.md         下一位 AI 的工作与运行说明
+docs/evidence/            历史验证和恢复记录
+WISEYE_ProjectPlan.md      长期计划与历史记录
 ```
 
-## 📋 里程碑规划
+让下一位 AI 先读 [AGENTS.md](AGENTS.md)、[AI 交接](docs/AI_HANDOFF.md) 和 [项目计划](WISEYE_ProjectPlan.md)。具体 UE 参数见 [ue5/README.md](ue5/README.md)，迁移检查见 [PORTABILITY](docs/PORTABILITY.md)。
 
-| 里程碑 | 状态 | 核心目标 |
-|--------|------|----------|
-| **M0** | 🟡 进行中 | 环境与仓库盘点、确认技术栈版本 |
-| **M1** | ⏳ 待开始 | PySide6 桌面 UI 基础框架 |
-| **M2** | ⏳ 待开始 | 通信协议与 UE5 Bridge |
-| **M3** | ⏳ 待开始 | 相机图像通道与实时显示 |
-| **M4** | ⏳ 待开始 | YOLO 检测接入与可视化 |
-| **M5** | ⏳ 待开始 | 自动指向与目标跟踪 |
-| **M6** | ⏳ 待开始 | 真值标签生成与实验管理 |
-| **M7** | ⏳ 待开始 | 系统完善与交付 |
-
-详细任务清单见 [WISEYE_ProjectPlan.md](WISEYE_ProjectPlan.md)
-
-## 🤝 贡献指南
-
-本项目采用 **AI 协作开发模式**，每次会话前需阅读 `WISEYE_ProjectPlan.md`，遵循文档中的协作规则：
-1. 先检查现状，再增量实现
-2. 先建立可验证的最小闭环
-3. 任何未经实际验证的功能不得标记为完成
-4. 每次结束前必须更新计划文档
-
-## 📄 许可证
-
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
-
-## 📞 联系方式
-
-- 项目主页：https://github.com/Ws-3/WISEYE-Studio
-- 问题反馈：[GitHub Issues](https://github.com/Ws-3/WISEYE-Studio/issues)
-
----
-
-<div align="center">
-  <sub>Built with ❤️ for UAV Electro-Optical Simulation & Intelligent Perception</sub>
-</div>
+不包含 UE 引擎、VS、编译产物、缓存、自动保存、用户配置、日志和本机备份。第三方模型未附授权资料，本次同步不额外声明其许可证。

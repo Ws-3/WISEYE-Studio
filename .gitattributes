@@ -1,0 +1,10 @@
+* text=auto
+*.fbx binary
+*.uasset binary
+*.umap binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.tga binary
+*.cmd text eol=crlf
+*.ps1 text eol=crlf

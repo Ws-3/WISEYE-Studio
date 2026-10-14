@@ -1,0 +1,46 @@
+{
+  "restored": [
+    {
+      "part": "camera",
+      "asset": "/Game/WISEYE/PTZRecovered/Mesh.Mesh",
+      "axis": "PitchPivot",
+      "mesh_center_cm": [
+        9863.562367,
+        1318.680704,
+        307.95687399999997
+      ]
+    },
+    {
+      "part": "ptz",
+      "asset": "/Game/WISEYE/PTZRecovered/Mesh_ncl_1.Mesh_ncl_1",
+      "axis": "PitchPivot",
+      "mesh_center_cm": [
+        9970.786178884598,
+        1368.5258876467187,
+        314.2285149726563
+      ]
+    },
+    {
+      "part": "bottom2",
+      "asset": "/Game/WISEYE/PTZRecovered/Mesh_ncl_2.Mesh_ncl_2",
+      "axis": "YawPivot",
+      "mesh_center_cm": [
+        9971.843555,
+        1368.462664,
+        239.46398499999998
+      ]
+    },
+    {
+      "part": "bottom",
+      "asset": "/Game/WISEYE/PTZRecovered/Mesh_ncl_3.Mesh_ncl_3",
+      "axis": "DefaultSceneRoot",
+      "mesh_center_cm": [
+        9997.253516,
+        1377.711118,
+        46.06865600000003
+      ]
+    }
+  ],
+  "source": "pre-edit Backup-Content",
+  "isolated_asset_folder": "/Game/WISEYE/PTZRecovered/"
+}

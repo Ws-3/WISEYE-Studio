@@ -1,16 +1,18 @@
 # WISEYE Studio（智瞳）：项目计划与持续交接文档
 
+> **2026-10-14 迁移更新（优先于下方旧路径记录）：** 仓库现已包含完整 `ue5/WISEYE/test.uproject`、Config/Content/Source 和 Models。源码唯一位置为 `ue5/WISEYE/Source/test`，无需旧电脑 D 盘 Scene 工程。新电脑按根 README 构建启动，AI 先读 `AGENTS.md` 和 `docs/AI_HANDOFF.md`。云台恢复后用户已确认正常，要求直接同步，不再重新调整模型。
+
 > **本文档是本项目的唯一长期计划与交接入口。** 本地 Codex、ChatGPT 或其他 AI 每次开始工作前必须先阅读本文档；每次完成工作后必须更新本文档，确保项目状态、决策、风险和下一步任务连续可追踪。
 >
 > **项目原则：** 先检查现状，再增量实现；先建立可验证的最小闭环，不一次性堆砌全部功能；任何未经实际验证的功能都不得标记为完成。
 
-- 文档版本：`0.2`
+- 文档版本：`0.3`
 - 建立日期：`2026-10-12`
 - 项目品牌：`WISEYE`
 - 软件名称：`WISEYE Studio`
 - 中文名称：`智瞳——无人机光电仿真与智能感知平台`
 - 代码仓库建议目录：`WISEYE`
-- 当前阶段：规划完成，等待本地仓库与开发环境盘点
+- 当前阶段：本地 UE 两轴云台与无人机运动演示已运行验证；桌面界面、通信与视觉闭环待实现
 - 状态约定：`TODO` 待开始；`IN_PROGRESS` 进行中；`BLOCKED` 受阻；`DONE` 已验证完成；`DEFERRED` 暂缓
 
 ---
@@ -296,10 +298,10 @@ WISEYE/
 
 验收：Mock 测试通过；UE5 启动后能完成 ping、状态查询和云台角度命令往返；异常断连不会卡死 UI。
 
-### M3：相机图像通道 — `TODO`
+### M3：相机图像通道 — `IN_PROGRESS`
 
 任务：
-- [ ] UE5 相机/Render Target 输出图像。
+- [x] UE5 相机/Render Target 输出图像（1280×720，实际 PIE 预览和 PNG 导出已验证）。
 - [ ] 实现图像帧打包、接收、帧编号、尺寸与编码校验。
 - [ ] UI 显示实时图像，并显示帧率、延迟和断连状态。
 
@@ -400,22 +402,55 @@ WISEYE/
 
 ## 11. 当前状态
 
-- 总体阶段：M0 环境与仓库盘点。
-- 已完成：需求范围、推荐架构、初始通信设计、里程碑与协作规则已写入本计划。
-- 尚未验证：本地仓库位置、已有代码、Python/UE5 版本、YOLO 环境、端口可用性和 GPU 实际运行情况。
-- 当前没有依据声称任何软件功能已实现或通过测试。
-- 下一步唯一优先任务：在本地 Codex 中打开实际项目根目录，读取本文档并完成 M0 盘点；盘点前不要覆盖现有项目文件。
+- **最新迁移状态（2026-10-14）：** 完整源工程、地图及外部 Actor、已导入材质/网格、恢复后的 PTZ 独立资源、原始 FBX/.fbm 已整理入库。普通 Git 存储，无 LFS；不包含引擎、VS、Binaries、Intermediate、Saved 或备份。
+- **跨电脑入口：** `scripts/Start-WISEYE.ps1 -EngineRoot <UE路径>`；关联版本改为 5.8，默认地图改为 WISEYE-test。整理后的目录已独立编译成功，详细迁移检查见 `docs/PORTABILITY.md`。
+- **云台恢复：** 被删除的组件已恢复，通用 Mesh 名称冲突通过 `/Game/WISEYE/PTZRecovered` 隔离；用户确认正常。`restore_ptz.py` 使用已入库资源，不依赖旧备份。
+- **历史说明：** 下方原机目录及验证路径仅作历史记录。当前运行、编辑、提交均以本仓库为准。M1 UI、M2 通信和 M5 视觉闭环仍未完成。
+
+- 已读取 GitHub main（起始提交 ac7d735b171fd8eba8833cae280a6745a8116cf1），原仓库仅有 README、计划和 Logo，没有现成软件实现。
+- 本地代码仓库：`D:\Projects\WISEYE-Studio\Repository`；原 `Models` 保留不动。
+- 实际 UE 工程：`D:\Projects\Scene\test\test\test.uproject`，关卡 `/Game/WISEYE-test`，C++ 模块 `test`。
+- 已验证环境：UE 5.8.3、VS 2022 14.44.35229 工具链、Windows SDK 10.0.26100.0；conda WISEYE Python 3.11.17。未升级或重建环境。Python 版本低于原 README 的建议 3.12，本次 C++ 仿真不依赖它。
+- 按用户最新要求先实现 UE 仿真演示，暂不按原顺序先创建 PySide6 UI。
+- 已完成实际 PIE 验证：无人机 8 字航线；bottom 固定、bottom2 水平转动、camera+ptz 水平和俯仰转动；独立轴心；镜头捕获、总览/相机视角、暂停、复位、变焦、PNG 导出。
+- 40 秒集成验证通过，77 个采样，固定底座及转动层级正确，角速度/俯仰限幅检查通过。记录：工程 `Saved/WISEYE/verification.json`。两张不同时间 PNG 的 SHA256 不同，已人工查看图像。
+- M0 尚未全面完成：PySide6/YOLO、GPU 驱动和推理设备、TCP 端口没有盘点。M2 通信和 M5 图像算法闭环仍未实现，不把真值跟随标记为视觉跟踪完成。
+- 当前限制：导入无人机宽约 45 米，仍保留用户缩放，不能作为物理尺度准确的成像实验；镜头安装位置是近似几何标定；可见少量分离的小零件。PNG 元数据时间为导出请求时刻，图像为上一完成渲染帧。
+- 下一步：校准模型实际尺寸和镜头安装位置，再接图像流与视觉算法。当前演示操作说明见 `ue5/README.md`。
 
 ## 12. 下一步任务清单
 
-- [ ] **TASK-001（优先级 P0）：** 在实际项目根目录盘点现有文件、Git 状态与已有实现。
+- [x] **TASK-001（优先级 P0）：** 在实际项目根目录盘点现有文件、Git 状态与已有实现。
 - [ ] **TASK-002（优先级 P0）：** 检查 Python、UE5、编译工具链、YOLO 环境和 GPU 状态。
-- [ ] **TASK-003（优先级 P1）：** 根据盘点结果确定实际目录结构和首个最小可运行目标。
+- [x] **TASK-003（优先级 P1）：** 根据盘点结果确定实际目录结构和首个最小可运行目标（用户指定先完成 UE 云台/无人机演示）。
+- [x] **TASK-005（用户当前目标）：** C++ 运动、两轴云台和相机捕获演示，已编译并运行验证。
+- [ ] **TASK-006（下一步）：** 按真实设备尺寸校准导入模型和镜头光心，整理分离小零件。
 - [ ] **TASK-004（优先级 P1）：** 设计并测试控制协议 Mock Server。
 
 TASK-001 至 TASK-003 完成并记录后，再决定是否开始 M1。不要在缺乏环境信息时一次性生成整套工程。
 
 ## 13. 变更记录
+
+### 2026-10-14：完整工程迁移与 GitHub 同步准备
+
+- 按用户要求保存可跨电脑构建的完整 UE 源工程与模型。补齐 World Partition 外部 Actor，避免只提交代码无法复现场景。
+- 收录独立 PTZRecovered 网格、材质和贴图，用户已确认云台恢复正常；原始 Models 保留。
+- 移除重复 ue5/Source 镜像，统一源码到 ue5/WISEYE/Source；维护脚本去掉本机运行时桥接路径，启动脚本接收实际引擎路径。
+- 更新 README、ue5/README、AGENTS、AI_HANDOFF、迁移检查记录及历史证据。普通运行不依赖 conda，首次编译需 UE 5.8 和 VS C++ 工具链。
+- 整理后独立构建 Succeeded；资产加载与上传核对结果写入 docs/PORTABILITY.md。
+- 用户授权上传确认后删除 Backup-Content/Backup-Config。只清理本次备份，不删除原 Models、现有工程或实验输出。
+
+### 2026-10-13：UE 两轴光电云台与无人机运动演示
+
+- 用户授权直接编写代码并操作 UE；澄清 bottom 固定，bottom2 只水平转动，camera 与 ptz 一起水平及俯仰转动。
+- 新增 `ue5/Source/WiseEyeDemo.h/.cpp`，部署到实际工程 `Source/test`；新增 setup/play/stop/inspect/verify Python 脚本、使用说明及 `.gitignore`。
+- 调整已保存关卡：重建轴心和挂接层级，加入 `WISEYE_Demo`、`WISEYE_Overview`、`/Game/WISEYE/RT_EO`，游戏模式设为 WiseEyeGameMode。原 CAM_GroundEO 保留。
+- 在修改前保存已有未保存资源，并备份 Content/Config 到 `D:\Projects\WISEYE-Studio\runtime`。
+- 构建命令：`Build.bat testEditor Win64 Development -Project=D:\Projects\Scene\test\test\test.uproject -WaitMutex -NoHotReloadFromIDE`，Succeeded（HUD 浮点常量有转换警告）。
+- 在 PIE 执行 `ue5/scripts/verify_demo.py`：通过 40 秒运动/轴向/限速/暂停/复位/变焦集成验证；导出和目视核验相机 PNG。验证过程中修复 World Partition 外部 Actor 可移动属性未标脏持久化的问题。
+- 两张验证图像位于工程 `Saved/WISEYE/20261013_160000/EO_0000.png` 和 `EO_0001.png`，无界面叠加；全局验证报告和初始标定也在 `Saved/WISEYE`。
+- 未实现：真实比例标定、飞行动力学、YOLO 闭环、TCP 图像传输、桌面 UI、打包程序。未提交或推送 GitHub。
+- 下一步：模型尺寸/镜头标定；然后最小图像通道。用户可通过 `D:\Projects\WISEYE-Studio\Start-WISEYE.cmd` 打开场景，按播放运行。
 
 ### 2026-10-12：建立项目计划文档
 

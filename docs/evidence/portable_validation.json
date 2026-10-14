@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "assets": {
+    "/Game/WISEYE-test": true,
+    "/Game/WISEYE/RT_EO": true,
+    "/Game/WISEYE/PTZRecovered/Mesh": true,
+    "/Game/WISEYE/PTZRecovered/Mesh_ncl_1": true,
+    "/Game/WISEYE/PTZRecovered/Mesh_ncl_2": true,
+    "/Game/WISEYE/PTZRecovered/Mesh_ncl_3": true
+  }
+}
