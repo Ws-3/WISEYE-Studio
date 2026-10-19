@@ -2,6 +2,7 @@
 
 ## 2026-10-19：跨电脑安装与 GitHub 发布
 
+- 功能提交 `375e31b` 已上传到 GitHub `main`，远端包含本轮 105 个代码、模型、UE 资源、场景、测试和文档变更。上传后已核对远端引用与本地提交一致。
 - 当前工作目录已从 GitHub ZIP 安全接回 `origin/main` 历史，可正常 `git pull` / `git push`。仓库完整安装入口为 `docs/INSTALLATION.md`，目录职责和不应提交的本机产物见 `docs/FILE_STRUCTURE.md`。
 - 新电脑必须先创建仓库内 `.venv`、安装 FFmpeg/MediaMTX，再运行 `scripts/Setup-ProjectAirSim.ps1`。`test.uproject` 已启用 ProjectAirSim/Drone 插件，直接打开而未完成插件安装会提示缺模块。
 - Git 中保留 WISEYE 源码、地图、外部 Actor、Avata/Mavic/PTZ 模型与资产、插件描述文件和 Project AirSim 固定补丁。Project AirSim 源码/构建产物、MediaMTX、UE 缓存、日志和本机环境均由脚本重建，不上传。

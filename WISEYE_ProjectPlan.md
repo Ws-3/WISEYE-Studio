@@ -455,6 +455,7 @@ TASK-001 至 TASK-003 完成并记录后，再决定是否开始 M1。不要在�
 ### 2026-10-19：跨电脑发布整理
 
 - ZIP 工作副本已接回 GitHub main 历史；保留远端提交并将当前源码、Avata 原始模型与 UE 资产、多场景、Project AirSim/RTSP 集成和验证证据纳入同一提交范围。
+- 功能提交 `375e31b` 已推送至 GitHub `main`；远端与本地提交一致。随后只追加本条发布确认和 AI 交接记录。
 - 新增 `docs/INSTALLATION.md` 与 `docs/FILE_STRUCTURE.md`，统一新电脑安装、完整启动、可提交资源和本机生成目录说明；README、桌面说明、Git 协作和 AI 交接同步到当前实时流与飞控状态。
 - 上传前检查排除 `.venv`、Saved、Binaries、Intermediate、日志、运行证据、MediaMTX 和 Project AirSim 可重建目录；保留插件描述文件、固定补丁及 World Partition 资源。
 - 本轮发布验证结果和远端提交号在上传完成后写入交接文件。
