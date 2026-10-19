@@ -13,4 +13,4 @@
 - 只报告实际执行的验证，历史测试不代表新电脑测试通过；真值跟随不等于视觉闭环。
 - 完成任务后更新交接与计划，记录修改、运行方式、验证、限制及下一步。
 
-- 桌面源码在 apps/desktop_app 和 core；运行先读 docs/DESKTOP.md，控制协议见 docs/PROTOCOL.md。网络/GUI 应保持非阻塞，断连不能保留有效状态；当前图像为快照，不要宣称实时流。
+- 桌面源码在 apps/desktop_app 和 core；运行先读 docs/INSTALLATION.md 与 docs/DESKTOP.md，控制协议见 docs/PROTOCOL.md。网络/GUI 应保持非阻塞，断连不能保留有效状态。CH1/CH2 已接入 RTSP 实时流，LIDAR 使用有界点云预览；帧率与限制以 docs/RTSP.md 的实测结果为准。

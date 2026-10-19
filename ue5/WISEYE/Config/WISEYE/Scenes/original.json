@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "id": "original",
+  "name": "原始沙漠场景",
+  "map": "/Game/WISEYE-test",
+  "rig": "standard_v1",
+  "gimbal_location_cm": [
+    9997.253515711356,
+    1377.7111180830398,
+    3.058515406721483
+  ],
+  "flight_origin_cm": [
+    8197.253515711356,
+    1377.7111180830398,
+    603.0585154067214
+  ],
+  "overview_location_cm": [
+    9097.253515711356,
+    -422.28888191696024,
+    653.0585154067212
+  ],
+  "overview_rotation_deg": [
+    -13.129133553077226,
+    88.40885972880544,
+    1.5556071252042047e-07
+  ],
+  "flight_radius_cm": 600.0,
+  "period_s": 24.0,
+  "vertical_amplitude_cm": 150.0,
+  "fov_deg": 25.0,
+  "prepared": true
+}

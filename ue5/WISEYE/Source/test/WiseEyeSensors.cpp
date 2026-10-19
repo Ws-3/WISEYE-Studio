@@ -92,6 +92,7 @@ void AWiseEyeDemo::ToggleSensorMode()
 {
     if (!ThermalInstance) return;
     InfraredMode = !InfraredMode;
+    ActiveSensor = InfraredMode ? TEXT("infrared") : TEXT("visible");
     RefreshSensors();
 }
 void AWiseEyeDemo::ToggleThermalPalette()

@@ -4,6 +4,12 @@ ue5/**/Binaries/
 ue5/**/Intermediate/
 ue5/**/Saved/
 ue5/**/DerivedDataCache/
+ue5/WISEYE/Plugins/ProjectAirSim/Source/
+ue5/WISEYE/Plugins/ProjectAirSim/SimLibs/
+ue5/WISEYE/Plugins/ProjectAirSim/Content/
+ue5/WISEYE/Plugins/ProjectAirSim/Resources/
+ue5/WISEYE/Plugins/Drone/Content/
+ue5/WISEYE/Plugins/Drone/Resources/
 data/
 logs/
 .vs/
@@ -22,4 +28,5 @@ logs/
 runtime/
 scripts/engine-root.local.txt
 .venv/
+third_party/mediamtx/
 scripts/python-root.local.txt

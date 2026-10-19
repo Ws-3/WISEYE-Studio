@@ -26,6 +26,8 @@ private:
     FSocket* Listener = nullptr;
     TArray<FWiseEyeClient> Clients;
     double LastManualInput = 0;
+    int64 VisibleFrameNumber = 0;
+    int64 InfraredFrameNumber = 0;
     TSharedPtr<FJsonObject> State() const;
     TSharedPtr<FJsonObject> Execute(const TSharedPtr<FJsonObject>& Request);
     void Close(FWiseEyeClient& Client);

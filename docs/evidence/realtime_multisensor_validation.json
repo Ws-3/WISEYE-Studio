@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-19",
+  "passed": true,
+  "build": "testEditor Win64 Development succeeded",
+  "protocol_tests": "4/4 passed",
+  "desktop_checks": [
+    "real UE handshake and state polling",
+    "CH1 visible and CH2 infrared RTSP render in the unified viewer",
+    "LIDAR live point cloud renders in the unified viewer",
+    "pause freezes UE time; resume advances it",
+    "gimbal hold and tracking from UI",
+    "rotor controls",
+    "IR black-hot native snapshot rendered in UI",
+    "visible native snapshot rendered in UI",
+    "independent active sensor selection and LIDAR PLY export",
+    "Mavic 3 and Avata model switching",
+    "FOV control",
+    "UE fragmented/coalesced TCP messages and argument errors",
+    "disconnect clears stale state; reconnect succeeds",
+    "response timeout does not block GUI"
+  ],
+  "active_sensor": "infrared",
+  "available_sensors": [
+    "visible",
+    "infrared",
+    "lidar"
+  ],
+  "drone_models": [
+    "mavic3",
+    "avata"
+  ],
+  "flight_backend": "projectairsim",
+  "dynamics_connected": true,
+  "lidar_hits": 288,
+  "lidar_rays": 576,
+  "lidar_nearest_m": 3.906459093093872
+}

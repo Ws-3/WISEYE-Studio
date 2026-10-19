@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-19",
+  "passed": true,
+  "ue_build": "testEditor Win64 Development succeeded",
+  "rtsp_output": {
+    "CH1_visible": "181 frames / 6 s; configured 30 FPS",
+    "CH2_infrared": "151 frames / 6 s; configured 25 FPS"
+  },
+  "independent_new_frames": {
+    "CH1_visible_fps": 20.8,
+    "CH2_infrared_fps": 20.2,
+    "note": "Current full scene and 1920x1080 JPEG/Base64 intermediate path"
+  },
+  "desktop_checks": [
+    "real UE handshake and state polling",
+    "CH1 visible and CH2 infrared RTSP render in the unified viewer",
+    "LIDAR live point cloud renders in the unified viewer",
+    "pause freezes UE time; resume advances it",
+    "gimbal hold and tracking from UI",
+    "rotor controls",
+    "IR black-hot native snapshot rendered in UI",
+    "visible native snapshot rendered in UI",
+    "independent active sensor selection and LIDAR PLY export",
+    "Mavic 3 and Avata model switching",
+    "desktop W key manual AirSim flight and release-to-hover",
+    "FOV control",
+    "UE fragmented/coalesced TCP messages and argument errors",
+    "disconnect clears stale state; reconnect succeeds",
+    "response timeout does not block GUI"
+  ],
+  "manual_flight": "W key moved Project AirSim vehicle; key release sent zero input; auto mode restored",
+  "reconnect": "passed after increasing bounded client capacity to 8"
+}

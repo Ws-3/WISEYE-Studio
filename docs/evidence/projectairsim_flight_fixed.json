@@ -1,0 +1,227 @@
+{
+  "passed": true,
+  "steps": [
+    {
+      "name": "takeoff",
+      "result": true,
+      "expected": true,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9238795042037964,
+          "x": -5.0817664742908164e-08,
+          "y": -2.1595228716364545e-08,
+          "z": -0.3826834559440613
+        },
+        "translation": {
+          "x": -1.0,
+          "y": 8.0,
+          "z": -4.199706554412842
+        }
+      }
+    },
+    {
+      "name": "hover",
+      "result": true,
+      "expected": true,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9238795042037964,
+          "x": -5.0817664742908164e-08,
+          "y": -2.1595228716364545e-08,
+          "z": -0.3826834559440613
+        },
+        "translation": {
+          "x": -1.0,
+          "y": 8.0,
+          "z": -4.199706554412842
+        }
+      }
+    },
+    {
+      "name": "waypoint",
+      "result": true,
+      "expected": true,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9240028858184814,
+          "x": 0.0002851418103091419,
+          "y": -0.0007258402183651924,
+          "z": -0.38238468766212463
+        },
+        "translation": {
+          "x": 1.5092864036560059,
+          "y": 8.000076293945312,
+          "z": -4.163952350616455
+        }
+      }
+    },
+    {
+      "name": "short_waypoint",
+      "result": true,
+      "expected": true,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9237965941429138,
+          "x": -0.00819447636604309,
+          "y": 0.01988184079527855,
+          "z": -0.38227924704551697
+        },
+        "translation": {
+          "x": 1.7722338438034058,
+          "y": 8.000082969665527,
+          "z": -4.164783954620361
+        }
+      }
+    },
+    {
+      "name": "already_at_goal",
+      "result": true,
+      "expected": true,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9237965941429138,
+          "x": -0.00819447636604309,
+          "y": 0.01988184079527855,
+          "z": -0.38227924704551697
+        },
+        "translation": {
+          "x": 1.7722338438034058,
+          "y": 8.000082969665527,
+          "z": -4.164783954620361
+        }
+      }
+    },
+    {
+      "name": "timeout",
+      "result": false,
+      "expected": false,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9240196943283081,
+          "x": -0.000525616283994168,
+          "y": 0.001267043873667717,
+          "z": -0.38234248757362366
+        },
+        "translation": {
+          "x": 1.9507733583450317,
+          "y": 8.00011920928955,
+          "z": -4.164497375488281
+        }
+      }
+    },
+    {
+      "name": "recover_after_timeout",
+      "result": true,
+      "expected": true,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9240196943283081,
+          "x": -0.000525616283994168,
+          "y": 0.001267043873667717,
+          "z": -0.38234248757362366
+        },
+        "translation": {
+          "x": 1.9507733583450317,
+          "y": 8.00011920928955,
+          "z": -4.164497375488281
+        }
+      }
+    },
+    {
+      "name": "cancel_with_hover",
+      "result": true,
+      "expected": true,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9240293502807617,
+          "x": 0.0021126638166606426,
+          "y": -0.005152110941708088,
+          "z": -0.38228103518486023
+        },
+        "translation": {
+          "x": 2.3879776000976562,
+          "y": 8.000187873840332,
+          "z": -4.1627631187438965
+        }
+      }
+    },
+    {
+      "name": "land",
+      "result": true,
+      "expected": true,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9241878986358643,
+          "x": 0.0,
+          "y": 0.0,
+          "z": -0.3819381594657898
+        },
+        "translation": {
+          "x": 3.2213857173919678,
+          "y": 8.00049114227295,
+          "z": -2.692685604095459
+        }
+      }
+    }
+  ],
+  "scope": "isolated Blocks; message receipt only, not image quality",
+  "frames": {
+    "rgb": 872,
+    "depth": 871
+  },
+  "before_takeoff": {
+    "accels": {
+      "angular": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "linear": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    },
+    "pose": {
+      "orientation": {
+        "w": 0.9238795042037964,
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.3826834559440613
+      },
+      "position": {
+        "x": -1.0,
+        "y": 8.0,
+        "z": -2.6926817893981934
+      }
+    },
+    "time_stamp": 2781000000,
+    "twist": {
+      "angular": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "linear": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    }
+  },
+  "hover_drift_m": 0.009053230285644531,
+  "waypoint_error_m": 0.4927550563988543,
+  "short_error_m": 0.48705326984710323,
+  "short_moved_m": 0.2629487552544317,
+  "cancelled_command_result": false,
+  "landed_state": 0
+}

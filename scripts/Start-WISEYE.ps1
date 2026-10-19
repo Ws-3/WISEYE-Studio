@@ -1,7 +1,10 @@
 param(
     [string]$EngineRoot = $env:UE_ROOT,
     [switch]$BuildOnly,
-    [switch]$SkipBuild
+    [switch]$SkipBuild,
+    [switch]$AutoPlay,
+    [string]$Map = '/Game/WISEYE-test',
+    [string]$PrepareScene
 )
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
@@ -28,5 +31,19 @@ if (-not $SkipBuild) {
     if ($LASTEXITCODE -ne 0) { throw "UE build failed ($LASTEXITCODE). Check VS C++ tools and UE version." }
 }
 if (-not $BuildOnly) {
-    Start-Process -FilePath $editor -WorkingDirectory (Split-Path -Parent $editor) -ArgumentList @(('"' + $project + '"'), '/Game/WISEYE-test', '-EnablePlugins=PythonScriptPlugin') -WindowStyle Normal
+    if ($Map -notmatch '^/Game/([A-Za-z0-9_-]+/)*[A-Za-z0-9_-]+$') { throw 'Invalid map package path.' }
+    $editorArgs = @(('"' + $project + '"'), $Map, '-EnablePlugins=PythonScriptPlugin')
+    if ($AutoPlay) {
+        $playScript = Join-Path $repository 'ue5\scripts\play_demo.py'
+        $playCommand = 'py ' + $playScript.Replace('\', '/')
+        $editorArgs += ('-ExecCmds="' + $playCommand + '"')
+    }
+    if ($PrepareScene) {
+        if (Get-Process UnrealEditor -ErrorAction SilentlyContinue) { throw 'Save and close UE before preparing a scene.' }
+        if ($PrepareScene -notmatch '^[a-z][a-z0-9_]{0,47}$') { throw 'Invalid scene ID.' }
+        $env:WISEYE_PREPARE_SCENE = $PrepareScene
+        $prepareScript = Join-Path $repository 'ue5\scripts\prepare_registered_scene.py'
+        $editorArgs += ('-ExecutePythonScript="' + $prepareScript + '"')
+    }
+    Start-Process -FilePath $editor -WorkingDirectory (Split-Path -Parent $editor) -ArgumentList $editorArgs -WindowStyle Normal
 }

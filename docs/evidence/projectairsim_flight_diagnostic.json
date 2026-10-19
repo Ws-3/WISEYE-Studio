@@ -1,0 +1,126 @@
+{
+  "passed": false,
+  "steps": [
+    {
+      "name": "takeoff",
+      "result": false,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9238795042037964,
+          "x": 4.542847520383475e-08,
+          "y": 1.1932835164429889e-08,
+          "z": -0.3826834559440613
+        },
+        "translation": {
+          "x": -1.0,
+          "y": 8.0,
+          "z": -4.075048446655273
+        }
+      }
+    },
+    {
+      "name": "hover",
+      "result": true,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9238795042037964,
+          "x": 4.542847520383475e-08,
+          "y": 1.1932835164429889e-08,
+          "z": -0.3826834559440613
+        },
+        "translation": {
+          "x": -1.0,
+          "y": 8.0,
+          "z": -4.075048446655273
+        }
+      }
+    },
+    {
+      "name": "waypoint",
+      "result": true,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9234530329704285,
+          "x": -0.013949302025139332,
+          "y": 0.03382284566760063,
+          "z": -0.3819633722305298
+        },
+        "translation": {
+          "x": 2.020814895629883,
+          "y": 8.000101089477539,
+          "z": -4.069697856903076
+        }
+      }
+    },
+    {
+      "name": "land",
+      "result": true,
+      "pose": {
+        "frame_id": "DEFAULT_ID",
+        "rotation": {
+          "w": 0.9241269826889038,
+          "x": 0.0,
+          "y": 0.0,
+          "z": -0.3820854425430298
+        },
+        "translation": {
+          "x": 2.397796630859375,
+          "y": 8.000558853149414,
+          "z": -2.6926841735839844
+        }
+      }
+    }
+  ],
+  "scope": "isolated Blocks; message receipt only, not image quality",
+  "frames": {
+    "rgb": 1564,
+    "depth": 1563
+  },
+  "before_takeoff": {
+    "accels": {
+      "angular": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "linear": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    },
+    "pose": {
+      "orientation": {
+        "w": 0.9238795042037964,
+        "x": 0.0,
+        "y": 0.0,
+        "z": -0.3826834559440613
+      },
+      "position": {
+        "x": -1.0,
+        "y": 8.0,
+        "z": -2.6926817893981934
+      }
+    },
+    "time_stamp": 2799000000,
+    "twist": {
+      "angular": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "linear": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      }
+    }
+  },
+  "hover_drift_m": 0.009009361267089844,
+  "waypoint_error_m": 0.02528790802818036,
+  "landed_state": 1,
+  "error": "AssertionError('Landed state not confirmed within 5 seconds')"
+}

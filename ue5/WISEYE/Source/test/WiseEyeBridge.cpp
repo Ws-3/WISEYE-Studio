@@ -10,10 +10,12 @@
 #include "IPAddress.h"
 #include "HAL/PlatformTime.h"
 #include "HAL/FileManager.h"
+#include "Misc/Base64.h"
 
 namespace
 {
-    constexpr int32 MaxMessage = 65536;
+    constexpr int32 MaxRequestMessage = 65536;
+    constexpr int32 MaxResponseMessage = 16*1024*1024;
     TSharedPtr<FJsonObject> Reply(const FString& Id,const TSharedPtr<FJsonObject>& Payload,const FString& Code=TEXT(""),const FString& Message=TEXT(""))
     {
         auto R = MakeShared<FJsonObject>();
@@ -76,9 +78,18 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
 {
     auto R=MakeShared<FJsonObject>();
     R->SetStringField(TEXT("application"),TEXT("WISEYE Studio"));
+    R->SetStringField(TEXT("scene_id"),Demo.SceneId);
+    R->SetStringField(TEXT("pending_scene"),Demo.PendingScene);
     R->SetBoolField(TEXT("paused"),Demo.Paused);
     R->SetNumberField(TEXT("simulation_time_s"),Demo.SimulationTime);
     R->SetStringField(TEXT("flight_mode"),Demo.AutomaticFlight?TEXT("auto"):TEXT("manual"));
+    R->SetStringField(TEXT("flight_backend"),Demo.FlightBackend==EWiseEyeFlightBackend::ProjectAirSim?TEXT("projectairsim"):TEXT("kinematic"));
+    R->SetStringField(TEXT("drone_model"),Demo.DroneModel);
+    R->SetArrayField(TEXT("drone_models_available"),{
+        MakeShared<FJsonValueString>(TEXT("mavic3")),
+        MakeShared<FJsonValueString>(TEXT("avata"))});
+    R->SetBoolField(TEXT("dynamics_connected"),Demo.DynamicsConnected);
+    R->SetStringField(TEXT("dynamics_actor"),IsValid(Demo.DynamicsSource)?Demo.DynamicsSource->GetName():TEXT(""));
     R->SetBoolField(TEXT("tracking"),Demo.TrackingEnabled);
     R->SetBoolField(TEXT("rotors_running"),Demo.RotorsRunning);
     R->SetNumberField(TEXT("rotor_rpm"),Demo.RotorRPM);
@@ -86,6 +97,11 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
     R->SetNumberField(TEXT("pitch_deg"),Demo.PitchPivot->GetRelativeRotation().Pitch);
     R->SetNumberField(TEXT("pointing_error_deg"),Demo.PointingError);
     R->SetStringField(TEXT("sensor_mode"),Demo.InfraredMode?TEXT("infrared"):TEXT("visible"));
+    R->SetStringField(TEXT("active_sensor"),Demo.ActiveSensor);
+    R->SetArrayField(TEXT("available_sensors"),{
+        MakeShared<FJsonValueString>(TEXT("visible")),
+        MakeShared<FJsonValueString>(TEXT("infrared")),
+        MakeShared<FJsonValueString>(TEXT("lidar"))});
     R->SetStringField(TEXT("palette"),Demo.BlackHot?TEXT("black_hot"):TEXT("white_hot"));
     R->SetNumberField(TEXT("fov_deg"),Demo.FieldOfView);
     UTextureRenderTarget2D* Target=Demo.GetSensorTarget();
@@ -95,6 +111,11 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
     R->SetStringField(TEXT("tracking_source"),TEXT("UE ground truth"));
     R->SetStringField(TEXT("thermal_model"),TEXT("synthetic normalized heat"));
     R->SetStringField(TEXT("last_export_path"),Demo.LastExportPath);
+    R->SetBoolField(TEXT("lidar_enabled"),Demo.LidarEnabled);
+    R->SetNumberField(TEXT("lidar_hits"),Demo.LidarHitCount);
+    R->SetNumberField(TEXT("lidar_rays"),Demo.LastLidarRangesMeters.Num());
+    R->SetNumberField(TEXT("lidar_nearest_m"),Demo.LidarNearestRangeMeters);
+    R->SetStringField(TEXT("lidar_last_export_path"),Demo.LastLidarExportPath);
     return R;
 }
 
@@ -112,7 +133,13 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
     TSharedPtr<FJsonObject> Args=P?*P:Empty;
     auto Fail=[&](const FString& Message) { return Reply(Id,Empty,TEXT("invalid_argument"),Message); };
     if (Command==TEXT("sim.ping") || Command==TEXT("sim.get_state")) return Reply(Id,State());
-    if (Command==TEXT("sim.pause")) Demo.Paused=true;
+    if (Command==TEXT("sim.load_scene"))
+    {
+        FString IdToLoad,Error;
+        if (!Args->TryGetStringField(TEXT("scene_id"),IdToLoad) || !Demo.RequestScene(IdToLoad,Error))
+            return Fail(Error.IsEmpty()?TEXT("scene_id is required"):Error);
+    }
+    else if (Command==TEXT("sim.pause")) Demo.Paused=true;
     else if (Command==TEXT("sim.resume")) Demo.Paused=false;
     else if (Command==TEXT("sim.reset")) Demo.ResetSimulation();
     else if (Command==TEXT("gimbal.set_tracking") || Command==TEXT("rotors.set_enabled"))
@@ -130,12 +157,19 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
     }
     else if (Command==TEXT("flight.set_input"))
     {
+        if (Demo.FlightBackend==EWiseEyeFlightBackend::ProjectAirSim) return Fail(TEXT("Project AirSim owns flight control; use the WISEYE Project AirSim runner"));
         if (Demo.AutomaticFlight) return Fail(TEXT("Manual input requires manual flight mode"));
         double F,R,U,Y;
         if (!Args->TryGetNumberField(TEXT("forward"),F) || !Args->TryGetNumberField(TEXT("right"),R) || !Args->TryGetNumberField(TEXT("up"),U) || !Args->TryGetNumberField(TEXT("yaw"),Y)) return Fail(TEXT("forward, right, up, yaw are required"));
         for (double Value : {F,R,U,Y}) if (!FMath::IsFinite(Value) || FMath::Abs(Value)>1) return Fail(TEXT("Manual inputs must be finite and within [-1,1]"));
         Demo.SetManualInput(float(F),float(R),float(U),float(Y));
         LastManualInput=FPlatformTime::Seconds();
+    }
+    else if (Command==TEXT("drone.set_model"))
+    {
+        FString Model,Error;
+        if (!Args->TryGetStringField(TEXT("model"),Model) || !Demo.SetDroneModel(Model,Error))
+            return Fail(Error.IsEmpty()?TEXT("model is required"):Error);
     }
     else if (Command==TEXT("gimbal.set_angles"))
     {
@@ -151,6 +185,23 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         if (!Args->TryGetStringField(TEXT("mode"),Mode) || (Mode!=TEXT("visible") && Mode!=TEXT("infrared"))) return Fail(TEXT("mode must be visible or infrared"));
         if (Mode==TEXT("infrared") && !Demo.ThermalInstance) return Fail(TEXT("IR material unavailable"));
         Demo.InfraredMode=Mode==TEXT("infrared");
+        Demo.ActiveSensor=Mode;
+        Demo.RefreshSensors();
+    }
+    else if (Command==TEXT("sensor.set_active"))
+    {
+        FString Sensor;
+        if (!Args->TryGetStringField(TEXT("sensor"),Sensor) ||
+            (Sensor!=TEXT("visible") && Sensor!=TEXT("infrared") && Sensor!=TEXT("lidar")))
+            return Fail(TEXT("sensor must be visible, infrared, or lidar"));
+        if (Sensor==TEXT("infrared") && !Demo.ThermalInstance) return Fail(TEXT("IR material unavailable"));
+        Demo.ActiveSensor=Sensor;
+        if (Sensor!=TEXT("lidar")) Demo.InfraredMode=Sensor==TEXT("infrared");
+        if (Sensor==TEXT("lidar") && !Demo.LidarEnabled)
+        {
+            Demo.LidarEnabled=true;
+            Demo.ScanLidar();
+        }
         Demo.RefreshSensors();
     }
     else if (Command==TEXT("camera.set_palette"))
@@ -175,6 +226,63 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         R->SetStringField(TEXT("frame_path"),Demo.LastExportPath);
         return Reply(Id,R);
     }
+    else if (Command==TEXT("camera.stream_frame"))
+    {
+        FString Channel;
+        if (!Args->TryGetStringField(TEXT("channel"),Channel) || (Channel!=TEXT("CH1") && Channel!=TEXT("CH2")))
+            return Fail(TEXT("channel must be CH1 or CH2"));
+        double RequestedQuality=70;
+        Args->TryGetNumberField(TEXT("quality"),RequestedQuality);
+        if (!FMath::IsFinite(RequestedQuality) || RequestedQuality<25 || RequestedQuality>95)
+            return Fail(TEXT("quality must be within [25,95]"));
+        TArray64<uint8> Encoded;
+        int32 Width=0,Height=0;
+        int64 StreamFrameNumber=0;
+        double StreamSimulationTime=0;
+        if (!Demo.GetStreamFrame(Channel==TEXT("CH2"),Encoded,Width,Height,StreamFrameNumber,StreamSimulationTime))
+            return Reply(Id,Empty,TEXT("frame_unavailable"),TEXT("Asynchronous stream frame is warming up"));
+        auto R=MakeShared<FJsonObject>();
+        R->SetStringField(TEXT("channel"),Channel);
+        R->SetStringField(TEXT("modality"),Channel==TEXT("CH1")?TEXT("visible"):TEXT("infrared"));
+        R->SetNumberField(TEXT("frame_number"),StreamFrameNumber);
+        R->SetNumberField(TEXT("simulation_time_s"),StreamSimulationTime);
+        R->SetNumberField(TEXT("width"),Width);
+        R->SetNumberField(TEXT("height"),Height);
+        R->SetStringField(TEXT("encoding"),TEXT("jpeg"));
+        R->SetNumberField(TEXT("quality"),60);
+        R->SetStringField(TEXT("image_base64"),FBase64::Encode(Encoded.GetData(),Encoded.Num()));
+        return Reply(Id,R);
+    }
+    else if (Command==TEXT("sensor.lidar.set_enabled"))
+    {
+        bool Enabled=false;
+        if (!Args->TryGetBoolField(TEXT("enabled"),Enabled)) return Fail(TEXT("enabled must be a boolean"));
+        Demo.LidarEnabled=Enabled;
+        if (Enabled) Demo.ScanLidar();
+    }
+    else if (Command==TEXT("sensor.lidar.capture"))
+    {
+        if (!Demo.LidarEnabled) return Fail(TEXT("Gimbal lidar is disabled"));
+        if (!Demo.ExportLidarPointCloud() || !IFileManager::Get().FileExists(*Demo.LastLidarExportPath))
+            return Reply(Id,Empty,TEXT("capture_failed"),TEXT("Lidar point-cloud export failed or contained no hits"));
+        auto R=State();
+        R->SetStringField(TEXT("point_cloud_path"),Demo.LastLidarExportPath);
+        return Reply(Id,R);
+    }
+    else if (Command==TEXT("sensor.lidar.get_points"))
+    {
+        auto R=State();
+        TArray<TSharedPtr<FJsonValue>> Points;
+        constexpr int32 MaxPreviewPoints=768;
+        const int32 Count=Demo.LastLidarPointsWorldCm.Num();
+        const TArray<FVector> Preview=Demo.GetLidarPreviewPoints(MaxPreviewPoints);
+        Points.Reserve(Preview.Num());
+        for (const FVector& Point : Preview)
+            Points.Add(MakeShared<FJsonValueArray>(Vector(Point)));
+        R->SetNumberField(TEXT("lidar_point_count"),Count);
+        R->SetArrayField(TEXT("lidar_points_m"),Points);
+        return Reply(Id,R);
+    }
     else return Reply(Id,Empty,TEXT("unknown_command"),TEXT("Command is not supported"));
     return Reply(Id,State());
 }
@@ -196,7 +304,7 @@ void FWiseEyeBridge::Tick()
             Socket->SetNonBlocking(true);
             Socket->SetNoDelay(true);
             FWiseEyeClient C; C.Socket=Socket;
-            if (Clients.Num()<4) Clients.Add(MoveTemp(C));
+            if (Clients.Num()<8) Clients.Add(MoveTemp(C));
             else Close(C);
         }
     }
@@ -215,7 +323,7 @@ void FWiseEyeBridge::Tick()
             uint8 Buffer[2048]; int32 Count=0;
             if (!C.Socket->Recv(Buffer,sizeof(Buffer),Count) || Count<=0) { Alive=false; break; }
             C.Input.Append(Buffer,Count); Budget-=Count;
-            if (C.Input.Num()>MaxMessage) { Alive=false; break; }
+            if (C.Input.Num()>MaxRequestMessage) { Alive=false; break; }
         }
         for (int32 Messages=0; Alive && Messages<8; ++Messages)
         {
@@ -232,7 +340,7 @@ void FWiseEyeBridge::Tick()
             Encoded+=TEXT("\n");
             FTCHARToUTF8 Utf8(*Encoded);
             C.Output.Append(reinterpret_cast<const uint8*>(Utf8.Get()),Utf8.Length());
-            if (C.Output.Num()-C.Sent>MaxMessage*4) Alive=false;
+            if (C.Output.Num()-C.Sent>MaxResponseMessage) Alive=false;
         }
         if (Alive && C.Sent<C.Output.Num())
         {

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "checks": [
+    "all calibrated node relative positions, rotations and scales",
+    "whole gimbal and drone translate and rotate as assemblies",
+    "bottom fixed; bottom2 yaw only; camera and ptz share pitch",
+    "selecting one part selects the full equipment group"
+  ],
+  "max_local_transform_error_cm": 2.974254704360213e-08
+}

@@ -1,5 +1,9 @@
 # WISEYE Studio（智瞳）：项目计划与持续交接文档
 
+> **2026-10-19 最新状态：** 桌面统一实时显示 CH1 可见光、CH2 红外和 LIDAR 点云；CH1/CH2 已采用异步 GPU readback、编码流水线和持久连接，RTSP 输出为 30/25 FPS。两路同时运行在当前场景约产生 20 FPS 独立新渲染帧，完全独立 1080p30 仍需 GPU H.264。手动 AirSim 飞行支持界面按键和 W/S/A/D、R/F、Q/E 键盘。下一任务为硬件编码与统一传感器时间戳。
+
+> **2026-10-16 AirSim 评估更新：** 固定提交 62229cd7c77ad31da7bc8aba8dd6303c564d8ba2 在 UE 5.8.3 编译运行。用户批准后已在独立分支修复 MoveOnPath 完成判定和 SimpleFlight 落地状态同步；严格飞行回归连续两次通过，Release C++ 单元测试 391/391 通过。可迁移补丁、证据和复现方法见 `docs/PROJECTAIRSIM_EVALUATION.md`。当时尚未修改 WISEYE 运行后端，也未验证 PX4、额外传感器和多地图飞行。
+
 > **2026-10-14 迁移更新（优先于下方旧路径记录）：** 仓库现已包含完整 `ue5/WISEYE/test.uproject`、Config/Content/Source 和 Models。源码唯一位置为 `ue5/WISEYE/Source/test`，无需旧电脑 D 盘 Scene 工程。新电脑按根 README 构建启动，AI 先读 `AGENTS.md` 和 `docs/AI_HANDOFF.md`。云台恢复后用户已确认正常，要求直接同步，不再重新调整模型。
 
 > **2026-10-14 后续用户要求覆盖旧的“不调整模型”约定：** 按用户明确提出的四项任务，已调整无人机/云台演示尺寸，增加自动/手动飞行、旋翼动画及云台跟踪/保持切换。尺寸不是厂商计量标定；历史巨大模型尺寸和旧恢复脚本坐标不适用于当前场景。
@@ -304,8 +308,8 @@ WISEYE/
 
 任务：
 - [x] UE5 相机/Render Target 输出图像（可见光 1920×1080、IR 640×512，原生 PNG 导出和桌面快照已验证）。
-- [ ] 实现图像帧打包、接收、帧编号、尺寸与编码校验。
-- [ ] UI 显示实时图像，并显示帧率、延迟和断连状态。
+- [x] 实现 CH1/CH2 图像帧打包、接收、帧编号、尺寸与编码校验（稳定原型 2 FPS）。
+- [ ] UI 已显示 RTSP 实时图像和断连状态；真实帧率、端到端延迟、丢帧与队列深度仍待完成。
 
 验收：持续接收图像时 UI 不阻塞；能处理断连、无效帧和帧长度异常；基本性能指标可观察。
 
@@ -404,19 +408,37 @@ WISEYE/
 
 ## 11. 当前状态
 
+2026-10-19 实时图像与操作界面更新：CH1 可见光、CH2 红外已通过 MediaMTX/FFmpeg 发布和桌面显示；增加 AirSim 起飞/悬停/降落按钮、键盘手动飞行与 Mavic 3/Avata 外观切换。UE 已使用异步 GPU readback、多帧 JPEG 流水线和持久连接；RTSP 实测输出 CH1 30 FPS、CH2 25 FPS，当前完整场景两路同时运行约产生 20 FPS 独立新渲染帧。完整流程和分阶段验收见 `docs/SYSTEM_UX_DESIGN.md` 与 `docs/RTSP.md`。
+
+2026-10-17 更新：Project AirSim 已嵌入 WISEYE 自己的 UE 地图，Fast Physics/SimpleFlight 成为默认飞行动力学后端；现有无人机模型作为无碰撞整机外观跟随 `Drone1`。桌面已通过独立 50052 飞控服务控制自动/手动、悬停暂停、继续和物理复位，并实时显示云台激光点云。下一步统一相机/点云/飞行时间戳并实现持续图像通道。详见 docs/PROJECTAIRSIM_INTEGRATION.md。
+
+2026-10-19：ZIP 工作副本已安全接回 GitHub `main` 历史，当前工程具备正常 pull/push 能力。多场景配置、桌面地图选择、标准包导入、UE 场景准备入口、运行时切换与自动重连已完成；original 与 test_range 共用设备逻辑。用户反馈的新地图部件分离已修复：Python 旋转参数使用命名参数，按标定局部变换重建装配，整机锁定分组选取。详见 docs/SCENES.md、docs/AI_HANDOFF.md 与 docs/evidence。第三方 Fab/WP 场景尚未实测，标准包 v1 只处理普通地图，不包含独立程序打包/热加载。
+
 截至 2026-10-14：本机运行、模型演示尺寸、自动/手动飞行、旋翼、云台跟踪/保持、双模态最小传感器、PySide6 主窗口和本机 TCP 控制桥均已完成运行验证。UE 5.8.3、VS 2022/MSVC 14.44、SDK 10.0.26100、Intel Arc B580；桌面 Python 3.14.6 / PySide6 6.11.0。VC++ x64 升级经用户明确同意并运行成功。
 
 C++ 构建、真实 PIE 40 秒/79 样本、14 项控制、保存后重开、双模态尺寸/热参数/反转/遮挡通过；桌面真实 UE 10 项与协议单元 4 项通过。原始实验数据留在 Saved/WISEYE，摘要在 docs/evidence。
 
-M1 最小窗口 DONE，M2 控制桥已完成而完整扩展协议仍 IN_PROGRESS；M3 已有原生导出与按需快照，实时图像通道尚未实现。M4/M5 视觉检测闭环仍 TODO。当前跟踪读取 UE 真值，飞行无动力学/碰撞，红外是热强度近似，不是物理测温；尺寸/光心未按厂商图纸标定。
+M1 最小窗口 DONE，M2 含 AirSim 统一飞控 DONE；M3 已有原生图像/点云导出、CH1/CH2 RTSP 实时图像和实时点云预览，性能监测与硬件编码仍 IN_PROGRESS。M4/M5 视觉检测闭环仍 TODO。当前跟踪读取 UE 真值，飞行使用 Project AirSim Fast Physics/SimpleFlight；红外是热强度近似，不是物理测温，尺寸/光心未按厂商图纸标定。
 
 跨电脑以本仓库完整 UE Source/Config/Content（含外部 Actor）及 Python 源码为准，保留 test/testEditor。运行与同步见 docs/DESKTOP.md、GIT_WORKFLOW.md；今天上传和清理结果见 WORKLOG_2026-10-14.md。下方变更记录保留各阶段历史描述，不代表当前状态。
 
 ## 12. 下一步任务清单
 
+- [x] **TASK-017（2026-10-17）：** CH1/CH2 RTSP 稳定原型、桌面实时显示、AirSim 起飞/悬停/降落按钮、Mavic 3/Avata 外观切换。
+- [x] **TASK-018（2026-10-19，数据通路）：** 异步 GPU readback、多帧编码流水线、持久连接与 CH1 30 FPS/CH2 25 FPS RTSP 输出。
+- [ ] **TASK-020：** 去掉 JPEG/Base64 中间层，使用 GPU H.264 硬件编码，使 CH1 每个 30 FPS 输出帧和 CH2 每个 25 FPS 输出帧都是独立新渲染帧，并增加延迟、队列深度和丢帧统计。
+- [ ] **TASK-019：** 任务/航点编辑、起飞前检查、一键记录和同步回放。
+
+- [x] **TASK-012（2026-10-15，基础场景能力）：** 原始地图与新测试场切换、统一配置、标准包导入器及 UE 接入脚本；完整编辑器验证设备整体装配、移动、旋转、组选择。第三方复杂地图适配需逐资源验收。
+- [ ] **TASK-013：** 在用户选定的 Fab/社区地图中验证依赖、完整迁移、设备安装位置、遮挡及 World Partition 流送。
+- [x] **TASK-014（2026-10-17）：** Project AirSim Fast Physics/SimpleFlight 嵌入 WISEYE，现有整机外观跟随 AirSim 位姿；原始地图真实起飞/路径联调通过。
+- [x] **TASK-015（2026-10-17）：** 地面光电云台激光扫描器，随 PitchPivot 转动，状态接口与 PLY 点云导出通过。
+- [x] **TASK-016（2026-10-17）：** 桌面飞行命令桥接 Project AirSim，实现悬停暂停、物理复位、手动控制和实时点云显示。
+- [ ] **TASK-021（下一近期目标）：** 统一相机、点云与飞行状态时间戳和帧编号，并完善端到端性能监测。
+
 - [x] **TASK-009：** 可见光 1920×1080 / IR 640×512 最小双模态及图像、遮挡、保存重开验证。
 - [x] **TASK-010：** WISEYE 主窗口与 UE 控制桥，连接/状态/暂停闭环及双模态快照，真实 UE 集成验收通过。
-- [ ] **TASK-011（下一近期目标）：** 持续图像通道、帧编号/时间与 FPS/延迟监测。
+- [x] **TASK-011：** 持续图像通道已完成；帧编号、统一时间与 FPS/延迟监测并入 TASK-021。
 - [x] **TASK-001（优先级 P0）：** 在实际项目根目录盘点现有文件、Git 状态与已有实现。
 - [ ] **TASK-002（优先级 P0）：** 检查 Python、UE5、编译工具链、YOLO 环境和 GPU 状态。
 - [x] **TASK-003（优先级 P1）：** 根据盘点结果确定实际目录结构和首个最小可运行目标（用户指定先完成 UE 云台/无人机演示）。
@@ -429,6 +451,32 @@ M1 最小窗口 DONE，M2 控制桥已完成而完整扩展协议仍 IN_PROGRESS
 TASK-001 至 TASK-003 完成并记录后，再决定是否开始 M1。不要在缺乏环境信息时一次性生成整套工程。
 
 ## 13. 变更记录
+
+### 2026-10-19：跨电脑发布整理
+
+- ZIP 工作副本已接回 GitHub main 历史；保留远端提交并将当前源码、Avata 原始模型与 UE 资产、多场景、Project AirSim/RTSP 集成和验证证据纳入同一提交范围。
+- 新增 `docs/INSTALLATION.md` 与 `docs/FILE_STRUCTURE.md`，统一新电脑安装、完整启动、可提交资源和本机生成目录说明；README、桌面说明、Git 协作和 AI 交接同步到当前实时流与飞控状态。
+- 上传前检查排除 `.venv`、Saved、Binaries、Intermediate、日志、运行证据、MediaMTX 和 Project AirSim 可重建目录；保留插件描述文件、固定补丁及 World Partition 资源。
+- 本轮发布验证结果和远端提交号在上传完成后写入交接文件。
+
+### 2026-10-17：Project AirSim 动力学与云台激光
+
+- WISEYE GameMode 继承 Project AirSim GameMode，在原地图和测试场内启动仿真服务；新增默认 AirSim/可回退 Kinematic 后端、`Drone1` 绑定和无碰撞视觉整机同步。
+- 新增 `GimbalLidarMount/GimbalLidarBody`、UE 射线扫描、状态字段、启停/捕获命令和局部米制 PLY 导出。激光继承现有 YawPivot/PitchPivot，不改变云台部件轴向。
+- 新增两张 AirSim 场景配置、Fast Physics 机器人配置、自动起飞/路径脚本、首次安装/目录联接脚本与启动入口。第三方大体积源码和二进制仍不上传。
+- Project AirSim 自定义环境适配增加公开 GameMode 头文件解耦、外部插件着色器目录解析、场景 Actor 指针初始化和 GIS 安全清理；连续两次场景热重载通过。统一补丁已更新。WISEYE 原有实时图像读回同步修正为 UE 5.8 API，并去掉重复捕获。
+- `testEditor` 联合构建成功；真实 UE 监听 8989/8990/50051，完成起飞和 MoveOnPath，WISEYE 绑定成功。100 个遥测样本三轴跨度 1183.852/760.774/733.216 cm；激光 576 射线、接口末端 8 命中并导出 PLY。
+- 新增 50052 AirSim 飞控服务、桌面九键手动控制、悬停暂停、自动恢复和物理复位；新增 50051 点云预览接口与桌面实时俯视显示。一键启动自动进入 Play。真实控制与 576 点预览、13 项 Python 测试、UI 启动检查和 UE 增量构建通过。下一步执行 TASK-017。
+
+### 2026-10-15：多地图功能与设备装配修复
+
+- 新增 core/scenes.py、桌面 scene_dialog、场景选择与自动重连、WiseEyeScenes.cpp、scene_tools/prepare_registered_scene/export_scene_pack 脚本，以及标准装配 JSON、两个场景配置和 TestRange 地图。
+- C++ 以 sim.load_scene 接受已准备地图，确认后重载并关闭旧连接；桌面确认新 scene_id 后恢复。地图导入不覆盖资源，进行文件清单、路径、SHA256 和共享依赖检查，后台线程避免导入阻塞 UI。
+- 用户发现新场景云台部件分开。修复 Python Rotator 位置参数顺序错误，统一使用 pitch/yaw/roll 命名参数，基于原标定的局部变换恢复组件挂接，建立无人机/云台整体选择组。修复 test_range 并保留用户整机位置；原始地图保持原状。
+- 曾发现编辑器 MatineeCam 辅助网格进入运行画面，已从设备提取器排除并修复测试地图。早期接口/分辨率通过不能代替几何/图像验收。
+- 新增 tests/test_scenes.py、verify_scenes_live.py、UE verify_scene_assembly.py。C++ 构建成功；真实编辑器中保存后装配与新生成装配均通过，几何误差约 3e-8 cm / 1.3e-11 cm（数值复原误差，不是设备精度）。选择验证必须用完整编辑器，commandlet 不重建 GroupActor 编辑器关联。
+- 运行/协议/AI 交接文档更新；未提交或推送（当前 ZIP 无 .git）。未下载第三方地图，不代表任意 Fab 或 WP 资源已验收。
+- 最终验收：11 项 Python 单元测试通过；4 次真实地图切换和自动重连、8 张可见光/IR 快照通过，已目视确认修复后的测试场无人机图像。修复后场景包成功从 UE 导出，163 个共享依赖通过校验，隔离目录导入的地图文件哈希一致。UE 留在修复后的测试场播放。
 
 ### 2026-10-14：可见光/红外最小双模态
 

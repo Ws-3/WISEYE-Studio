@@ -13,7 +13,7 @@ cd WISEYE-Studio
 git status
 ```
 
-随后按 [DESKTOP.md](DESKTOP.md) 配置 UE 引擎路径、VS 工具链和 Python .venv，再启动 UE、点击播放、启动桌面窗口。
+随后按 [INSTALLATION.md](INSTALLATION.md) 配置 UE、VS、Python、FFmpeg、Project AirSim 和 RTSP，再启动完整系统。
 
 ## 每次开始：下载另一台电脑成果
 
@@ -48,7 +48,7 @@ git push origin main
 
 ## 更新后运行
 
-双击 Start-WISEYE.cmd：重新编译本机 C++ 并打开关卡，点击播放。再双击 Start-Desktop.cmd 并连接 UE。
+完整系统双击 Start-ProjectAirSim.cmd，它会重新编译本机 C++、打开关卡并自动进入 Play；再双击 Start-Desktop.cmd 并连接 UE。只做基础场景编辑时可使用 Start-WISEYE.cmd。
 如果 requirements.txt 更新，再运行：
 
 ```powershell

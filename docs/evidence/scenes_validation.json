@@ -1,0 +1,92 @@
+{
+  "passed": true,
+  "checks": [
+    "switch and automatic reconnect: original",
+    "flight/tracking/rotors: original",
+    "visible and IR native snapshots: original",
+    "switch and automatic reconnect: test_range",
+    "flight/tracking/rotors: test_range",
+    "visible and IR native snapshots: test_range",
+    "switch and automatic reconnect: original",
+    "flight/tracking/rotors: original",
+    "visible and IR native snapshots: original",
+    "switch and automatic reconnect: test_range",
+    "flight/tracking/rotors: test_range",
+    "visible and IR native snapshots: test_range",
+    "invalid scene refused without disconnect"
+  ],
+  "captures": [
+    {
+      "scene": "original",
+      "sensor": "visible",
+      "path": "D:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261015_190048\\VIS_0000.png",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "scene": "original",
+      "sensor": "infrared",
+      "path": "D:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261015_190048\\IR_WH_0001.png",
+      "size": [
+        640,
+        512
+      ]
+    },
+    {
+      "scene": "test_range",
+      "sensor": "visible",
+      "path": "D:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261015_190053\\VIS_0000.png",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "scene": "test_range",
+      "sensor": "infrared",
+      "path": "D:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261015_190053\\IR_WH_0001.png",
+      "size": [
+        640,
+        512
+      ]
+    },
+    {
+      "scene": "original",
+      "sensor": "visible",
+      "path": "D:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261015_190058\\VIS_0000.png",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "scene": "original",
+      "sensor": "infrared",
+      "path": "D:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261015_190058\\IR_WH_0001.png",
+      "size": [
+        640,
+        512
+      ]
+    },
+    {
+      "scene": "test_range",
+      "sensor": "visible",
+      "path": "D:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261015_190103\\VIS_0000.png",
+      "size": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "scene": "test_range",
+      "sensor": "infrared",
+      "path": "D:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261015_190103\\IR_WH_0001.png",
+      "size": [
+        640,
+        512
+      ]
+    }
+  ]
+}

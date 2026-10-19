@@ -1,6 +1,13 @@
 {
   "host": "127.0.0.1",
   "port": 50051,
+  "airsim_port": 50052,
   "poll_ms": 500,
-  "timeout_ms": 5000
+  "timeout_ms": 5000,
+  "rtsp_port": 8554,
+  "rtsp_visible_path": "CH1",
+  "rtsp_infrared_path": "CH2",
+  "rtsp_visible_fps": 30,
+  "rtsp_infrared_fps": 25,
+  "rtsp_jpeg_quality": 60
 }

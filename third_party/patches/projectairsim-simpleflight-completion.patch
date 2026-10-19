@@ -1,0 +1,273 @@
+diff --git a/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/ProjectAirSim.cpp b/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/ProjectAirSim.cpp
+index 5ddb090..523680d 100644
+--- a/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/ProjectAirSim.cpp
++++ b/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/ProjectAirSim.cpp
+@@ -6,6 +6,7 @@
+ #include "ProjectAirSim.h"
+ 
+ #include "GlobalShader.h"
++#include "Interfaces/IPluginManager.h"
+ #include "Misc/Paths.h"
+ #include "Modules/ModuleManager.h"
+ 
+@@ -14,9 +15,21 @@
+ void FProjectAirSimModule::StartupModule() {
+   // This code will execute after your module is loaded into memory; the exact
+   // timing is specified in the .uplugin file per-module
++  const TSharedPtr<IPlugin> Plugin = IPluginManager::Get().FindPlugin(TEXT("ProjectAirSim"));
++  checkf(Plugin.IsValid(), TEXT("ProjectAirSim plugin descriptor was not found"));
+   FString ShaderDirectory = FPaths::Combine(
+-      FPaths::ProjectDir(),
+-      TEXT("Plugins/ProjectAirSim/Source/ProjectAirSim/Private/Shaders"));
++      Plugin->GetBaseDir(), TEXT("Source/ProjectAirSim/Private/Shaders"));
++  // AdditionalPluginDirectories may expose a synthetic project-relative base
++  // directory. Resolve the loaded module location when that path does not exist.
++  if (!FPaths::DirectoryExists(ShaderDirectory)) {
++    const FString ModuleFile = FModuleManager::Get().GetModuleFilename(TEXT("ProjectAirSim"));
++    const FString LoadedPluginDir = FPaths::ConvertRelativePathToFull(
++        FPaths::Combine(FPaths::GetPath(ModuleFile), TEXT("../..")));
++    ShaderDirectory = FPaths::Combine(
++        LoadedPluginDir, TEXT("Source/ProjectAirSim/Private/Shaders"));
++  }
++  checkf(FPaths::DirectoryExists(ShaderDirectory),
++         TEXT("ProjectAirSim shader directory not found: %s"), *ShaderDirectory);
+   AddShaderSourceDirectoryMapping("/CustomShaders", ShaderDirectory);
+ }
+ 
+@@ -28,4 +41,4 @@ void FProjectAirSimModule::ShutdownModule() {
+ 
+ #undef LOCTEXT_NAMESPACE
+ 
+-IMPLEMENT_MODULE(FProjectAirSimModule, ProjectAirSim)
+\ No newline at end of file
++IMPLEMENT_MODULE(FProjectAirSimModule, ProjectAirSim)
+diff --git a/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/ProjectAirSimGameMode.cpp b/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/ProjectAirSimGameMode.cpp
+index 75d4967..5072175 100644
+--- a/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/ProjectAirSimGameMode.cpp
++++ b/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/ProjectAirSimGameMode.cpp
+@@ -4,6 +4,7 @@
+ // MIT License. All rights reserved.
+ 
+ #include "ProjectAirSimGameMode.h"
++#include "UnrealSimLoader.h"
+ 
+ #include <exception>
+ 
+@@ -12,20 +13,22 @@
+ AProjectAirSimGameMode::AProjectAirSimGameMode(
+     const FObjectInitializer& ObjectInitializer)
+     : Super(ObjectInitializer),
+-      UnrealSimLoader(FPaths::ConvertRelativePathToFull(FPaths::ProjectDir())) {
++      UnrealSimLoader(new AUnrealSimLoader(FPaths::ConvertRelativePathToFull(FPaths::ProjectDir()))) {
+   DefaultPawnClass = nullptr;
+   FApp::bUseFixedSeed = true;  // for determinism, persists in UE project
+ }
+ 
++AProjectAirSimGameMode::~AProjectAirSimGameMode() { delete UnrealSimLoader; }
++
+ void AProjectAirSimGameMode::StartPlay() {
+   Super::StartPlay();
+ 
+-  UnrealSimLoader.LaunchSimulation(this->GetWorld());
++  UnrealSimLoader->LaunchSimulation(this->GetWorld());
+ }
+ 
+ void AProjectAirSimGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason) {
+   Super::EndPlay(EndPlayReason);
+ 
+-  UnrealSimLoader.TeardownSimulation();
++  UnrealSimLoader->TeardownSimulation();
+   FApp::bUseFixedSeed = false;  // reset back to default from App.cpp
+ }
+diff --git a/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/Renderers/GISRenderer.cpp b/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/Renderers/GISRenderer.cpp
+index 6b17b03..53b4b4d 100644
+--- a/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/Renderers/GISRenderer.cpp
++++ b/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/Renderers/GISRenderer.cpp
+@@ -371,11 +371,11 @@ void AGISRenderer::Tick(float DeltaTime) {
+ 
+ void AGISRenderer::UnloadAllProcMeshActors() {
+   for (auto& ProcMeshPair : ProcMeshActors) {
+-    ProcMeshPair.second->Destroy();
++    if (IsValid(ProcMeshPair.second)) ProcMeshPair.second->Destroy();
+   }
+ 
+   for (auto& ProcMeshPair : HorizonProcMeshActors) {
+-    ProcMeshPair.second->Destroy();
++    if (IsValid(ProcMeshPair.second)) ProcMeshPair.second->Destroy();
+   }
+ 
+   ProcMeshActors.clear();
+@@ -525,4 +525,4 @@ bool AGISRenderer::GetTileChildrenAtDepth(mrrs::TileKey tileKey,
+   }
+ 
+   return true;
+-}
+\ No newline at end of file
++}
+diff --git a/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/UnrealSimLoader.cpp b/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/UnrealSimLoader.cpp
+index b88d728..e8d0bb4 100644
+--- a/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/UnrealSimLoader.cpp
++++ b/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/UnrealSimLoader.cpp
+@@ -28,7 +28,11 @@ namespace projectairsim = microsoft::projectairsim;
+ 
+ DEFINE_LOG_CATEGORY(SimPlugin);
+ 
+-AUnrealSimLoader::AUnrealSimLoader(const FString& SimLogDir) {
++AUnrealSimLoader::AUnrealSimLoader(const FString& SimLogDir)
++    : UnrealWorld(nullptr),
++      UnrealScene(nullptr),
++      GISRenderer(nullptr),
++      UnrealSimTopicData(nullptr) {
+   
+   auto PluginDir = IPluginManager::Get().FindPlugin(Constant::SimPluginName)->GetBaseDir();
+ 
+diff --git a/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Public/ProjectAirSimGameMode.h b/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Public/ProjectAirSimGameMode.h
+index 405eade..e82b11e 100644
+--- a/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Public/ProjectAirSimGameMode.h
++++ b/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Public/ProjectAirSimGameMode.h
+@@ -7,7 +7,8 @@
+ 
+ #include "CoreMinimal.h"
+ #include "GameFramework/GameModeBase.h"
+-#include "UnrealSimLoader.h"
++
++class AUnrealSimLoader;
+ 
+ //
+ #include "ProjectAirSimGameMode.generated.h"
+@@ -18,11 +19,12 @@ class PROJECTAIRSIM_API AProjectAirSimGameMode : public AGameModeBase {
+ 
+  public:
+   explicit AProjectAirSimGameMode(const FObjectInitializer& ObjectInitializer);
++  virtual ~AProjectAirSimGameMode() override;
+ 
+   void StartPlay() override;
+ 
+   void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+ 
+  private:
+-  AUnrealSimLoader UnrealSimLoader;
++  AUnrealSimLoader* UnrealSimLoader = nullptr;
+ };
+diff --git a/vehicle_apis/multirotor_api/include/simple_flight/firmware/OffboardApi.hpp b/vehicle_apis/multirotor_api/include/simple_flight/firmware/OffboardApi.hpp
+index dfb8b4c..baf1226 100644
+--- a/vehicle_apis/multirotor_api/include/simple_flight/firmware/OffboardApi.hpp
++++ b/vehicle_apis/multirotor_api/include/simple_flight/firmware/OffboardApi.hpp
+@@ -187,6 +187,10 @@ class OffboardApi : public IUpdatable, public IOffboardApi {
+   }
+ 
+   bool GetLandedState() const override { return landed_; }
++  void SetLandedState(bool landed) override {
++    landed_ = landed;
++    takenoff_ = !landed;
++  }
+ 
+  private:
+   void UpdateGoalFromRc() {
+@@ -254,4 +258,4 @@ class OffboardApi : public IUpdatable, public IOffboardApi {
+ 
+ }  // namespace simple_flight
+ 
+-#endif  // MULTIROTOR_API_SIMPLE_FLIGHT_FIRMWARE_OFFBOARDAPI_HPP_
+\ No newline at end of file
++#endif  // MULTIROTOR_API_SIMPLE_FLIGHT_FIRMWARE_OFFBOARDAPI_HPP_
+diff --git a/vehicle_apis/multirotor_api/include/simple_flight/firmware/interfaces/IOffboardApi.hpp b/vehicle_apis/multirotor_api/include/simple_flight/firmware/interfaces/IOffboardApi.hpp
+index 88345ad..815dcdd 100644
+--- a/vehicle_apis/multirotor_api/include/simple_flight/firmware/interfaces/IOffboardApi.hpp
++++ b/vehicle_apis/multirotor_api/include/simple_flight/firmware/interfaces/IOffboardApi.hpp
+@@ -26,9 +26,10 @@ class IOffboardApi : public IGoal {
+   virtual bool Disarm(std::string& message) = 0;
+   virtual VehicleStateType GetVehicleState() const = 0;
+   virtual bool GetLandedState() const = 0;
++  virtual void SetLandedState(bool landed) = 0;
+   virtual const IStateEstimator& GetStateEstimator() = 0;
+ };
+ 
+ }  // namespace simple_flight
+ 
+-#endif  // MULTIROTOR_API_SIMPLE_FLIGHT_FIRMWARE_INTERFACES_IOFFBOARDAPI_HPP_
+\ No newline at end of file
++#endif  // MULTIROTOR_API_SIMPLE_FLIGHT_FIRMWARE_INTERFACES_IOFFBOARDAPI_HPP_
+diff --git a/vehicle_apis/multirotor_api/include/simple_flight_api.hpp b/vehicle_apis/multirotor_api/include/simple_flight_api.hpp
+index 93a4dc2..312f649 100644
+--- a/vehicle_apis/multirotor_api/include/simple_flight_api.hpp
++++ b/vehicle_apis/multirotor_api/include/simple_flight_api.hpp
+@@ -61,6 +61,7 @@ class SimpleFlightApi : public VTOLFWApiBase {
+   ReadyState GetReadyState() const override;
+   Kinematics GetKinematicsEstimated() const override;
+   LandedState GetLandedState() const override;
++  bool Land(float timeout_sec, int64_t command_start_time_nanos) override;
+ 
+   // Switched to using service method request-response for all control commands,
+   // but leaving the below pub-sub version commented out for reference in case
+diff --git a/vehicle_apis/multirotor_api/src/multirotor_api_base.cpp b/vehicle_apis/multirotor_api/src/multirotor_api_base.cpp
+index e0ec520..e720d45 100644
+--- a/vehicle_apis/multirotor_api/src/multirotor_api_base.cpp
++++ b/vehicle_apis/multirotor_api/src/multirotor_api_base.cpp
+@@ -807,21 +807,22 @@ bool MultirotorApiBase::MoveOnPathInternal(
+                                  GetCancelToken(), command_start_time_nanos);
+ 
+   // initialize next path position
+-  if (SetNextPathPosition(path3d, path_segs, cur_path_loc,
+-                          lookahead + lookahead_error, next_path_loc) > 0) {
+-    return true;  // Already at or past end of path
+-  }
++  SetNextPathPosition(path3d, path_segs, cur_path_loc,
++                      lookahead + lookahead_error, next_path_loc);
+ 
+   float overshoot = 0;
+   float goal_dist = 0;
+-  constexpr float kGoalDistTolerance = 0.01;  // meters
++  const float goal_dist_tolerance = GetDistanceAccuracy();
+ 
+   // until we are at the end of the path (last seg is always zero size)
+-  while (
+-      !function_caller.IsTimeout() &&
+-      (next_path_loc.seg_index < path_segs.size() - 1 ||
+-       goal_dist > kGoalDistTolerance)) {  // current position is approximately
+-                                           // at the last end point
++  while (!function_caller.IsTimeout() && !GetCancelToken().IsCancelled()) {
++    // Lookahead may reach the final segment before the vehicle does. Neither
++    // lookahead overshoot nor per-cycle progress proves arrival at the endpoint.
++    if (next_path_loc.seg_index == path_segs.size() - 1 &&
++        (GetPosition() - path3d.back()).norm() <= goal_dist_tolerance) {
++      function_caller.Complete();
++      break;
++    }
+ 
+     float seg_velocity = path_segs.at(next_path_loc.seg_index).seg_velocity;
+     float path_length_remaining =
+@@ -914,7 +915,8 @@ bool MultirotorApiBase::MoveOnPathInternal(
+       lookahead_error_increasing = 0;
+       goal_dist = 0;
+       lookahead_error = 0;  // this is not really required because we will exit
+-      function_caller.Complete();
++      // Path projection can reach the endpoint while the vehicle is still
++      // laterally displaced. Continue commanding the endpoint until arrival.
+     }
+ 
+     // log("PF: cur=%s, goal_dist=%f, cur_path_loc=%s,
+diff --git a/vehicle_apis/multirotor_api/src/simple_flight_api.cpp b/vehicle_apis/multirotor_api/src/simple_flight_api.cpp
+index eabaf8d..391ee93 100644
+--- a/vehicle_apis/multirotor_api/src/simple_flight_api.cpp
++++ b/vehicle_apis/multirotor_api/src/simple_flight_api.cpp
+@@ -517,6 +517,19 @@ LandedState SimpleFlightApi::GetLandedState() const {
+                                                    : LandedState::Flying;
+ }
+ 
++bool SimpleFlightApi::Land(float timeout_sec,
++                           int64_t command_start_time_nanos) {
++  const bool landed = MultirotorApiBase::Land(timeout_sec,
++                                               command_start_time_nanos);
++  if (landed) {
++    // The base command has already confirmed sustained near-zero vertical
++    // velocity at touchdown. Synchronize SimpleFlight's state machine with
++    // that authoritative result; motor-output inference can miss API landings.
++    firmware_->OffboardApi().SetLandedState(true);
++  }
++  return landed;
++}
++
+ GeoPoint SimpleFlightApi::GetGpsLocationEstimated() const {
+   return sim_robot_.GetEnvironment().env_info.geo_point;
+ }

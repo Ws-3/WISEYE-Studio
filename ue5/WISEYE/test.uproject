@@ -12,6 +12,14 @@
   ],
   "Plugins": [
     {
+      "Name": "ProjectAirSim",
+      "Enabled": true
+    },
+    {
+      "Name": "Drone",
+      "Enabled": true
+    },
+    {
       "Name": "ModelingToolsEditorMode",
       "Enabled": true,
       "TargetAllowList": [

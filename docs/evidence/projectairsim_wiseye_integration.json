@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-17",
+  "passed": true,
+  "engine": "UE 5.8.3",
+  "projectairsim_commit": "62229cd7c77ad31da7bc8aba8dd6303c564d8ba2",
+  "scene": "original",
+  "checks": [
+    "testEditor joint build succeeded",
+    "Project AirSim services listened on 8989 and 8990",
+    "WISEYE bridge listened on 50051",
+    "Drone1 loaded with Fast Physics and SimpleFlight sensors/actuators",
+    "WISEYE visual drone bound to Drone1 as a collision-free assembly",
+    "takeoff and one MoveOnPath loop completed",
+    "gimbal-mounted lidar scanned 576 rays and exported PLY",
+    "two consecutive scene reloads completed after pointer initialization fix",
+    "continuous demonstration remained responsive with no duplicate capture warnings"
+  ],
+  "telemetry": {
+    "samples": 100,
+    "x_span_cm": 1183.852,
+    "y_span_cm": 760.774,
+    "z_span_cm": 733.216
+  },
+  "bridge_result": {
+    "dynamics_connected": true,
+    "lidar_hits_at_loop_end": 8,
+    "lidar_rays": 576
+  },
+  "point_cloud": "ue5/WISEYE/Saved/WISEYE/20261017_014229/LIDAR_0000.ply",
+  "point_cloud_vertices_at_export": 6,
+  "post_fix_validation": {
+    "scene_reload_count": 2,
+    "finite_loop_result": "linked=True lidar=7/576",
+    "point_cloud": "ue5/WISEYE/Saved/WISEYE/20261017_015046/LIDAR_0000.ply",
+    "point_cloud_vertices_at_export": 2,
+    "continuous_runner_responsive": true,
+    "latest_60_sample_span_cm": {
+      "x": 1188.019,
+      "y": 765.602,
+      "z": 209.158
+    },
+    "duplicate_capture_warning_count": 0
+  },
+  "desktop_control_validation": {
+    "date": "2026-10-17",
+    "ue_incremental_build": "succeeded",
+    "control_port": 50052,
+    "commands": [
+      "sim.pause",
+      "sim.resume",
+      "sim.reset",
+      "flight.set_mode",
+      "flight.set_input"
+    ],
+    "manual_forward_displacement_m": 0.2305,
+    "pause_semantics": "SimpleFlight hover hold; engine clock does not support SimPause",
+    "lidar_preview_points": 576,
+    "python_tests_passed": 13,
+    "desktop_ui_smoke": {
+      "tabs": 2,
+      "flight_widgets": 13,
+      "result": "passed"
+    }
+  }
+}

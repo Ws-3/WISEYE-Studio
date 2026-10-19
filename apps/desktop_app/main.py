@@ -3,6 +3,15 @@ import logging
 from logging.handlers import RotatingFileHandler
 from pathlib import Path
 import sys
+
+# Qt 6.11 on Windows imports the unversioned system ICU API. Conda adds its
+# own icuuc.dll to DLL search paths, but that build exports versioned symbols.
+# Load the system library before Qt; keep its handle alive for the process.
+if sys.platform == 'win32':
+    import ctypes
+    import os
+    _windows_icu = ctypes.WinDLL(str(Path(os.environ['SystemRoot']) / 'System32' / 'icuuc.dll'))
+
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtGui import QFont, QIcon
 from core.config import AppConfig, ROOT

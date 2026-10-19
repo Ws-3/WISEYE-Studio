@@ -8,9 +8,13 @@ public class test : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "ProjectAirSim" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "Sockets", "Networking", "Json" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "Sockets", "Networking", "Json", "ImageWrapper", "RHI", "RenderCore" });
+		if (Target.bBuildEditor)
+		{
+			PrivateDependencyModuleNames.Add("UnrealEd");
+		}
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });

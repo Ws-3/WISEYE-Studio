@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "scene": "test_range",
+  "asset_files": 1,
+  "shared_dependencies": 163,
+  "checks": [
+    "UE export succeeds",
+    "dependency hashes accepted",
+    "import to isolated destination succeeds",
+    "all imported file hashes match",
+    "scene registered as installed"
+  ]
+}

@@ -3,6 +3,8 @@
 #include "Camera/CameraComponent.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Components/InputComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/PrimitiveComponent.h"
 #include "Engine/TextureRenderTarget2D.h"
 #include "Engine/Canvas.h"
 #include "Engine/Engine.h"
@@ -12,13 +14,21 @@
 #include "HAL/FileManager.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
+#include "UObject/ConstructorHelpers.h"
 #include "WiseEyeBridge.h"
+#include "WiseEyeStreaming.h"
+#if WITH_EDITOR
+#include "Editor.h"
+#include "Editor/EditorEngine.h"
+#endif
 
-AWiseEyeDemo::~AWiseEyeDemo() { delete Bridge; }
+AWiseEyeDemo::~AWiseEyeDemo() { delete Bridge; delete StreamManager; }
 void AWiseEyeDemo::EndPlay(const EEndPlayReason::Type Reason)
 {
     delete Bridge;
     Bridge = nullptr;
+    delete StreamManager;
+    StreamManager = nullptr;
     BridgeReady = false;
     Super::EndPlay(Reason);
 }
@@ -55,12 +65,37 @@ AWiseEyeDemo::AWiseEyeDemo()
     InfraredCapture->bCaptureEveryFrame = true;
     InfraredCapture->bCaptureOnMovement = false;
     InfraredCapture->bAlwaysPersistRenderingState = true;
+    LidarMount = CreateDefaultSubobject<USceneComponent>(TEXT("GimbalLidarMount"));
+    LidarMount->SetupAttachment(Camera);
+    LidarMount->SetRelativeLocation(FVector(8,3,0));
+    LidarBody = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("GimbalLidarBody"));
+    LidarBody->SetupAttachment(LidarMount);
+    LidarBody->SetRelativeLocation(FVector(-4,0,0));
+    LidarBody->SetRelativeRotation(FRotator(0,90,0));
+    LidarBody->SetRelativeScale3D(FVector(.025f,.025f,.06f));
+    LidarBody->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> LidarMesh(TEXT("/Engine/BasicShapes/Cylinder.Cylinder"));
+    if (LidarMesh.Succeeded()) LidarBody->SetStaticMesh(LidarMesh.Object);
     AutoReceiveInput = EAutoReceiveInput::Player0;
 }
 
 void AWiseEyeDemo::BeginPlay()
 {
     Super::BeginPlay();
+#if WITH_EDITOR
+    // The desktop console is normally foreground while UE supplies live sensor
+    // frames. Keep editor PIE ticking at full rate in that configuration.
+    static bool BackgroundThrottleDisabled = false;
+    if (GEditor && !BackgroundThrottleDisabled)
+    {
+        GEditor->ShouldDisableCPUThrottlingDelegates.Add(
+            UEditorEngine::FShouldDisableCPUThrottling::CreateLambda([] { return true; }));
+        BackgroundThrottleDisabled = true;
+    }
+#endif
+    FString SceneError;
+    if (!ApplySceneConfiguration(SceneError))
+        UE_LOG(LogTemp, Warning, TEXT("WISEYE scene configuration: %s"), *SceneError);
     if (!IsValid(Drone))
     {
         UE_LOG(LogTemp, Error, TEXT("WISEYE: assign Drone before playing"));
@@ -72,13 +107,43 @@ void AWiseEyeDemo::BeginPlay()
     RotorInitialRotations.Reset();
     for (AActor* Rotor : Rotors)
         RotorInitialRotations.Add(IsValid(Rotor) ? Rotor->GetRootComponent()->GetRelativeRotation().Quaternion() : FQuat::Identity);
+    InitializeDroneModels();
     DroneView = GetWorld()->SpawnActor<ACameraActor>();
     if (DroneView) DroneView->GetCameraComponent()->SetFieldOfView(65.f);
     InitializeSensors();
+    StreamManager = new FWiseEyeStreamManager();
     OutputDirectory = FPaths::Combine(FPaths::ProjectSavedDir(), TEXT("WISEYE"), FDateTime::Now().ToString(TEXT("%Y%m%d_%H%M%S")));
     IFileManager::Get().MakeDirectory(*OutputDirectory, true);
     FFileHelper::SaveStringToFile(TEXT("time_s,drone_x_cm,drone_y_cm,drone_z_cm,yaw_deg,pitch_deg,pointing_error_deg,fov_deg,auto_flight,tracking,rotors,rotor_phase_deg\n"), *FPaths::Combine(OutputDirectory,TEXT("telemetry.csv")));
-    APlayerController* PC = GetWorld()->GetFirstPlayerController();
+
+// ----- Real‑time image processing setup -----
+// Create a processed render target with the same resolution as the capture component (1280×720)
+ProcessedRenderTarget = NewObject<UTextureRenderTarget2D>(this, UTextureRenderTarget2D::StaticClass(), NAME_None, RF_NoFlags);
+if (ProcessedRenderTarget)
+{
+    int32 W = Capture->TextureTarget ? Capture->TextureTarget->SizeX : 1280;
+    int32 H = Capture->TextureTarget ? Capture->TextureTarget->SizeY : 720;
+    ProcessedRenderTarget->InitAutoFormat(W, H);
+    ProcessedRenderTarget->UpdateResource();
+}
+
+// Create a dynamic material instance from the assigned ThermalMaterial (if any)
+if (ThermalMaterial)
+{
+    MatInst = UMaterialInstanceDynamic::Create(ThermalMaterial, this);
+    if (MatInst)
+    {
+        // Try to set the texture parameter named "ProcessedTex"; if the base material does not have it, it will be silently ignored.
+        MatInst->SetTextureParameterValue(TEXT("ProcessedTex"), ProcessedRenderTarget);
+    }
+}
+else
+{
+    UE_LOG(LogTemp, Warning, TEXT("ThermalMaterial not assigned; MatInst not created."));
+}
+
+// -----------------------------------------------------------------------------
+APlayerController* PC = GetWorld()->GetFirstPlayerController();
     if (PC)
     {
         PC->bAutoManageActiveCameraTarget = false;
@@ -98,7 +163,14 @@ void AWiseEyeDemo::BeginPlay()
         InputComponent->BindKey(EKeys::Hyphen,IE_Pressed,this,&AWiseEyeDemo::ZoomOut);
         PC->SetViewTarget(Overview ? static_cast<AActor*>(Overview) : this);
     }
-    StepSimulation(0, true);
+    if (FlightBackend==EWiseEyeFlightBackend::Kinematic) StepSimulation(0, true);
+    else
+    {
+        SetVisualAssemblyCollision(false);
+        TryBindDynamicsSource();
+        StepGimbal(0,true);
+    }
+    ScanLidar();
     UpdateDroneView();
     Bridge = new FWiseEyeBridge(*this);
     BridgeReady = Bridge->Start(ControlPort,BridgeError);
@@ -110,10 +182,16 @@ void AWiseEyeDemo::Tick(float Dt)
 {
     Super::Tick(Dt);
     if (!IsValid(Drone)) return;
+    if (StreamManager) StreamManager->Tick(RenderTarget,InfraredTarget,SimulationTime);
     if (Bridge) Bridge->Tick();
     if (!Paused)
     {
-        if (AutomaticFlight)
+        if (FlightBackend==EWiseEyeFlightBackend::ProjectAirSim)
+        {
+            SimulationTime += Dt;
+            StepProjectAirSim(Dt);
+        }
+        else if (AutomaticFlight)
         {
             SimulationTime += Dt;
             StepSimulation(Dt,false);
@@ -125,13 +203,88 @@ void AWiseEyeDemo::Tick(float Dt)
         }
         StepRotors(Dt);
     }
+    LidarClock += Dt;
+    if (LidarEnabled && LidarClock >= 1.f/FMath::Max(.05f,LidarScanRateHz))
+    {
+        LidarClock = 0;
+        ScanLidar();
+    }
     UpdateDroneView();
+
+    // Continuous camera publishing performs demand-driven readback. Avoid a second
+    // full-resolution GPU readback every Tick, which would halve streaming headroom.
     TelemetryClock += Dt;
     if (TelemetryClock >= 1)
     {
         TelemetryClock = 0;
         WriteTelemetry();
     }
+}
+
+bool AWiseEyeDemo::GetStreamFrame(bool bInfrared, TArray64<uint8>& Jpeg, int32& Width, int32& Height,
+                                  int64& StreamFrameNumber, double& StreamSimulationTime) const
+{
+    return StreamManager && StreamManager->GetFrame(bInfrared,Jpeg,Width,Height,StreamFrameNumber,StreamSimulationTime);
+}
+
+void AWiseEyeDemo::InitializeDroneModels()
+{
+    MavicVisualComponents.Reset();
+    auto AddActorVisuals=[this](AActor* Actor)
+    {
+        if (!IsValid(Actor)) return;
+        TArray<UPrimitiveComponent*> Components;
+        Actor->GetComponents<UPrimitiveComponent>(Components);
+        for (UPrimitiveComponent* Component : Components)
+            if (IsValid(Component)) MavicVisualComponents.AddUnique(Component);
+    };
+    AddActorVisuals(Drone);
+    TArray<AActor*> AttachedDroneActors;
+    Drone->GetAttachedActors(AttachedDroneActors,true,false);
+    for (AActor* Actor : AttachedDroneActors) AddActorVisuals(Actor);
+    for (AActor* Rotor : Rotors) AddActorVisuals(Rotor);
+
+    UStaticMesh* AvataMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/WISEYE/DroneModels/Avata/Avata_black.Avata_black"));
+    if (AvataMesh && IsValid(Drone) && Drone->GetRootComponent())
+    {
+        AlternateDroneMesh=NewObject<UStaticMeshComponent>(this,TEXT("AvataVisual"));
+        AlternateDroneMesh->SetStaticMesh(AvataMesh);
+        AlternateDroneMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        AlternateDroneMesh->SetMobility(EComponentMobility::Movable);
+        AlternateDroneMesh->RegisterComponent();
+        AlternateDroneMesh->AttachToComponent(Drone->GetRootComponent(),FAttachmentTransformRules::KeepRelativeTransform);
+        const FBoxSphereBounds Bounds=AvataMesh->GetBounds();
+        const float Span=FMath::Max(Bounds.BoxExtent.X*2.f,Bounds.BoxExtent.Y*2.f);
+        const float Scale=Span>1.f ? 60.f/Span : 1.f;
+        const FVector ParentScale=Drone->GetRootComponent()->GetComponentScale().GetAbs().ComponentMax(FVector(.0001f));
+        const FVector RelativeScale=FVector(Scale)/ParentScale;
+        AlternateDroneMesh->SetRelativeScale3D(RelativeScale);
+        AlternateDroneMesh->SetRelativeLocation((-Bounds.Origin*Scale)/ParentScale);
+        AlternateDroneMesh->SetRelativeRotation(FRotator::ZeroRotator);
+        AlternateDroneMesh->SetVisibility(false,true);
+    }
+}
+
+bool AWiseEyeDemo::SetDroneModel(const FString& ModelId,FString& Error)
+{
+    const FString Normalized=ModelId.ToLower();
+    if (Normalized!=TEXT("mavic3") && Normalized!=TEXT("avata"))
+    {
+        Error=TEXT("model must be mavic3 or avata");
+        return false;
+    }
+    if (Normalized==TEXT("avata") && !IsValid(AlternateDroneMesh))
+    {
+        Error=TEXT("Avata asset is not installed; run the drone model import step");
+        return false;
+    }
+    const bool ShowMavic=Normalized==TEXT("mavic3");
+    for (UPrimitiveComponent* Component : MavicVisualComponents)
+        if (IsValid(Component)) Component->SetVisibility(ShowMavic,true);
+    if (IsValid(AlternateDroneMesh)) AlternateDroneMesh->SetVisibility(!ShowMavic,true);
+    DroneModel=Normalized;
+    ConfigureThermalActors();
+    return true;
 }
 
 FVector AWiseEyeDemo::FlightOffset(float Time) const
@@ -244,7 +397,9 @@ void AWiseEyeDemo::ResetSimulation()
     FlightOrigin = InitialFlightOrigin;
     ManualInput = FVector::ZeroVector;
     ManualYawInput = 0;
-    StepSimulation(0,true);
+    if (FlightBackend==EWiseEyeFlightBackend::Kinematic) StepSimulation(0,true);
+    else StepGimbal(0,true);
+    ScanLidar();
     UpdateDroneView();
 }
 void AWiseEyeDemo::SwitchView()
@@ -280,7 +435,7 @@ void AWiseEyeDemo::WriteTelemetry()
     FFileHelper::SaveStringToFile(Row,*FPaths::Combine(OutputDirectory,TEXT("telemetry.csv")),FFileHelper::EEncodingOptions::AutoDetect,&IFileManager::Get(),FILEWRITE_Append);
 }
 
-AWiseEyeGameMode::AWiseEyeGameMode() { HUDClass=AWiseEyeHUD::StaticClass(); DefaultPawnClass=nullptr; }
+AWiseEyeGameMode::AWiseEyeGameMode(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) { HUDClass=AWiseEyeHUD::StaticClass(); DefaultPawnClass=nullptr; }
 void AWiseEyeHUD::DrawHUD()
 {
     Super::DrawHUD();
@@ -290,7 +445,7 @@ void AWiseEyeHUD::DrawHUD()
     if (!Demo) return;
     DrawRect(FLinearColor(.015f,.025f,.045f,.85f),12,12,790,145);
     DrawText(TEXT("WISEYE  |  UAV / EO SIMULATION"),FLinearColor(.1f,.85f,1),24,20,nullptr,1.3f);
-    DrawText(FString::Printf(TEXT("%s | Flight %s | Gimbal %s | Rotors %s"),Demo->Paused?TEXT("PAUSED"):TEXT("RUNNING"),Demo->AutomaticFlight?TEXT("AUTO"):TEXT("MANUAL"),Demo->TrackingEnabled?TEXT("TRACK"):TEXT("HOLD"),Demo->RotorsRunning?TEXT("ON"):TEXT("OFF")),FLinearColor::White,24,48,nullptr,1.05f);
+    DrawText(FString::Printf(TEXT("%s | Flight %s/%s | Gimbal %s | Lidar %d/%d"),Demo->Paused?TEXT("PAUSED"):TEXT("RUNNING"),Demo->FlightBackend==EWiseEyeFlightBackend::ProjectAirSim?TEXT("AIRSIM"):TEXT("KINEMATIC"),Demo->DynamicsConnected?TEXT("LINKED"):TEXT("WAIT"),Demo->TrackingEnabled?TEXT("TRACK"):TEXT("HOLD"),Demo->LidarHitCount,Demo->LastLidarRangesMeters.Num()),FLinearColor::White,24,48,nullptr,1.05f);
     DrawText(TEXT("M auto/manual | WASD move | UP/DOWN altitude | Q/E turn | SHIFT boost"),FLinearColor(.75f,.85f,.9f),24,73,nullptr,1);
     DrawText(TEXT("T track/hold | F rotors | TAB overview/EO/drone | SPACE pause | R reset"),FLinearColor(.75f,.85f,.9f),24,96,nullptr,1);
     DrawText(TEXT("I visible/IR | B white/black hot | +/- zoom | P native PNG | UE truth"),FLinearColor(.75f,.85f,.9f),24,119,nullptr,.95f);
