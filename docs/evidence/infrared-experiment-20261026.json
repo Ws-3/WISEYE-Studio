@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-26",
+  "editor_build": "passed",
+  "material_creation": "passed",
+  "real_city_ab": "passed",
+  "core_tests": 51,
+  "qt_tests": 13,
+  "old_material_unchanged": true,
+  "user_city_fleet_unchanged": true,
+  "shipping_recooked": false,
+  "launcher_syntax": "passed",
+  "full_launcher_flight_acceptance": false,
+  "gpu_timing_measured": false,
+  "comparison": "infrared-city-20261026/comparison.png",
+  "f_e_source_sync": [
+    "ue5/WISEYE/Source/test/WiseEyeDemo.h",
+    "ue5/WISEYE/Source/test/WiseEyeDemo.cpp",
+    "ue5/WISEYE/Source/test/WiseEyeSensors.cpp",
+    "ue5/WISEYE/Source/test/WiseEyeBridge.cpp",
+    "ue5/scripts/infrared_appearance.hlsl",
+    "ue5/scripts/configure_infrared_appearance.py",
+    "apps/desktop_app/sensor_forms.py",
+    "ue5/WISEYE/Content/WISEYE/Sensors/M_IR_Experimental.uasset"
+  ]
+}

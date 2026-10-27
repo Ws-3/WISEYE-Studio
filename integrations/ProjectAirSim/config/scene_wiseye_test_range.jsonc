@@ -6,7 +6,7 @@
       "type": "robot",
       "name": "Drone1",
       "origin": { "xyz": "-18.0 0.0 -6.030585", "rpy-deg": "0 0 0" },
-      "robot-config": "robot_quadrotor_fastphysics.jsonc"
+      "robot-config": "robot_wiseye_fastphysics.jsonc"
     }
   ],
   "clock": {

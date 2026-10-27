@@ -1,0 +1,359 @@
+{
+  "passed": true,
+  "run_id": "1B28A5C94F477059AAF6AFB1C0798BF9",
+  "previous_run": "F746F77F43C66056960701AA41248671",
+  "state": {
+    "application": "WISEYE Studio",
+    "scene_id": "city",
+    "run_id": "1B28A5C94F477059AAF6AFB1C0798BF9",
+    "streams": {
+      "CH1": {
+        "frame_seq": 1176,
+        "completed_frames": 1176,
+        "readback_queued_ue_monotonic_s": 17024472.6592312,
+        "cache_age_ms": 62.789399176836014
+      },
+      "CH2": {
+        "frame_seq": 1177,
+        "completed_frames": 1177,
+        "readback_queued_ue_monotonic_s": 17024472.6592333,
+        "cache_age_ms": 62.79120221734047
+      }
+    },
+    "initial_drone_position_cm": [
+      -29298.724609375,
+      -100.74424743652344,
+      98.00001120567322
+    ],
+    "gimbal_position_cm": [
+      -30498.724609374996,
+      -100.74424743652344,
+      78.11693486983734
+    ],
+    "drone_id": "uav-01",
+    "gimbal_id": "ptz-01",
+    "devices": [
+      {
+        "id": "uav-01",
+        "kind": "drone",
+        "model_id": "mavic3",
+        "name": "\u65e0\u4eba\u673a 1",
+        "tracking_target": "uav-01",
+        "position_cm": [
+          -29298.724609375,
+          -100.74424743652344,
+          92.26818084716797
+        ],
+        "dynamics_name": "Drone1",
+        "initial_position_cm": [
+          -29298.724609375,
+          -100.74424743652344,
+          98.00001120567322
+        ],
+        "rotors_running": false,
+        "initial_yaw_deg": 0
+      },
+      {
+        "id": "ptz-01",
+        "kind": "gimbal",
+        "model_id": "eo80",
+        "name": "\u4e91\u53f0 1",
+        "tracking_target": "uav-01",
+        "position_cm": [
+          -30498.724609374996,
+          -100.74424743652344,
+          78.11693486983734
+        ],
+        "dynamics_name": "Drone1",
+        "initial_position_cm": [
+          -29298.724609375,
+          -100.74424743652344,
+          98.00001120567322
+        ],
+        "rotors_running": false,
+        "initial_yaw_deg": 0
+      }
+    ],
+    "tracking_target": "uav-01",
+    "observer_mode": "overview",
+    "placement": {
+      "active": false,
+      "has_result": false,
+      "device_id": "",
+      "request_token": "",
+      "error": "",
+      "sequence": 0,
+      "position_cm": [
+        0,
+        0,
+        0
+      ],
+      "surface_cm": [
+        0,
+        0,
+        0
+      ]
+    },
+    "input_mode": "observer",
+    "pitch_min_deg": -15,
+    "pitch_max_deg": 75,
+    "lidar_horizontal_fov_deg": 30,
+    "lidar_vertical_fov_deg": 8,
+    "lidar_scan_rate_hz": 10,
+    "lidar_range_m": 300,
+    "pending_scene": "",
+    "paused": true,
+    "simulation_time_s": 113.53204345703125,
+    "flight_mode": "manual",
+    "flight_backend": "projectairsim",
+    "drone_model": "mavic3",
+    "drone_models_available": [
+      "mavic3",
+      "avata"
+    ],
+    "dynamics_connected": true,
+    "dynamics_actor": "Drone1",
+    "tracking": true,
+    "rotors_running": false,
+    "rotor_rpm": 0,
+    "motor_rpm": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "rotor_source": "airsim_rad_s",
+    "rotor_telemetry_fresh": true,
+    "tick_seq": 3505,
+    "performance_profile": "economy",
+    "visible_capture_hz": 10,
+    "infrared_capture_hz": 10,
+    "observer_capture_hz": 8,
+    "yaw_deg": 159.9958953857422,
+    "pitch_deg": -1.8518968820571895,
+    "pointing_error_deg": 1.728759889374487e-05,
+    "sensor_mode": "visible",
+    "active_sensor": "visible",
+    "available_sensors": [
+      "visible",
+      "infrared",
+      "lidar"
+    ],
+    "sensors": {
+      "visible": {
+        "enabled": true,
+        "fov_deg": 25
+      },
+      "infrared": {
+        "enabled": true,
+        "fov_deg": 25,
+        "palette": "white_hot",
+        "noise": 0.00800000037997961
+      },
+      "lidar": {
+        "enabled": true,
+        "horizontal_fov_deg": 30,
+        "vertical_fov_deg": 8,
+        "range_m": 300,
+        "scan_rate_hz": 10
+      }
+    },
+    "palette": "white_hot",
+    "fov_deg": 25,
+    "width": 1920,
+    "height": 1080,
+    "drone_position_cm": [
+      -29298.724609375,
+      -100.74424743652344,
+      92.26818084716797
+    ],
+    "tracking_source": "UE ground truth",
+    "thermal_model": "synthetic normalized heat",
+    "last_export_path": "",
+    "lidar_enabled": true,
+    "lidar_hits": 571,
+    "lidar_rays": 576,
+    "lidar_nearest_m": 5.582724571228027,
+    "lidar_last_export_path": ""
+  },
+  "air": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "1B28A5C94F477059AAF6AFB1C0798BF9",
+    "connected": true,
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -292.98724365234375,
+      -1.0074424743652344,
+      -0.9226818084716797
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 0.0,
+    "motor_rpm": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_sample_age_s": 0.03345190000254661,
+    "manual_command_count": 0,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "1B28A5C94F477059AAF6AFB1C0798BF9",
+        "connected": true,
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -292.98724365234375,
+          -1.0074424743652344,
+          -0.9226818084716797
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 0.0,
+        "motor_rpm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotor_sample_age_s": 0.03367929998785257,
+        "manual_command_count": 0,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "samples": [
+    {
+      "tick": 3289,
+      "streams": {
+        "CH1": {
+          "frame_seq": 1103,
+          "completed_frames": 1103,
+          "readback_queued_ue_monotonic_s": 17024465.1320895,
+          "cache_age_ms": 370.99770084023476
+        },
+        "CH2": {
+          "frame_seq": 1103,
+          "completed_frames": 1103,
+          "readback_queued_ue_monotonic_s": 17024465.1320911,
+          "cache_age_ms": 371.0024990141392
+        }
+      }
+    },
+    {
+      "tick": 3380,
+      "streams": {
+        "CH1": {
+          "frame_seq": 1134,
+          "completed_frames": 1134,
+          "readback_queued_ue_monotonic_s": 17024468.4530701,
+          "cache_age_ms": 100.08459910750389
+        },
+        "CH2": {
+          "frame_seq": 1135,
+          "completed_frames": 1135,
+          "readback_queued_ue_monotonic_s": 17024468.4530718,
+          "cache_age_ms": 100.0858023762703
+        }
+      }
+    },
+    {
+      "tick": 3411,
+      "streams": {
+        "CH1": {
+          "frame_seq": 1144,
+          "completed_frames": 1144,
+          "readback_queued_ue_monotonic_s": 17024469.4538205,
+          "cache_age_ms": 138.71540129184723
+        },
+        "CH2": {
+          "frame_seq": 1145,
+          "completed_frames": 1145,
+          "readback_queued_ue_monotonic_s": 17024469.4538222,
+          "cache_age_ms": 138.7172006070614
+        }
+      }
+    },
+    {
+      "tick": 3442,
+      "streams": {
+        "CH1": {
+          "frame_seq": 1155,
+          "completed_frames": 1155,
+          "readback_queued_ue_monotonic_s": 17024470.5552074,
+          "cache_age_ms": 67.29109957814217
+        },
+        "CH2": {
+          "frame_seq": 1156,
+          "completed_frames": 1156,
+          "readback_queued_ue_monotonic_s": 17024470.5552092,
+          "cache_age_ms": 67.29339808225632
+        }
+      }
+    },
+    {
+      "tick": 3473,
+      "streams": {
+        "CH1": {
+          "frame_seq": 1165,
+          "completed_frames": 1165,
+          "readback_queued_ue_monotonic_s": 17024471.554571,
+          "cache_age_ms": 104.69890013337135
+        },
+        "CH2": {
+          "frame_seq": 1166,
+          "completed_frames": 1166,
+          "readback_queued_ue_monotonic_s": 17024471.5545729,
+          "cache_age_ms": 104.70100119709969
+        }
+      }
+    },
+    {
+      "tick": 3505,
+      "streams": {
+        "CH1": {
+          "frame_seq": 1176,
+          "completed_frames": 1176,
+          "readback_queued_ue_monotonic_s": 17024472.6592312,
+          "cache_age_ms": 62.789399176836014
+        },
+        "CH2": {
+          "frame_seq": 1177,
+          "completed_frames": 1177,
+          "readback_queued_ue_monotonic_s": 17024472.6592333,
+          "cache_age_ms": 62.79120221734047
+        }
+      }
+    }
+  ]
+}

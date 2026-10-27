@@ -1,0 +1,11 @@
+{
+  "success": true,
+  "checks": [
+    "actual Takeoff button starts only selected aircraft; motor telemetry remains read-only",
+    "holding Forward produces signed body-axis motion across polls; release brakes and holds",
+    "window deactivation clears continuous flight input and actual aircraft settles",
+    "route mode opens editor without flight; upload stays idle; explicit Execute completes native route",
+    "actual Land button returns to ready and physical motors disarm; other aircraft stay landed"
+  ],
+  "errors": []
+}

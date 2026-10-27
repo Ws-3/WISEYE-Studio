@@ -1,3 +1,4 @@
+#include "WiseEyeRuntimePaths.h"
 #include "WiseEyeDemo.h"
 #include "Camera/CameraActor.h"
 #include "Dom/JsonObject.h"
@@ -16,7 +17,7 @@ namespace
         for (TCHAR C : Id)
             if (!(C>='a' && C<='z') && !(C>='0' && C<='9') && C!='_') { Error=TEXT("Invalid scene ID"); return false; }
         FString Text;
-        const FString File=FPaths::Combine(FPaths::ProjectConfigDir(),TEXT("WISEYE/Scenes"),Id+TEXT(".json"));
+        const FString File=FPaths::Combine(WiseEyePaths::ConfigRoot(),TEXT("WISEYE/Scenes"),Id+TEXT(".json"));
         if (!FFileHelper::LoadFileToString(Text,*File) || !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Scene) || !Scene)
         { Error=TEXT("Scene manifest not found or invalid JSON"); return false; }
         double Version=0;
@@ -57,6 +58,24 @@ bool AWiseEyeDemo::ApplySceneConfiguration(FString& Error)
     FString Map=GetWorld()->GetOutermost()->GetName();
     Map=UWorld::RemovePIEPrefix(Map);
     if (Map!=Scene->GetStringField(TEXT("map"))) { Error=TEXT("Scene manifest does not match active map"); return false; }
+    // Optional user layout overrides positions only, never base scene assets.
+    const FString LayoutFile=FPaths::Combine(WiseEyePaths::ConfigRoot(),TEXT("WISEYE/Layouts"),SceneId+TEXT(".json"));
+    if (FPaths::FileExists(LayoutFile))
+    {
+        FString Text; TSharedPtr<FJsonObject> Layout;
+        if (!FFileHelper::LoadFileToString(Text,*LayoutFile) || !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Layout) || !Layout)
+        { Error=TEXT("Invalid initial layout JSON"); return false; }
+        double Version=0; FString LayoutScene;
+        if (!Layout->TryGetNumberField(TEXT("version"),Version) || Version!=1 || !Layout->TryGetStringField(TEXT("scene_id"),LayoutScene) || LayoutScene!=SceneId)
+        { Error=TEXT("Invalid initial layout version or scene"); return false; }
+        for (const TCHAR* Key : {TEXT("gimbal_location_cm"),TEXT("flight_origin_cm")})
+        {
+            const TArray<TSharedPtr<FJsonValue>>* Values=nullptr;
+            if (!Layout->TryGetArrayField(Key,Values) || Values->Num()!=3) { Error=TEXT("Invalid layout vector"); return false; }
+            for (const auto& Value : *Values) { double N=0; if (!Value->TryGetNumber(N) || !FMath::IsFinite(N) || FMath::Abs(N)>1e7) { Error=TEXT("Invalid layout coordinate"); return false; } }
+        }
+        for (const TCHAR* Key : {TEXT("gimbal_location_cm"),TEXT("flight_origin_cm")}) Scene->SetArrayField(Key,Layout->GetArrayField(Key));
+    }
     AActor* Mount=this;
     while (Mount->GetAttachParentActor()) Mount=Mount->GetAttachParentActor();
     Mount->AddActorWorldOffset(Vec(Scene,TEXT("gimbal_location_cm"))-GetActorLocation());

@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "scene": "city",
+  "tick_advanced": true,
+  "devices": [
+    {
+      "id": "uav-01",
+      "kind": "drone"
+    },
+    {
+      "id": "ptz-01",
+      "kind": "gimbal"
+    }
+  ],
+  "native_frames": {
+    "CH1": {
+      "device_id": "ptz-01",
+      "sensor_id": "ptz-01/visible",
+      "frame_number": 89355,
+      "width": 1920,
+      "height": 1080
+    },
+    "CH2": {
+      "device_id": "ptz-01",
+      "sensor_id": "ptz-01/infrared",
+      "frame_number": 89357,
+      "width": 640,
+      "height": 512
+    },
+    "OBS": {
+      "device_id": "observer",
+      "sensor_id": "observer/view",
+      "frame_number": 71488,
+      "width": 960,
+      "height": 540
+    }
+  },
+  "preserved_inputs": {
+    "ue5/WISEYE/Config/WISEYE/Fleets/original.json": true,
+    "ue5/WISEYE/Config/WISEYE/device_dimensions.json": true
+  },
+  "fixture_cleanup": {
+    "passed": true,
+    "remaining_test_actors": [],
+    "active_fixture": false,
+    "probe_bridge_enabled": false,
+    "map": "/Game/WISEYE/Scenes/city/UEDPIE_0_CitySample.CitySample"
+  }
+}

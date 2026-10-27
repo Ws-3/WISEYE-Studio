@@ -9,6 +9,7 @@
 
 void AWiseEyeDemo::InitializeSensors()
 {
+    VisibleFOV=InfraredFOV=FieldOfView;
     if (!RenderTarget) RenderTarget = NewObject<UTextureRenderTarget2D>(this);
     if (!InfraredTarget) InfraredTarget = NewObject<UTextureRenderTarget2D>(this);
     for (UTextureRenderTarget2D* Target : {RenderTarget.Get(),InfraredTarget.Get()})
@@ -17,11 +18,17 @@ void AWiseEyeDemo::InitializeSensors()
         Target->bForceLinearGamma = true;
     }
     RenderTarget->InitAutoFormat(1920,1080);
+    // FinalColorLDR bytes are displayed/encoded as sRGB, rather than linear light.
+    RenderTarget->TargetGamma = 2.2f;
     InfraredTarget->InitAutoFormat(640,512);
     Capture->TextureTarget = RenderTarget;
     InfraredCapture->TextureTarget = InfraredTarget;
+    // Independent asset keeps the original material available for rollback.
+    if (auto* Experimental = LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/WISEYE/Sensors/M_IR_Experimental.M_IR_Experimental")))
+        ThermalMaterial = Experimental;
     if (!ThermalMaterial)
         ThermalMaterial = LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/WISEYE/Sensors/M_IR_Minimal.M_IR_Minimal"));
+    if (ThermalMaterial && ThermalMaterial->GetName()!=TEXT("M_IR_Experimental")) ThermalProfile=TEXT("legacy");
     if (ThermalMaterial)
     {
         ThermalInstance = UMaterialInstanceDynamic::Create(ThermalMaterial,this);
@@ -55,7 +62,7 @@ void AWiseEyeDemo::ConfigureThermalActors()
             const FString Name = Mesh->GetStaticMesh()->GetName();
             float Heat = BodyHeat;
             if (IsPTZ) Heat = .55f;
-            else if (Blades.Contains(Name)) Heat = RotorHeat;
+            else if (Blades.Contains(Name) || Name.StartsWith(TEXT("AvataRotor")) || Mesh->ComponentHasTag(TEXT("RotorBlur"))) Heat = RotorHeat;
             else
             {
                 FString Prefix, Number;
@@ -74,8 +81,13 @@ void AWiseEyeDemo::ConfigureThermalActors()
 void AWiseEyeDemo::RefreshSensors()
 {
     ConfigureThermalActors();
-    Capture->FOVAngle = FieldOfView;
-    InfraredCapture->FOVAngle = FieldOfView;
+    FieldOfView=InfraredMode?InfraredFOV:VisibleFOV;
+    Capture->FOVAngle = VisibleFOV;
+    InfraredCapture->FOVAngle = InfraredFOV;
+    Capture->bCaptureEveryFrame=false;
+    InfraredCapture->bCaptureEveryFrame=false;
+    Capture->SetComponentTickEnabled(VisibleEnabled);
+    InfraredCapture->SetComponentTickEnabled(InfraredEnabled);
     Camera->SetFieldOfView(FieldOfView);
     Camera->AspectRatio = InfraredMode ? 640.f/512.f : 1920.f/1080.f;
     if (ThermalInstance)
@@ -84,12 +96,17 @@ void AWiseEyeDemo::RefreshSensors()
         ThermalInstance->SetScalarParameterValue(TEXT("BackgroundHeat"),BackgroundHeat);
         ThermalInstance->SetScalarParameterValue(TEXT("SkyHeat"),SkyHeat);
         ThermalInstance->SetScalarParameterValue(TEXT("NoiseStrength"),ThermalNoise);
+        ThermalInstance->SetScalarParameterValue(TEXT("Enhanced"),ThermalProfile==TEXT("enhanced")?1.f:0.f);
+        ThermalInstance->SetScalarParameterValue(TEXT("BlurPixels"),ThermalBlurPixels);
+        ThermalInstance->SetScalarParameterValue(TEXT("Contrast"),ThermalContrast);
+        ThermalInstance->SetScalarParameterValue(TEXT("BackgroundDetail"),ThermalBackgroundDetail);
         Camera->PostProcessSettings.AddBlendable(ThermalInstance.Get(),InfraredMode?1.f:0.f);
     }
 }
 
 void AWiseEyeDemo::ToggleSensorMode()
 {
+    if (!FleetChild) { auto* Selected=FindDevice(ControlledGimbalId); if (Selected && Selected!=this) { Selected->ToggleSensorMode(); return; } }
     if (!ThermalInstance) return;
     InfraredMode = !InfraredMode;
     ActiveSensor = InfraredMode ? TEXT("infrared") : TEXT("visible");
@@ -97,6 +114,7 @@ void AWiseEyeDemo::ToggleSensorMode()
 }
 void AWiseEyeDemo::ToggleThermalPalette()
 {
+    if (!FleetChild) { auto* Selected=FindDevice(ControlledGimbalId); if (Selected && Selected!=this) { Selected->ToggleThermalPalette(); return; } }
     BlackHot = !BlackHot;
     RefreshSensors();
 }

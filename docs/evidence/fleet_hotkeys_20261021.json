@@ -1,0 +1,8 @@
+{
+  "passed": 3,
+  "checks": [
+    "UE O cannot fake armed rotors in telemetry-driven AirSim mode",
+    "UE T toggles only selected gimbal tracking",
+    "UE I changes only selected gimbal camera mode"
+  ]
+}

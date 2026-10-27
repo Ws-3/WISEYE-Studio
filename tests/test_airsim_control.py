@@ -1,5 +1,6 @@
 import asyncio
 import unittest
+from unittest.mock import patch
 
 from integrations.ProjectAirSim.run_wiseye_flight import FlightController
 
@@ -40,6 +41,10 @@ class FakeDrone:
     def arm(self):
         self.commands.append(('arm',))
 
+    def disarm(self):
+        self.commands.append(("disarm",))
+        return True
+
     async def takeoff_async(self):
         self.commands.append(('takeoff',))
         return asyncio.create_task(completed())
@@ -51,6 +56,9 @@ class FakeDrone:
 
 class FlightControllerTests(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
+        self.ue_requests = patch('integrations.ProjectAirSim.run_wiseye_flight.wiseeye_request', return_value=None)
+        self.ue_requests.start()
+        self.addCleanup(self.ue_requests.stop)
         self.drone = FakeDrone()
         self.controller = FlightController(FakeWorld(), self.drone, 0, 3.0)
         self.controller.initialize_route()
@@ -61,6 +69,8 @@ class FlightControllerTests(unittest.IsolatedAsyncioTestCase):
     async def test_pause_manual_auto_and_physical_reset(self):
         state = await self.controller.execute('sim.pause', {})
         self.assertTrue(state['paused'])
+        if self.controller.active_task:
+            await self.controller.active_task
         self.assertEqual(self.drone.commands[-1][0], 'hover')
 
         state = await self.controller.execute('sim.resume', {})
@@ -86,14 +96,64 @@ class FlightControllerTests(unittest.IsolatedAsyncioTestCase):
                 'forward': 2, 'right': 0, 'up': 0, 'yaw': 0,
             })
 
+    async def test_manual_mode_resumes_after_hover_and_release_holds_position(self):
+        await self.controller.execute('flight.hover', {})
+        state = await self.controller.execute('flight.set_mode', {'mode':'manual'})
+        self.assertFalse(state['paused'])
+        await self.controller.execute('flight.set_input', dict(forward=0,right=0,up=0,yaw=0))
+        if self.controller.active_task:
+            await self.controller.active_task
+        self.assertEqual(self.drone.commands[-1][0], 'hover')
+
+    async def test_paused_flight_refuses_new_motion(self):
+        await self.controller.execute('flight.set_mode', {'mode':'manual'})
+        await self.controller.execute('sim.pause', {})
+        with self.assertRaisesRegex(ValueError,'paused'):
+            await self.controller.execute('flight.set_input', dict(forward=1,right=0,up=0,yaw=0))
+
+    async def test_old_brake_cannot_hover_over_new_motion(self):
+        brake=asyncio.get_running_loop().create_future()
+        async def delayed_velocity(*args, **kwargs):
+            self.drone.commands.append(('manual',args,kwargs))
+            return brake if not any(args[:3]) else asyncio.create_task(completed())
+        self.drone.move_by_velocity_body_frame_async=delayed_velocity
+        await self.controller.execute('flight.set_mode', {'mode':'manual'})
+        await self.controller.execute('flight.set_input', dict(forward=1,right=0,up=0,yaw=0))
+        brake.set_result(True)
+        await asyncio.sleep(.02)
+        self.assertFalse(any(command[0]=='hover' for command in self.drone.commands))
+
     async def test_takeoff_hover_and_land_controls(self):
         state = await self.controller.execute('flight.takeoff', {})
         self.assertTrue(state['paused'])
         self.assertEqual([item[0] for item in self.drone.commands[-2:]], ['arm', 'takeoff'])
         await self.controller.execute('flight.hover', {})
+        if self.controller.active_task:
+            await self.controller.active_task
         self.assertEqual(self.drone.commands[-1][0], 'hover')
         await self.controller.execute('flight.land', {})
         self.assertEqual(self.drone.commands[-1][0], 'land')
+        await asyncio.sleep(.02)
+        self.assertEqual(self.drone.commands[-1][0], 'disarm')
+        self.assertTrue(self.controller.ready_on_ground)
+
+    async def test_ready_session_never_starts_route_or_movement_before_takeoff(self):
+        controller = FlightController(FakeWorld(), self.drone, 0, 3, ready_on_ground=True)
+        controller.initialize_route()
+        controller.start()
+        try:
+            await asyncio.sleep(.02)
+            self.assertEqual(self.drone.commands, [])
+            self.assertEqual(controller.state()['flight_status'], 'ready')
+            with self.assertRaisesRegex(ValueError, 'take off'):
+                await controller.execute('flight.set_mode', {'mode':'auto'})
+            with self.assertRaisesRegex(ValueError, 'take off'):
+                await controller.execute('flight.set_input', dict(forward=1,right=0,up=0,yaw=0))
+            await controller.execute('flight.takeoff', {})
+            self.assertFalse(controller.ready_on_ground)
+            self.assertEqual([item[0] for item in self.drone.commands[-2:]], ['arm','takeoff'])
+        finally:
+            await controller.close()
 
 
 if __name__ == '__main__':

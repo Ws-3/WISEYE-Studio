@@ -1,0 +1,70 @@
+{
+  "checks": [
+    "three performance profiles report their native capture-rate budgets",
+    "external gimbal SDK: capabilities, angles, rate control and 300 ms deadman stop",
+    "uav-01: actual motor telemetry drives ground / takeoff / hover / landed visuals",
+    "uav-02: actual motor telemetry drives ground / takeoff / hover / landed visuals",
+    "desktop displays streams; injected progress stall is visible and blocks new takeoff",
+    "all gimbal video sources retain 1920x1080 / 640x512 dimensions"
+  ],
+  "flights": [
+    {
+      "device_id": "uav-01",
+      "model": "mavic3",
+      "ground_rpm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hover_rpm": [
+        4931.160237990086,
+        4931.160237990086,
+        4931.160237990086,
+        4931.160237990086
+      ],
+      "visual_rpm": [
+        4931.22509765625,
+        4931.22509765625,
+        4931.22509765625,
+        4931.22509765625
+      ],
+      "landed_rpm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "device_id": "uav-02",
+      "model": "avata",
+      "ground_rpm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "hover_rpm": [
+        4996.790086831554,
+        4996.790086831554,
+        4996.790086831554,
+        4996.790086831554
+      ],
+      "visual_rpm": [
+        4973.08203125,
+        4973.08203125,
+        4973.08203125,
+        4973.08203125
+      ],
+      "landed_rpm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "gimbal_observed_yaw_deg_s": 9.65130574573272,
+  "passed": true
+}

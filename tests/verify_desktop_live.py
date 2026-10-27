@@ -4,6 +4,7 @@ import socket
 import time
 from pathlib import Path
 import apps.desktop_app.main  # Preload Windows system ICU before importing PySide6.
+from PySide6.QtGui import QImage
 from PySide6.QtCore import QTimer, Qt
 from PySide6.QtNetwork import QTcpServer, QHostAddress
 from PySide6.QtTest import QTest
@@ -36,6 +37,10 @@ def click(button): QTest.mouseClick(button,Qt.MouseButton.LeftButton)
 try:
     click(window.connect_button)
     wait(lambda:window.client.ready and bool(window.state),45)
+    wait(lambda:window.air_client.ready,45)
+    if window.air_state.get('flight_status') == 'ready':
+        click(window.takeoff_button)
+        wait(lambda:not window.air_state.get('command_active',True) and window.air_state.get('flight_status') != 'ready',30)
     checks.append('real UE handshake and state polling')
     assert window.state.get('available_sensors') == ['visible', 'infrared', 'lidar']
     window.switch_video_channel()
@@ -44,6 +49,9 @@ try:
     window.video_channel.setCurrentIndex(1); window.switch_video_channel()
     wait(lambda:not window.image.source.isNull() and window.image.source.cacheKey()!=ch1_frame,20)
     checks.append('CH1 visible and CH2 infrared RTSP render in the unified viewer')
+    # A narrow single-frame scan aimed at sky/tiny UAV can legitimately have no hits.
+    # Use the known ground for the data/export checks rather than assuming a hit.
+    window.client.request('gimbal.set_angles', {'yaw_deg': 0, 'pitch_deg': -10})
     window.video_channel.setCurrentIndex(2); window.switch_video_channel()
     wait(lambda:window.view_tabs.currentIndex()==1 and window.lidar.total_count>0,10)
     checks.append('LIDAR live point cloud renders in the unified viewer')
@@ -71,41 +79,44 @@ try:
     click(window.rotors_button)
     wait(lambda:window.state['rotors_running'])
     checks.append('rotor controls')
-    window.sensor.setCurrentIndex(1)
-    window.sensor.activated.emit(1)
+    window.sensor_settings.setCurrentIndex(1)
+    window.client.request('sensor.set_active',{'sensor':'infrared'})
     wait(lambda:window.state['sensor_mode']=='infrared' and window.state['active_sensor']=='infrared')
     window.palette.setCurrentIndex(1)
-    window.palette.activated.emit(1)
+    window.sensor_settings.submit('infrared')
     wait(lambda:window.state['palette']=='black_hot')
     click(window.capture_button)
     wait(lambda:window.last_image_path is not None)
-    assert (window.image.source.width(),window.image.source.height())==(640,512)
+    assert (QImage(str(window.last_image_path)).width(),QImage(str(window.last_image_path)).height())==(640,512)
     checks.append('IR black-hot native snapshot rendered in UI')
-    window.sensor.setCurrentIndex(0)
-    window.sensor.activated.emit(0)
+    window.sensor_settings.setCurrentIndex(0)
+    window.client.request('sensor.set_active',{'sensor':'visible'})
     wait(lambda:window.state['sensor_mode']=='visible')
     previous=window.last_image_path
     click(window.capture_button)
     wait(lambda:window.last_image_path!=previous)
-    assert (window.image.source.width(),window.image.source.height())==(1920,1080)
+    assert (QImage(str(window.last_image_path)).width(),QImage(str(window.last_image_path)).height())==(1920,1080)
     checks.append('visible native snapshot rendered in UI')
-    window.sensor.setCurrentIndex(2)
-    window.sensor.activated.emit(2)
+    window.sensor_settings.setCurrentIndex(2)
+    window.client.request('sensor.set_active',{'sensor':'lidar'})
     wait(lambda:window.state['active_sensor']=='lidar')
+    window.client.request('gimbal.set_angles', {'yaw_deg': 0, 'pitch_deg': -10})
+    wait(lambda:not window.state['tracking'] and window.state.get('lidar_hits',0)>0)
     previous_clouds=set((ROOT/'ue5/WISEYE/Saved/WISEYE').glob('**/*.ply'))
     click(window.capture_button)
     wait(lambda:window.capture_button.isEnabled() and
          bool(set((ROOT/'ue5/WISEYE/Saved/WISEYE').glob('**/*.ply'))-previous_clouds))
-    window.sensor.setCurrentIndex(0); window.sensor.activated.emit(0)
+    window.sensor_settings.setCurrentIndex(0); window.client.request('sensor.set_active',{'sensor':'visible'})
     wait(lambda:window.state['active_sensor']=='visible')
     checks.append('independent active sensor selection and LIDAR PLY export')
+    window.client.request('gimbal.set_tracking', {'enabled': True})
     window.drone_model.setCurrentIndex(1); window.drone_model.activated.emit(1)
     wait(lambda:window.state['drone_model']=='avata')
     window.drone_model.setCurrentIndex(0); window.drone_model.activated.emit(0)
     wait(lambda:window.state['drone_model']=='mavic3')
     checks.append('Mavic 3 and Avata model switching')
     window.flight.setCurrentIndex(1); window.flight.activated.emit(1)
-    wait(lambda:window.air_state.get('flight_mode')=='manual')
+    wait(lambda:window.air_state.get('flight_mode')=='manual' and not window.air_state.get('paused', True) and window.state.get('input_mode')=='drone' and not window.air_state.get('command_active',True) and not any(c=='flight.set_mode' for c,_ in window.air_client.pending.values()))
     before=window.air_state['position_ned_m'][:2]
     QTest.keyPress(window,Qt.Key.Key_W); QTest.qWait(800); QTest.keyRelease(window,Qt.Key.Key_W)
     wait(lambda:sum((a-b)**2 for a,b in zip(window.air_state['position_ned_m'][:2],before))>.01)
@@ -155,9 +166,9 @@ try:
     dummy.close()
     checks.append('response timeout does not block GUI')
 
-    window.sensor.setCurrentIndex(1); window.sensor.activated.emit(1)
+    window.sensor_settings.setCurrentIndex(1); window.client.request('sensor.set_active',{'sensor':'infrared'})
     wait(lambda:window.state['sensor_mode']=='infrared' and window.state['active_sensor']=='infrared')
-    window.palette.setCurrentIndex(0); window.palette.activated.emit(0)
+    window.palette.setCurrentIndex(0); window.sensor_settings.submit('infrared')
     wait(lambda:window.state['palette']=='white_hot')
     previous=window.last_image_path
     click(window.capture_button)

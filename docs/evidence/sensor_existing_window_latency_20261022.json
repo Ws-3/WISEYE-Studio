@@ -1,0 +1,86 @@
+{
+  "scope": "Actual existing WISEYE window via PrintWindow, no second viewer/decoder; periodic window-content observation, not exact paint onset",
+  "scene": "city",
+  "profile": "economy",
+  "seconds": 40.0,
+  "poll_interval_ms": 50,
+  "window_grab_ms": {
+    "samples": 794,
+    "median_ms": 11.2,
+    "p95_ms": 17.0,
+    "max_ms": 23.9
+  },
+  "sources": {
+    "visible": {
+      "content_age": {
+        "samples": 794,
+        "median_ms": 842.6,
+        "p95_ms": 1922.5,
+        "max_ms": 2684.5
+      },
+      "first_observed_source_frames": {
+        "samples": 193,
+        "median_ms": 673.8,
+        "p95_ms": 1655.8,
+        "max_ms": 2531.2
+      },
+      "unique_fps": 4.83,
+      "invalid": 0
+    },
+    "infrared": {
+      "content_age": {
+        "samples": 794,
+        "median_ms": 385.6,
+        "p95_ms": 535.4,
+        "max_ms": 663.5
+      },
+      "first_observed_source_frames": {
+        "samples": 301,
+        "median_ms": 338.2,
+        "p95_ms": 445.5,
+        "max_ms": 512.5
+      },
+      "unique_fps": 7.53,
+      "invalid": 0
+    },
+    "observer": {
+      "content_age": {
+        "samples": 794,
+        "median_ms": 450.9,
+        "p95_ms": 601.7,
+        "max_ms": 724.3
+      },
+      "first_observed_source_frames": {
+        "samples": 273,
+        "median_ms": 391.6,
+        "p95_ms": 515.6,
+        "max_ms": 571.4
+      },
+      "unique_fps": 6.83,
+      "invalid": 0
+    }
+  },
+  "layout": "Existing 1600x1000 scene-led layout",
+  "original_resolutions": {
+    "visible": [
+      1920,
+      1080
+    ],
+    "infrared": [
+      640,
+      512
+    ],
+    "observer": [
+      960,
+      540
+    ]
+  },
+  "eo_ir_frame_time_skew": {
+    "scope": "same captured desktop window; matching sample indices, all three optical decodes valid",
+    "samples": 794,
+    "eo_older_than_ir_median_ms": 407.0,
+    "absolute_skew_median_ms": 407.0,
+    "absolute_skew_p95_ms": 1596,
+    "absolute_skew_max_ms": 2199
+  }
+}

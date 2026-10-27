@@ -1,0 +1,480 @@
+{
+  "city_economy_motion_60s": {
+    "scope": "UE PIE pre-Slate scene timecode -> actual native RTSP -> MainWindow ImageView paint; excludes physical monitor scanout",
+    "seconds": 60.0,
+    "motion": true,
+    "scene": "city",
+    "profile": "economy",
+    "resolution": {
+      "ptz-01/visible": [
+        1920,
+        1080
+      ],
+      "ptz-01/infrared": [
+        640,
+        512
+      ],
+      "scene/observer": [
+        960,
+        540
+      ]
+    },
+    "sources": {
+      "ptz-01/visible": {
+        "all_presented": {
+          "samples": 491,
+          "median_ms": 512.8,
+          "p95_ms": 1428.8,
+          "max_ms": 2626.0
+        },
+        "new_source_frames": {
+          "samples": 400,
+          "median_ms": 531.9,
+          "p95_ms": 1457.5,
+          "max_ms": 2626.0
+        },
+        "receive": {
+          "samples": 491,
+          "median_ms": 474.5,
+          "p95_ms": 1402.1,
+          "max_ms": 2560.9
+        },
+        "qt_paint_after_receive": {
+          "samples": 491,
+          "median_ms": 32.5,
+          "p95_ms": 60.8,
+          "max_ms": 90.0
+        },
+        "unique_fps": 6.67,
+        "invalid_frames": 0
+      },
+      "ptz-01/infrared": {
+        "all_presented": {
+          "samples": 832,
+          "median_ms": 254.1,
+          "p95_ms": 324.6,
+          "max_ms": 388.8
+        },
+        "new_source_frames": {
+          "samples": 527,
+          "median_ms": 241.0,
+          "p95_ms": 318.5,
+          "max_ms": 374.3
+        },
+        "receive": {
+          "samples": 832,
+          "median_ms": 229.2,
+          "p95_ms": 290.8,
+          "max_ms": 362.1
+        },
+        "qt_paint_after_receive": {
+          "samples": 832,
+          "median_ms": 19.8,
+          "p95_ms": 54.4,
+          "max_ms": 102.7
+        },
+        "unique_fps": 8.78,
+        "invalid_frames": 0
+      },
+      "scene/observer": {
+        "all_presented": {
+          "samples": 652,
+          "median_ms": 342.8,
+          "p95_ms": 446.7,
+          "max_ms": 593.2
+        },
+        "new_source_frames": {
+          "samples": 419,
+          "median_ms": 319.4,
+          "p95_ms": 425.9,
+          "max_ms": 593.2
+        },
+        "receive": {
+          "samples": 652,
+          "median_ms": 304.6,
+          "p95_ms": 383.3,
+          "max_ms": 524.5
+        },
+        "qt_paint_after_receive": {
+          "samples": 652,
+          "median_ms": 34.6,
+          "p95_ms": 86.9,
+          "max_ms": 125.9
+        },
+        "unique_fps": 6.98,
+        "invalid_frames": 0
+      }
+    },
+    "invalid": {},
+    "lidar_transition_to_paint": null,
+    "lidar_valid_updates": 0,
+    "test_conditions": "One additional instrumented MainWindow; existing desktop and UE viewport remain running; 5 second decoder warmup; original native resolutions; temporary PIE targets only."
+  },
+  "city_motion_stage_probe_40s": {
+    "scope": "UE PIE pre-Slate scene timecode -> actual native RTSP -> MainWindow ImageView paint; excludes physical monitor scanout",
+    "seconds": 40.0,
+    "motion": true,
+    "scene": "city",
+    "profile": "economy",
+    "resolution": {
+      "ptz-01/visible": [
+        1920,
+        1080
+      ],
+      "ptz-01/infrared": [
+        640,
+        512
+      ],
+      "scene/observer": [
+        960,
+        540
+      ]
+    },
+    "sources": {
+      "ptz-01/visible": {
+        "all_presented": {
+          "samples": 305,
+          "median_ms": 640.6,
+          "p95_ms": 1281.7,
+          "max_ms": 1700.1
+        },
+        "new_source_frames": {
+          "samples": 254,
+          "median_ms": 660.5,
+          "p95_ms": 1226.7,
+          "max_ms": 1611.8
+        },
+        "receive": {
+          "samples": 305,
+          "median_ms": 612.8,
+          "p95_ms": 1238.8,
+          "max_ms": 1676.8
+        },
+        "qt_paint_after_receive": {
+          "samples": 305,
+          "median_ms": 30.9,
+          "p95_ms": 57.7,
+          "max_ms": 81.4
+        },
+        "unique_fps": 6.35,
+        "invalid_frames": 1
+      },
+      "ptz-01/infrared": {
+        "all_presented": {
+          "samples": 498,
+          "median_ms": 262.1,
+          "p95_ms": 334.7,
+          "max_ms": 388.7
+        },
+        "new_source_frames": {
+          "samples": 348,
+          "median_ms": 252.3,
+          "p95_ms": 326.7,
+          "max_ms": 376.1
+        },
+        "receive": {
+          "samples": 498,
+          "median_ms": 233.3,
+          "p95_ms": 296.3,
+          "max_ms": 331.3
+        },
+        "qt_paint_after_receive": {
+          "samples": 498,
+          "median_ms": 22.9,
+          "p95_ms": 66.2,
+          "max_ms": 90.3
+        },
+        "unique_fps": 8.7,
+        "invalid_frames": 0
+      },
+      "scene/observer": {
+        "all_presented": {
+          "samples": 390,
+          "median_ms": 347.8,
+          "p95_ms": 459.0,
+          "max_ms": 636.3
+        },
+        "new_source_frames": {
+          "samples": 270,
+          "median_ms": 334.4,
+          "p95_ms": 455.6,
+          "max_ms": 636.3
+        },
+        "receive": {
+          "samples": 390,
+          "median_ms": 305.6,
+          "p95_ms": 386.5,
+          "max_ms": 626.2
+        },
+        "qt_paint_after_receive": {
+          "samples": 390,
+          "median_ms": 44.3,
+          "p95_ms": 104.2,
+          "max_ms": 156.6
+        },
+        "unique_fps": 6.75,
+        "invalid_frames": 0
+      }
+    },
+    "invalid": {
+      "ptz-01/visible": 1
+    },
+    "lidar_transition_to_paint": {
+      "samples": 54,
+      "median_ms": 310.1,
+      "p95_ms": 494.3,
+      "max_ms": 806.5
+    },
+    "lidar_valid_updates": 192,
+    "visible_direct_jpeg_receive": {
+      "samples": 224,
+      "median_ms": 142.1,
+      "p95_ms": 204.4,
+      "max_ms": 249.2
+    },
+    "direct_request_duration": {
+      "samples": 224,
+      "median_ms": 20.2,
+      "p95_ms": 39.4,
+      "max_ms": 56.0
+    },
+    "test_conditions": "One additional instrumented MainWindow; existing desktop and UE viewport remain running; 5 second decoder warmup; original native resolutions; temporary PIE targets only.",
+    "direct_sampling_note": "224 direct JPEG samples include decoder warmup, not frame-paired with RTSP observations"
+  },
+  "native_preview_candidate_40s": {
+    "scope": "UE PIE pre-Slate scene timecode -> UE native latest-JPEG preview -> MainWindow ImageView paint; excludes physical monitor scanout",
+    "seconds": 40.0,
+    "motion": false,
+    "scene": "city",
+    "profile": "economy",
+    "resolution": {
+      "ptz-01/infrared": [
+        640,
+        512
+      ],
+      "ptz-01/visible": [
+        1920,
+        1080
+      ],
+      "scene/observer": [
+        960,
+        540
+      ]
+    },
+    "sources": {
+      "scene/observer": {
+        "all_presented": {
+          "samples": 319,
+          "median_ms": 124.0,
+          "p95_ms": 183.6,
+          "max_ms": 211.1
+        },
+        "new_source_frames": {
+          "samples": 319,
+          "median_ms": 124.0,
+          "p95_ms": 183.6,
+          "max_ms": 211.1
+        },
+        "receive": {
+          "samples": 319,
+          "median_ms": 105.2,
+          "p95_ms": 169.2,
+          "max_ms": 208.0
+        },
+        "qt_paint_after_receive": {
+          "samples": 319,
+          "median_ms": 19.8,
+          "p95_ms": 36.2,
+          "max_ms": 47.8
+        },
+        "unique_fps": 7.97,
+        "invalid_frames": 0
+      },
+      "ptz-01/visible": {
+        "all_presented": {
+          "samples": 395,
+          "median_ms": 148.4,
+          "p95_ms": 186.8,
+          "max_ms": 221.1
+        },
+        "new_source_frames": {
+          "samples": 395,
+          "median_ms": 148.4,
+          "p95_ms": 186.8,
+          "max_ms": 221.1
+        },
+        "receive": {
+          "samples": 395,
+          "median_ms": 138.0,
+          "p95_ms": 173.4,
+          "max_ms": 213.3
+        },
+        "qt_paint_after_receive": {
+          "samples": 395,
+          "median_ms": 11.4,
+          "p95_ms": 22.5,
+          "max_ms": 36.7
+        },
+        "unique_fps": 9.88,
+        "invalid_frames": 0
+      },
+      "ptz-01/infrared": {
+        "all_presented": {
+          "samples": 400,
+          "median_ms": 132.1,
+          "p95_ms": 179.4,
+          "max_ms": 192.6
+        },
+        "new_source_frames": {
+          "samples": 400,
+          "median_ms": 132.1,
+          "p95_ms": 179.4,
+          "max_ms": 192.6
+        },
+        "receive": {
+          "samples": 400,
+          "median_ms": 117.2,
+          "p95_ms": 167.4,
+          "max_ms": 185.6
+        },
+        "qt_paint_after_receive": {
+          "samples": 400,
+          "median_ms": 11.3,
+          "p95_ms": 23.5,
+          "max_ms": 38.0
+        },
+        "unique_fps": 10.0,
+        "invalid_frames": 0
+      }
+    },
+    "invalid": {},
+    "lidar_transition_to_paint": {
+      "samples": 54,
+      "median_ms": 230.1,
+      "p95_ms": 352.5,
+      "max_ms": 628.9
+    },
+    "lidar_valid_updates": 197,
+    "visible_direct_jpeg_receive": null,
+    "direct_request_duration": null,
+    "test_conditions": "One additional instrumented MainWindow; existing desktop and UE viewport remain running; 5 second decoder warmup; original native resolutions; temporary PIE targets only."
+  },
+  "native_final_points_40s": {
+    "scope": "UE PIE pre-Slate scene timecode -> UE native latest-JPEG preview -> MainWindow ImageView paint; excludes physical monitor scanout",
+    "seconds": 40.0,
+    "motion": false,
+    "scene": "city",
+    "profile": "economy",
+    "resolution": {
+      "ptz-01/infrared": [
+        640,
+        512
+      ],
+      "scene/observer": [
+        960,
+        540
+      ],
+      "ptz-01/visible": [
+        1920,
+        1080
+      ]
+    },
+    "sources": {
+      "ptz-01/visible": {
+        "all_presented": {
+          "samples": 393,
+          "median_ms": 141.9,
+          "p95_ms": 182.9,
+          "max_ms": 226.5
+        },
+        "new_source_frames": {
+          "samples": 393,
+          "median_ms": 141.9,
+          "p95_ms": 182.9,
+          "max_ms": 226.5
+        },
+        "receive": {
+          "samples": 393,
+          "median_ms": 132.3,
+          "p95_ms": 172.2,
+          "max_ms": 212.6
+        },
+        "qt_paint_after_receive": {
+          "samples": 393,
+          "median_ms": 11.7,
+          "p95_ms": 22.0,
+          "max_ms": 40.4
+        },
+        "unique_fps": 9.82,
+        "invalid_frames": 0
+      },
+      "scene/observer": {
+        "all_presented": {
+          "samples": 321,
+          "median_ms": 123.7,
+          "p95_ms": 175.7,
+          "max_ms": 206.5
+        },
+        "new_source_frames": {
+          "samples": 321,
+          "median_ms": 123.7,
+          "p95_ms": 175.7,
+          "max_ms": 206.5
+        },
+        "receive": {
+          "samples": 321,
+          "median_ms": 106.2,
+          "p95_ms": 153.5,
+          "max_ms": 190.4
+        },
+        "qt_paint_after_receive": {
+          "samples": 321,
+          "median_ms": 19.6,
+          "p95_ms": 32.2,
+          "max_ms": 47.4
+        },
+        "unique_fps": 8.03,
+        "invalid_frames": 0
+      },
+      "ptz-01/infrared": {
+        "all_presented": {
+          "samples": 399,
+          "median_ms": 124.6,
+          "p95_ms": 168.4,
+          "max_ms": 188.1
+        },
+        "new_source_frames": {
+          "samples": 399,
+          "median_ms": 124.6,
+          "p95_ms": 168.4,
+          "max_ms": 188.1
+        },
+        "receive": {
+          "samples": 399,
+          "median_ms": 112.2,
+          "p95_ms": 158.6,
+          "max_ms": 180.1
+        },
+        "qt_paint_after_receive": {
+          "samples": 399,
+          "median_ms": 11.8,
+          "p95_ms": 23.3,
+          "max_ms": 32.0
+        },
+        "unique_fps": 9.97,
+        "invalid_frames": 0
+      }
+    },
+    "invalid": {},
+    "lidar_transition_to_paint": {
+      "samples": 54,
+      "median_ms": 160.0,
+      "p95_ms": 247.9,
+      "max_ms": 532.4
+    },
+    "lidar_valid_updates": 366,
+    "visible_direct_jpeg_receive": null,
+    "direct_request_duration": null,
+    "test_conditions": "One additional instrumented MainWindow; existing desktop and UE viewport remain running; 5 second preview warmup; original native resolutions; temporary PIE targets only."
+  }
+}

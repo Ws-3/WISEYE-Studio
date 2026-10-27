@@ -1,0 +1,10 @@
+{
+  "files_in_manifest": 26854,
+  "current_files": 26854,
+  "current_bytes": 44963092255,
+  "gib": 41.875,
+  "missing": [],
+  "size_changed_files": [],
+  "seconds": 2.16,
+  "note": "Re-stat exact migrated files, not a cooked runtime dependency audit; modified/removed live generators may remain as unused dependencies."
+}

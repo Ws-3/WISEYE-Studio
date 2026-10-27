@@ -21,6 +21,7 @@ public:
     ~FWiseEyeBridge();
     bool Start(int32 Port,FString& Error);
     void Tick();
+    TSharedPtr<FJsonObject> Dispatch(const TSharedPtr<FJsonObject>& Request) { return Execute(Request); }
 private:
     AWiseEyeDemo& Demo;
     FSocket* Listener = nullptr;

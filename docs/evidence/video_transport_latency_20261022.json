@@ -1,0 +1,35 @@
+{
+  "before": {
+    "frames": 153,
+    "median_ms": 135.29340001824312,
+    "p95_ms": 143.887600004673,
+    "max_write_ms": 36.3968999881763
+  },
+  "after": {
+    "frames": 260,
+    "median_ms": 134.74059999140445,
+    "p95_ms": 143.19269998650998,
+    "max_write_ms": 33.4926999930758
+  },
+  "after_rawvideo_fix": {
+    "frames": 261,
+    "median_ms": 94.61389999720268,
+    "p95_ms": 102.23169997590594,
+    "max_write_ms": 33.44769999966957
+  },
+  "after_direct_io": {
+    "frames": 262,
+    "median_ms": 94.86999999557156,
+    "p95_ms": 102.63020000536926,
+    "max_write_ms": 32.59970000362955
+  },
+  "after_1080p": {
+    "width": 1920,
+    "height": 1080,
+    "scope": "MJPEG timestamp generation through RTSP to Qt; excludes UE",
+    "frames": 261,
+    "median_ms": 121.76690001948737,
+    "p95_ms": 134.30010001314804,
+    "max_write_ms": 36.889600014546886
+  }
+}

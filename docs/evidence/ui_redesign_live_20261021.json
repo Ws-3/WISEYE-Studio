@@ -1,0 +1,35 @@
+{
+  "success": true,
+  "checks": [
+    "scene-led default shows native 1920x1080 visible and 640x512 IR with one decoder each",
+    "property selection never takes flight control; switching PTZ preserves fixed streams and decoders",
+    "cross-PTZ tiles, shared popout, maximize/return and drag-order logic retain source identity",
+    "device-specific drafts and request IDs isolate late acknowledgements; edits during apply survive",
+    "one sensor enable/disable changes only its source and restarts its decoder when re-enabled",
+    "arrow control moves actual gimbal; key release stops; spinbox editing does not drive it",
+    "embedded observer right-button keyboard movement still moves camera and stops on release",
+    "route draft, upload and execution are separate; invalid or unuploaded drafts cannot execute",
+    "three window sizes and data-source table render with collapsible panels and per-source controls"
+  ],
+  "passed": 9,
+  "errors": [],
+  "exceptions": [],
+  "screenshots": [
+    {
+      "path": "docs/evidence/ui_redesign_1920x992_20261021.png",
+      "width": 1920,
+      "height": 992
+    },
+    {
+      "path": "docs/evidence/ui_redesign_1600x900_20261021.png",
+      "width": 1600,
+      "height": 900
+    },
+    {
+      "path": "docs/evidence/ui_redesign_1280x720_20261021.png",
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "fleet_sha256": "ddb9c9b527a37d58d6009d279f2b3605e0b41001c429355e32c57478750bc267"
+}

@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "initial": {
+    "time_override": false,
+    "hour": 12,
+    "fog": 0,
+    "rain": 0
+  },
+  "capabilities": {
+    "time_supported": true,
+    "fog_supported": true,
+    "rain_supported": true,
+    "time_override": false,
+    "hour": 12,
+    "fog": 0,
+    "rain": 0,
+    "rain_view_volumes": 0,
+    "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+  },
+  "hardware": {
+    "sample_time_s": 17054357.529254,
+    "scope": "simulation_host",
+    "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+    "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+    "ue_fps": 29.999694007775958,
+    "system_ram_total_bytes": 34191093760,
+    "system_ram_used_bytes": 22168276992,
+    "ue_ram_bytes": 10039726080,
+    "gpu_dedicated_total_bytes": 12706643968,
+    "ue_vram_used_bytes": 4545466368,
+    "ue_vram_budget_bytes": 11901272064,
+    "system_cpu_pct": 27.03761755485894,
+    "ue_gpu_engine_peak_pct": 87.7293359816265
+  },
+  "day_night_mean_difference": 44.53632748199588,
+  "fog_mean_difference": 12.391041827417695,
+  "rain_mean_difference": 5.680632876800412,
+  "rain_visual_verified": false,
+  "reset_mean_difference": 3.8856446116255143,
+  "invalid_requests_rejected": 3,
+  "restored": true
+}

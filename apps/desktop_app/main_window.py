@@ -2,45 +2,27 @@ import logging
 import time
 from datetime import datetime
 from pathlib import Path
-from PySide6.QtCore import QPointF, Qt, QSignalBlocker, QTimer
-from PySide6.QtGui import QColor, QImage, QPainter, QPen, QPixmap
+from PySide6.QtCore import Qt, QEvent, QSignalBlocker, QTimer
+from PySide6.QtGui import QImage, QPixmap
 from PySide6.QtWidgets import (QMainWindow, QWidget, QLabel, QPushButton, QLineEdit,
     QSpinBox, QDoubleSpinBox, QComboBox, QPlainTextEdit, QFrame, QHBoxLayout,
-    QVBoxLayout, QGridLayout, QSplitter, QTabWidget, QScrollArea)
+    QVBoxLayout, QGridLayout, QSplitter, QTabWidget, QScrollArea, QApplication, QAbstractSpinBox,QAbstractItemView)
 from core.config import ROOT
 from core.scenes import SceneStore
 from apps.desktop_app.client import UEClient
 from apps.desktop_app.airsim_client import AirSimClient
 from apps.desktop_app.rtsp_client import RTSPVideoClient
+from apps.desktop_app.lidar_view import LidarView
 
-STYLE = '''
-QMainWindow, QWidget { background: #101722; color: #dce5f2; }
-QWidget#sidebar { background: #0b111b; border-right: 1px solid #243144; }
-QFrame#card { background: #192332; border: 1px solid #2b394d; border-radius: 10px; }
-QLabel { background: transparent; }
-QLabel#muted { color: #8c9eb6; }
-QLabel#title { font-size: 22px; font-weight: 600; }
-QLabel#value { font-size: 21px; font-weight: 600; color: #edf6ff; }
-QLabel#badge { background: #263347; border-radius: 12px; padding: 6px 14px; }
-QPushButton { background: #26364c; border: 1px solid #3a4c65; border-radius: 6px; padding: 8px 12px; }
-QPushButton:hover { background: #354b66; border-color: #60a5c8; }
-QPushButton:pressed { background: #193548; }
-QPushButton:disabled { color: #64748b; border-color: #29374a; background: #1c293b; }
-QPushButton#primary { background: #167e9b; border-color: #249cba; color: white; }
-QPushButton#primary:hover { background: #2095b5; }
-QLineEdit, QSpinBox, QDoubleSpinBox, QComboBox { background: #101a28; border: 1px solid #3a4c65; border-radius: 5px; padding: 6px; min-height: 22px; }
-QComboBox QAbstractItemView { background: #172333; selection-background-color: #167e9b; }
-QPlainTextEdit { background: #0d1622; border: 1px solid #2b394d; border-radius: 6px; color: #a8bad1; }
-QSplitter::handle { background: #263347; height: 5px; }
-QStatusBar { background: #0b111b; color: #8c9eb6; }
-'''
+from apps.desktop_app.ui.theme import STYLE
 
 class ImageView(QLabel):
     def __init__(self):
         super().__init__('等待 CH1 可见光实时画面')
         self.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.setMinimumSize(430, 260)
-        self.setStyleSheet('background:#080f18; color:#71869e; border:1px solid #2b394d; border-radius:8px;')
+        self.setMinimumSize(100, 60)
+        self.setStyleSheet('background:#111317; color:#b4bcc8; border:0;')
+        self.native_pixels = False
         self.source = QPixmap()
 
     def show_image(self, image):
@@ -49,73 +31,45 @@ class ImageView(QLabel):
 
     def _fit(self):
         if not self.source.isNull():
-            self.setPixmap(self.source.scaled(self.size(), Qt.AspectRatioMode.KeepAspectRatio,
+            self.setPixmap(self.source if self.native_pixels else self.source.scaled(self.size(), Qt.AspectRatioMode.KeepAspectRatio,
                                              Qt.TransformationMode.SmoothTransformation))
 
     def resizeEvent(self, event):
         super().resizeEvent(event)
         self._fit()
 
-class LidarView(QWidget):
-    def __init__(self):
-        super().__init__()
-        self.points = []
-        self.total_count = 0
-        self.setMinimumSize(430, 260)
-        self.setToolTip('传感器局部坐标俯视图：前方朝上，左右对应云台视场')
-
-    def set_points(self, points, total_count):
-        self.points = [point for point in points if isinstance(point, list) and len(point) == 3]
-        self.total_count = total_count
-        self.update()
-
-    def paintEvent(self, _event):
-        painter = QPainter(self)
-        painter.fillRect(self.rect(), QColor('#080f18'))
-        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        margin = 28
-        area = self.rect().adjusted(margin, margin, -margin, -margin)
-        painter.setPen(QPen(QColor('#26384c'), 1))
-        painter.drawRect(area)
-        painter.drawLine(area.center().x(), area.top(), area.center().x(), area.bottom())
-        painter.drawLine(area.left(), area.bottom(), area.right(), area.bottom())
-        if not self.points:
-            painter.setPen(QColor('#71869e'))
-            painter.drawText(self.rect(), Qt.AlignmentFlag.AlignCenter, '等待云台激光命中点')
-            return
-        max_forward = max(1.0, max(point[0] for point in self.points))
-        max_side = max(1.0, max(abs(point[1]) for point in self.points))
-        scale_x = area.height() / max_forward
-        scale_y = area.width() / (2 * max_side)
-        point_pen = QPen(QColor('#38d9ff'), 4)
-        point_pen.setCapStyle(Qt.PenCapStyle.RoundCap)
-        painter.setPen(point_pen)
-        for forward, side, _up in self.points:
-            x = area.center().x() + side * scale_y
-            y = area.bottom() - max(0.0, forward) * scale_x
-            painter.drawPoint(QPointF(x, y))
-        painter.setPen(QColor('#9db2c8'))
-        painter.drawText(10, 18, f'实时点云 {self.total_count} 点 · 最远 {max_forward:.1f} m')
-
 class MainWindow(QMainWindow):
     def __init__(self, config):
         super().__init__()
         self.setWindowTitle('WISEYE Studio · 智瞳控制台')
-        self.resize(1320, 890)
-        self.setMinimumSize(1080, 740)
+        self.resize(1600, 1000)
+        self.setMinimumSize(960, 640)
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.setStyleSheet(STYLE)
         self.client = UEClient(config, self)
         self.air_client = AirSimClient(config, self)
         self.video_client = RTSPVideoClient(self)
+        self.infrared_client = RTSPVideoClient(self)
+        self.observer_client=RTSPVideoClient(self)
+        self.gimbal_stick_input=(0.,0.)
+        self.gimbal_keys=set()
+        self.gimbal_timer=QTimer(self);self.gimbal_timer.setInterval(100);self.gimbal_timer.timeout.connect(self.send_gimbal_input)
         self.config = config
+        self.selected_drone="uav-01"
+        self.selected_gimbal="ptz-01"
+        self.device_switching=False
+        from core.simulation_health import SimulationHealth
+        self.health=SimulationHealth();self.simulation_healthy=False
         self.state = {}
         self.air_state = {}
         self.last_air_connect_attempt = 0.0
+        self.stream_sample = None
+        self.stream_fps = {}
         self.control_widgets = []
         self.flight_widgets = []
         self.last_image_path = None
         self.switch_target = None
+        self.switch_run_id = None
         self.switch_deadline = 0
         self.reconnect_timer = QTimer(self)
         self.reconnect_timer.setInterval(1500)
@@ -128,7 +82,10 @@ class MainWindow(QMainWindow):
         self.manual_timer.timeout.connect(self.send_manual_input)
         self.manual_input = (0.0, 0.0, 0.0, 0.0)
         self.manual_keys = set()
+        QApplication.instance().installEventFilter(self)
         self._build(config)
+        self.health_timer=QTimer(self);self.health_timer.setInterval(500)
+        self.health_timer.timeout.connect(self.check_health);self.health_timer.start()
         self.client.connection_changed.connect(self.connection_changed)
         self.client.state_received.connect(self.apply_state)
         self.client.completed.connect(self.completed)
@@ -138,10 +95,17 @@ class MainWindow(QMainWindow):
         self.air_client.state_received.connect(self.apply_air_state)
         self.air_client.completed.connect(self.air_completed)
         self.air_client.failed.connect(self.air_failed)
-        self.video_client.frame_received.connect(self.video_frame)
-        self.video_client.state_changed.connect(self.video_state_changed)
         self.connection_changed(False, '未连接')
-        self.log('控制台已启动。请先启动 Project AirSim 仿真，再连接。')
+        from core.runtime_paths import IS_RELEASE
+        self.log('工作台已启动。请选择场景，点击右上角“启动仿真”。' if IS_RELEASE else '工作台已启动。请先启动 Project AirSim 仿真，再连接。')
+
+    def resizeEvent(self,event):
+        super().resizeEvent(event)
+        if hasattr(self,'tree_panel'):
+            narrow=self.width()<1440
+            if getattr(self,'_narrow',None)!=narrow:
+                self.tree_panel.setVisible(not narrow)
+                self._narrow=narrow
 
     def _button(self, text, callback, primary=False, control=True):
         button = QPushButton(text)
@@ -165,227 +129,26 @@ class MainWindow(QMainWindow):
         return label
 
     def _build(self, config):
-        root = QWidget()
-        self.setCentralWidget(root)
-        row = QHBoxLayout(root)
-        row.setContentsMargins(0, 0, 0, 0)
-        side = QWidget()
-        side.setObjectName('sidebar')
-        side.setFixedWidth(215)
-        side_layout = QVBoxLayout(side)
-        side_layout.setContentsMargins(18, 24, 18, 20)
-        logo = QLabel()
-        logo.setPixmap(QPixmap(str(ROOT/'LOGO.jpg')).scaled(68, 68, Qt.AspectRatioMode.KeepAspectRatio,
-                                                        Qt.TransformationMode.SmoothTransformation))
-        side_layout.addWidget(logo)
-        side_layout.addWidget(self._label('WISEYE', 'title'))
-        side_layout.addWidget(self._label('智瞳 · 仿真与感知'))
-        side_layout.addSpacing(24)
-        section = QLabel('  仿真控制台')
-        section.setStyleSheet('background:#183548; color:#7dd8f2; border-radius:6px; padding:12px 6px;')
-        side_layout.addWidget(section)
-        side_layout.addSpacing(18)
-        side_layout.addWidget(self._label('UE 连接'))
-        self.host = QLineEdit(config.host)
-        self.host.setPlaceholderText('UE 地址')
-        side_layout.addWidget(self.host)
-        self.port = QSpinBox()
-        self.port.setRange(1024, 65535)
-        self.port.setValue(config.port)
-        side_layout.addWidget(self.port)
-        self.connect_button = self._button('连接 UE', self.connect_ue, True, False)
-        self.disconnect_button = self._button('断开连接', self.client.disconnect_from, control=False)
-        side_layout.addWidget(self.connect_button)
-        side_layout.addWidget(self.disconnect_button)
-        side_layout.addWidget(self._button('打开 UE 仿真', self.launch_ue, control=False))
-        side_layout.addWidget(self._label('实验场景'))
-        self.scenes = QComboBox()
-        side_layout.addWidget(self.scenes)
-        self.refresh_scenes()
-        self.switch_button = self._button('切换到所选场景', self.switch_scene)
-        side_layout.addWidget(self.switch_button)
-        side_layout.addWidget(self._button('地图管理 / 导入', self.manage_scenes, control=False))
-        self.active_scene = self._label('当前场景：未连接')
-        self.active_scene.setWordWrap(True)
-        side_layout.addWidget(self.active_scene)
-        self.connection_detail = self._label('等待连接')
-        self.connection_detail.setWordWrap(True)
-        side_layout.addWidget(self.connection_detail)
-        self.air_connection_detail = self._label('AirSim 飞控：等待连接')
-        self.air_connection_detail.setWordWrap(True)
-        side_layout.addWidget(self.air_connection_detail)
-        side_layout.addStretch()
-        note = self._label('可见光 1920 × 1080\n红外 640 × 512\n\n红外为模拟热成像')
-        note.setWordWrap(True)
-        side_layout.addWidget(note)
-        row.addWidget(side)
-        main = QWidget()
-        content = QVBoxLayout(main)
-        content.setContentsMargins(22, 20, 22, 14)
-        content.setSpacing(14)
-        header = QHBoxLayout()
-        titles = QVBoxLayout()
-        titles.addWidget(self._label('仿真控制台', 'title'))
-        titles.addWidget(self._label('无人机光电仿真 · 云台控制 · 双模态成像'))
-        header.addLayout(titles)
-        header.addStretch()
-        self.badge = self._label('未连接', 'badge')
-        header.addWidget(self.badge)
-        content.addLayout(header)
-        summary = QHBoxLayout()
-        self.summary_values = {}
-        for key, title in [('simulation', '仿真状态'), ('gimbal', '光电云台'), ('sensor', '成像模式')]:
-            card, layout = self._card()
-            layout.addWidget(self._label(title))
-            value = self._label('—', 'value')
-            layout.addWidget(value)
-            detail = self._label('等待 UE 状态')
-            layout.addWidget(detail)
-            self.summary_values[key] = (value, detail)
-            summary.addWidget(card)
-        content.addLayout(summary)
-        splitter = QSplitter(Qt.Orientation.Vertical)
-        middle = QWidget()
-        work = QHBoxLayout(middle)
-        work.setContentsMargins(0, 0, 0, 0)
-        work.setSpacing(14)
-        view_card, view_layout = self._card()
-        image_header = QHBoxLayout()
-        image_header.addWidget(self._label('实时传感器画面'))
-        image_header.addStretch()
-        self.video_channel = QComboBox()
-        self.video_channel.addItem('CH1 · 可见光', 'CH1')
-        self.video_channel.addItem('CH2 · 红外', 'CH2')
-        self.video_channel.addItem('LIDAR · 激光点云', 'LIDAR')
-        self.video_channel.activated.connect(self.switch_video_channel)
-        image_header.addWidget(self.video_channel)
-        self.capture_button = self._button('保存工作传感器数据', self.capture_active_sensor)
-        image_header.addWidget(self.capture_button)
-        view_layout.addLayout(image_header)
-        self.view_tabs = QTabWidget()
-        self.image = ImageView()
-        self.lidar = LidarView()
-        self.view_tabs.addTab(self.image, '实时图像')
-        self.view_tabs.addTab(self.lidar, '激光点云')
-        self.view_tabs.currentChanged.connect(self.view_tab_changed)
-        view_layout.addWidget(self.view_tabs, 1)
-        self.image_caption = self._label('CH1 可见光 · 等待 RTSP 视频源')
-        self.image_caption.setWordWrap(True)
-        view_layout.addWidget(self.image_caption)
-        work.addWidget(view_card, 1)
-        controls, layout = self._card()
-        controls.setMinimumWidth(290)
-        layout.addWidget(self._label('仿真控制'))
-        buttons = QHBoxLayout()
-        self.pause_button = self._button('暂停', lambda: self.command('sim.pause'))
-        self.resume_button = self._button('继续', lambda: self.command('sim.resume'))
-        self.flight_widgets += [self.pause_button, self.resume_button]
-        buttons.addWidget(self.pause_button)
-        buttons.addWidget(self.resume_button)
-        layout.addLayout(buttons)
-        self.reset_button = self._button('复位航线', lambda: self.command('sim.reset'))
-        self.flight_widgets.append(self.reset_button)
-        layout.addWidget(self.reset_button)
-        flight_actions = QHBoxLayout()
-        self.takeoff_button = self._button('起飞', lambda: self.command('flight.takeoff'))
-        self.hover_button = self._button('悬停', lambda: self.command('flight.hover'))
-        self.land_button = self._button('降落', lambda: self.command('flight.land'))
-        self.flight_widgets += [self.takeoff_button, self.hover_button, self.land_button]
-        for button in (self.takeoff_button, self.hover_button, self.land_button):
-            flight_actions.addWidget(button)
-        layout.addLayout(flight_actions)
-        self.flight = QComboBox()
-        self.flight.addItem('自动航线', 'auto')
-        self.flight.addItem('手动飞行（界面按键 / 键盘）', 'manual')
-        self.flight.activated.connect(self.set_flight_mode)
-        layout.addWidget(self.flight)
-        self.control_widgets.append(self.flight)
-        self.flight_widgets.append(self.flight)
-        layout.addWidget(self._label('手动控制：先选择“手动飞行”，再按住按钮或键盘\nW/S 前后 · A/D 左右 · R/F 升降 · Q/E 转向'))
-        manual = QGridLayout()
-        manual_specs = [
-            ('升', (0, 0, 1, 0), 0, 0), ('前', (1, 0, 0, 0), 0, 1), ('降', (0, 0, -1, 0), 0, 2),
-            ('左', (0, -1, 0, 0), 1, 0), ('悬停', (0, 0, 0, 0), 1, 1), ('右', (0, 1, 0, 0), 1, 2),
-            ('左转', (0, 0, 0, -1), 2, 0), ('后', (-1, 0, 0, 0), 2, 1), ('右转', (0, 0, 0, 1), 2, 2),
-        ]
-        for text, vector, row_index, column_index in manual_specs:
-            button = QPushButton(text)
-            button.pressed.connect(lambda value=vector: self.start_manual_input(value))
-            button.released.connect(self.stop_manual_input)
-            manual.addWidget(button, row_index, column_index)
-            self.control_widgets.append(button)
-            self.flight_widgets.append(button)
-        layout.addLayout(manual)
-        layout.addWidget(self._label('无人机型号'))
-        self.drone_model = QComboBox()
-        self.drone_model.addItem('DJI Mavic 3', 'mavic3')
-        self.drone_model.addItem('DJI Avata', 'avata')
-        self.drone_model.activated.connect(
-            lambda _: self.command('drone.set_model', {'model': self.drone_model.currentData()}))
-        layout.addWidget(self.drone_model)
-        layout.addWidget(self._label('切换外观型号；飞行仍由同一套 AirSim 动力学控制'))
-        self.control_widgets.append(self.drone_model)
-        self.tracking_button = self._button('保持云台方向', lambda: self.command('gimbal.set_tracking', {'enabled': not self.state.get('tracking', True)}))
-        self.rotors_button = self._button('停止旋翼', lambda: self.command('rotors.set_enabled', {'enabled': not self.state.get('rotors_running', True)}))
-        layout.addWidget(self.tracking_button)
-        layout.addWidget(self.rotors_button)
-        layout.addWidget(self._label('光电云台工作传感器'))
-        self.sensor = QComboBox()
-        self.sensor.addItem('可见光 · 1920 × 1080', 'visible')
-        self.sensor.addItem('红外 · 640 × 512', 'infrared')
-        self.sensor.addItem('激光雷达 · 实时点云', 'lidar')
-        self.sensor.activated.connect(
-            lambda _: self.command('sensor.set_active', {'sensor': self.sensor.currentData()}))
-        layout.addWidget(self.sensor)
-        layout.addWidget(self._label('已接入：可见光、红外、激光雷达\n深度相机、事件相机和雷达将在设备接入后自动扩展'))
-        self.palette = QComboBox()
-        self.palette.addItem('白热', 'white_hot')
-        self.palette.addItem('黑热', 'black_hot')
-        self.palette.activated.connect(lambda _: self.command('camera.set_palette', {'palette': self.palette.currentData()}))
-        layout.addWidget(self.palette)
-        self.control_widgets += [self.sensor, self.palette]
-        fov_row = QHBoxLayout()
-        self.fov = QDoubleSpinBox()
-        self.fov.setRange(5, 120)
-        self.fov.setValue(25)
-        self.fov.setSuffix(' °')
-        self.fov.setDecimals(1)
-        fov_row.addWidget(self.fov)
-        fov_row.addWidget(self._button('设置视场', lambda: self.command('camera.set_fov', {'fov_deg': self.fov.value()})))
-        self.control_widgets.append(self.fov)
-        layout.addLayout(fov_row)
-        self.angle_label = self._label('偏航 —  /  俯仰 —')
-        self.position_label = self._label('无人机位置：—')
-        self.position_label.setWordWrap(True)
-        layout.addWidget(self.angle_label)
-        layout.addWidget(self.position_label)
-        layout.addStretch()
-        control_scroll = QScrollArea()
-        control_scroll.setWidgetResizable(True)
-        control_scroll.setFrameShape(QFrame.Shape.NoFrame)
-        control_scroll.setFixedWidth(320)
-        control_scroll.setWidget(controls)
-        work.addWidget(control_scroll)
-        splitter.addWidget(middle)
-        log_card, log_layout = self._card()
-        log_header = QHBoxLayout()
-        log_header.addWidget(self._label('操作日志'))
-        log_header.addStretch()
-        log_layout.addLayout(log_header)
-        self.logs = QPlainTextEdit()
-        self.logs.setReadOnly(True)
-        self.logs.setMaximumBlockCount(500)
-        log_layout.addWidget(self.logs)
-        splitter.addWidget(log_card)
-        splitter.setSizes([560, 160])
-        content.addWidget(splitter, 1)
-        row.addWidget(main, 1)
-        self.latency = QLabel('响应 —')
-        self.statusBar().addPermanentWidget(self.latency)
-        self.statusBar().showMessage('UE 独立运行，开始播放后即可连接控制台')
+        from apps.desktop_app.workbench_v3 import build_workbench
+        build_workbench(self, config, ImageView)
+
+    def check_health(self):
+        healthy,message=self.health.status(time.monotonic(),self.client.ready)
+        changed=healthy!=self.simulation_healthy
+        self.simulation_healthy=healthy
+        self.health_label.setText(message)
+        self.health_label.setStyleSheet('color:#89e1af' if healthy else 'color:#ffbf69')
+        if changed and not healthy and self.client.ready:
+            self.clear_gimbal_input()
+            self.manual_keys.clear();self.manual_input=(0.,0.,0.,0.);self.send_manual_input()
+            self.log(message+'；已清除持续操控输入，请检查 UE。')
+        if not healthy and self.client.ready:
+            self.summary_values['simulation'][0].setText('运行异常 · 请检查 UE')
 
     def log(self, message):
         self.logs.appendPlainText(f'{datetime.now():%H:%M:%S}  {message}')
+        self.event_preview.setText(str(message)[:80])
+        self.event_preview.setToolTip(str(message))
         logging.info(message)
 
     def connect_ue(self):
@@ -397,24 +160,43 @@ class MainWindow(QMainWindow):
         self.air_client.connect_to(host)
 
     def launch_ue(self):
-        from PySide6.QtCore import QProcess
+        from core.runtime_paths import IS_RELEASE
+        if IS_RELEASE:
+            if not hasattr(self, 'runtime_manager'):
+                from apps.desktop_app.runtime_manager import RuntimeManager
+                self.runtime_manager = RuntimeManager(self)
+                self.runtime_manager.message.connect(self.log)
+                self.runtime_manager.ready.connect(self.connect_ue)
+            self.runtime_manager.launch(self.scenes.currentData() or {'id': 'original'})
+            return
+        import subprocess
+        if self.client.ready:
+            self.log("UE 已运行，请使用场景切换；不会重复启动编辑器。")
+            return
         scene = self.scenes.currentData() or {}
         scene_id = scene.get('id', 'original')
-        if scene_id in ('original', 'test_range'):
+        if scene_id in ('original', 'test_range', 'city'):
             arguments = ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
                          str(ROOT/'scripts/Start-ProjectAirSim.ps1'), '-SkipBuild', '-Scene', scene_id]
-            message = '已请求启动 UE 与 AirSim；播放和飞行会自动开始。'
+            message = '已请求启动 UE 与 AirSim；播放后待命，点击起飞开始任务。'
         else:
             arguments = ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
                          str(ROOT/'scripts/Start-WISEYE.ps1'), '-SkipBuild', '-Map',
                          scene.get('map', '/Game/WISEYE-test')]
             message = '该地图尚无 AirSim 配置，已打开 UE；加载后请点击播放。'
-        started = QProcess.startDetached('powershell.exe', arguments, str(ROOT))
-        self.log(message if started[0] else 'UE 启动失败，请检查引擎路径。')
+        try:
+            (ROOT/'logs').mkdir(exist_ok=True)
+            with (ROOT/'logs/desktop-launch.log').open('ab') as output:
+                subprocess.Popen(['powershell.exe', *arguments], cwd=ROOT, stdout=output, stderr=output,
+                                 creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+            self.log(message)
+        except OSError as error:
+            self.log(f'UE 启动失败：{error}')
 
     def connection_changed(self, connected, text):
         self.badge.setText('已连接' if connected else '未连接')
-        self.badge.setStyleSheet('background:#174936; color:#89e1af; border-radius:12px; padding:6px 14px;' if connected else '')
+        self.badge.setStyleSheet('color:#76d6a0;' if connected else 'color:#b4bcc8;')
+        self.quick_connect.setEnabled(not connected and self.client.connect_deadline is None)
         self.connection_detail.setText(text)
         connecting = self.client.connect_deadline is not None
         self.connect_button.setEnabled(not connected and not connecting)
@@ -427,20 +209,39 @@ class MainWindow(QMainWindow):
         if self.switch_target:
             self.switch_button.setEnabled(False)
         if not connected:
+            self.clear_gimbal_input()
+            self.gimbal_stick.setEnabled(False)
+            self.sensor_settings.disconnected()
+            self.gallery.disconnected()
+            self.observer_client.stop()
             self.lidar_poll.stop()
             self.video_client.stop()
+            self.infrared_client.stop()
             self.active_scene.setText('当前场景：切换中' if self.switch_target else '当前场景：未连接')
             self.state = {}
+            self.arrangement.tools.disconnected()
+            self.sensor_applied.setText('实际参数：连接已断开，状态不可用')
+            self.source_urls.setPlainText('仿真未连接，运行状态不可用。')
+            self.lidar.set_points([], 0, 0)
+            self.dual_infrared.source=QPixmap();self.dual_infrared.clear()
+            self.dual_visible.source = QPixmap()
+            self.dual_visible.clear()
+            self.dual_visible.setText('仿真未连接')
+            self.image.source = QPixmap()
+            self.image.clear()
+            self.image.setText('连接已断开 · 图像不可用')
+            self.performance.setText('连接已断开；性能统计不可用。')
+            self.stream_sample, self.stream_fps = None, {}
             for value, detail in self.summary_values.values():
                 value.setText('—')
                 detail.setText('状态不可用')
             self.angle_label.setText('偏航 —  /  俯仰 —')
             self.position_label.setText('无人机位置：—')
             self.latency.setText('响应 —')
-            if self.last_image_path:
-                self.image_caption.setText('连接已断开 · 保留上次截图，非当前画面')
-        elif not self.video_client.running:
-            self.switch_video_channel()
+            self.image_caption.setText('连接已断开 · 画面不可用；已保存文件仍保留在磁盘')
+        else:
+            self.gallery.sync_clients()
+            self.sensor_settings.render()
         self.update_flight_controls()
         self.log(text)
 
@@ -452,32 +253,107 @@ class MainWindow(QMainWindow):
         self.log(text)
 
     def command(self, command, payload=None):
+        payload=dict(payload or {})
+        movement=command in ('flight.set_input','gimbal.set_input','observer.set_input')
+        if not self.simulation_healthy and ((movement and any(payload.get(k,0) for k in ('forward','right','up','yaw','pitch','yaw_deg','pitch_deg'))) or command in ('flight.takeoff','route.start','sim.resume')):
+            self.log('仿真进度异常，暂不发送运动指令。');return
+        drone_command=command.startswith(('flight.','route.','drone.','rotors.')) or command in ('sim.pause','sim.resume','sim.reset')
+        payload.setdefault('device_id',self.selected_drone if drone_command else self.selected_gimbal)
+        if self.device_switching and command.startswith(('gimbal.','sensor.','camera.')):
+            self.log('云台切换中，请等待实际状态确认。');return
         if not self.client.ready:
             self.log('请先连接 UE。')
             return
         is_airsim = self.state.get('flight_backend') == 'projectairsim'
         flight_command = command in ('sim.pause', 'sim.resume', 'sim.reset', 'flight.takeoff',
-                                     'flight.hover', 'flight.land', 'flight.set_mode', 'flight.set_input')
+                                     'flight.hover', 'flight.land', 'flight.set_mode', 'flight.set_input') or command.startswith('route.')
         if is_airsim and flight_command:
             if not self.air_client.ready:
                 self.log('AirSim 飞控尚未连接，请从 Start-ProjectAirSim 启动仿真。')
                 return
+            if command in ('flight.takeoff','flight.land','flight.hover'):
+                if any(c==command for c,_ in self.air_client.pending.values()):
+                    self.log('同一动作正在等待确认。');return
+                button={'flight.takeoff':self.takeoff_button,'flight.land':self.land_button,'flight.hover':self.hover_button}[command]
+                button.setEnabled(False)
             self.air_client.request(command, payload)
-            if command in ('sim.pause', 'sim.resume', 'sim.reset', 'flight.set_mode'):
-                self.client.request(command, payload)
         else:
             self.client.request(command, payload)
         if command in ('camera.capture', 'sensor.lidar.capture'):
             self.capture_button.setEnabled(False)
 
+    def capture_sensor(self,sensor):
+        self.capture_source(self.selected_gimbal,sensor)
+
+    def capture_source(self,device,sensor):
+        if any(command in ('camera.capture','sensor.lidar.capture') for command,_ in self.client.pending.values()):
+            self.log('正在保存数据，请等待当前保存完成。');return
+        actual=self.gallery.states.get(device,self.state if device==self.selected_gimbal else {})
+        if not actual.get('sensors',{}).get(sensor,{}).get('enabled',False):
+            self.log('该传感器已停用，请先启用并应用设置。');return
+        if not self.client.ready:
+            self.log('请先连接 UE。');return
+        self.command('sensor.lidar.capture' if sensor=='lidar' else 'camera.capture',dict(device_id=device,**({} if sensor=='lidar' else {'sensor':sensor})))
+
     def capture_active_sensor(self):
-        sensor = self.state.get('active_sensor', self.state.get('sensor_mode', 'visible'))
-        self.command('sensor.lidar.capture' if sensor == 'lidar' else 'camera.capture')
+        self.capture_sensor(('visible','infrared','lidar')[self.sensor_settings.currentIndex()])
 
     def apply_state(self, state):
+        self.fleet_selection.inventory(state)
+        if state.get('gimbal_id','ptz-01')!=self.selected_gimbal:return
+        self.device_switching=False
+        self.health.observe(state,time.monotonic());self.check_health()
+        blocker=QSignalBlocker(self.performance_profile)
+        self.performance_profile.setCurrentIndex(self.performance_profile.findData(state.get('performance_profile','balanced')))
+        del blocker
         self.state = state
+        blocker=QSignalBlocker(self.tracking_target);self.tracking_target.setCurrentIndex(self.tracking_target.findData(state.get('tracking_target','uav-01')));del blocker
+        self.arrangement.tools.apply_state(state)
+        for combo, key in ((self.input_mode, 'input_mode'), (self.observer_mode, 'observer_mode')):
+            if key in state:
+                blocker = QSignalBlocker(combo)
+                combo.setCurrentIndex(combo.findData(state[key]))
+                del blocker
+        self.gimbal_stick.setEnabled(self.client.ready and state.get('input_mode')=='gimbal')
+        self.gimbal_pitch.setRange(state.get('pitch_min_deg', -15), state.get('pitch_max_deg', 75))
+        if state.get('input_mode')!='gimbal' and (self.gimbal_keys or any(self.gimbal_stick_input)):self.clear_gimbal_input()
+        for channel,sensor in [('CH1','visible'),('CH2','infrared')]:
+            if state.get('sensors',{}).get(sensor,{}).get('enabled') is False:
+                legacy=self.dual_visible if channel=='CH1' else self.dual_infrared
+                legacy.source=QPixmap();legacy.clear();legacy.setText('该传感器已停用')
+                if self.video_channel.currentData()==channel:self.image.source=QPixmap();self.image.clear();self.image.setText('该传感器已停用')
+        if state.get('lidar_enabled') is False:
+            self.lidar.set_points([],0,0)
+        streams = state.get('streams', {})
+        sample = (state.get('run_id'), time.monotonic(), {key:value['completed_frames'] for key,value in streams.items()})
+        if self.stream_sample and sample[0] == self.stream_sample[0] and sample[1]-self.stream_sample[1] >= 2:
+            dt = sample[1]-self.stream_sample[1]
+            self.stream_fps = {key:max(0,count-self.stream_sample[2].get(key,count))/dt for key,count in sample[2].items()}
+            self.stream_sample = sample
+        elif not self.stream_sample or sample[0] != self.stream_sample[0]:
+            self.stream_sample, self.stream_fps = sample, {}
+
+        hints = {
+            'observer':'观察模式：点击画面上的自由观察，按住右键 + WASD 移动，Q/E 升降；也支持独立 UE 窗口观察。',
+            'drone':'驾驶模式：系统与 UE 均为 W/S 前后、A/D 左右、R/F 上升/下降、Q/E 转向。',
+            'gimbal':'云台模式：桌面与 UE 方向键转动；松键或失焦停止，可输入目标角度。'}
+        self.input_hint.setText(hints.get(state.get('input_mode'), '等待输入模式确认'))
+        self.sensor_applied.setText(f'{self.selected_gimbal} · 各传感器独立应用与保存')
+        self.drone_control_label.setText('控制对象：'+self.selected_drone)
+        host = self.host.text().strip() or self.config.host
+        source_text = (f"可见光 · 1920 × 1080\n{self.config.stream_url(self.selected_gimbal, 'visible')}\n\n"
+                       f"红外 · 640 × 512\n{self.config.stream_url(self.selected_gimbal, 'infrared')}\n\n"
+                       f"UE / 点云 JSON Lines · {host}:{self.port.value()}\n飞控 JSON Lines · {host}:{self.config.airsim_port}\n"
+                       f"对象：{self.selected_drone} / {self.selected_gimbal}\n会话：{state.get('run_id', '未提供')}\n"
+                       f"UE 观察 · 960 × 540\n{self.config.stream_url('scene', 'observer')}\n"
+                       "红外：合成热成像；点云：米制局部坐标，详见 docs/PROTOCOL.md")
+        if self.source_urls.toPlainText() != source_text:
+            self.source_urls.setPlainText(source_text)
         if not self.client.ready:
             return
+        if self.air_state.get('run_id') and state.get('run_id') and self.air_state['run_id'] != state['run_id']:
+            self.air_state = {}
+            self.air_client.disconnect_from()
         scene_id = state.get('scene_id', '旧版 UE 未提供场景信息')
         if (state.get('flight_backend') == 'projectairsim' and not self.air_client.ready
                 and self.air_client.connect_deadline is None
@@ -485,7 +361,7 @@ class MainWindow(QMainWindow):
             self.last_air_connect_attempt = time.monotonic()
             self.air_client.connect_to(self.host.text().strip())
         self.active_scene.setText('当前场景：' + scene_id)
-        if self.switch_target and scene_id == self.switch_target:
+        if self.switch_target and scene_id == self.switch_target and (not self.switch_run_id or state.get('run_id') != self.switch_run_id):
             self.log('场景切换完成，已恢复 UE 连接：' + scene_id)
             self.switch_target = None
             self.reconnect_timer.stop()
@@ -493,7 +369,7 @@ class MainWindow(QMainWindow):
         value, detail = self.summary_values['simulation']
         paused = self.air_state.get('paused', state['paused']) if state.get('flight_backend') == 'projectairsim' else state['paused']
         mode = self.air_state.get('flight_mode', state['flight_mode']) if state.get('flight_backend') == 'projectairsim' else state['flight_mode']
-        value.setText('已暂停' if paused else '运行中')
+        value.setText('待命 · 请起飞' if self.air_state.get('flight_status') == 'ready' else '已暂停' if paused else '运行中')
         backend = 'AirSim' if state.get('flight_backend') == 'projectairsim' else '运动学'
         detail.setText(f"{backend} · 航线时间 {state['simulation_time_s']:.1f} s · {'自动' if mode=='auto' else '手动'}")
         value, detail = self.summary_values['gimbal']
@@ -502,7 +378,8 @@ class MainWindow(QMainWindow):
         value, detail = self.summary_values['sensor']
         active_sensor = state.get('active_sensor', state['sensor_mode'])
         sensor_names = {'visible': '可见光', 'infrared': '红外', 'lidar': '激光雷达'}
-        value.setText(sensor_names.get(active_sensor, active_sensor))
+        self.capture_button.setText('保存当前传感器页数据')
+        value.setText(f"{sum(bool(v.get('enabled')) for v in state.get('sensors',{}).values())} / 3 启用")
         if active_sensor == 'lidar':
             detail.setText(
                 f"回波 {state.get('lidar_hits',0)}/{state.get('lidar_rays',0)} · 最近 {state.get('lidar_nearest_m',0):.1f} m")
@@ -511,29 +388,39 @@ class MainWindow(QMainWindow):
         display_state = dict(state)
         display_state['flight_mode'] = mode
         display_state['active_sensor'] = active_sensor
-        for combo, key in [(self.flight, 'flight_mode'), (self.sensor, 'active_sensor'), (self.palette, 'palette')]:
+        for combo, key in [(self.flight, 'flight_mode')]:
             blocker = QSignalBlocker(combo)
             combo.setCurrentIndex(combo.findData(display_state[key]))
             del blocker
-        model = state.get('drone_model', 'mavic3')
+        model=next((d['model_id'] for d in state.get('devices',[]) if d['id']==self.selected_drone),state.get('drone_model','mavic3'))
         blocker = QSignalBlocker(self.drone_model)
         self.drone_model.setCurrentIndex(max(0, self.drone_model.findData(model)))
         del blocker
-        if not self.fov.hasFocus():
-            self.fov.setValue(state['fov_deg'])
         self.pause_button.setEnabled(not paused)
         self.resume_button.setEnabled(paused)
-        self.palette.setEnabled(active_sensor == 'infrared')
         self.tracking_button.setText('保持云台方向' if state['tracking'] else '恢复目标跟踪')
-        self.rotors_button.setText('停止旋翼' if state['rotors_running'] else '启动旋翼')
+        physics=state.get('flight_backend')=='projectairsim'
+        rpm=next((d.get('motor_rpm') for d in self.air_state.get('fleet',[]) if d.get('drone_id')==self.selected_drone),None) or self.air_state.get('motor_rpm',[])
+        self.motor_label.setText(('电机 RPM：'+' / '.join(f'{v:.0f}' for v in rpm)) if physics and rpm else '电机转速：等待遥测' if physics else '运动学旋翼动画')
+        self.rotors_button.setText('停止旋翼动画' if state['rotors_running'] else '启动旋翼动画')
+        self.rotors_button.setVisible(not physics)
+        self.rotors_button.setEnabled(not physics)
         self.angle_label.setText(f"偏航 {state['yaw_deg']:.1f}°  /  俯仰 {state['pitch_deg']:.1f}°")
-        position = state['drone_position_cm']
-        self.position_label.setText(f'无人机位置（m）\nX {position[0]/100:.2f} · Y {position[1]/100:.2f} · Z {position[2]/100:.2f}')
-        if not self.lidar_poll.isActive():
-            self.lidar_poll.start()
+        ned=self.air_state.get('position_ned_m')
+        position=[ned[0]*100,ned[1]*100,-ned[2]*100] if ned else next((d['position_cm'] for d in state.get('devices',[]) if d['id']==self.selected_drone),state['drone_position_cm'])
+        self.position_label.setText(f'{self.selected_drone} 位置（m）\nX {position[0]/100:.2f} · Y {position[1]/100:.2f} · Z {position[2]/100:.2f}')
+        from apps.desktop_app.workbench_v3 import update_sources, refresh_inspector
+        update_sources(self)
+        refresh_inspector(self)
         self.update_flight_controls()
 
     def apply_air_state(self, state):
+        if state.get('drone_id',self.selected_drone)!=self.selected_drone:return
+        if state.get('run_id') and self.state.get('run_id') and state['run_id'] != self.state['run_id']:
+            self.air_state = {}
+            self.air_client.disconnect_from()
+            self.update_flight_controls()
+            return
         self.air_state = state
         if self.state:
             self.apply_state(self.state)
@@ -542,17 +429,33 @@ class MainWindow(QMainWindow):
 
     def update_flight_controls(self):
         is_airsim = self.state.get('flight_backend') == 'projectairsim'
-        available = self.client.ready and (not is_airsim or self.air_client.ready)
+        available = self.client.ready and (not is_airsim or (self.air_client.ready and self.air_state.get('drone_id')==self.selected_drone)) and not self.state.get('placement', {}).get('active', False)
         mode = self.air_state.get('flight_mode', self.state.get('flight_mode'))
         paused = self.air_state.get('paused', self.state.get('paused', False))
+        if (not available or mode != 'manual' or paused or self.input_mode.currentData() != 'drone') and (self.manual_keys or self.manual_timer.isActive()):
+            self.manual_keys.clear()
+            self.stop_manual_input()
         for widget in self.flight_widgets:
             widget.setEnabled(available)
         self.pause_button.setEnabled(available and not paused)
-        self.resume_button.setEnabled(available and paused)
+        self.resume_button.setEnabled(available and paused and self.air_state.get('flight_status') != 'ready')
         for widget in self.flight_widgets:
             if widget not in (self.pause_button, self.resume_button, self.reset_button, self.flight,
                               self.takeoff_button, self.hover_button, self.land_button):
-                widget.setEnabled(available and mode == 'manual' and not paused)
+                widget.setEnabled(available and mode == 'manual' and not paused and self.input_mode.currentData() == 'drone')
+        status=self.air_state.get('flight_status','unknown')
+        active=self.air_state.get('command_active',False)
+        if is_airsim:
+            self.takeoff_button.setEnabled(available and status=='ready' and not active and self.simulation_healthy)
+            self.hover_button.setEnabled(available and status!='ready')
+            self.land_button.setEnabled(available and status not in ('ready','landing'))
+            for widget in self.flight_widgets:
+                if widget not in (self.pause_button,self.resume_button,self.reset_button,self.flight,self.takeoff_button,self.hover_button,self.land_button):
+                    widget.setEnabled(widget.isEnabled() and status!='ready')
+        names={'ready':'地面待命','active':'已离地','taking_off':'起飞中','hovering':'悬停','manual':'手动飞行','landing':'降落中','flying':'飞行中','unknown':'状态待确认'}
+        self.flight_status_label.setText(names.get(status,status)+(' · 动作执行中' if active else ''))
+        self.manual_takeover.setEnabled(available and (not is_airsim or status!='ready') and (not active or mode=='auto'))
+        self.takeoff_button.setToolTip('仅地面待命、飞控就绪且仿真推进正常时可起飞。')
 
     def poll_lidar(self):
         if (self.client.ready and self.state.get('lidar_enabled', False)
@@ -561,11 +464,24 @@ class MainWindow(QMainWindow):
             self.client.request('sensor.lidar.get_points')
 
     def start_manual_input(self, vector):
+        if self.input_mode.currentData() != 'drone':
+            return
         self.manual_input = tuple(float(value) for value in vector)
         self.send_manual_input()
         self.manual_timer.start()
 
     def set_flight_mode(self, _index=None):
+        self.manual_keys.clear()
+        self.stop_manual_input()
+        if self.flight.currentData()=='auto' and self.state.get('flight_backend')=='projectairsim':
+            from apps.desktop_app.route_editor import open_route_editor
+            open_route_editor(self)
+            blocker=QSignalBlocker(self.flight)
+            self.flight.setCurrentIndex(self.flight.findData(self.air_state.get('flight_mode','manual')))
+            del blocker
+            return
+        if self.flight.currentData() == 'manual':
+            self.command('input.set_mode', {'mode': 'drone'})
         self.command('flight.set_mode', {'mode': self.flight.currentData()})
         self.setFocus(Qt.FocusReason.OtherFocusReason)
 
@@ -581,17 +497,79 @@ class MainWindow(QMainWindow):
         else:
             self.manual_timer.stop()
 
-    def keyPressEvent(self, event):
-        manual_keys = {Qt.Key.Key_W, Qt.Key.Key_S, Qt.Key.Key_A, Qt.Key.Key_D,
-                       Qt.Key.Key_R, Qt.Key.Key_F, Qt.Key.Key_Q, Qt.Key.Key_E}
-        if event.key() in manual_keys and not event.isAutoRepeat():
-            if self.air_client.ready and self.air_state.get('flight_mode') == 'manual':
-                self.manual_keys.add(event.key())
-                self._keyboard_manual_input()
+    def gimbal_key(self,key,pressed):
+        if pressed:
+            if not self.client.ready or self.state.get('input_mode')!='gimbal':return
+            self.gimbal_keys.add(key)
+        else:self.gimbal_keys.discard(key)
+        self.send_gimbal_input()
+        if self.gimbal_keys or any(self.gimbal_stick_input):self.gimbal_timer.start()
+        else:self.gimbal_timer.stop()
+
+    def set_gimbal_stick(self,yaw,pitch):
+        if not self.client.ready or self.state.get('input_mode')!='gimbal':
+            self.gimbal_stick_input=(0.,0.);return
+        self.gimbal_stick_input=(yaw,pitch)
+        self.send_gimbal_input()
+        if any(self.gimbal_stick_input) or self.gimbal_keys:self.gimbal_timer.start()
+        else:self.gimbal_timer.stop()
+
+    def send_gimbal_input(self):
+        if not self.simulation_healthy:
+            self.gimbal_keys.clear();self.gimbal_stick_input=(0.,0.)
+        if self.client.ready:
+            self.client.request('gimbal.set_input',{'yaw':max(-1.,min(1.,self.gimbal_stick_input[0]+float((Qt.Key.Key_Right in self.gimbal_keys)-(Qt.Key.Key_Left in self.gimbal_keys)))),'pitch':max(-1.,min(1.,self.gimbal_stick_input[1]+float((Qt.Key.Key_Up in self.gimbal_keys)-(Qt.Key.Key_Down in self.gimbal_keys))))})
+
+    def clear_gimbal_input(self):
+        self.gimbal_keys.clear();self.gimbal_stick_input=(0.,0.);self.gimbal_timer.stop()
+        blocker=QSignalBlocker(self.gimbal_stick);self.gimbal_stick.reset();del blocker
+        self.send_gimbal_input()
+
+    def eventFilter(self, watched, event):
+        if (event.type()==QEvent.Type.KeyPress and isinstance(watched,QWidget)
+                and (watched is self or self.isAncestorOf(watched)) and event.key()==Qt.Key.Key_Escape):
+            self.clear_gimbal_input();self.manual_keys.clear();self.stop_manual_input()
+            for view in self.gallery.views.values():
+                if hasattr(view,'stop'):view.stop()
+        if watched is self and event.type()==QEvent.Type.WindowDeactivate:self.clear_gimbal_input()
+        if isinstance(watched,QWidget):
+            ancestor=watched
+            while ancestor is not None:
+                if ancestor.property('observerInput'):return super().eventFilter(watched,event)
+                ancestor=ancestor.parentWidget()
+        if (event.type() in (QEvent.Type.KeyPress,QEvent.Type.KeyRelease,QEvent.Type.ShortcutOverride) and isinstance(watched,QWidget)
+                and (watched is self or self.isAncestorOf(watched)) and event.key() in (Qt.Key.Key_Left,Qt.Key.Key_Right,Qt.Key.Key_Up,Qt.Key.Key_Down)):
+            focus=QApplication.focusWidget()
+            editing=isinstance(focus,(QLineEdit,QAbstractSpinBox,QComboBox,QAbstractItemView)) or (isinstance(focus,QPlainTextEdit) and not focus.isReadOnly())
+            release=event.type()==QEvent.Type.KeyRelease and event.key() in self.gimbal_keys
+            if release or (self.client.ready and self.state.get('input_mode')=='gimbal' and not editing and not QApplication.activePopupWidget()):
+                if not event.isAutoRepeat() and event.type()!=QEvent.Type.ShortcutOverride:self.gimbal_key(event.key(),event.type()==QEvent.Type.KeyPress)
+                event.accept();return True
+
+        keys = {Qt.Key.Key_W, Qt.Key.Key_S, Qt.Key.Key_A, Qt.Key.Key_D,
+                Qt.Key.Key_R, Qt.Key.Key_F, Qt.Key.Key_Q, Qt.Key.Key_E}
+        if watched is self and event.type() == QEvent.Type.WindowDeactivate:
+            self.manual_keys.clear()
+            self.stop_manual_input()
+        if (event.type() in (QEvent.Type.KeyPress, QEvent.Type.KeyRelease, QEvent.Type.ShortcutOverride)
+                and isinstance(watched, QWidget) and (watched is self or self.isAncestorOf(watched))
+                and event.key() in keys):
+            focus = QApplication.focusWidget()
+            editing = isinstance(focus, (QLineEdit, QAbstractSpinBox,QComboBox,QAbstractItemView)) or (isinstance(focus, QPlainTextEdit) and not focus.isReadOnly())
+            mode = self.air_state.get('flight_mode', self.state.get('flight_mode'))
+            paused = self.air_state.get('paused', self.state.get('paused', False))
+            available = self.client.ready and (self.state.get('flight_backend') != 'projectairsim' or self.air_client.ready)
+            releasing = event.type() == QEvent.Type.KeyRelease and event.key() in self.manual_keys
+            if releasing or (available and mode == 'manual' and self.input_mode.currentData() == 'drone' and not paused and not editing and not QApplication.activePopupWidget()):
+                if not event.isAutoRepeat() and event.type() != QEvent.Type.ShortcutOverride:
+                    if event.type() == QEvent.Type.KeyPress:
+                        self.manual_keys.add(event.key())
+                    else:
+                        self.manual_keys.discard(event.key())
+                    self._keyboard_manual_input()
                 event.accept()
-                return
-            self.statusBar().showMessage('请先在飞行模式中选择“手动飞行”')
-        super().keyPressEvent(event)
+                return True
+        return super().eventFilter(watched, event)
 
     def keyReleaseEvent(self, event):
         if event.key() in self.manual_keys and not event.isAutoRepeat():
@@ -607,53 +585,23 @@ class MainWindow(QMainWindow):
         self.send_manual_input()
 
     def send_manual_input(self):
-        if self.air_client.ready and self.air_state.get('flight_mode') == 'manual':
+        mode = self.air_state.get('flight_mode', self.state.get('flight_mode'))
+        if self.client.ready and mode == 'manual':
             forward, right, up, yaw = self.manual_input
-            self.air_client.request('flight.set_input', {
+            self.command('flight.set_input', {
                 'forward': forward, 'right': right, 'up': up, 'yaw': yaw,
             })
 
     def switch_video_channel(self):
-        channel = self.video_channel.currentData() or 'CH1'
-        if channel == 'LIDAR':
-            self.video_client.stop()
-            blocker = QSignalBlocker(self.view_tabs)
-            self.view_tabs.setCurrentIndex(1)
-            del blocker
-            count = self.state.get('lidar_hits', 0)
-            self.image_caption.setText(f'LIDAR 激光点云 · 实时 · 当前 {count} 个回波点')
-            return
-        blocker = QSignalBlocker(self.view_tabs)
-        self.view_tabs.setCurrentIndex(0)
-        del blocker
-        path = self.config.rtsp_visible_path if channel == 'CH1' else self.config.rtsp_infrared_path
-        host = self.host.text().strip() or self.config.host
-        self.video_client.start(f'rtsp://{host}:{self.config.rtsp_port}/{path}')
-        self.image.setText(f'等待 {channel} 实时画面')
-
-    def view_tab_changed(self, index):
-        channel = 'LIDAR' if index == 1 else (
-            self.video_channel.currentData() if self.video_channel.currentData() != 'LIDAR' else 'CH1')
-        blocker = QSignalBlocker(self.video_channel)
-        self.video_channel.setCurrentIndex(self.video_channel.findData(channel))
-        del blocker
-        self.switch_video_channel()
-
-    def video_frame(self, image, fps):
-        self.image.show_image(image)
-        channel = self.video_channel.currentData() or 'CH1'
-        modality = '可见光' if channel == 'CH1' else '红外'
-        target_fps = self.config.rtsp_visible_fps if channel == 'CH1' else self.config.rtsp_infrared_fps
-        self.image_caption.setText(
-            f'{channel} {modality} · RTSP 实时 · {fps:.1f} FPS（目标 {target_fps}）')
-
-    def video_state_changed(self, connected, message):
-        if not connected and self.video_channel.currentData() != 'LIDAR':
-            channel = self.video_channel.currentData() or 'CH1'
-            self.image_caption.setText(f'{channel} · {message}')
+        self.gallery.sync_clients()
 
     def completed(self, command, state):
+        if state.get('gimbal_id',self.selected_gimbal)!=self.selected_gimbal and command not in ('sim.load_scene','camera.capture','sensor.lidar.capture'):return
+        if command == 'sensor.lidar.set_parameters':
+            self.lidar_dirty.clear()
+            self.apply_state(state)
         if command == 'sim.load_scene':
+            self.switch_run_id = state.get('run_id')
             self.switch_target = state.get('pending_scene')
             if not self.switch_target:
                 self.log('UE 未返回切换目标，请检查引擎版本。')
@@ -670,7 +618,7 @@ class MainWindow(QMainWindow):
             return
         if command == 'sensor.lidar.get_points':
             point_count = state.get('lidar_point_count', 0)
-            self.lidar.set_points(state.get('lidar_points_m', []), point_count)
+            self.lidar.set_points(state.get('lidar_points_m', []), point_count, state.get('lidar_rays', 0))
             if self.video_channel.currentData() == 'LIDAR':
                 self.image_caption.setText(
                     f"LIDAR 激光点云 · 实时 · {point_count} 个回波点 · 最近 {state.get('lidar_nearest_m', 0):.1f} m")
@@ -686,15 +634,15 @@ class MainWindow(QMainWindow):
                 self.log('截图不在当前工程输出目录，未打开。')
                 return
             image = QPixmap(str(path))
-            if image.isNull() or (image.width(), image.height()) != (state['width'], state['height']):
+            if image.isNull() or (image.width(), image.height()) != (state.get('frame_width',state['width']), state.get('frame_height',state['height'])):
                 self.log('截图读取失败或尺寸不一致。')
                 return
             self.last_image_path = path
             self.image.show_image(image)
-            mode = '可见光' if state['sensor_mode']=='visible' else ('红外白热' if state['palette']=='white_hot' else '红外黑热')
+            mode = '可见光' if state.get('frame_sensor',state['sensor_mode'])=='visible' else ('红外白热' if state['palette']=='white_hot' else '红外黑热')
             self.image_caption.setText(f'{mode} · {image.width()} × {image.height()} · {datetime.now():%H:%M:%S} 获取的截图')
             self.log(f'已获取 {mode} 画面：{path.name}')
-        elif command not in ('sim.get_state', 'sim.ping'):
+        elif command not in ('sim.get_state', 'sim.ping','gimbal.set_input','observer.set_input'):
             names = {'sim.pause':'仿真暂停','sim.resume':'仿真继续','sim.reset':'航线复位',
                       'flight.set_mode':'飞行模式','gimbal.set_tracking':'云台状态',
                        'drone.set_model':'无人机型号', 'sensor.set_active':'工作传感器',
@@ -716,16 +664,46 @@ class MainWindow(QMainWindow):
         self.log(f'AirSim 操作失败：{message}')
 
     def failed(self, command, message):
+        self.arrangement.tools.failed(command, message)
         self.log(f'操作失败：{message}')
         if command in ('camera.capture', 'sensor.lidar.capture'):
             self.capture_button.setEnabled(self.client.ready)
 
     def closeEvent(self, event):
+        self.sensor_settings.stash()
+        if self.sensor_settings.pending or any(item.get('dirty') for item in self.sensor_settings.bank.values()):
+            from PySide6.QtWidgets import QMessageBox
+            answer=QMessageBox.question(self,'退出工作台','存在未应用的传感器草稿或尚未确认的提交。退出将丢弃本地草稿，已经发送的操作可能已生效。是否退出？',QMessageBox.StandardButton.Yes|QMessageBox.StandardButton.Cancel,QMessageBox.StandardButton.Cancel)
+            if answer!=QMessageBox.StandardButton.Yes:
+                event.ignore();return
+        manager = getattr(self, 'runtime_manager', None)
+        if manager and manager.running:
+            fleet = getattr(self, 'air_state', {}).get('fleet', [])
+            if any(item.get('flight_status') != 'ready' for item in fleet):
+                self.log('请先降落全部无人机，再退出仿真。')
+                event.ignore()
+                return
+            if not manager.closing:
+                manager.closing = True
+                manager.stopped.connect(self.close)
+                manager.stop()
+            event.ignore()
+            return
+        if getattr(self,'route_editor',None):self.route_editor.close()
+        from PySide6.QtCore import QSettings
+        QSettings('WISEYE','Studio').setValue('workbench/split',self.workbench_split.saveState())
+        self.gallery.shutdown()
+        self.observer_client.stop()
+        self.clear_gimbal_input()
+        self.arrangement.tools.cancel_pending()
+        self.stop_manual_input()
+        QApplication.instance().removeEventFilter(self)
         self.reconnect_timer.stop()
         self.lidar_poll.stop()
         self.manual_timer.stop()
         self.manual_keys.clear()
         self.video_client.stop()
+        self.infrared_client.stop()
         self.air_client.disconnect_from(quiet=True)
         self.client.disconnect_from()
         super().closeEvent(event)

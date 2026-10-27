@@ -7,7 +7,7 @@
   "gimbal_location_cm": [
     9997.253515711356,
     1377.7111180830398,
-    3.058515406721483
+    5.116923664164119
   ],
   "flight_origin_cm": [
     8197.253515711356,
@@ -28,5 +28,6 @@
   "period_s": 24.0,
   "vertical_amplitude_cm": 150.0,
   "fov_deg": 25.0,
-  "prepared": true
+  "prepared": true,
+  "device_dimensions_revision": 1
 }

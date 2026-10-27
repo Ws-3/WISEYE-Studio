@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "checks": [
+    "Real Qt surface picker lists all 3 saved city devices",
+    "Picking ptz-02 succeeds while status polling is addressed to ptz-02",
+    "Only ptz-02 draft changes; no save or runtime teleport"
+  ],
+  "device_count": 3,
+  "draft_position_cm": [
+    -30498.7,
+    399.3,
+    74.1
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "success": true,
+  "checks": [
+    "layout fits scaled available screen; parameter inspector remains usable",
+    "unknown or timed-out request cannot alter another device; disconnect retains drafts and invalidates actual values",
+    "canceling the unsaved-draft exit prompt keeps the window open",
+    "four-view cap and layout order persist without control ownership"
+  ],
+  "scale": 1.5,
+  "device_pixel_ratio": 1.5,
+  "logical_window": [
+    1240,
+    640
+  ],
+  "available": [
+    1280,
+    688
+  ],
+  "screenshot": "docs/evidence/ui_redesign_dpi_150_20261021.png"
+}

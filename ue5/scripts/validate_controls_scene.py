@@ -43,8 +43,14 @@ def size(group):
 
 drone_size=size(family(demo.drone))
 ptz_size=size([actors[n] for n in ('bottom','bottom2','camera','ptz')])
-assert abs(max(drone_size[:2])-60)<.1, drone_size
-assert abs(ptz_size[2]-40)<.1, ptz_size
+import sys
+sys.path.insert(0,str(Path(__file__).parent))
+from calibrate_device_dimensions import bounds
+body_lo,body_hi=bounds(family(demo.drone),demo.drone.get_actor_transform(),True)
+body_scale=vec(demo.drone.get_actor_scale3d())
+body_size=[(body_hi[i]-body_lo[i])*body_scale[i] for i in range(3)]
+assert max(abs(a-b) for a,b in zip(body_size,(34.75,28.3,10.77)))<.1,body_size
+assert abs(ptz_size[2]-80)<.1, ptz_size
 assert actors['bottom2'].get_editor_property('root_component').get_attach_parent()==demo.yaw_pivot
 assert all(actors[n].get_editor_property('root_component').get_attach_parent()==demo.pitch_pivot for n in ('camera','ptz'))
 report={'passed':True,'drone_size_cm':drone_size,'ptz_size_cm':ptz_size,'rotors':[r.get_actor_label() for r in demo.rotors],'checks':['reopened editor scene','four saved rotor roots and twelve mesh children','scaled drone and PTZ bounds','saved flight and camera parameters','gimbal attachment hierarchy']}

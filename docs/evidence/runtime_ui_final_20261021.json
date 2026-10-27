@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "simulation_health": "UE 正在推进",
+  "profile": "balanced",
+  "fleet": [
+    "uav-01",
+    "uav-02",
+    "uav-03"
+  ],
+  "live_channels": [
+    "OBS",
+    "CH2",
+    "CH1"
+  ],
+  "hidden_launchers": [
+    "Start-ProjectAirSim.vbs",
+    "Start-WISEYE-Studio.vbs"
+  ]
+}

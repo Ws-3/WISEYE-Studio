@@ -2,6 +2,7 @@
 
 #include "EngineUtils.h"
 #include "GameFramework/Actor.h"
+#include "Components/StaticMeshComponent.h"
 
 bool AWiseEyeDemo::TryBindDynamicsSource()
 {
@@ -22,6 +23,9 @@ bool AWiseEyeDemo::TryBindDynamicsSource()
             DynamicsConnected=true;
             if (HideDynamicsVisual) Candidate->SetActorHiddenInGame(true);
             SetVisualAssemblyCollision(false);
+            // AirSim scene initialization assigns segmentation stencils globally.
+            // Restore WISEYE's thermal classes after that world load.
+            ConfigureThermalActors();
             UE_LOG(LogTemp,Display,TEXT("WISEYE: Project AirSim dynamics source bound to %s"),*Candidate->GetName());
             return true;
         }
@@ -32,11 +36,27 @@ bool AWiseEyeDemo::TryBindDynamicsSource()
 void AWiseEyeDemo::SetVisualAssemblyCollision(bool Enabled)
 {
     if (!IsValid(Drone)) return;
-    Drone->SetActorEnableCollision(Enabled);
     TArray<AActor*> AttachedActors;
-    Drone->GetAttachedActors(AttachedActors,true,true);
+    AttachedActors.Add(Drone);
+    Drone->GetAttachedActors(AttachedActors,false,true);
     for (AActor* Child : AttachedActors)
-        if (IsValid(Child)) Child->SetActorEnableCollision(Enabled);
+    {
+        if (!IsValid(Child)) continue;
+        Child->SetActorEnableCollision(true);
+        TArray<UStaticMeshComponent*> Meshes;
+        Child->GetComponents(Meshes);
+        for (UStaticMeshComponent* Mesh : Meshes)
+        {
+            if (Enabled) continue;
+            if (Mesh->ComponentHasTag(TEXT("RotorBlur"))) continue;
+            // Query-only geometry lets the gimbal see the selected model without
+            // introducing a second physics body or blocking AirSim's motion.
+            Mesh->SetSimulatePhysics(false);
+            Mesh->SetCollisionResponseToAllChannels(ECR_Ignore);
+            Mesh->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
+            Mesh->SetCollisionEnabled(Mesh->IsVisible() ? ECollisionEnabled::QueryOnly : ECollisionEnabled::NoCollision);
+        }
+    }
 }
 
 void AWiseEyeDemo::StepProjectAirSim(float Dt)
@@ -46,8 +66,13 @@ void AWiseEyeDemo::StepProjectAirSim(float Dt)
         StepGimbal(Dt,false);
         return;
     }
+    // AirSim may finish its global stencil assignment after the source actor spawns.
+    // A single sentinel avoids reclassifying the world on every frame.
+    const int32 BodyStencil=FMath::Clamp(FMath::RoundToInt(BodyHeat*255.f),1,255);
+    if (IsValid(AlternateDroneMesh) && AlternateDroneMesh->CustomDepthStencilValue!=BodyStencil)
+        ConfigureThermalActors();
     // Project AirSim is the only pose authority. WISEYE's imported drone and
-    // rotor hierarchy is a collision-free visual assembly following that body.
+    // rotor hierarchy has query-only geometry following that body.
     const FQuat VisualRotation=DynamicsSource->GetActorQuat()*DynamicsVisualRotationOffset.Quaternion();
     Drone->SetActorLocationAndRotation(DynamicsSource->GetActorLocation(),VisualRotation,false,nullptr,ETeleportType::TeleportPhysics);
     StepGimbal(Dt,false);

@@ -1,0 +1,205 @@
+{
+  "date": "2026-10-19",
+  "machine": "second_pc_Intel_Arc_B580",
+  "repository_revision": "667b8a3",
+  "upstream_branch": "origin/main",
+  "local_changes_preserved": [
+    "papers/"
+  ],
+  "environment": {
+    "ue": "5.8.3",
+    "python": "3.14.6",
+    "pyside6": "6.11.0",
+    "projectairsim_commit": "62229cd7c77ad31da7bc8aba8dd6303c564d8ba2",
+    "mediamtx": "1.21.2",
+    "ffmpeg": "9.0.2-essentials_build"
+  },
+  "builds": {
+    "projectairsim": {
+      "passed": true,
+      "steps": 188
+    },
+    "testEditor": {
+      "passed": true,
+      "steps": 53,
+      "elapsed_s": 88.26
+    }
+  },
+  "python_unit_tests": {
+    "passed": true,
+    "count": 14,
+    "command": "E:/Projects/ProjectAirSim-Evaluation/.venv/Scripts/python.exe -m unittest discover -s tests -p test_*.py"
+  },
+  "desktop_integration": {
+    "passed": true,
+    "count": 15,
+    "checks": [
+      "real UE handshake and state polling",
+      "CH1 visible and CH2 infrared RTSP render in the unified viewer",
+      "LIDAR live point cloud renders in the unified viewer",
+      "pause freezes UE time; resume advances it",
+      "gimbal hold and tracking from UI",
+      "rotor controls",
+      "IR black-hot native snapshot rendered in UI",
+      "visible native snapshot rendered in UI",
+      "independent active sensor selection and LIDAR PLY export",
+      "Mavic 3 and Avata model switching",
+      "desktop W key manual AirSim flight and release-to-hover",
+      "FOV control",
+      "UE fragmented/coalesced TCP messages and argument errors",
+      "disconnect clears stale state; reconnect succeeds",
+      "response timeout does not block GUI"
+    ],
+    "last_state": {
+      "active_sensor": "infrared",
+      "application": "WISEYE Studio",
+      "available_sensors": [
+        "visible",
+        "infrared",
+        "lidar"
+      ],
+      "drone_model": "mavic3",
+      "drone_models_available": [
+        "mavic3",
+        "avata"
+      ],
+      "drone_position_cm": [
+        8742.0986328125,
+        1432.061767578125,
+        726.5794067382812
+      ],
+      "dynamics_actor": "Drone1",
+      "dynamics_connected": true,
+      "flight_backend": "projectairsim",
+      "flight_mode": "auto",
+      "fov_deg": 25,
+      "height": 512,
+      "last_export_path": "E:/Projects/WISEYE-Studio/ue5/WISEYE/Saved/WISEYE/20261019_111351/IR_WH_0003.png",
+      "lidar_enabled": true,
+      "lidar_hits": 14,
+      "lidar_last_export_path": "../../../../../Projects/WISEYE-Studio/ue5/WISEYE/Saved/WISEYE/20261019_111351/LIDAR_0002.ply",
+      "lidar_nearest_m": 13.750051498413086,
+      "lidar_point_count": 14,
+      "lidar_points_m": [
+        [
+          168.6643305202955,
+          -2.8110158732321,
+          -3.203389554817768
+        ],
+        [
+          169.06785268895388,
+          -0.9391754852679151,
+          -3.2106760848723206
+        ],
+        [
+          167.96983764198274,
+          0.933059256610759,
+          -3.1897670771730193
+        ],
+        [
+          164.70035223305953,
+          -2.744769236507673,
+          -1.0425197480119095
+        ],
+        [
+          164.70365292029092,
+          -0.9148657620051381,
+          -1.0424113143971045
+        ],
+        [
+          164.9460958840599,
+          0.9162162328163322,
+          -1.0439500618670718
+        ],
+        [
+          165.24451432367044,
+          6.428341115291515,
+          -1.0466233608926268
+        ],
+        [
+          161.43048377680708,
+          -6.279548598077781,
+          1.0223989782086573
+        ],
+        [
+          161.89850690187188,
+          -0.8992403726574412,
+          1.0246081953258546
+        ],
+        [
+          161.73439060987133,
+          0.8983262038119574,
+          1.0235665745205187
+        ],
+        [
+          162.2551927069413,
+          2.703905342408543,
+          1.0269994761243288
+        ],
+        [
+          163.07698756210812,
+          4.530148609995595,
+          1.032472209040716
+        ],
+        [
+          159.41393802382228,
+          -0.8854006811189175,
+          3.0268409275542947
+        ],
+        [
+          159.93807173191877,
+          0.8883203110422255,
+          3.03682166865583
+        ]
+      ],
+      "lidar_rays": 576,
+      "palette": "white_hot",
+      "paused": false,
+      "pending_scene": "",
+      "pitch_deg": 29.045866012573256,
+      "pointing_error_deg": 0.001328304409980774,
+      "rotor_rpm": 600,
+      "rotors_running": true,
+      "scene_id": "original",
+      "sensor_mode": "infrared",
+      "simulation_time_s": 27.382938385009766,
+      "thermal_model": "synthetic normalized heat",
+      "tracking": true,
+      "tracking_source": "UE ground truth",
+      "width": 640,
+      "yaw_deg": -22.559570312499993
+    }
+  },
+  "rtsp_probes": {
+    "CH1": {
+      "codec_name": "h264",
+      "width": 1920,
+      "height": 1080,
+      "r_frame_rate": "30/1",
+      "nb_read_frames": "91"
+    },
+    "CH2": {
+      "codec_name": "h264",
+      "width": 640,
+      "height": 512,
+      "r_frame_rate": "25/1",
+      "nb_read_frames": "76"
+    }
+  },
+  "rtsp_frame_count_note": "Three-second ffprobe interval; output frame counts include cached/repeated source frames, not proof of independent render rate.",
+  "local_fixes": [
+    "Windows PowerShell expected reverse-patch failure must not terminate setup",
+    "Apply pinned patch with CRLF-compatible context matching",
+    "Create plugin directory junctions after first SimLibs build"
+  ],
+  "known_observations": [
+    "First cold startup logged a handled IsInGameThread/FAppTime context ensure; editor stayed alive and all integration checks passed. Upstream deprecation/float conversion warnings also remain."
+  ],
+  "left_running": [
+    "UnrealEditor PIE original scene",
+    "Project AirSim flight runner",
+    "MediaMTX and RTSP gateway",
+    "WISEYE desktop connected"
+  ],
+  "git_publication": "Pulled latest; local fixes and validation documentation not committed or pushed."
+}

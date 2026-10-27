@@ -1,0 +1,12 @@
+{
+  "passed": 6,
+  "checks": [
+    "redundant active sensor selector removed",
+    "proportional joystick moves real UE yaw and release returns to zero",
+    "window deactivation resets joystick and stops gimbal",
+    "addressed IR and visible captures preserve current mode and native dimensions/metadata",
+    "shared save follows sensor subtab rather than an independent dropdown",
+    "joystick disabled outside gimbal control mode"
+  ],
+  "errors": []
+}

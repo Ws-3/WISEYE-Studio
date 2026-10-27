@@ -7,6 +7,7 @@ import asyncio
 import json
 import math
 import socket
+import sys
 import time
 from contextlib import suppress
 from pathlib import Path
@@ -15,7 +16,12 @@ from projectairsim import Drone, ProjectAirSimClient, World
 
 
 ROOT = Path(__file__).resolve().parents[2]
-CONFIG = ROOT / "integrations" / "ProjectAirSim" / "config"
+if str(ROOT) not in sys.path:
+    sys.path.insert(0,str(ROOT))
+from core.routes import validate_route
+
+from core.runtime_paths import RESOURCE_ROOT
+CONFIG = RESOURCE_ROOT / "integrations" / "ProjectAirSim" / "config"
 CONTROL_HOST = "127.0.0.1"
 CONTROL_PORT = 50052
 MAX_MESSAGE = 65536
@@ -42,6 +48,18 @@ def wiseeye_request(command: str, payload: dict | None = None) -> dict | None:
         return None
 
 
+def ue_listener_open() -> bool:
+    try:
+        with socket.create_connection(('127.0.0.1',50051),timeout=.2):
+            return True
+    except TimeoutError:
+        # A loaded editor can fill its accept backlog while streaming a city.
+        # A timeout is inconclusive; only a refused/closed listener ends PIE.
+        return True
+    except OSError:
+        return False
+
+
 async def connect_with_retry(client: ProjectAirSimClient, timeout: float) -> None:
     deadline = time.monotonic() + timeout
     while True:
@@ -54,16 +72,85 @@ async def connect_with_retry(client: ProjectAirSimClient, timeout: float) -> Non
             await asyncio.sleep(1.0)
 
 
+def resolved_ue_state_ready(reply):
+    """Never create physics robots using placeholder poses after a slow UE reply."""
+    if not isinstance(reply,dict) or reply.get('status')!='ok':return False
+    state=reply.get('payload',{})
+    if not isinstance(state,dict):return False
+    if not state.get('run_id') or state.get('scene_id') not in ('original','test_range','city'):return False
+    def pose(value):
+        return isinstance(value,list) and len(value)==3 and all(type(n) in (int,float) and math.isfinite(n) for n in value)
+    if not pose(state.get('initial_drone_position_cm')):return False
+    devices=state.get('devices',[])
+    if not isinstance(devices,list):return False
+    drones=[d for d in devices if isinstance(d,dict) and d.get('kind')=='drone']
+    return bool(drones) and all(d.get('id') and d.get('dynamics_name') and pose(d.get('initial_position_cm')) for d in drones)
+
+
+async def wait_for_ue_snapshot(timeout):
+    deadline=time.monotonic()+timeout
+    while time.monotonic()<deadline:
+        reply=await asyncio.to_thread(wiseeye_request,'sim.get_state')
+        if resolved_ue_state_ready(reply):return reply
+        await asyncio.sleep(.2)
+    raise TimeoutError('UE has not confirmed the scene, run and initial device poses; physics was not created')
+
+
+async def restore_observer(mode, timeout):
+    """Wait for an acknowledged view target after slow scene creation."""
+    deadline=time.monotonic()+timeout
+    while time.monotonic()<deadline:
+        reply=await asyncio.to_thread(wiseeye_request,'observer.set_mode',{'mode':mode})
+        if reply and reply.get('status')=='ok':return True
+        await asyncio.sleep(.5)
+    print('Observer restoration is pending; select a view in the desktop once UE finishes loading',flush=True)
+    return False
+
+
+class ConfiguredWorld(World):
+    """Apply UE's resolved initial pose before AirSim creates its physics robot."""
+    def __init__(self, *args, initial_position_cm=None, initial_devices=None, **kwargs):
+        self.initial_devices=initial_devices
+        self.initial_position_cm = initial_position_cm
+        super().__init__(*args, **kwargs)
+
+    def load_scene(self, config, delay_after_load_sec=0):
+        origin = self.initial_position_cm
+        if origin is not None:
+            if len(origin) != 3 or not all(type(n) in (int,float) and math.isfinite(n) for n in origin):
+                raise ValueError('UE initial position is invalid')
+            x,y,z = origin
+            config['actors'][0]['origin']['xyz'] = f'{x/100:.9f} {y/100:.9f} {-z/100:.9f}'
+        if self.initial_devices:
+            template=config['actors'][0]
+            robots=[]
+            for device in self.initial_devices:
+                if device['kind']!='drone':continue
+                actor=json.loads(json.dumps(template));actor['name']=device['dynamics_name']
+                x,y,z=device['initial_position_cm'];actor['origin']['xyz']=f'{x/100} {y/100} {-z/100}'
+                actor['origin']['rpy-deg']=f"0 0 {device.get('initial_yaw_deg',0)}"
+                robots.append(actor)
+            config['actors']=robots
+        return super().load_scene(config, delay_after_load_sec=delay_after_load_sec)
+
+
+class SessionChanged(RuntimeError):
+    pass
+
+
 class FlightController:
     """Serializes desktop and automatic commands for one AirSim drone."""
 
-    def __init__(self, world: World, drone: Drone, loops: int, velocity: float):
+    def __init__(self, world: World, drone: Drone, loops: int, velocity: float, *, ready_on_ground: bool = False, device_id: str = "uav-01"):
+        self.device_id=device_id
+        self.fleet_controllers={}
         self.world = world
         self.drone = drone
         self.max_loops = loops
         self.velocity = velocity
-        self.mode = "auto"
-        self.paused = False
+        self.ready_on_ground = ready_on_ground
+        self.mode = "manual" if ready_on_ground else "auto"
+        self.paused = ready_on_ground
         self.completed_loops = 0
         self.command_generation = 0
         self.active_task: asyncio.Task | None = None
@@ -73,6 +160,31 @@ class FlightController:
         self.last_error = ""
         self.initial_position: tuple[float, float, float] | None = None
         self.path: list[list[float]] = []
+        self.play_session_id = None
+        self.manual_command_count = 0
+        self.last_manual_input = [0.0, 0.0, 0.0, 0.0]
+        self.control_writers = set()
+        self.closed = False
+        self.scene_id = "original"
+        self.uploaded_route = None
+        self.active_route = None
+        self.route_status = "idle"
+        self.route_next_index = 0
+        self.rotor_sample = (0.0, None, (0.0,)*4)
+
+    def on_rotors(self, topic, message):
+        """Topic thread only replaces one immutable sample; never invokes RPC."""
+        try:
+            values={r['rotor_id']:abs(float(r['speed']))*60/(2*math.pi) for r in message['rotor_info_vec']}
+            rpms=tuple(values[k] for k in ('Prop_FL_actuator','Prop_FR_actuator','Prop_RL_actuator','Prop_RR_actuator'))
+            stamp=message['time_stamp']
+            if any(not math.isfinite(v) or v>30000 for v in rpms) or stamp==self.rotor_sample[1]:return
+            self.rotor_sample=(time.monotonic(),stamp,rpms)
+        except (KeyError,TypeError,ValueError):
+            return
+
+    def ue_request(self,command,payload=None):
+        return wiseeye_request(command,dict(payload or {},device_id=self.device_id))
 
     def initialize_route(self) -> None:
         state = self.drone.get_ground_truth_kinematics()["pose"]["position"]
@@ -118,6 +230,19 @@ class FlightController:
 
         asyncio.create_task(watch())
 
+    async def _brake_and_hold(self) -> asyncio.Task:
+        # Hover uses MoveToZ upstream and may finish within position tolerance
+        # while a previous velocity goal is still active. Explicitly brake first.
+        generation = self.command_generation
+        brake = await self.drone.move_by_velocity_body_frame_async(0,0,0,duration=.6,yaw_is_rate=True,yaw=0)
+        async def finish():
+            await brake
+            if generation != self.command_generation:
+                return False
+            hold = await self.drone.hover_async()
+            return await hold
+        return asyncio.create_task(finish())
+
     async def _route_loop(self) -> None:
         while not self.finished.is_set():
             await self.route_wakeup.wait()
@@ -131,17 +256,34 @@ class FlightController:
 
             generation = self._cancel_active()
             try:
-                task = await self.drone.move_on_path_async(
-                    path=self.path, velocity=self.velocity, timeout_sec=120.0
-                )
-                self.active_task = task
-                result = await task
+                if self.active_route:
+                    result=True
+                    # Keep the next unfinished waypoint across pause/cancel.
+                    # Point-to-point motion deliberately slows at each corner.
+                    for index in range(self.route_next_index,len(self.path)):
+                        task=await self.drone.move_to_position_async(*self.path[index],velocity=self.velocity)
+                        self.active_task=task
+                        result=await task
+                        if generation!=self.command_generation or result is False:break
+                        self.route_next_index=index+1
+                else:
+                    task = await self.drone.move_on_path_async(
+                        path=self.path, velocity=self.velocity, timeout_sec=120.0
+                    )
+                    self.active_task = task
+                    result = await task
                 if generation != self.command_generation:
                     continue
                 self.active_task = None
                 if result is not False:
                     self.completed_loops += 1
-                    status = wiseeye_request("sim.get_state")
+                    self.route_next_index=0
+                    if self.active_route and not self.active_route['repeat']:
+                        self.mode, self.paused, self.route_status = 'manual', True, 'completed'
+                        await self._issue(self._brake_and_hold())
+                        await asyncio.to_thread(self.ue_request,'flight.sync_state',dict(mode=self.mode,paused=self.paused))
+                        continue
+                    status = self.ue_request("sim.get_state")
                     if status:
                         payload = status.get("payload", {})
                         print(
@@ -151,11 +293,13 @@ class FlightController:
                         )
                 else:
                     self.last_error = "Automatic route did not complete"
+                    if self.active_route:self.mode,self.paused,self.route_status='manual',True,'failed'
             except asyncio.CancelledError:
                 raise
             except Exception as exc:
                 if generation == self.command_generation:
                     self.last_error = str(exc)
+                    if self.active_route:self.mode,self.paused,self.route_status='manual',True,'failed'
                     await asyncio.sleep(0.5)
             finally:
                 if generation == self.command_generation and not self.paused and self.mode == "auto":
@@ -164,31 +308,92 @@ class FlightController:
     def state(self) -> dict:
         position = [0.0, 0.0, 0.0]
         try:
-            pose = self.drone.get_ground_truth_kinematics()["pose"]["position"]
+            kinematics = self.drone.get_ground_truth_kinematics()["pose"]
+            pose = kinematics["position"]
             position = [float(pose[key]) for key in "xyz"]
+            q = kinematics.get('orientation', dict(w=1,x=0,y=0,z=0))
+            yaw_deg = math.degrees(math.atan2(2*(q['w']*q['z']+q['x']*q['y']),1-2*(q['y']**2+q['z']**2)))
         except Exception as exc:
             self.last_error = str(exc)
+            yaw_deg = 0.0
         return {
             "application": "WISEYE AirSim Control",
+            "run_id": self.play_session_id,
             "connected": True,
+            "drone_id": self.device_id,
+            "flight_status": "ready" if self.ready_on_ground else "active",
             "paused": self.paused,
             "flight_mode": self.mode,
             "position_ned_m": position,
             "route_loops": self.completed_loops,
+            "route_status": self.route_status,
+            "route_next_waypoint": self.route_next_index+1 if self.active_route else None,
+            "route": self.uploaded_route,
+            "active_route_name": self.active_route['name'] if self.active_route else '',
             "velocity_mps": self.velocity,
             "command_active": self.active_task is not None,
             "last_error": self.last_error,
+            "yaw_deg": yaw_deg,
+            "motor_rpm": list(self.rotor_sample[2]),
+            "rotor_sample_age_s": time.monotonic()-self.rotor_sample[0] if self.rotor_sample[0] else None,
+            "manual_command_count": self.manual_command_count,
+            "last_manual_input": self.last_manual_input,
         }
 
     async def execute(self, command: str, payload: dict) -> dict:
         if command in ("sim.ping", "sim.get_state"):
             return self.state()
+        if command == 'route.upload':
+            self.uploaded_route = json.loads(json.dumps(validate_route(payload, self.scene_id)))
+            return self.state()
+        if command == 'route.start':
+            if self.ready_on_ground:
+                raise ValueError('请先起飞，再执行航线')
+            if not self.uploaded_route:
+                raise ValueError('请先上传有效航线')
+            if self.mode=='manual' and self.active_task is not None:
+                raise ValueError('请等待起飞或悬停动作完成，再执行航线')
+            self.active_route = json.loads(json.dumps(self.uploaded_route))
+            self.path = [[x,y,-z] for x,y,z in self.active_route['waypoints']]
+            self.velocity = self.active_route['speed_mps']
+            self.completed_loops = 0
+            self.route_next_index = 0
+            self.max_loops = 0
+            self.mode, self.paused, self.route_status = 'auto', False, 'running'
+            self._cancel_active()
+            self.finished.clear()
+            if self.route_task is None or self.route_task.done():
+                self.start()
+            else:
+                self.route_wakeup.set()
+            await asyncio.to_thread(self.ue_request,'flight.sync_state',dict(mode=self.mode,paused=self.paused))
+            return self.state()
+        if command == 'route.stop':
+            self.mode, self.paused, self.route_status = 'manual', True, 'stopped'
+            if not self.ready_on_ground:
+                await self._issue(self._brake_and_hold())
+            await asyncio.to_thread(self.ue_request,'flight.sync_state',dict(mode=self.mode,paused=self.paused))
+            return self.state()
+        if self.ready_on_ground:
+            if command in ('sim.resume', 'sim.reset') or (command == 'flight.set_mode' and payload.get('mode') == 'auto'):
+                raise ValueError('Drone is ready on the ground; take off before starting a route')
+            if command in ('sim.pause', 'flight.hover', 'flight.land'):
+                return self.state()
+            if command == 'flight.set_mode' and payload.get('mode') == 'manual':
+                return self.state()
+            if command == 'flight.set_input':
+                values = [payload.get(key, 0) for key in ('forward','right','up','yaw')]
+                if all(type(v) in (int,float) and math.isfinite(v) and v == 0 for v in values):
+                    return self.state()
+                raise ValueError('Drone is ready on the ground; take off before manual movement')
         if command == "sim.pause":
             self.paused = True
-            await self._issue(self.drone.hover_async())
+            if self.active_route: self.route_status="paused"
+            await self._issue(self._brake_and_hold())
         elif command == "sim.resume":
             self.paused = False
             if self.mode == "auto":
+                if self.active_route: self.route_status="running"
                 self.route_wakeup.set()
         elif command == "sim.reset":
             if self.initial_position is None:
@@ -196,38 +401,66 @@ class FlightController:
             self.paused = False
             self.mode = "auto"
             self.completed_loops = 0
+            self.route_next_index=0
+            if self.active_route:self.route_status='running'
             x, y, z = self.initial_position
             await self._issue(
                 self.drone.move_to_position_async(x, y, z, velocity=max(1.0, self.velocity)),
                 wake_route=True,
             )
         elif command == "flight.takeoff":
+            self.active_route=None
+            self.route_next_index=0
+            self.route_status='idle'
             self.paused = True
             self.mode = "manual"
             self.drone.arm()
             await self._issue(self.drone.takeoff_async())
+            self.ready_on_ground = False
+            generation = self.command_generation
+            task = self.active_task
+            async def prepare_route():
+                with suppress(Exception, asyncio.CancelledError):
+                    if await task is not False and generation == self.command_generation:
+                        self.initialize_route()
+            asyncio.create_task(prepare_route())
         elif command == "flight.hover":
+            if self.active_route:self.route_status='stopped'
             self.paused = True
             self.mode = "manual"
-            await self._issue(self.drone.hover_async())
+            await self._issue(self._brake_and_hold())
         elif command == "flight.land":
+            if self.active_route:self.route_status='stopped'
             self.paused = True
             self.mode = "manual"
             await self._issue(self.drone.land_async())
+            generation = self.command_generation
+            task = self.active_task
+            async def finish_landing():
+                with suppress(Exception, asyncio.CancelledError):
+                    if await task is not False and generation == self.command_generation:
+                        # Land completion alone leaves SimpleFlight armed at idle RPM.
+                        # Disarm the physical controller; never fake a stopped visual.
+                        if self.drone.disarm() is False:
+                            self.last_error='Landed, but AirSim refused to disarm motors'
+                            return
+                        self.ready_on_ground = True
+            asyncio.create_task(finish_landing())
         elif command == "flight.set_mode":
             mode = payload.get("mode")
             if mode not in ("auto", "manual"):
                 raise ValueError("mode must be auto or manual")
             self.mode = mode
+            self.paused = False
             if mode == "manual":
-                await self._issue(self.drone.hover_async())
+                if self.active_route:self.route_status='stopped'
+                await self._issue(self._brake_and_hold())
             elif not self.paused:
+                if self.active_route:self.route_status='running'
                 self.route_wakeup.set()
         elif command == "flight.set_input":
             if self.mode != "manual":
                 raise ValueError("Manual input requires manual flight mode")
-            if self.paused:
-                raise ValueError("Resume simulation before manual flight")
             names = ("forward", "right", "up", "yaw")
             values = []
             for name in names:
@@ -236,27 +469,113 @@ class FlightController:
                     raise ValueError(f"{name} must be a finite number in [-1,1]")
                 values.append(float(value))
             forward, right, up, yaw = values
-            await self._issue(
-                self.drone.move_by_velocity_body_frame_async(
-                    forward * self.velocity,
-                    right * self.velocity,
-                    -up * self.velocity,
-                    duration=0.35,
-                    yaw_is_rate=True,
-                    yaw=yaw * math.radians(70.0),
+            if self.paused and any(values):
+                raise ValueError('Flight is paused; resume or select manual flight first')
+            self.last_manual_input = values
+            self.manual_command_count += 1
+            if not any(values):
+                await self._issue(self._brake_and_hold())
+            else:
+                await self._issue(
+                    self.drone.move_by_velocity_body_frame_async(
+                        forward * self.velocity,
+                        right * self.velocity,
+                        -up * self.velocity,
+                        duration=0.35,
+                        yaw_is_rate=True,
+                        yaw=yaw * math.radians(70.0),
+                    )
                 )
-            )
         else:
             raise KeyError("Command is not supported")
+        self.last_error = ''
+        if command == 'sim.reset':
+            await asyncio.to_thread(self.ue_request, 'sim.reset')
+        await asyncio.to_thread(self.ue_request, 'flight.sync_state', {'mode': self.mode, 'paused': self.paused})
         return self.state()
 
-    async def close(self) -> None:
+    async def publish_rotors(self) -> None:
+        """Run independently of local-key polling and interactive / --loops mode."""
+        while not self.closed:
+            for ctl in self.fleet_controllers.values():
+                sampled,_,rpms=ctl.rotor_sample
+                fresh=sampled>0 and time.monotonic()-sampled<1
+                await asyncio.to_thread(ctl.ue_request,'rotors.sync_state',dict(rpm=list(rpms) if fresh else [0]*4,fresh=fresh))
+            await asyncio.sleep(.1)
+
+    async def watch_ue_controls(self) -> None:
+        """One flight authority, including UE keyboard intents and PIE restarts."""
+        misses = 0
+        while True:
+            reply = await asyncio.to_thread(self.ue_request, 'flight.get_local_control')
+            if not reply or reply.get('status') != 'ok':
+                # Shader compilation/readback can stall a live editor. Rebuild
+                # the AirSim world only when its UE control listener is gone.
+                if await asyncio.to_thread(ue_listener_open):
+                    await asyncio.sleep(.5)
+                    continue
+                misses += 1
+                if misses >= 3:
+                    raise SessionChanged('UE Play session ended; reconnecting AirSim')
+                await asyncio.sleep(.5)
+                continue
+            data = reply['payload']
+            session = data['play_session_id']
+            if self.play_session_id is not None and session != self.play_session_id:
+                raise SessionChanged('UE Play session changed; reloading AirSim scene')
+            self.play_session_id = session
+            misses = 0
+            selected=self.fleet_controllers.get(data.get('controlled_drone_id','uav-01'),self)
+            for command in data['commands']:
+                try:
+                    if command == 'flight.toggle_mode':
+                        await selected.execute('flight.set_mode', {'mode': 'manual' if selected.mode == 'auto' else 'auto'})
+                    elif command == 'sim.toggle_pause':
+                        await selected.execute('sim.resume' if selected.paused else 'sim.pause', {})
+                    elif command == 'sim.reset':
+                        await selected.execute(command, {})
+                except (ValueError, KeyError) as error:
+                    print(f'Local command rejected: {error}', flush=True)
+            if data['input_dirty'] and selected.mode == 'manual' and not selected.paused:
+                await selected.execute('flight.set_input', {key:data[key] for key in ('forward','right','up','yaw')})
+            if self.last_error:
+                raise RuntimeError(self.last_error)
+            await asyncio.sleep(.1)
+
+    async def close(self, *, skip_remote=False) -> None:
+        self.closed = True
+        for writer in list(self.control_writers):
+            writer.close()
         self.finished.set()
-        self._cancel_active()
+        if skip_remote:
+            self.command_generation += 1
+        else:
+            self._cancel_active()
         if self.route_task:
             self.route_task.cancel()
             with suppress(asyncio.CancelledError):
                 await self.route_task
+
+
+class FleetController:
+    def __init__(self,controllers):
+        self.controllers={c.device_id:c for c in controllers}
+        self.control_writers=set();self.closed=False
+        for c in controllers:c.fleet_controllers=self.controllers
+    def state(self,device_id='uav-01'):
+        if device_id not in self.controllers:raise ValueError('Unknown drone device_id')
+        state=self.controllers[device_id].state()
+        state['fleet']=[c.state() for c in self.controllers.values()]
+        return state
+    async def execute(self,command,payload):
+        ident=payload.get('device_id','uav-01')
+        if ident not in self.controllers:raise ValueError('Unknown drone device_id')
+        await self.controllers[ident].execute(command,payload)
+        return self.state(ident)
+    async def close(self,*,skip_remote=False):
+        self.closed=True
+        for writer in list(self.control_writers):writer.close()
+        for c in self.controllers.values():await c.close(skip_remote=skip_remote)
 
 
 def response(request_id: str, payload: dict, error: tuple[str, str] | None = None) -> dict:
@@ -269,8 +588,9 @@ def response(request_id: str, payload: dict, error: tuple[str, str] | None = Non
 async def handle_control(
     reader: asyncio.StreamReader, writer: asyncio.StreamWriter, controller: FlightController
 ) -> None:
+    controller.control_writers.add(writer)
     try:
-        while True:
+        while not controller.closed:
             line = await reader.readline()
             if not line:
                 break
@@ -301,10 +621,14 @@ async def handle_control(
                 result = response(request_id, {}, ("airsim_error", str(exc)))
             writer.write(json.dumps(result, ensure_ascii=False, allow_nan=False).encode("utf-8") + b"\n")
             await writer.drain()
+    except (ConnectionError,OSError):
+        pass  # A desktop timeout/reset must not produce an unhandled server callback.
     finally:
+        controller.control_writers.discard(writer)
         writer.close()
         with suppress(Exception):
-            await writer.wait_closed()
+            with suppress(ConnectionError, OSError):
+                await writer.wait_closed()
 
 
 async def fly(scene: str, loops: int, velocity: float, connection_timeout: float) -> None:
@@ -312,29 +636,47 @@ async def fly(scene: str, loops: int, velocity: float, connection_timeout: float
     drone: Drone | None = None
     controller: FlightController | None = None
     server: asyncio.Server | None = None
+    stale_session = False
+    rotor_publisher=None
+    fleet=None
+    controllers=[]
+    drones=[]
     try:
         print("Waiting for WISEYE Play mode and Project AirSim server...", flush=True)
         await connect_with_retry(client, connection_timeout)
+        ue_state = await wait_for_ue_snapshot(connection_timeout)
+        print('UE confirmed initial poses: '+json.dumps({d['id']:d['initial_position_cm'] for d in ue_state['payload']['devices'] if d['kind']=='drone'}),flush=True)
+        active_scene = (ue_state or {}).get('payload', {}).get('scene_id')
+        if active_scene in ('original', 'test_range', 'city'):
+            scene = active_scene
         # UE can accept the service socket a moment before a full scene reload is
         # ready. Allow the real reload/actor creation operation to complete.
         client.socket_services.recv_timeout = 60000
         config_name = f"scene_wiseye_{scene}.jsonc"
-        world = World(client, config_name, delay_after_load_sec=2, sim_config_path=str(CONFIG))
-        drone = Drone(client, world, "Drone1")
-        drone.enable_api_control()
-        drone.arm()
-        takeoff = await drone.takeoff_async()
-        await takeoff
-
-        controller = FlightController(world, drone, loops, velocity)
-        controller.initialize_route()
+        origin = (ue_state or {}).get('payload', {}).get('initial_drone_position_cm')
+        world = ConfiguredWorld(client, config_name, delay_after_load_sec=2, sim_config_path=str(CONFIG), initial_position_cm=origin,initial_devices=(ue_state or {}).get("payload",{}).get("devices"))
+        devices=[d for d in (ue_state or {}).get('payload',{}).get('devices',[]) if d['kind']=='drone']
+        if not devices:devices=[dict(id='uav-01',dynamics_name='Drone1')]
+        for device in devices:
+            robot=Drone(client,world,device['dynamics_name']);robot.enable_api_control();drones.append(robot)
+            ctl=FlightController(world,robot,loops,velocity,ready_on_ground=loops==0,device_id=device['id'])
+            ctl.scene_id=scene;ctl.play_session_id=(ue_state or {}).get('payload',{}).get('run_id');ctl.initialize_route();controllers.append(ctl)
+            client.subscribe(robot.robot_info["rotor_info"],ctl.on_rotors)
+        controller=controllers[0];drone=drones[0];fleet=FleetController(controllers)
+        rotor_publisher=asyncio.create_task(controller.publish_rotors())
+        if loops>0:
+            drone.arm();takeoff=await drone.takeoff_async();await takeoff
         server = await asyncio.start_server(
-            lambda reader, writer: handle_control(reader, writer, controller),
+            lambda reader, writer: handle_control(reader, writer, fleet),
             CONTROL_HOST,
             CONTROL_PORT,
             limit=MAX_MESSAGE,
         )
-        controller.start()
+        # Sim scene creation can replace the player view target with its robot camera.
+        await restore_observer(ue_state['payload'].get('observer_mode','overview'),connection_timeout)
+        for ctl in controllers:
+            ctl.start()
+            await asyncio.to_thread(ctl.ue_request,'flight.sync_state',dict(mode=ctl.mode,paused=ctl.paused))
         print(
             f"Project AirSim owns the drone pose. Desktop flight control: {CONTROL_HOST}:{CONTROL_PORT}",
             flush=True,
@@ -346,28 +688,58 @@ async def fly(scene: str, loops: int, velocity: float, connection_timeout: float
                 print("Lidar point cloud:", capture["payload"].get("point_cloud_path"), flush=True)
         else:
             async with server:
-                await server.serve_forever()
+                await controller.watch_ue_controls()
+    except SessionChanged:
+        stale_session = True
+        raise
     finally:
+        if rotor_publisher:
+            rotor_publisher.cancel()
+            with suppress(asyncio.CancelledError):await rotor_publisher
         if server:
             server.close()
             await server.wait_closed()
-        if controller:
-            await controller.close()
-        if drone is not None:
+        if fleet:
+            await fleet.close(skip_remote=stale_session)
+        elif controller:
+            await controller.close(skip_remote=stale_session)
+        if not stale_session:
+            for robot in drones:
+                with suppress(Exception):robot.disable_api_control()
+        if stale_session:
+            # The old robot and service methods were destroyed by map travel.
+            # Do not call cancellation/unsubscribe APIs against the new world.
+            client.state = False
+            thread = getattr(client, 'recv_topic_thread', None)
+            if thread and thread.is_alive():
+                thread.join(timeout=1)  # topic receives already have a 100 ms timeout
+            for channel in (client.socket_topics, client.socket_services):
+                with suppress(Exception):
+                    if channel is not None:
+                        channel.close()
+        else:
             with suppress(Exception):
-                drone.disable_api_control()
-        with suppress(Exception):
-            client.disconnect()
+                client.disconnect()
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--scene", choices=("original", "test_range"), default="original")
+    parser.add_argument("--scene", choices=("original", "test_range", "city"), default="original")
     parser.add_argument("--loops", type=int, default=0, help="0 repeats until Ctrl+C")
     parser.add_argument("--velocity", type=float, default=3.0)
     parser.add_argument("--connection-timeout", type=float, default=180.0)
     args = parser.parse_args()
-    asyncio.run(fly(args.scene, args.loops, args.velocity, args.connection_timeout))
+    async def supervise():
+        while True:
+            try:
+                await fly(args.scene, args.loops, args.velocity, args.connection_timeout)
+                return
+            except Exception as error:
+                if args.loops > 0:
+                    raise
+                print(f'Flight session restarting: {error}', flush=True)
+                await asyncio.sleep(2)
+    asyncio.run(supervise())
 
 
 if __name__ == "__main__":

@@ -1,0 +1,8 @@
+{
+  "passed": 3,
+  "checks": [
+    "1 UAV + 2 PTZ: distinct inventory, actual AirSim robot count, ready and removed-ID rejection",
+    "2 UAV + 1 PTZ: distinct inventory, actual AirSim robot count, ready and removed-ID rejection",
+    "original 2+2 configuration restored byte-for-byte and reloaded"
+  ]
+}

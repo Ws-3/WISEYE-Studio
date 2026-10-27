@@ -16,6 +16,7 @@ class AirSimClient(QObject):
 
     def __init__(self, config, parent=None):
         super().__init__(parent)
+        self.device_id="uav-01"
         self.config = config
         self.socket = QTcpSocket(self)
         self.socket.connected.connect(self._connected)
@@ -65,6 +66,8 @@ class AirSimClient(QObject):
         self.request_counter += 1
         request_id = f'air-{self.session}-{self.request_counter}'
         try:
+            payload=dict(payload or {})
+            payload.setdefault("device_id",self.device_id)
             packet = encode_request(request_id, command, payload)
         except ValueError as exc:
             self.failed.emit(command, str(exc))
@@ -116,6 +119,7 @@ class AirSimClient(QObject):
                 self.failed.emit(command, str(exc))
                 self.disconnect_from()
                 return
+            if payload.get('drone_id',self.device_id)!=self.device_id:continue
             if command == 'sim.ping':
                 self.ready = True
                 self.poll.start()

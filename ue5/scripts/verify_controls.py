@@ -15,8 +15,8 @@ actors={a.get_actor_label():a for a in unreal.GameplayStatics.get_all_actors_of_
 cal=json.loads((Path(unreal.Paths.project_dir())/'Config/WISEYE/calibration.json').read_text(encoding='utf8'))
 out=Path(unreal.Paths.project_saved_dir())/'WISEYE/controls_verification.json'
 assert len(demo.rotors)==4
-assert abs(max(cal['drone_size_cm'][:2])-60)<.1
-assert abs(cal['ptz_size_cm'][2]-40)<.1
+assert all(abs(a-b)<.1 for a,b in zip(cal['mavic_body_size_cm'], (34.75,28.3,10.77)))
+assert abs(cal['ptz_size_cm'][2]-80)<.1
 assert all(len(r.get_attached_actors())==3 for r in demo.rotors), 'Each rotor needs hub and two blades'
 
 def v(p): return [p.x,p.y,p.z]

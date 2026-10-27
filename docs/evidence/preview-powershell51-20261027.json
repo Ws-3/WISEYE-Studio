@@ -1,0 +1,8 @@
+{
+  "powershell": "Windows PowerShell 5.1",
+  "utf8_manifest": "passed",
+  "real_wrapper_with_mocked_process_launches": "passed",
+  "launch_count": 3,
+  "real_processes_started": false,
+  "preview_configuration_unchanged": true
+}

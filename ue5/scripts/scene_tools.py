@@ -166,6 +166,8 @@ def install_rig(scene):
         cls = {'demo': unreal.WiseEyeDemo, 'camera': unreal.CameraActor, 'root': unreal.WiseEyeRotor}[record['kind']]
         actor = ACTORS.spawn_actor_from_class(cls, unreal.Vector())
         actor.modify()
+        # Simulation devices must stay loaded outside the observer's WP cells.
+        actor.set_editor_property('is_spatially_loaded', False)
         actor.set_actor_label(record['label'])
         actor.root_component.set_mobility(unreal.ComponentMobility.MOVABLE)
         actor.set_actor_transform(ue_transform(record['transform'], offset), False, True)
@@ -190,6 +192,7 @@ def install_rig(scene):
                 raise RuntimeError('缺少设备资源：' + mesh['mesh'])
             part = ACTORS.spawn_actor_from_class(unreal.StaticMeshActor, unreal.Vector())
             part.modify()
+            part.set_editor_property('is_spatially_loaded', False)
             part.set_actor_label(record['label'] + '_visual_' + str(index))
             part.static_mesh_component.set_mobility(unreal.ComponentMobility.MOVABLE)
             part.static_mesh_component.set_static_mesh(asset)
@@ -237,6 +240,8 @@ def prepare_scene(config_path, source_map=None):
     """New destination only. Source maps are never modified. Run after saving work."""
     no_play()
     scene = json.loads(Path(config_path).read_text(encoding='utf-8-sig'))
+    if scene.get('requires_external_asset') and not source_map:
+        raise RuntimeError('请先获取真实城市资产并迁移地图，再设置 source_map 或使用 install_current_scene；不会生成替代街区。')
     destination = scene['map']
     if unreal.EditorAssetLibrary.does_asset_exist(destination):
         raise RuntimeError('目标地图已存在，不会覆盖：' + destination)

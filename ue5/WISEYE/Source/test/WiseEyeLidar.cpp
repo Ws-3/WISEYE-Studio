@@ -21,16 +21,26 @@ void AWiseEyeDemo::ScanLidar()
     LastLidarRangesMeters.Reserve(H*V);
     LastLidarPointsWorldCm.Reserve(H*V);
     LastLidarPose=LidarMount->GetComponentTransform();
+    // Sensor coordinates are rigid, metric coordinates, independent of model scale.
+    LastLidarPose.SetScale3D(FVector::OneVector);
     const FVector Start=LastLidarPose.GetLocation()+LastLidarPose.GetUnitAxis(EAxis::X)*4.f;
+    LastLidarPose.SetLocation(Start);
 
     FCollisionQueryParams Query(SCENE_QUERY_STAT(WiseEyeGimbalLidar),true,this);
     Query.AddIgnoredActor(this);
-    if (IsValid(Drone))
+    // Ignore the sensor housing and hidden physics proxy, not the observed UAV.
+    if (IsValid(DynamicsSource)) Query.AddIgnoredActor(DynamicsSource);
+    AActor* Housing=this;
+    while (Housing->GetAttachParentActor()) Housing=Housing->GetAttachParentActor();
+    TArray<AActor*> HousingActors;
+    HousingActors.Add(Housing);
+    Housing->GetAttachedActors(HousingActors,false,true);
+    TArray<AActor*> DroneActors;
+    DroneActors.Add(Drone);
+    if (IsValid(Drone)) Drone->GetAttachedActors(DroneActors,false,true);
+    for (AActor* Actor : HousingActors)
     {
-        Query.AddIgnoredActor(Drone);
-        TArray<AActor*> VisualChildren;
-        Drone->GetAttachedActors(VisualChildren,true,true);
-        Query.AddIgnoredActors(VisualChildren);
+        if (IsValid(Actor) && !DroneActors.Contains(Actor)) Query.AddIgnoredActor(Actor);
     }
 
     float Nearest=TNumericLimits<float>::Max();
@@ -80,6 +90,8 @@ bool AWiseEyeDemo::ExportLidarPointCloud()
         LastLidarExportPath.Empty();
         return false;
     }
+    const FString Meta=FString::Printf(TEXT("{\"device_id\":\"%s\",\"sensor_id\":\"%s/lidar\",\"scene_id\":\"%s\",\"run_id\":\"%s\",\"simulation_time_s\":%.6f,\"frame\":\"sensor_local_x_forward_y_right_z_up\",\"units\":\"meters\"}"),*GimbalId,*GimbalId,*SceneId,*PlaySessionId,SimulationTime);
+    FFileHelper::SaveStringToFile(Meta,*(LastLidarExportPath+TEXT(".json")));
     return true;
 }
 

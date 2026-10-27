@@ -1,0 +1,379 @@
+{
+  "date": "2026-10-19",
+  "passed": true,
+  "unit_tests": 17,
+  "live_ui": {
+    "passed": true,
+    "checks": [
+      "real UE handshake and state polling",
+      "CH1 visible and CH2 infrared RTSP render in the unified viewer",
+      "LIDAR live point cloud renders in the unified viewer",
+      "pause freezes UE time; resume advances it",
+      "gimbal hold and tracking from UI",
+      "rotor controls",
+      "IR black-hot native snapshot rendered in UI",
+      "visible native snapshot rendered in UI",
+      "independent active sensor selection and LIDAR PLY export",
+      "Mavic 3 and Avata model switching",
+      "desktop W key manual AirSim flight and release-to-hover",
+      "FOV control",
+      "UE fragmented/coalesced TCP messages and argument errors",
+      "disconnect clears stale state; reconnect succeeds",
+      "response timeout does not block GUI"
+    ],
+    "heartbeats": 200,
+    "last_state": {
+      "active_sensor": "infrared",
+      "application": "WISEYE Studio",
+      "available_sensors": [
+        "visible",
+        "infrared",
+        "lidar"
+      ],
+      "drone_model": "mavic3",
+      "drone_models_available": [
+        "mavic3",
+        "avata"
+      ],
+      "drone_position_cm": [
+        8793.125,
+        1479.8206787109375,
+        318.1993713378906
+      ],
+      "dynamics_actor": "Drone1",
+      "dynamics_connected": true,
+      "flight_backend": "projectairsim",
+      "flight_mode": "auto",
+      "fov_deg": 25,
+      "height": 512,
+      "last_export_path": "E:/Projects/WISEYE-Studio/ue5/WISEYE/Saved/WISEYE/20261019_115025/IR_WH_0003.png",
+      "lidar_enabled": true,
+      "lidar_hits": 25,
+      "lidar_last_export_path": "../../../../../Projects/WISEYE-Studio/ue5/WISEYE/Saved/WISEYE/20261019_115025/LIDAR_0002.ply",
+      "lidar_nearest_m": 11.520812034606934,
+      "lidar_point_count": 25,
+      "lidar_points_m": [
+        [
+          71.64726490981019,
+          -1.989521179400672,
+          -1.3604496381582976
+        ],
+        [
+          71.97903527680319,
+          -1.199060453275506,
+          -1.3664304736280974
+        ],
+        [
+          71.60327352694388,
+          -0.39756065470279284,
+          -1.3591054288002125
+        ],
+        [
+          71.36393595404458,
+          0.39622748902931565,
+          -1.3545478321789597
+        ],
+        [
+          71.27408587631253,
+          1.187279233492045,
+          -1.3530047764379378
+        ],
+        [
+          71.33156068656929,
+          1.980727421253123,
+          -1.3544355918901965
+        ],
+        [
+          70.90335912284172,
+          2.75700250506834,
+          -1.346780045645228
+        ],
+        [
+          69.95618470511734,
+          -0.3883859461607062,
+          -0.4425325809885726
+        ],
+        [
+          69.85710117373405,
+          0.3878340271394336,
+          -0.441903715446806
+        ],
+        [
+          69.8804078332401,
+          1.9403008979831793,
+          -0.44221627635468397
+        ],
+        [
+          69.52897589372958,
+          2.7033861914735646,
+          -0.4401488825003071
+        ],
+        [
+          69.10992726953933,
+          -2.68703746225352,
+          0.43748755527343747
+        ],
+        [
+          68.15035005935613,
+          -1.8921034575148952,
+          0.4312320849371099
+        ],
+        [
+          68.71440667435411,
+          -1.1445014655872365,
+          0.43470545963504265
+        ],
+        [
+          68.55462237324238,
+          -0.3805788834824125,
+          0.4336373833384278
+        ],
+        [
+          68.77835087279665,
+          0.38182510688671756,
+          0.43505735077013014
+        ],
+        [
+          67.54408051407991,
+          1.1249427857686534,
+          0.42727666382730606
+        ],
+        [
+          68.80202419505011,
+          1.910259060665303,
+          0.43536969022688937
+        ],
+        [
+          67.6522665942651,
+          -2.6301724258583272,
+          1.2848248210885869
+        ],
+        [
+          67.37499435125355,
+          -1.8705034507409437,
+          1.2790644156480266
+        ],
+        [
+          67.40039094301014,
+          -1.1225414277778691,
+          1.2792305889465387
+        ],
+        [
+          67.73860830005273,
+          -0.37603347570679035,
+          1.2855123471998924
+        ],
+        [
+          67.01497955724808,
+          0.3720026700662129,
+          1.271732609071023
+        ],
+        [
+          66.81363418480426,
+          1.1127354488701167,
+          1.268055853484384
+        ],
+        [
+          66.87211104692797,
+          1.8564951343008398,
+          1.2694846633596717
+        ]
+      ],
+      "lidar_rays": 576,
+      "palette": "white_hot",
+      "paused": false,
+      "pending_scene": "",
+      "pitch_deg": 12.17732620239258,
+      "pointing_error_deg": 0.003173540811985731,
+      "rotor_rpm": 600,
+      "rotors_running": true,
+      "scene_id": "original",
+      "sensor_mode": "infrared",
+      "simulation_time_s": 17.49434471130371,
+      "thermal_model": "synthetic normalized heat",
+      "tracking": true,
+      "tracking_source": "UE ground truth",
+      "width": 640,
+      "yaw_deg": -25.02380371093752
+    },
+    "last_image": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261019_115025\\IR_WH_0003.png"
+  },
+  "manual_controls": {
+    "passed": true,
+    "keys": [
+      {
+        "key": "Key_W",
+        "input": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          1.628204345703125,
+          0.0,
+          -0.3666665554046631
+        ],
+        "signed_motion": 1.6282043457031248
+      },
+      {
+        "key": "Key_S",
+        "input": [
+          -1,
+          0,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          -1.6940841674804688,
+          0.0,
+          -0.34310030937194824
+        ],
+        "signed_motion": 1.6940841674804659
+      },
+      {
+        "key": "Key_A",
+        "input": [
+          0,
+          -1,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          0.06232452392578125,
+          -1.677511215209961,
+          -0.3597536087036133
+        ],
+        "signed_motion": 1.677511219852866
+      },
+      {
+        "key": "Key_D",
+        "input": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          0.0,
+          1.7150611877441406,
+          -0.34340739250183105
+        ],
+        "signed_motion": 1.7150611569337628
+      },
+      {
+        "key": "Key_R",
+        "input": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "delta_ned_m": [
+          0.0,
+          -0.05775165557861328,
+          -3.215672492980957
+        ],
+        "signed_motion": 3.215672492980957
+      },
+      {
+        "key": "Key_F",
+        "input": [
+          0,
+          0,
+          -1,
+          0
+        ],
+        "delta_ned_m": [
+          0.0,
+          0.0011205673217773438,
+          2.9916157722473145
+        ],
+        "signed_motion": 2.9916157722473145
+      },
+      {
+        "key": "Key_Q",
+        "input": [
+          0,
+          0,
+          0,
+          -1
+        ],
+        "delta_ned_m": [
+          0.0,
+          0.0,
+          0.06650590896606445
+        ],
+        "signed_motion": 53.327732467744
+      },
+      {
+        "key": "Key_E",
+        "input": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "delta_ned_m": [
+          0.0,
+          0.0,
+          0.07304525375366211
+        ],
+        "signed_motion": 47.491647119903035
+      }
+    ],
+    "held_mouse_button": true,
+    "focus_loss_stops": true,
+    "hover_drift_m": 0.014527590439936618
+  },
+  "ue_keyboard": {
+    "passed": true,
+    "ue_auto_manual": true,
+    "ue_w_displacement_m": 2.2881384428268383,
+    "ue_pause_resume": true,
+    "ue_tracking": true
+  },
+  "play_recovery": {
+    "passed": true,
+    "old_session": "E3D5221A41962743281709A124DFDF1D",
+    "new_session": "24FBB1B94CD2CFDC96803BB5838C9E87",
+    "displacement_m": 1.2866970514706506
+  },
+  "dimensions_reopened": [
+    {
+      "map": "/Game/WISEYE/Scenes/test_range/TestRange",
+      "mavic_body_cm": [
+        34.75000000000002,
+        28.299999999999994,
+        10.770000000000056
+      ],
+      "gimbal_height_cm": 80.00000000000003
+    },
+    {
+      "map": "/Game/WISEYE-test",
+      "mavic_body_cm": [
+        34.74999999999975,
+        28.29999999999999,
+        10.769999999999971
+      ],
+      "gimbal_height_cm": 80.0
+    }
+  ],
+  "avata_visibility": {
+    "passed": true,
+    "avata_size_cm": [
+      18.0,
+      18.0,
+      8.0
+    ],
+    "visible_mavic_meshes": [],
+    "hidden_mavic_actor_count": 154
+  },
+  "limitations": [
+    "Mavic dimensions exclude blades; Avata dimensions include guards",
+    "Dimensions calibrate the visual assembly, not mass/inertia or optical intrinsics",
+    "Avata uses its original combined static mesh; it does not reuse Mavic rotor animation",
+    "Existing nonfatal upstream FAppTime ensure remains outside this fix"
+  ],
+  "correction_to_previous_validation": "Prior W movement-only assertion could accept residual automatic motion. New regression checks all eight signed motions from stabilized hover, input counters, release braking and focus loss."
+}

@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-27",
+  "editor_build": "passed",
+  "core_tests": 53,
+  "qt_tests": 15,
+  "real_city_environment": "passed",
+  "visual_review": "environment-20261027/visual-review.json",
+  "fleet_sha256": "bc48982ddb6043eca0fb6dbf7a4d61a249e8b15918590e8df2188b9587fb2fa6",
+  "shipping_updated": false,
+  "full_flight_retested": false,
+  "source_sync": "passed"
+}

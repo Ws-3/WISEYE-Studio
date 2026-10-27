@@ -1,0 +1,213 @@
+{
+  "date": "2026-10-19",
+  "ue_build": "Succeeded",
+  "visual_rpm_before": 600,
+  "visual_rpm_after": 6000,
+  "blur_threshold_rpm": 1200,
+  "rotation_approximation": "translucent swept disc; not measured motor RPM or exposure simulation",
+  "metric_preview": {
+    "passed": true,
+    "wall_center_m": 10,
+    "face_distance_m": 9.95,
+    "hits": 576,
+    "min_x_m": 9.949999999125048,
+    "max_x_m": 9.949999999952743,
+    "mount": {
+      "rpm": 6000.0,
+      "scale": "<Struct 'Vector' (0x000001E7E875D2D0) {x: 0.172975, y: 0.172975, z: 0.172975}>",
+      "rays": 576
+    }
+  },
+  "metric_ply": {
+    "passed": true,
+    "face_distance_m": 0.95,
+    "hits": 576,
+    "min_x_m": 0.95,
+    "max_x_m": 0.95,
+    "mount_scale": [
+      0.1729754039693369,
+      0.1729754039693369,
+      0.1729754039693369
+    ],
+    "ply": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\WISEYE\\20261019_162602\\LIDAR_0001.ply"
+  },
+  "mavic_blur": {
+    "passed": true,
+    "model": "mavic3",
+    "rpm": 6000.0,
+    "disc_diameters_cm": [
+      24.370776622953063,
+      24.433995748830498,
+      24.43397994630653,
+      24.3707517904154
+    ],
+    "stop_restores_blades": true,
+    "restart_restores_disc": true
+  },
+  "avata_blur": {
+    "passed": true,
+    "model": "avata",
+    "rpm": 6000.0,
+    "disc_diameters_cm": [
+      6.966950734253937,
+      6.966950734253937,
+      6.966950734253937,
+      6.966950734253937
+    ],
+    "stop_restores_blades": true,
+    "restart_restores_disc": true
+  },
+  "desktop_checks": [
+    "real UE handshake and state polling",
+    "CH1 visible and CH2 infrared RTSP render in the unified viewer",
+    "LIDAR live point cloud renders in the unified viewer",
+    "pause freezes UE time; resume advances it",
+    "gimbal hold and tracking from UI",
+    "rotor controls",
+    "IR black-hot native snapshot rendered in UI",
+    "visible native snapshot rendered in UI",
+    "independent active sensor selection and LIDAR PLY export",
+    "Mavic 3 and Avata model switching",
+    "desktop W key manual AirSim flight and release-to-hover",
+    "FOV control",
+    "UE fragmented/coalesced TCP messages and argument errors",
+    "disconnect clears stale state; reconnect succeeds",
+    "response timeout does not block GUI"
+  ],
+  "manual_control": {
+    "passed": true,
+    "keys": [
+      {
+        "key": "Key_W",
+        "input": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          1.4276504516601562,
+          0.2513542175292969,
+          -0.3632183074951172
+        ],
+        "signed_motion": 1.4495849351930308
+      },
+      {
+        "key": "Key_S",
+        "input": [
+          -1,
+          0,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          -1.6083221435546875,
+          -0.25655364990234375,
+          -0.35986948013305664
+        ],
+        "signed_motion": 1.6283200012566912
+      },
+      {
+        "key": "Key_A",
+        "input": [
+          0,
+          -1,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          0.26857757568359375,
+          -1.6460962295532227,
+          -0.3524484634399414
+        ],
+        "signed_motion": 1.6676490057715643
+      },
+      {
+        "key": "Key_D",
+        "input": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          -0.2698974609375,
+          1.6761035919189453,
+          -0.36115217208862305
+        ],
+        "signed_motion": 1.697436493556194
+      },
+      {
+        "key": "Key_R",
+        "input": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "delta_ned_m": [
+          -0.02713775634765625,
+          0.020456314086914062,
+          -3.335171699523926
+        ],
+        "signed_motion": 3.335171699523926
+      },
+      {
+        "key": "Key_F",
+        "input": [
+          0,
+          0,
+          -1,
+          0
+        ],
+        "delta_ned_m": [
+          0.0,
+          -0.0006465911865234375,
+          3.1733322143554688
+        ],
+        "signed_motion": 3.1733322143554688
+      },
+      {
+        "key": "Key_Q",
+        "input": [
+          0,
+          0,
+          0,
+          -1
+        ],
+        "delta_ned_m": [
+          0.0,
+          0.0,
+          0.06366777420043945
+        ],
+        "signed_motion": 50.34254482982388
+      },
+      {
+        "key": "Key_E",
+        "input": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "delta_ned_m": [
+          0.0,
+          0.0,
+          0.08192968368530273
+        ],
+        "signed_motion": 45.88760695761229
+      }
+    ],
+    "held_mouse_button": true,
+    "focus_loss_stops": true,
+    "hover_drift_m": 0.00804092065015273
+  },
+  "unit_tests": 17,
+  "viewer_regression": "finite-input filtering, front/top axis mapping, 3D height, three rendered projections and empty scan",
+  "limits": [
+    "single frame, 48x12 rays, 30x8 degree FOV, 10 Hz; not accumulated mapping",
+    "tiny targets may fall between rays",
+    "previous scaled-coordinate PLY should be regenerated; old data left untouched",
+    "cold AirSim init still emits the known nonfatal FAppTime ensure"
+  ]
+}

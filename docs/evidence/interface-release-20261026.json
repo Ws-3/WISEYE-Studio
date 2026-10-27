@@ -1,0 +1,13 @@
+{
+  "patch": "F:\\WISEYE-Studio\\releases\\WISEYE-Desktop-Update-20261026.zip",
+  "bytes": 330377510,
+  "sha256": "758bb24fceb444a52a3a583ea975a557e0391b505689eafab6e495f9a180aaa3",
+  "copy_verified": true,
+  "frozen_diagnostic_passed": true,
+  "frozen_ui_smoke_passed": true,
+  "latest_editor_module_in_exe": true,
+  "core_tests": 51,
+  "qt_tests": 11,
+  "real_ue_rerun": false,
+  "cleanup_freed_bytes": 0
+}

@@ -1,0 +1,85 @@
+{
+  "scope": "Actual existing WISEYE window via PrintWindow, no second viewer/decoder; periodic window-content observation, not exact paint onset",
+  "scene": "city",
+  "profile": "economy",
+  "seconds": 120.0,
+  "poll_interval_ms": 50,
+  "window_grab_ms": {
+    "samples": 2382,
+    "median_ms": 11.1,
+    "p95_ms": 15.9,
+    "max_ms": 24.9
+  },
+  "sources": {
+    "visible": {
+      "content_age": {
+        "samples": 2382,
+        "median_ms": 206.2,
+        "p95_ms": 271.1,
+        "max_ms": 329.8
+      },
+      "first_observed_source_frames": {
+        "samples": 1157,
+        "median_ms": 177.1,
+        "p95_ms": 222.2,
+        "max_ms": 270.5
+      },
+      "unique_fps": 9.64,
+      "invalid": 0
+    },
+    "infrared": {
+      "content_age": {
+        "samples": 2382,
+        "median_ms": 188.6,
+        "p95_ms": 251.0,
+        "max_ms": 293.1
+      },
+      "first_observed_source_frames": {
+        "samples": 1196,
+        "median_ms": 163.3,
+        "p95_ms": 212.8,
+        "max_ms": 239.4
+      },
+      "unique_fps": 9.97,
+      "invalid": 0
+    },
+    "observer": {
+      "content_age": {
+        "samples": 2382,
+        "median_ms": 187.8,
+        "p95_ms": 267.9,
+        "max_ms": 322.9
+      },
+      "first_observed_source_frames": {
+        "samples": 957,
+        "median_ms": 148.6,
+        "p95_ms": 207.0,
+        "max_ms": 245.2
+      },
+      "unique_fps": 7.97,
+      "invalid": 0
+    }
+  },
+  "layout": "Existing 1600x1000 scene-led layout",
+  "original_resolutions": {
+    "visible": [
+      1920,
+      1080
+    ],
+    "infrared": [
+      640,
+      512
+    ],
+    "observer": [
+      960,
+      540
+    ]
+  },
+  "visible_minus_infrared_source_time_ms": 0.0,
+  "absolute_eo_ir_source_skew": {
+    "samples": 2382,
+    "median_ms": 0.0,
+    "p95_ms": 101,
+    "max_ms": 140
+  }
+}

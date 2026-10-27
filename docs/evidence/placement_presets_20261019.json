@@ -1,0 +1,176 @@
+{
+  "date": "2026-10-19",
+  "phase": "A surface placement and named presets; full V2 remains in progress",
+  "build": "UE 5.8.3 testEditor succeeded",
+  "unit_tests": 23,
+  "placement": {
+    "passed": true,
+    "checks": [
+      "UE surface snap writes draft with clearance and never teleports live actors",
+      "bad coordinates, missing terrain, scene mismatch and unknown device rejected",
+      "named preset save/read/update stays separate from active layout",
+      "cancellation clears pick; stale request token cannot cancel current request",
+      "disconnect discards pending result; reconnect can cancel abandoned UE pick",
+      "real left mouse click in UE selects surface and returns coordinates to desktop",
+      "saved snapped placement recreates actual AirSim drone and gimbal after scene reload",
+      "actual gimbal base rests on the surface while its 80 cm reference height is preserved"
+    ],
+    "clicked_surface_cm": [
+      8811.646936511783,
+      1551.2961525048904,
+      0
+    ],
+    "gimbal_anchor_minus_surface_cm": 4.116816520690918,
+    "geometry": {
+      "passed": true,
+      "gimbal_bottom_cm": -0.016816514885271694,
+      "surface_z_cm": 0,
+      "gimbal_height_cm": 80.0,
+      "anchor_z_cm": 4.1000000000000005
+    }
+  },
+  "observer": {
+    "passed": true,
+    "observer_displacement_cm": 590.5568987131156,
+    "drone_drift_m": 0.0049285888671875,
+    "gimbal_pitch_change_deg": 11.779199957847583
+  },
+  "manual": {
+    "passed": true,
+    "keys": [
+      {
+        "key": "Key_W",
+        "input": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          1.6828842163085938,
+          0.18014907836914062,
+          -0.36277151107788086
+        ],
+        "signed_motion": 1.692499032767056
+      },
+      {
+        "key": "Key_S",
+        "input": [
+          -1,
+          0,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          -1.7127609252929688,
+          -0.19873428344726562,
+          -0.3423502445220947
+        ],
+        "signed_motion": 1.7241781112580998
+      },
+      {
+        "key": "Key_A",
+        "input": [
+          0,
+          -1,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          0.2296600341796875,
+          -1.5608701705932617,
+          -0.36386752128601074
+        ],
+        "signed_motion": 1.5764457958018727
+      },
+      {
+        "key": "Key_D",
+        "input": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          -0.1937255859375,
+          1.6353731155395508,
+          -0.34103918075561523
+        ],
+        "signed_motion": 1.646687774623068
+      },
+      {
+        "key": "Key_R",
+        "input": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "delta_ned_m": [
+          0.02332305908203125,
+          -0.05904674530029297,
+          -3.289703369140625
+        ],
+        "signed_motion": 3.289703369140625
+      },
+      {
+        "key": "Key_F",
+        "input": [
+          0,
+          0,
+          -1,
+          0
+        ],
+        "delta_ned_m": [
+          0.0,
+          0.0018167495727539062,
+          3.120203971862793
+        ],
+        "signed_motion": 3.120203971862793
+      },
+      {
+        "key": "Key_Q",
+        "input": [
+          0,
+          0,
+          0,
+          -1
+        ],
+        "delta_ned_m": [
+          0.0,
+          0.0,
+          0.06585311889648438
+        ],
+        "signed_motion": 51.98025989373113
+      },
+      {
+        "key": "Key_E",
+        "input": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "delta_ned_m": [
+          0.0,
+          0.0,
+          0.07347631454467773
+        ],
+        "signed_motion": 45.46333261401557
+      }
+    ],
+    "held_mouse_button": true,
+    "focus_loss_stops": true,
+    "hover_drift_m": 0.05412510017296464
+  },
+  "numeric_edit_assertion": "passed in verify_manual_controls_live before eight-direction checks",
+  "desktop_regression_checks": 15,
+  "minimum_window": "1080x740 with Microsoft YaHei UI 10; scrollable arrangement",
+  "limitations": [
+    "point-and-click draft placement; no drag gizmo or pose editing",
+    "static collision surfaces only; roof/platform can be selected",
+    "drone clearance is a spawn allowance; AirSim determines settled contact height",
+    "preset activation requires saving active layout and reloading the scene",
+    "multi-drone, hardware encoding, embedded viewport and standalone installer remain future stages"
+  ]
+}

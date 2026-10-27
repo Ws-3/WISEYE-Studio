@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "zero_angle_reference_height_cm": 80,
+  "instances": [
+    {
+      "actor": "WiseEyeDemo_UAID_047C16D6BABAC80A03_1488438593",
+      "position_cm": [
+        9997.253515711356,
+        1377.7111180830398,
+        5.116923664164119
+      ],
+      "ptz_meshes": 4,
+      "height_cm": 80.0
+    },
+    {
+      "actor": "WiseEyeDemo_0",
+      "position_cm": [
+        9997.253515711356,
+        1877.7111180830398,
+        5.116923664164119
+      ],
+      "ptz_meshes": 4,
+      "height_cm": 79.99999999999983
+    }
+  ]
+}

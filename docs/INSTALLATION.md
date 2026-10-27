@@ -2,9 +2,21 @@
 
 本文用于在一台新的 Windows 电脑上复现当前完整功能：UE 场景、Project AirSim 无人机动力学、CH1/CH2 实时视频、LIDAR 点云和桌面控制台。日常操作见 [DESKTOP.md](DESKTOP.md)，视频链路细节见 [RTSP.md](RTSP.md)。
 
+> 本文面向源码开发环境。普通用户可使用包含UE运行时和Python依赖的独立运行包，无需安装UE/VS/开发Python；最新包的功能、校验及限制见[RELEASE_BUILD.md](RELEASE_BUILD.md)。GitHub源码ZIP不等同于该运行包。
+
+## 当前工程的城市依赖（2026-10-22）
+
+当前test.uproject启用了CitySampleSupport；新电脑只拉Git还没有该插件的本地源码，不能直接构建。先通过Epic/Fab获取UE5.8版CitySample，在执行下方会构建UE的Setup-ProjectAirSim之前，运行：
+
+```powershell
+.\scripts\Setup-CitySample.ps1 -SourceProject "E:\Projects\Scene\CitySample\CitySample.uproject" -EngineRoot "E:\Programs\UE_5.8" -Stage Dependencies -SkipBuild
+```
+
+随后按下方步骤安装AirSim并构建。首次运行城市还需按[CITY_SAMPLE_SETUP.md](CITY_SAMPLE_SETUP.md)完成Assets、Duplicate、Assemble阶段；公开仓库不带生成的城市地图及整套城市外部Actor。本机已有完整副本时不重复复制地图/安装装配。路径按各电脑实际修改。每日操作见[USER_GUIDE.md](USER_GUIDE.md)。
+
 ## 1. 安装基础软件
 
-- Unreal Engine 5.8；当前实测版本为 5.8.3。
+- Unreal Engine 5.8；当前实测版本为 5.8.4，5.8.3为历史验证版本。
 - Visual Studio 2022，勾选“使用 C++ 的游戏开发”，并安装 MSVC v143、Windows 10/11 SDK 和 UE 工具。
 - Git、Python 3.12 或更新版本。
 - FFmpeg，并确保 PowerShell 执行 `ffmpeg -version` 成功。
@@ -43,6 +55,8 @@ Set-Content -Path .\scripts\engine-root.local.txt -Value 'C:\Program Files\Epic 
 ```
 
 再获取固定提交的 Project AirSim、应用仓库补丁并构建插件：
+
+2026-10-22 起安装脚本还会应用独立的 `projectairsim-wall-contact.patch`，修复建筑连续接触时丢弃新控制响应导致粘墙的问题。已有环境更新此补丁也要关闭 UE 并重建 SimLibs，之后正常启动重建 UE 插件；只更新 Python 不生效。见 [COLLISION_RECOVERY.md](COLLISION_RECOVERY.md)。
 
 ```powershell
 .\scripts\Setup-ProjectAirSim.ps1 -EngineRoot 'C:\Program Files\Epic Games\UE_5.8'

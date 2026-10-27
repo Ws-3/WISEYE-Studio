@@ -1,0 +1,61 @@
+--- a/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/UnrealHelpers.cpp
++++ b/unreal/Blocks/Plugins/ProjectAirSim/Source/ProjectAirSim/Private/UnrealHelpers.cpp
+@@ -4,6 +4,8 @@
+ // MIT License. All rights reserved.
+ 
+ #include "UnrealHelpers.h"
++#include "Containers/Ticker.h"
++#include "HAL/PlatformProcess.h"
+ 
+ #include "AssetRegistry/IAssetRegistry.h"
+ #include "Engine/Engine.h"
+@@ -523,31 +525,25 @@
+ }
+ 
+ void UnrealHelpers::ForceUnrealGarbageCollection() {
+-  UnrealLogger::Log(projectairsim::LogLevel::kTrace,
+-                    TEXT("[UnrealHelpers] Forcing Unreal garbage collection "
+-                         "before loading new scene."));
+-  // Store last GC frame counter
+-  auto prev_gc_frame = GLastGCFrame;
+-
+-  // Set request for Unreal garbage collection to clear destroyed actors
+-  RunCommandOnGameThread([]() { GEngine->ForceGarbageCollection(true); }, true);
+-
+   if (IsInGameThread()) {
+-    UnrealLogger::Log(
+-        projectairsim::LogLevel::kWarning,
+-        TEXT("[UnrealHelpers] ForceUnrealGarbageCollection() was called on the "
+-             "game thread, so unable to wait until it completes before "
+-             "continuing. GC will be done at the next chance Unreal allows."));
+-  } else {
+-    // Wait until GC has actually occurred by watching update to GLastGCFrame
+-    while (GLastGCFrame == prev_gc_frame) {
+-      std::this_thread::yield();
+-    }
+-
+-    UnrealLogger::Log(
+-        projectairsim::LogLevel::kTrace,
+-        TEXT("[UnrealHelpers] Forced Unreal garbage collection is complete."));
+-  }
++    GEngine->ForceGarbageCollection(true);
++    return;
++  }
++  // GLastGCFrame changes at the START of UE 5.8 collection. Waiting on it
++  // from a service thread can enqueue actor/asset creation during GC.
++  // The core ticker runs outside task-graph pumping/GC on the game thread.
++  FEvent* Completed = FPlatformProcess::GetSynchEventFromPool(true);
++  RunCommandOnGameThread([Completed]() {
++    FTSTicker::GetCoreTicker().AddTicker(FTickerDelegate::CreateLambda(
++      [Completed](float) {
++        if (IsGarbageCollecting()) return true;
++        CollectGarbage(RF_NoFlags, true);
++        Completed->Trigger();
++        return false;
++      }));
++  }, false);
++  Completed->Wait();
++  FPlatformProcess::ReturnSynchEventToPool(Completed);
+ }
+ 
+ 

@@ -11,9 +11,12 @@ class UEClient(QObject):
     completed = Signal(str, dict)
     failed = Signal(str, str)
     latency_changed = Signal(float)
+    request_completed = Signal(str, str, dict, dict)
+    request_failed = Signal(str, str, dict, str)
 
     def __init__(self, config, parent=None):
         super().__init__(parent)
+        self.device_id="ptz-01"
         self.config = config
         self.socket = QTcpSocket(self)
         self.socket.connected.connect(self._connected)
@@ -22,6 +25,7 @@ class UEClient(QObject):
         self.socket.errorOccurred.connect(self._error)
         self.lines = JsonLines()
         self.pending = {}
+        self.request_payloads = {}
         self.ready = False
         self.request_counter = 0
         self.session = uuid.uuid4().hex[:8]
@@ -45,7 +49,7 @@ class UEClient(QObject):
         self.connect_deadline = None
         self.poll.stop()
         self.ready = False
-        self.pending.clear()
+        self._fail_pending('连接已断开，操作结果未确认')
         self.socket.abort()
         self.connection_changed.emit(False, '未连接')
 
@@ -59,15 +63,27 @@ class UEClient(QObject):
         self.request_counter += 1
         request_id = f'{self.session}-{self.request_counter}'
         try:
+            payload=dict(payload or {})
+            payload.setdefault("device_id",self.device_id)
             packet = encode_request(request_id, command, payload)
         except ValueError as exc:
             self.failed.emit(command, str(exc))
             return None
         self.pending[request_id] = (command, time.monotonic())
+        self.request_payloads[request_id] = (command, dict(payload))
         if self.socket.write(packet) < 0:
             self.pending.pop(request_id, None)
+            self.request_payloads.pop(request_id, None)
             self.failed.emit(command, self.socket.errorString())
+            return None
         return request_id
+
+    def _fail_pending(self, message):
+        items = list(self.request_payloads.items())
+        self.pending.clear()
+        self.request_payloads.clear()
+        for ident, (command, payload) in items:
+            self.request_failed.emit(ident, command, payload, message)
 
     def _connected(self):
         self.connect_deadline = None
@@ -78,7 +94,7 @@ class UEClient(QObject):
         self.ready = False
         self.poll.stop()
         pending = list(self.pending.values())
-        self.pending.clear()
+        self._fail_pending('连接已断开，操作结果未确认')
         self.lines = JsonLines()
         self.connection_changed.emit(False, 'UE 连接已断开' if was_ready else '未连接')
         for command, _ in pending:
@@ -90,7 +106,7 @@ class UEClient(QObject):
         self.connect_deadline = None
         self.ready = False
         self.poll.stop()
-        self.pending.clear()
+        self._fail_pending('连接失败，操作结果未确认')
         self.connection_changed.emit(False, f'连接失败：{text}')
 
     def _read(self):
@@ -105,10 +121,12 @@ class UEClient(QObject):
             if item is None:
                 continue
             command, sent = item
+            _, submitted = self.request_payloads.pop(message['request_id'], (command, {}))
             self.latency_changed.emit((time.monotonic()-sent)*1000)
             if message['status'] == 'error':
                 error = message.get('error', {})
                 self.failed.emit(command, str(error.get('message', 'UE 拒绝了操作')))
+                self.request_failed.emit(message['request_id'], command, submitted, str(error.get('message', 'UE 拒绝了操作')))
                 if command == 'sim.ping':
                     self.disconnect_from()
                 continue
@@ -128,6 +146,7 @@ class UEClient(QObject):
                 self.poll.start()
                 self.connection_changed.emit(True, '已连接 UE')
             self.state_received.emit(payload)
+            self.request_completed.emit(message['request_id'], command, submitted, payload)
             self.completed.emit(command, payload)
 
     def _poll(self):
@@ -144,6 +163,8 @@ class UEClient(QObject):
         if expired:
             for key, (command, _) in expired:
                 self.pending.pop(key, None)
+                _, payload = self.request_payloads.pop(key, (command, {}))
+                self.request_failed.emit(key, command, payload, 'UE 响应超时，操作结果未确认')
                 self.failed.emit(command, 'UE 响应超时，操作结果未确认')
             self.disconnect_from()
             self.connection_changed.emit(False, '响应超时，已断开')

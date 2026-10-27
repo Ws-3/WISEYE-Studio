@@ -8,6 +8,7 @@ public class testTarget : TargetRules
 	public testTarget(TargetInfo Target) : base(Target)
 	{
 		Type = TargetType.Game;
+		bUseAdaptiveUnityBuild = false;
 		DefaultBuildSettings = BuildSettingsVersion.V7;
 		IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_8;
 		ExtraModuleNames.Add("test");

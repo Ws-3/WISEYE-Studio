@@ -20,26 +20,30 @@ struct FWiseEyeStreamManager::FChannel
     FString Name;
     double LastQueued = -1;
     std::atomic<int32> InFlight{0};
+    std::atomic<bool> Cancelled{false};
     int64 QueuedFrameNumber = 0;
     mutable FCriticalSection CacheLock;
     TArray64<uint8> Jpeg;
     int32 Width = 0;
     int32 Height = 0;
     int64 FrameNumber = 0;
+    int64 CompletedFrames = 0;
+    double CaptureTime = 0;
     double SimulationTime = 0;
 };
 
 FWiseEyeStreamManager::FWiseEyeStreamManager()
 {
-    VisibleChannel = MakeShared<FChannel, ESPMode::ThreadSafe>(1.0 / 30.0, 8, TEXT("WISEYE_CH1_Readback"));
-    InfraredChannel = MakeShared<FChannel, ESPMode::ThreadSafe>(1.0 / 25.0, 6, TEXT("WISEYE_CH2_Readback"));
+    VisibleChannel = MakeShared<FChannel, ESPMode::ThreadSafe>(0.0, 2, TEXT("WISEYE_CH1_Readback"));
+    InfraredChannel = MakeShared<FChannel, ESPMode::ThreadSafe>(0.0, 2, TEXT("WISEYE_CH2_Readback"));
+    ObserverChannel = MakeShared<FChannel, ESPMode::ThreadSafe>(0.0, 2,TEXT("WISEYE_OBS_Readback"));
     FModuleManager::LoadModuleChecked<IImageWrapperModule>(TEXT("ImageWrapper"));
 }
 
-FWiseEyeStreamManager::~FWiseEyeStreamManager() = default;
+FWiseEyeStreamManager::~FWiseEyeStreamManager() { VisibleChannel->Cancelled=true; InfraredChannel->Cancelled=true; ObserverChannel->Cancelled=true; }
 
 void FWiseEyeStreamManager::Tick(UTextureRenderTarget2D* Visible, UTextureRenderTarget2D* Infrared,
-                                 double SimulationTime)
+                                 double SimulationTime,UTextureRenderTarget2D* Observer)
 {
     const double Now = FPlatformTime::Seconds();
     auto Schedule = [Now, SimulationTime](const TSharedPtr<FChannel, ESPMode::ThreadSafe>& Channel,
@@ -53,6 +57,7 @@ void FWiseEyeStreamManager::Tick(UTextureRenderTarget2D* Visible, UTextureRender
     };
     Schedule(VisibleChannel, Visible);
     Schedule(InfraredChannel, Infrared);
+    Schedule(ObserverChannel, Observer);
 }
 
 void FWiseEyeStreamManager::Queue(const TSharedPtr<FChannel, ESPMode::ThreadSafe>& Channel,
@@ -66,9 +71,10 @@ void FWiseEyeStreamManager::Queue(const TSharedPtr<FChannel, ESPMode::ThreadSafe
     }
     const int32 Width = Target->SizeX;
     const int32 Height = Target->SizeY;
+    const double CaptureTime = FPlatformTime::Seconds();
     const FString ReadbackName = Channel->Name;
     ENQUEUE_RENDER_COMMAND(WiseEyeAsyncReadback)(
-        [Channel, Resource, Width, Height, SimulationTime, Sequence, ReadbackName](FRHICommandListImmediate& RHICmdList)
+        [Channel, Resource, Width, Height, SimulationTime, Sequence, ReadbackName, CaptureTime](FRHICommandListImmediate& RHICmdList)
         {
             FRHITexture* Texture = Resource->GetRenderTargetTexture();
             if (!Texture)
@@ -78,11 +84,18 @@ void FWiseEyeStreamManager::Queue(const TSharedPtr<FChannel, ESPMode::ThreadSafe
             }
             auto Readback = MakeShared<FRHIGPUTextureReadback, ESPMode::ThreadSafe>(*ReadbackName);
             Readback->EnqueueCopy(RHICmdList, Texture, FIntVector::ZeroValue, 0, FIntVector(Width, Height, 1));
-            Async(EAsyncExecution::ThreadPool, [Channel, Readback, Width, Height, SimulationTime, Sequence]
+            Async(EAsyncExecution::ThreadPool, [Channel, Readback, Width, Height, SimulationTime, Sequence, CaptureTime]
             {
-                while (!Readback->IsReady()) FPlatformProcess::SleepNoStats(0.001f);
+                while (!Readback->IsReady()) {
+                    if (Channel->Cancelled || FPlatformTime::Seconds()-CaptureTime>3) {
+                        // Release the RHI resource on its owning thread, never lock an unready buffer.
+                        AsyncTask(ENamedThreads::ActualRenderingThread,[Channel,Readback] { Channel->InFlight.fetch_sub(1); });
+                        return;
+                    }
+                    FPlatformProcess::SleepNoStats(0.001f);
+                }
                 AsyncTask(ENamedThreads::ActualRenderingThread,
-                    [Channel, Readback, Width, Height, SimulationTime, Sequence]
+                    [Channel, Readback, Width, Height, SimulationTime, Sequence, CaptureTime]
                     {
                         int32 RowPitch = 0;
                         int32 BufferHeight = 0;
@@ -101,7 +114,7 @@ void FWiseEyeStreamManager::Queue(const TSharedPtr<FChannel, ESPMode::ThreadSafe
                                             Width * sizeof(FColor));
                         Readback->Unlock();
                         Async(EAsyncExecution::ThreadPool,
-                            [Channel, Pixels = MoveTemp(Pixels), Width, Height, SimulationTime, Sequence]() mutable
+                            [Channel, Pixels = MoveTemp(Pixels), Width, Height, SimulationTime, Sequence, CaptureTime]() mutable
                             {
                                 IImageWrapperModule& Module = FModuleManager::GetModuleChecked<IImageWrapperModule>(TEXT("ImageWrapper"));
                                 TSharedPtr<IImageWrapper> Wrapper = Module.CreateImageWrapper(EImageFormat::JPEG);
@@ -112,13 +125,15 @@ void FWiseEyeStreamManager::Queue(const TSharedPtr<FChannel, ESPMode::ThreadSafe
                                 if (!Encoded.IsEmpty())
                                 {
                                     FScopeLock Lock(&Channel->CacheLock);
-                                    if (Sequence > Channel->FrameNumber)
+                                    if (!Channel->Cancelled && Sequence > Channel->FrameNumber)
                                     {
                                         Channel->Jpeg = MoveTemp(Encoded);
                                         Channel->Width = Width;
                                         Channel->Height = Height;
                                         Channel->SimulationTime = SimulationTime;
                                         Channel->FrameNumber = Sequence;
+                                        ++Channel->CompletedFrames;
+                                        Channel->CaptureTime = CaptureTime;
                                     }
                                 }
                                 Channel->InFlight.fetch_sub(1,std::memory_order_relaxed);
@@ -128,16 +143,34 @@ void FWiseEyeStreamManager::Queue(const TSharedPtr<FChannel, ESPMode::ThreadSafe
         });
 }
 
+void FWiseEyeStreamManager::GetStatistics(bool bInfrared, int64& Sequence, int64& Completed, double& CaptureTime) const
+{
+    const auto& Channel = bInfrared ? InfraredChannel : VisibleChannel;
+    FScopeLock Lock(&Channel->CacheLock);
+    Sequence=Channel->FrameNumber;
+    Completed=Channel->CompletedFrames;
+    CaptureTime=Channel->CaptureTime;
+}
+
 bool FWiseEyeStreamManager::GetFrame(bool bInfrared, TArray64<uint8>& Jpeg, int32& Width, int32& Height,
                                      int64& FrameNumber, double& SimulationTime) const
 {
     const auto& Channel = bInfrared ? InfraredChannel : VisibleChannel;
     FScopeLock Lock(&Channel->CacheLock);
-    if (Channel->Jpeg.IsEmpty()) return false;
+    if (Channel->Jpeg.IsEmpty() || FPlatformTime::Seconds()-Channel->CaptureTime>2) return false;
     Jpeg = Channel->Jpeg;
     Width = Channel->Width;
     Height = Channel->Height;
     FrameNumber = Channel->FrameNumber;
     SimulationTime = Channel->SimulationTime;
+    return true;
+}
+
+bool FWiseEyeStreamManager::GetObserverFrame(TArray64<uint8>& Jpeg,int32& Width,int32& Height,int64& Sequence,double& Time) const
+{
+    FScopeLock Lock(&ObserverChannel->CacheLock);
+    if (ObserverChannel->Jpeg.IsEmpty() || FPlatformTime::Seconds()-ObserverChannel->CaptureTime>2) return false;
+    Jpeg=ObserverChannel->Jpeg; Width=ObserverChannel->Width; Height=ObserverChannel->Height;
+    Sequence=ObserverChannel->FrameNumber; Time=ObserverChannel->SimulationTime;
     return true;
 }

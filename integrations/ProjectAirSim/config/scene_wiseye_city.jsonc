@@ -1,0 +1,19 @@
+{
+  "id": "SceneWiseEyeCity",
+  "scene-type": "UnrealNative",
+  "actors": [
+    {
+      "type": "robot",
+      "name": "Drone1",
+      "origin": { "xyz": "-292.987246094 -1.007442474 -0.980000112", "rpy-deg": "0 0 0" },
+      "robot-config": "robot_wiseye_fastphysics.jsonc"
+    }
+  ],
+  "clock": {
+    "type": "engine-driven",
+    "step-ns": 3000000,
+    "engine-substepping": true
+  },
+  "home-geo-point": { "latitude": 47.641468, "longitude": -122.140165, "altitude": 122.0 },
+  "segmentation": { "initialize-ids": true, "ignore-existing": false, "use-owner-name": true }
+}

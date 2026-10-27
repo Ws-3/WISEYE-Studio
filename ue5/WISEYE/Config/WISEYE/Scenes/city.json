@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "id": "city",
+  "name": "City Sample · 小城市",
+  "map": "/Game/WISEYE/Scenes/city/CitySample",
+  "rig": "standard_v1",
+  "gimbal_location_cm": [
+    -30498.724609375,
+    -100.74424743652344,
+    78.11693486983734
+  ],
+  "flight_origin_cm": [
+    -29298.724609375,
+    -100.74424743652344,
+    98.00001120567322
+  ],
+  "overview_location_cm": [
+    -31098.724609375,
+    -100.74424743652344,
+    1200
+  ],
+  "overview_rotation_deg": [
+    -22,
+    0,
+    0
+  ],
+  "flight_radius_cm": 600,
+  "period_s": 24,
+  "vertical_amplitude_cm": 150,
+  "fov_deg": 25,
+  "prepared": true,
+  "requires_external_asset": true,
+  "asset_url": "https://www.fab.com/listings/4898e707-7855-404b-af0e-a505ee690e68",
+  "notes": "真实 Small City 静态白天环境；已移除副本中的自动人群、交通和原生昼夜控制器。起降、云台、三路视频与点云已通过本机运行检查；无自动避障。",
+  "source_map": "/Game/Map/Small_City_LVL",
+  "assembly_revision": 2,
+  "integration_status": "ready"
+}

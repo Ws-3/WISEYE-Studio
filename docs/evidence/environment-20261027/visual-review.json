@@ -1,0 +1,6 @@
+{
+  "review": "Direct inspection of real UE captures",
+  "fog_visible": true,
+  "rain_visible": true,
+  "notes": "Fog reduces distant contrast; rain produces visible droplets/refraction. Artistic daylight; night sky still affected by base scene sky. Not weather physics or calibrated visibility."
+}

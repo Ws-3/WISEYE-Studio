@@ -1,0 +1,11 @@
+{
+  "world": "/Game/WISEYE/Scenes/city/CitySample.CitySample",
+  "playing": false,
+  "cvars": {
+    "r.RayTracing": 1,
+    "r.RayTracing.EnableOnDemand": 1,
+    "r.RayTracing.Enable": 0,
+    "r.Lumen.HardwareRayTracing": 0
+  },
+  "scope": "Runtime settings readback, no motion/FPS benchmark; PIE was already stopped before this change"
+}

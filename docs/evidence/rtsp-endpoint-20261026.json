@@ -1,0 +1,8 @@
+{
+  "test": "custom RTSP port and nested per-device path",
+  "url": "rtsp://127.0.0.1:19554/custom/camera2/thermal",
+  "frames": 3,
+  "resolution": "640x512",
+  "source": "synthetic FFmpeg test signal",
+  "passed": true
+}

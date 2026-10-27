@@ -30,3 +30,58 @@ scripts/engine-root.local.txt
 .venv/
 third_party/mediamtx/
 scripts/python-root.local.txt
+
+# Local Epic City Sample dependencies; install from licensed source project.
+/ue5/WISEYE/Plugins/BrokenGlassEffects/
+/ue5/WISEYE/Plugins/CitySampleMassCrowd/
+/ue5/WISEYE/Plugins/CitySampleSensorGrid/
+/ue5/WISEYE/Plugins/Crossfader/
+/ue5/WISEYE/Plugins/HoverDrone/
+/ue5/WISEYE/Plugins/RuleProcessor/
+/ue5/WISEYE/Plugins/Traffic/
+/ue5/WISEYE/Plugins/WorldAudioDataSystem/
+/ue5/WISEYE/Plugins/CitySampleSupport/Source/
+
+# Migrated City Sample original package roots (local Fab dependency).
+/ue5/WISEYE/Content/AI/
+/ue5/WISEYE/Content/Audio/
+/ue5/WISEYE/Content/Building/
+/ue5/WISEYE/Content/Character/
+/ue5/WISEYE/Content/City/
+/ue5/WISEYE/Content/Crowd/
+/ue5/WISEYE/Content/Effect/
+/ue5/WISEYE/Content/Environment/
+/ue5/WISEYE/Content/Gameplay/
+/ue5/WISEYE/Content/HDA/
+/ue5/WISEYE/Content/Input/
+/ue5/WISEYE/Content/Lighting/
+/ue5/WISEYE/Content/Lookdev/
+/ue5/WISEYE/Content/MSPresets/
+/ue5/WISEYE/Content/Map/
+/ue5/WISEYE/Content/Material/
+/ue5/WISEYE/Content/Megascans/
+/ue5/WISEYE/Content/Prop/
+/ue5/WISEYE/Content/Road/
+/ue5/WISEYE/Content/Textures/
+/ue5/WISEYE/Content/UI/
+/ue5/WISEYE/Content/Vehicle/
+/ue5/WISEYE/Content/__ExternalActors__/Map/
+/ue5/WISEYE/Content/__ExternalObjects__/Map/
+
+# Reproducible clone of the locally licensed City Sample map. Keep Epic source
+# packages / generated city actors out of the public source repository.
+/ue5/WISEYE/Content/WISEYE/Scenes/city/
+/ue5/WISEYE/Content/__ExternalActors__/WISEYE/Scenes/city/
+/ue5/WISEYE/Content/__ExternalObjects__/WISEYE/Scenes/city/
+
+# Local release work and outputs
+/builds/
+/releases/
+
+# MediaMTX generated TLS identity; never publish the private key.
+auto.key
+auto.crt
+
+# Local reference papers and generated engine sample launchers.
+/papers/*.pdf
+/ue5/WISEYE/Samples/

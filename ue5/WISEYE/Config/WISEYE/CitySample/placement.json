@@ -1,0 +1,280 @@
+{
+  "gimbal_location_cm": [
+    -30498.724609375,
+    -100.74424743652344,
+    78.11693486983734
+  ],
+  "flight_origin_cm": [
+    -29298.724609375,
+    -100.74424743652344,
+    98.00001120567322
+  ],
+  "overview_location_cm": [
+    -31098.724609375,
+    -100.74424743652344,
+    1200
+  ],
+  "overview_rotation_deg": [
+    -22,
+    0,
+    0
+  ],
+  "map_sha256": "0b0bf55569e75241eb7ec16dfa243547e997e5bba4dfb62d64011c12ffbb9f7f",
+  "ground_check": {
+    "disabled_proxy_collisions": 52,
+    "points": [
+      {
+        "offset": [
+          0,
+          0
+        ],
+        "hit": true,
+        "location": [
+          -29898.724609375,
+          -100.74424743652344,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      },
+      {
+        "offset": [
+          -600,
+          0
+        ],
+        "hit": true,
+        "location": [
+          -30498.724609375,
+          -100.74424743652344,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      },
+      {
+        "offset": [
+          600,
+          0
+        ],
+        "hit": true,
+        "location": [
+          -29298.724609375,
+          -100.74424743652344,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      },
+      {
+        "offset": [
+          0,
+          -600
+        ],
+        "hit": true,
+        "location": [
+          -29898.724609375,
+          -700.7442474365234,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      },
+      {
+        "offset": [
+          0,
+          600
+        ],
+        "hit": true,
+        "location": [
+          -29898.724609375,
+          499.25575256347656,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      },
+      {
+        "offset": [
+          -1200,
+          0
+        ],
+        "hit": true,
+        "location": [
+          -31098.724609375,
+          -100.74424743652344,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      },
+      {
+        "offset": [
+          1200,
+          0
+        ],
+        "hit": true,
+        "location": [
+          -28698.724609375,
+          -100.74424743652344,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      },
+      {
+        "offset": [
+          0,
+          -1200
+        ],
+        "hit": true,
+        "location": [
+          -29898.724609375,
+          -1300.7442474365234,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      },
+      {
+        "offset": [
+          0,
+          1200
+        ],
+        "hit": true,
+        "location": [
+          -29898.724609375,
+          1099.2557525634766,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      },
+      {
+        "offset": [
+          -1800,
+          0
+        ],
+        "hit": true,
+        "location": [
+          -31698.724609375,
+          -100.74424743652344,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      },
+      {
+        "offset": [
+          1800,
+          0
+        ],
+        "hit": true,
+        "location": [
+          -28098.724609375,
+          -100.74424743652344,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      },
+      {
+        "offset": [
+          0,
+          -1800
+        ],
+        "hit": true,
+        "location": [
+          -29898.724609375,
+          -1900.7442474365234,
+          468.90370178222656
+        ],
+        "normal": [
+          -0.0,
+          -0.0,
+          1.0
+        ],
+        "actor": "BLDG_L1_COL_N145001",
+        "mesh": "/Game/Building/SF/C/Kit_Bldg_SFC_L1_A/Mesh/SM_BLDG_SFC_L1_A1_Entrance_01_N1.SM_BLDG_SFC_L1_A1_Entrance_01_N1"
+      },
+      {
+        "offset": [
+          0,
+          1800
+        ],
+        "hit": true,
+        "location": [
+          -29898.724609375,
+          1699.2557525634766,
+          1.1205673217773438e-05
+        ],
+        "normal": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "actor": "GroundCollisionCube",
+        "mesh": "/Engine/BasicShapes/Cube.Cube"
+      }
+    ]
+  },
+  "runtime_surface_check": {
+    "surface_z_cm": 72.999996,
+    "physical_material": "/Game/Material/PhysMaterial/PM_Sidewalk_Surface",
+    "evidence": "logs/city_runtime_ground.json"
+  }
+}

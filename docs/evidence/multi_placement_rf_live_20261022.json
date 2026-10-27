@@ -1,0 +1,55 @@
+{
+  "passed": true,
+  "checks": [
+    "City FastGeo sidewalk is selected at Z=73cm instead of the hidden Z=0 plane",
+    "Real ptz-02 and UAV surface snaps return addressed drafts without moving actors; child state includes shared placement task",
+    "Additional gimbal begins and cancels interactive picking",
+    "Actual Windows keys in UE: R=up +1, F=up -1; Up/Down arrows no longer send drone altitude input (landed/disarmed mapping test)"
+  ],
+  "keys": {
+    "82": 1,
+    "70": -1,
+    "38": 0,
+    "40": 0
+  },
+  "snaps": {
+    "ptz-02": {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-02",
+      "request_token": "live-ptz-02",
+      "error": "",
+      "sequence": 1,
+      "position_cm": [
+        -30498.724609375,
+        399.25575256347656,
+        74.11681652069092
+      ],
+      "surface_cm": [
+        -30498.724609375,
+        399.25575256347656,
+        70
+      ]
+    },
+    "uav-01": {
+      "active": false,
+      "has_result": true,
+      "device_id": "uav-01",
+      "request_token": "live-uav-01",
+      "error": "",
+      "sequence": 2,
+      "position_cm": [
+        -29298.69921875,
+        -100.69999694824219,
+        97.99999618530273
+      ],
+      "surface_cm": [
+        -29298.69921875,
+        -100.69999694824219,
+        72.99999618530273
+      ]
+    }
+  },
+  "fleet_file_unchanged": true,
+  "scope": "Real UE RPC and Windows keyboard mapping on landed/disarmed UAV; no takeoff or flight motion benchmark"
+}

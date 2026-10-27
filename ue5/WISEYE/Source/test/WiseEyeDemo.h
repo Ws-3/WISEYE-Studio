@@ -6,6 +6,8 @@
 #include "ProjectAirSimGameMode.h"
 #include "WiseEyeDemo.generated.h"
 
+class FJsonObject;
+class FJsonValue;
 class USceneComponent;
 class UCameraComponent;
 class USceneCaptureComponent2D;
@@ -17,6 +19,10 @@ class UStaticMeshComponent;
 class UPrimitiveComponent;
 class FWiseEyeBridge;
 class FWiseEyeStreamManager;
+class UDirectionalLightComponent;
+class USkyLightComponent;
+class UExponentialHeightFogComponent;
+class UMaterialParameterCollectionInstance;
 
 UENUM(BlueprintType)
 enum class EWiseEyeFlightBackend : uint8
@@ -32,8 +38,99 @@ class TEST_API AWiseEyeDemo : public AActor
     GENERATED_BODY()
 public:
     AWiseEyeDemo();
+    bool FleetChild=false;
+    bool OwnsDrone=true;
+    FString DroneId=TEXT("uav-01");
+    FString GimbalId=TEXT("ptz-01");
+    FString DeviceName;
+    FString DroneName=TEXT("无人机 1");
+    FString GimbalName=TEXT("云台 1");
+    FString TrackingTargetId=TEXT("uav-01");
+    FString ControlledDroneId=TEXT("uav-01");
+    FString ControlledGimbalId=TEXT("ptz-01");
+    float InitialYawDegrees=0;
+    UPROPERTY() TObjectPtr<AWiseEyeDemo> FleetRoot;
+    UPROPERTY() TArray<TObjectPtr<AWiseEyeDemo>> FleetRigs;
+    UPROPERTY() TObjectPtr<AActor> TrackingDrone;
+    TSharedPtr<FJsonObject> FleetManifest;
+    bool InitializeFleet(FString& Error);
+    AWiseEyeDemo* FindDevice(const FString& Id) const;
+    TArray<TSharedPtr<FJsonValue>> DeviceInventory() const;
+    TSharedPtr<FJsonObject> DispatchDevice(const TSharedPtr<FJsonObject>& Request);
+    void InitializeFleetChild();
+    void UpdateRuntimeStatus();
+    TSharedPtr<FJsonObject> RuntimeStatus;
+    double RuntimeSampleTime=0;
+    int64 RuntimeSampleTick=0;
+    TSharedPtr<FJsonObject> EnvironmentState();
+    void InitializeEnvironment();
+    bool ConfigureEnvironment(bool OverrideTime,float Hour,float Fog,float Rain,FString& Error);
+    void UpdateRainVolumes();
+    void ResetEnvironment();
+    bool EnvironmentInitialized=false,EnvironmentTimeOverride=false;
+    float EnvironmentHour=12,EnvironmentFog=0,EnvironmentRain=0;
+    TWeakObjectPtr<UDirectionalLightComponent> EnvironmentSun;
+    FRotator EnvironmentSunRotation;
+    float EnvironmentSunIntensity=0;
+    uint8 EnvironmentSunMobility=0;
+    TArray<TWeakObjectPtr<USkyLightComponent>> EnvironmentSkyLights;
+    TArray<float> EnvironmentSkyIntensities;
+    TWeakObjectPtr<UExponentialHeightFogComponent> EnvironmentFogComponent;
+    TWeakObjectPtr<AActor> EnvironmentCreatedFog;
+    float EnvironmentOriginalFog=0;
+    float EnvironmentFogStart=0,EnvironmentFogFalloff=.2f,EnvironmentFogOpacity=1;
+    FLinearColor EnvironmentFogColor;
+    bool EnvironmentFogVisible=true,EnvironmentFogOwnerHidden=false;
+    TWeakObjectPtr<UMaterialParameterCollectionInstance> EnvironmentWeatherParameters;
+    TWeakObjectPtr<UClass> EnvironmentRainClass;
+    float EnvironmentOriginalRain=0,EnvironmentOriginalWeatherEnabled=0;
+    TArray<TWeakObjectPtr<AActor>> EnvironmentRainActors;
+    TArray<TWeakObjectPtr<USceneComponent>> EnvironmentRainTargets;
     virtual ~AWiseEyeDemo();
     virtual void BeginPlay() override;
+    void EnsurePlayerInput();
+    void LocalToggleFlightMode();
+    void LocalTogglePause();
+    void LocalReset();
+    void PollLocalFlightInput();
+    void StepObserver(float DeltaSeconds);
+    bool SetObserverMode(const FString& Mode);
+    bool SetControlMode(const FString& Mode);
+    void CycleControlMode();
+    FString ObserverMode = TEXT("overview");
+    FString ControlMode = TEXT("observer");
+    FVector RemoteObserverInput = FVector::ZeroVector;
+    FVector2D RemoteGimbalInput = FVector2D::ZeroVector;
+    float ObserverCaptureTime = -1;
+    double ObserverInputTime = 0;
+    double GimbalInputTime = 0;
+    UPROPERTY() TObjectPtr<USceneCaptureComponent2D> ObserverCapture;
+    UPROPERTY() TObjectPtr<UTextureRenderTarget2D> ObserverTarget;
+    void UpdateObserverCapture();
+    bool GetObserverFrame(TArray64<uint8>& Jpeg,int32& Width,int32& Height,int64& Sequence,double& Time) const;
+    UPROPERTY() TObjectPtr<ACameraActor> FreeObserver;
+    bool BeginPlacement(const FString& DeviceId, const FString& Token, float Clearance, FString& Error);
+    void CancelPlacement();
+    bool SnapPlacement(const FString& DeviceId, const FString& Token, const FVector& Position, float Clearance, FString& Error);
+    void StepPlacement();
+    bool TracePlacement(const FVector& Start, const FVector& End, FVector& Point, FString& Error) const;
+    void CommitPlacement(const FVector& Surface);
+    bool PlacementActive = false;
+    bool PlacementHasResult = false;
+    bool PlacementHoverValid = false;
+    FString PlacementDevice;
+    FString PlacementToken;
+    FString PlacementError;
+    int32 PlacementSequence = 0;
+    FVector PlacementSurface = FVector::ZeroVector;
+    FVector PlacementPosition = FVector::ZeroVector;
+    float PlacementClearance = 0;
+    double PlacementStarted = 0;
+    TArray<FString> LocalFlightCommands;
+    FVector LocalFlightInput = FVector::ZeroVector;
+    float LocalYawInput = 0;
+    bool LocalFlightInputDirty = false;
+    FString PlaySessionId;
     virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     virtual void Tick(float DeltaSeconds) override;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Scene") FString SceneId = TEXT("original");
@@ -84,6 +181,12 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Sensors", meta=(ClampMin="0", ClampMax="1")) float BackgroundHeat = .27f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Sensors", meta=(ClampMin="0", ClampMax="1")) float SkyHeat = .08f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Sensors", meta=(ClampMin="0", ClampMax=".1")) float ThermalNoise = .008f;
+    // Appearance prototype. Kept separate from physical/radiometric temperature.
+    FString ThermalProfile = TEXT("enhanced");
+    float ThermalBlurPixels = .8f;
+    float ThermalContrast = 1.35f;
+    float ThermalBackgroundDetail = .65f;
+    int32 ThermalFrameIndex = 0;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE") FVector FlightOrigin = FVector(0,0,4000);
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE") FVector TargetOffset = FVector::ZeroVector;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE", meta=(ClampMin="1")) float FlightRadius = 4000;
@@ -93,6 +196,10 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE") float MinPitch = -15;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE") float MaxPitch = 75;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE", meta=(ClampMin="5", ClampMax="120")) float FieldOfView = 45;
+    float VisibleFOV = 25;
+    float InfraredFOV = 25;
+    bool VisibleEnabled = true;
+    bool InfraredEnabled = true;
     UPROPERTY(BlueprintReadOnly, Category="WISEYE") bool Paused = false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Flight") bool AutomaticFlight = true;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Flight") EWiseEyeFlightBackend FlightBackend = EWiseEyeFlightBackend::ProjectAirSim;
@@ -109,9 +216,20 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Flight") float ModelHeadingOffset = -90;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Gimbal") bool TrackingEnabled = true;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Rotors") bool RotorsRunning = true;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Rotors", meta=(ClampMin="0", ClampMax="3000")) float RotorRPM = 600;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Rotors", meta=(ClampMin="0", ClampMax="30000")) float RotorRPM = 6000;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Rotors") TArray<TObjectPtr<AActor>> Rotors;
-    UPROPERTY(BlueprintReadOnly, Category="WISEYE|Rotors") float RotorPhase = 0;
+    UPROPERTY(BlueprintReadOnly, Category="WISEYE|Rotors")         float RotorPhase = 0;
+    TArray<float> MotorRPMs = {0,0,0,0};
+    TArray<float> MotorPhases = {0,0,0,0};
+    TArray<int32> AvataMotorIndices = {0,1,2,3};
+    double RotorTelemetryTime = 0;
+    bool RotorTelemetryValid = false;
+    int64 TickSequence = 0;
+    FString PerformanceProfile = TEXT("balanced");
+    float VisibleCaptureHz=20, InfraredCaptureHz=15, ObserverCaptureHz=10;
+    double NextVisibleCapture=0, NextInfraredCapture=0;
+    bool ObserverCaptured=false;
+    void SetPerformanceProfile(const FString& Profile);
     UPROPERTY(BlueprintReadOnly, Category="WISEYE|Drone") FString DroneModel = TEXT("mavic3");
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="WISEYE|Drone") TObjectPtr<UStaticMeshComponent> AlternateDroneMesh;
     UPROPERTY(BlueprintReadOnly, Category="WISEYE") TObjectPtr<ACameraActor> DroneView;
@@ -139,6 +257,7 @@ public:
     UFUNCTION(BlueprintCallable, Category="WISEYE") void ResetSimulation();
     UFUNCTION(BlueprintCallable, Category="WISEYE") void SwitchView();
     UFUNCTION(BlueprintCallable, Category="WISEYE") void ExportFrame();
+    void ExportSensorFrame(bool bInfrared);
     UFUNCTION(BlueprintCallable, Category="WISEYE") void ZoomIn();
     UFUNCTION(BlueprintCallable, Category="WISEYE") void ZoomOut();
     UFUNCTION(BlueprintCallable, Category="WISEYE") void ToggleFlightMode();
@@ -156,6 +275,7 @@ public:
     bool SetDroneModel(const FString& ModelId, FString& Error);
     bool GetStreamFrame(bool bInfrared, TArray64<uint8>& Jpeg, int32& Width, int32& Height,
                         int64& StreamFrameNumber, double& StreamSimulationTime) const;
+    void GetStreamStatistics(bool bInfrared, int64& Sequence, int64& Completed, double& CaptureTime) const;
 private:
     void StepSimulation(float DeltaSeconds, bool Snap);
     FVector FlightOffset(float Time) const;
@@ -176,6 +296,10 @@ private:
     float ManualYawInput = 0;
     TArray<FQuat> RotorInitialRotations;
     UPROPERTY() TArray<TObjectPtr<UPrimitiveComponent>> MavicVisualComponents;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="WISEYE|Drone", meta=(AllowPrivateAccess="true"))
+    TArray<TObjectPtr<UStaticMeshComponent>> AvataRotors;
+    UPROPERTY() TArray<TObjectPtr<UStaticMeshComponent>> AvataRotorBlurs;
+    UPROPERTY() TArray<TObjectPtr<UStaticMeshComponent>> MavicRotorBlurs;
     float TelemetryClock = 0;
     float LidarClock = 0;
     FTransform LastLidarPose;
@@ -184,6 +308,7 @@ private:
     FString OutputDirectory;
     FWiseEyeBridge* Bridge = nullptr;
     FWiseEyeStreamManager* StreamManager = nullptr;
+    bool PlayerInputBound = false;
 };
 
 /** Persisted pivot for the imported hub and two blades of one rotor. */

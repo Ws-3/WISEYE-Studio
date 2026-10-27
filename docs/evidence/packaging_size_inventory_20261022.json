@@ -1,0 +1,4777 @@
+{
+  "wiseye_project": {
+    "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE",
+    "exists": true,
+    "logical_bytes": 68268858727,
+    "gib": 63.58,
+    "files": 46996,
+    "groups": [
+      {
+        "name": "Content",
+        "bytes": 46107588595,
+        "gib": 42.941,
+        "files": 39859
+      },
+      {
+        "name": "DerivedDataCache",
+        "bytes": 12253648096,
+        "gib": 11.412,
+        "files": 3648
+      },
+      {
+        "name": "Plugins",
+        "bytes": 6803456087,
+        "gib": 6.336,
+        "files": 2833
+      },
+      {
+        "name": "Intermediate",
+        "bytes": 2881902055,
+        "gib": 2.684,
+        "files": 144
+      },
+      {
+        "name": "Saved",
+        "bytes": 154563360,
+        "gib": 0.144,
+        "files": 470
+      },
+      {
+        "name": "Binaries",
+        "bytes": 67299565,
+        "gib": 0.063,
+        "files": 4
+      },
+      {
+        "name": "Config",
+        "bytes": 245505,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "Source",
+        "bytes": 154885,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "(root files)",
+        "bytes": 579,
+        "gib": 0.0,
+        "files": 2
+      }
+    ],
+    "skipped_reparse_points": [
+      "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\ProjectAirSim\\Content",
+      "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\ProjectAirSim\\Resources",
+      "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\ProjectAirSim\\SimLibs",
+      "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\ProjectAirSim\\Source",
+      "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\Drone\\Content",
+      "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\Drone\\Resources"
+    ],
+    "errors": []
+  },
+  "wiseye_content": {
+    "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Content",
+    "exists": true,
+    "logical_bytes": 46107588595,
+    "gib": 42.941,
+    "files": 39859,
+    "groups": [
+      {
+        "name": "Prop",
+        "bytes": 9866406062,
+        "gib": 9.189,
+        "files": 1189
+      },
+      {
+        "name": "Building",
+        "bytes": 8539360286,
+        "gib": 7.953,
+        "files": 4555
+      },
+      {
+        "name": "Crowd",
+        "bytes": 6534453288,
+        "gib": 6.086,
+        "files": 2583
+      },
+      {
+        "name": "Vehicle",
+        "bytes": 5269873294,
+        "gib": 4.908,
+        "files": 1441
+      },
+      {
+        "name": "Road",
+        "bytes": 4234538844,
+        "gib": 3.944,
+        "files": 293
+      },
+      {
+        "name": "Megascans",
+        "bytes": 3667706669,
+        "gib": 3.416,
+        "files": 579
+      },
+      {
+        "name": "Material",
+        "bytes": 2122462441,
+        "gib": 1.977,
+        "files": 182
+      },
+      {
+        "name": "__ExternalActors__",
+        "bytes": 1869671198,
+        "gib": 1.741,
+        "files": 24815
+      },
+      {
+        "name": "Environment",
+        "bytes": 1213146858,
+        "gib": 1.13,
+        "files": 340
+      },
+      {
+        "name": "Audio",
+        "bytes": 725659584,
+        "gib": 0.676,
+        "files": 1365
+      },
+      {
+        "name": "Effect",
+        "bytes": 576094628,
+        "gib": 0.537,
+        "files": 710
+      },
+      {
+        "name": "Character",
+        "bytes": 439884706,
+        "gib": 0.41,
+        "files": 62
+      },
+      {
+        "name": "Textures",
+        "bytes": 412691197,
+        "gib": 0.384,
+        "files": 50
+      },
+      {
+        "name": "City",
+        "bytes": 227566832,
+        "gib": 0.212,
+        "files": 1146
+      },
+      {
+        "name": "UI",
+        "bytes": 161993424,
+        "gib": 0.151,
+        "files": 103
+      },
+      {
+        "name": "Lighting",
+        "bytes": 104456553,
+        "gib": 0.097,
+        "files": 7
+      },
+      {
+        "name": "WISEYE",
+        "bytes": 65981172,
+        "gib": 0.061,
+        "files": 34
+      },
+      {
+        "name": "(root files)",
+        "bytes": 37115638,
+        "gib": 0.035,
+        "files": 161
+      },
+      {
+        "name": "Fab",
+        "bytes": 28833549,
+        "gib": 0.027,
+        "files": 88
+      },
+      {
+        "name": "AI",
+        "bytes": 4975210,
+        "gib": 0.005,
+        "files": 29
+      },
+      {
+        "name": "Gameplay",
+        "bytes": 2416666,
+        "gib": 0.002,
+        "files": 32
+      },
+      {
+        "name": "MSPresets",
+        "bytes": 2017600,
+        "gib": 0.002,
+        "files": 10
+      },
+      {
+        "name": "Input",
+        "bytes": 108064,
+        "gib": 0.0,
+        "files": 38
+      },
+      {
+        "name": "HDA",
+        "bytes": 84913,
+        "gib": 0.0,
+        "files": 2
+      },
+      {
+        "name": "Map",
+        "bytes": 64418,
+        "gib": 0.0,
+        "files": 35
+      },
+      {
+        "name": "__ExternalObjects__",
+        "bytes": 16899,
+        "gib": 0.0,
+        "files": 9
+      },
+      {
+        "name": "Lookdev",
+        "bytes": 8602,
+        "gib": 0.0,
+        "files": 1
+      }
+    ],
+    "skipped_reparse_points": [],
+    "errors": []
+  },
+  "city_source": {
+    "path": "E:\\Projects\\Scene\\CitySample",
+    "exists": true,
+    "logical_bytes": 112422883124,
+    "gib": 104.702,
+    "files": 149720,
+    "groups": [
+      {
+        "name": "Content",
+        "bytes": 76435451541,
+        "gib": 71.186,
+        "files": 146756
+      },
+      {
+        "name": "DerivedDataCache",
+        "bytes": 24372037865,
+        "gib": 22.698,
+        "files": 382
+      },
+      {
+        "name": "Plugins",
+        "bytes": 10305106238,
+        "gib": 9.597,
+        "files": 2194
+      },
+      {
+        "name": "(root files)",
+        "bytes": 585540777,
+        "gib": 0.545,
+        "files": 4
+      },
+      {
+        "name": "Binaries",
+        "bytes": 368215361,
+        "gib": 0.343,
+        "files": 101
+      },
+      {
+        "name": "Intermediate",
+        "bytes": 349811424,
+        "gib": 0.326,
+        "files": 16
+      },
+      {
+        "name": "Saved",
+        "bytes": 3895604,
+        "gib": 0.004,
+        "files": 22
+      },
+      {
+        "name": "Build",
+        "bytes": 1385419,
+        "gib": 0.001,
+        "files": 38
+      },
+      {
+        "name": "Source",
+        "bytes": 1198849,
+        "gib": 0.001,
+        "files": 183
+      },
+      {
+        "name": "Config",
+        "bytes": 236220,
+        "gib": 0.0,
+        "files": 19
+      },
+      {
+        "name": "Platforms",
+        "bytes": 3826,
+        "gib": 0.0,
+        "files": 5
+      }
+    ],
+    "skipped_reparse_points": [],
+    "errors": []
+  },
+  "ue_engine": {
+    "path": "E:\\Programs\\UE_5.8",
+    "exists": true,
+    "logical_bytes": 32827497140,
+    "gib": 30.573,
+    "files": 252469,
+    "groups": [
+      {
+        "name": "Engine",
+        "bytes": 31687605799,
+        "gib": 29.511,
+        "files": 246747
+      },
+      {
+        "name": "Templates",
+        "bytes": 1061766927,
+        "gib": 0.989,
+        "files": 5706
+      },
+      {
+        "name": "(root files)",
+        "bytes": 39320018,
+        "gib": 0.037,
+        "files": 4
+      },
+      {
+        "name": ".egstore",
+        "bytes": 36491211,
+        "gib": 0.034,
+        "files": 3
+      },
+      {
+        "name": "FeaturePacks",
+        "bytes": 2313185,
+        "gib": 0.002,
+        "files": 9
+      }
+    ],
+    "skipped_reparse_points": [],
+    "errors": []
+  },
+  "desktop_venv": {
+    "path": "E:\\Projects\\WISEYE-Studio\\.venv",
+    "exists": true,
+    "logical_bytes": 12343884,
+    "gib": 0.011,
+    "files": 874,
+    "groups": [
+      {
+        "name": "Lib/site-packages/pip",
+        "bytes": 11353494,
+        "gib": 0.011,
+        "files": 834
+      },
+      {
+        "name": "(root files)",
+        "bytes": 843145,
+        "gib": 0.001,
+        "files": 12
+      },
+      {
+        "name": "Lib/site-packages/pip-26.1.2.dist-info",
+        "bytes": 147245,
+        "gib": 0.0,
+        "files": 28
+      }
+    ],
+    "skipped_reparse_points": [],
+    "errors": []
+  },
+  "airsim_venv": {
+    "path": "E:\\Projects\\ProjectAirSim-Evaluation\\.venv",
+    "exists": true,
+    "logical_bytes": 303925183,
+    "gib": 0.283,
+    "files": 6108,
+    "groups": [
+      {
+        "name": "Lib/site-packages/cv2",
+        "bytes": 117863243,
+        "gib": 0.11,
+        "files": 52
+      },
+      {
+        "name": "Lib/site-packages/numpy",
+        "bytes": 32907371,
+        "gib": 0.031,
+        "files": 1328
+      },
+      {
+        "name": "Lib/site-packages/matplotlib",
+        "bytes": 32328168,
+        "gib": 0.03,
+        "files": 804
+      },
+      {
+        "name": "Lib/site-packages/numpy.libs",
+        "bytes": 21164112,
+        "gib": 0.02,
+        "files": 2
+      },
+      {
+        "name": "Lib/site-packages/fontTools",
+        "bytes": 17392513,
+        "gib": 0.016,
+        "files": 698
+      },
+      {
+        "name": "Lib/site-packages/PIL",
+        "bytes": 16373375,
+        "gib": 0.015,
+        "files": 211
+      },
+      {
+        "name": "Lib/site-packages/pip",
+        "bytes": 11357839,
+        "gib": 0.011,
+        "files": 834
+      },
+      {
+        "name": "Lib/site-packages/cryptography",
+        "bytes": 11105668,
+        "gib": 0.01,
+        "files": 190
+      },
+      {
+        "name": "Lib/site-packages/lxml",
+        "bytes": 9355610,
+        "gib": 0.009,
+        "files": 201
+      },
+      {
+        "name": "Lib/site-packages/azure",
+        "bytes": 7654498,
+        "gib": 0.007,
+        "files": 323
+      },
+      {
+        "name": "Lib/site-packages/shapely.libs",
+        "bytes": 3686760,
+        "gib": 0.003,
+        "files": 3
+      },
+      {
+        "name": "Lib/site-packages/shapely",
+        "bytes": 3003476,
+        "gib": 0.003,
+        "files": 271
+      },
+      {
+        "name": "(root files)",
+        "bytes": 2755498,
+        "gib": 0.003,
+        "files": 31
+      },
+      {
+        "name": "Lib/site-packages/mpl_toolkits",
+        "bytes": 1603230,
+        "gib": 0.001,
+        "files": 80
+      },
+      {
+        "name": "Lib/site-packages/pynng",
+        "bytes": 1413848,
+        "gib": 0.001,
+        "files": 17
+      },
+      {
+        "name": "Lib/site-packages/pyparsing",
+        "bytes": 1083000,
+        "gib": 0.001,
+        "files": 36
+      },
+      {
+        "name": "Lib/site-packages/packaging",
+        "bytes": 1054593,
+        "gib": 0.001,
+        "files": 45
+      },
+      {
+        "name": "Lib/site-packages/urllib3",
+        "bytes": 990560,
+        "gib": 0.001,
+        "files": 74
+      },
+      {
+        "name": "Lib/site-packages/jsonschema",
+        "bytes": 956953,
+        "gib": 0.001,
+        "files": 75
+      },
+      {
+        "name": "Lib/site-packages/cffi",
+        "bytes": 819705,
+        "gib": 0.001,
+        "files": 44
+      },
+      {
+        "name": "Lib/site-packages/contourpy",
+        "bytes": 784904,
+        "gib": 0.001,
+        "files": 38
+      },
+      {
+        "name": "Lib/site-packages/dateutil",
+        "bytes": 742040,
+        "gib": 0.001,
+        "files": 37
+      },
+      {
+        "name": "Lib/site-packages/charset_normalizer",
+        "bytes": 737931,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "Lib/site-packages/rpds",
+        "bytes": 564796,
+        "gib": 0.001,
+        "files": 5
+      },
+      {
+        "name": "Lib/site-packages/idna",
+        "bytes": 516104,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "Lib/site-packages/requests",
+        "bytes": 499208,
+        "gib": 0.0,
+        "files": 39
+      },
+      {
+        "name": "Lib/site-packages/lark",
+        "bytes": 495332,
+        "gib": 0.0,
+        "files": 55
+      },
+      {
+        "name": "Lib/site-packages/pycparser",
+        "bytes": 483738,
+        "gib": 0.0,
+        "files": 15
+      },
+      {
+        "name": "Lib/site-packages/attr",
+        "bytes": 421991,
+        "gib": 0.0,
+        "files": 36
+      },
+      {
+        "name": "Lib/site-packages/__pycache__",
+        "bytes": 356542,
+        "gib": 0.0,
+        "files": 4
+      },
+      {
+        "name": "Lib/site-packages/pykml",
+        "bytes": 317473,
+        "gib": 0.0,
+        "files": 27
+      },
+      {
+        "name": "Lib/site-packages/referencing",
+        "bytes": 274262,
+        "gib": 0.0,
+        "files": 28
+      },
+      {
+        "name": "Lib/site-packages/certifi",
+        "bytes": 244259,
+        "gib": 0.0,
+        "files": 12
+      },
+      {
+        "name": "Lib/site-packages/msgpack",
+        "bytes": 236718,
+        "gib": 0.0,
+        "files": 9
+      },
+      {
+        "name": "Lib/site-packages/matplotlib-3.11.2.dist-info",
+        "bytes": 218018,
+        "gib": 0.0,
+        "files": 5
+      },
+      {
+        "name": "Lib/site-packages/fonttools-4.67.0.dist-info",
+        "bytes": 214528,
+        "gib": 0.0,
+        "files": 8
+      },
+      {
+        "name": "Lib/site-packages/numpy-2.5.4.dist-info",
+        "bytes": 213101,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "Lib/site-packages/opencv_python-5.0.0.93.dist-info",
+        "bytes": 208894,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "Lib/site-packages/kiwisolver",
+        "bytes": 166201,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "Lib/site-packages/pip-26.1.2.dist-info",
+        "bytes": 147245,
+        "gib": 0.0,
+        "files": 28
+      },
+      {
+        "name": "Lib/site-packages/pillow-13.0.0.dist-info",
+        "bytes": 123943,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "Lib/site-packages/isodate",
+        "bytes": 106322,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "Lib/site-packages/cryptography-50.0.2.dist-info",
+        "bytes": 82300,
+        "gib": 0.0,
+        "files": 9
+      },
+      {
+        "name": "Lib/site-packages/pqdict",
+        "bytes": 67165,
+        "gib": 0.0,
+        "files": 3
+      },
+      {
+        "name": "Lib/site-packages/azure_core-1.41.0.dist-info",
+        "bytes": 63503,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/shapely-2.2.0.dist-info",
+        "bytes": 59330,
+        "gib": 0.0,
+        "files": 8
+      },
+      {
+        "name": "Lib/site-packages/commentjson",
+        "bytes": 56014,
+        "gib": 0.0,
+        "files": 32
+      },
+      {
+        "name": "Lib/site-packages/jsonlines",
+        "bytes": 52624,
+        "gib": 0.0,
+        "files": 5
+      },
+      {
+        "name": "Lib/site-packages/charset_normalizer-3.5.2.dist-info",
+        "bytes": 51337,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "Lib/site-packages/jsonschema_specifications",
+        "bytes": 44240,
+        "gib": 0.0,
+        "files": 28
+      },
+      {
+        "name": "Lib/site-packages/azure_storage_blob-12.31.0.dist-info",
+        "bytes": 43680,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/cycler",
+        "bytes": 43068,
+        "gib": 0.0,
+        "files": 3
+      },
+      {
+        "name": "Lib/site-packages/junit_xml",
+        "bytes": 36603,
+        "gib": 0.0,
+        "files": 2
+      },
+      {
+        "name": "Lib/site-packages/lxml-6.1.3.dist-info",
+        "bytes": 28366,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "Lib/site-packages/rpds_py-2026.9.1.dist-info",
+        "bytes": 26823,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/packaging-26.3.dist-info",
+        "bytes": 18926,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "Lib/site-packages/requests-2.34.2.dist-info",
+        "bytes": 18153,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "Lib/site-packages/sniffio-1.3.1.dist-info",
+        "bytes": 17956,
+        "gib": 0.0,
+        "files": 8
+      },
+      {
+        "name": "Lib/site-packages/typing_extensions-4.16.0.dist-info",
+        "bytes": 17912,
+        "gib": 0.0,
+        "files": 5
+      },
+      {
+        "name": "Lib/site-packages/isodate-0.7.2.dist-info",
+        "bytes": 15421,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/jsonschema-4.26.0.dist-info",
+        "bytes": 15122,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/python_dateutil-2.9.0.post0.dist-info",
+        "bytes": 14492,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "Lib/site-packages/urllib3-2.8.0.dist-info",
+        "bytes": 14101,
+        "gib": 0.0,
+        "files": 5
+      },
+      {
+        "name": "Lib/site-packages/attrs",
+        "bytes": 13792,
+        "gib": 0.0,
+        "files": 14
+      },
+      {
+        "name": "Lib/site-packages/sniffio",
+        "bytes": 13672,
+        "gib": 0.0,
+        "files": 11
+      },
+      {
+        "name": "Lib/site-packages/attrs-26.1.0.dist-info",
+        "bytes": 13510,
+        "gib": 0.0,
+        "files": 5
+      },
+      {
+        "name": "Lib/site-packages/pycparser-3.11.dist-info",
+        "bytes": 11376,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/idna-3.20.dist-info",
+        "bytes": 10664,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/msgpack-1.2.3.dist-info",
+        "bytes": 10362,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/pyparsing-3.3.3.dist-info",
+        "bytes": 9906,
+        "gib": 0.0,
+        "files": 5
+      },
+      {
+        "name": "Lib/site-packages/pynng-0.9.0.dist-info",
+        "bytes": 9851,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/kiwisolver-1.5.1.dist-info",
+        "bytes": 9747,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/contourpy-1.4.0.dist-info",
+        "bytes": 8448,
+        "gib": 0.0,
+        "files": 5
+      },
+      {
+        "name": "Lib/site-packages/jsonschema_specifications-2025.9.1.dist-info",
+        "bytes": 7711,
+        "gib": 0.0,
+        "files": 5
+      },
+      {
+        "name": "Lib/site-packages/cffi-2.1.1.dist-info",
+        "bytes": 7484,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "Lib/site-packages/lark_parser-0.7.8.dist-info",
+        "bytes": 6963,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/referencing-0.37.0.dist-info",
+        "bytes": 6432,
+        "gib": 0.0,
+        "files": 5
+      },
+      {
+        "name": "Lib/site-packages/commentjson-0.9.0.dist-info",
+        "bytes": 6340,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/cycler-0.12.1.dist-info",
+        "bytes": 6051,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/pykml-0.2.0.dist-info",
+        "bytes": 5765,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "share/man/man1",
+        "bytes": 5601,
+        "gib": 0.0,
+        "files": 1
+      },
+      {
+        "name": "Lib/site-packages/junit_xml-1.9.dist-info",
+        "bytes": 5005,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/certifi-2026.10.18.dist-info",
+        "bytes": 4925,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/inputs-0.5.dist-info",
+        "bytes": 4671,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "Lib/site-packages/pqdict-1.5.1.dist-info",
+        "bytes": 4566,
+        "gib": 0.0,
+        "files": 5
+      },
+      {
+        "name": "Lib/site-packages/projectairsim-1.1.0.dist-info",
+        "bytes": 4191,
+        "gib": 0.0,
+        "files": 7
+      },
+      {
+        "name": "Lib/site-packages/jsonlines-4.0.0.dist-info",
+        "bytes": 4042,
+        "gib": 0.0,
+        "files": 6
+      },
+      {
+        "name": "Lib/site-packages/six-1.17.0.dist-info",
+        "bytes": 3402,
+        "gib": 0.0,
+        "files": 6
+      }
+    ],
+    "skipped_reparse_points": [],
+    "errors": []
+  },
+  "airsim_runtime_dependencies": {
+    "path": "E:\\Projects\\ProjectAirSim-Evaluation\\unreal\\Blocks\\Plugins\\ProjectAirSim\\SimLibs",
+    "exists": true,
+    "logical_bytes": 949752131,
+    "gib": 0.885,
+    "files": 3198,
+    "groups": [
+      {
+        "name": "shared_libs",
+        "bytes": 289185146,
+        "gib": 0.269,
+        "files": 16
+      },
+      {
+        "name": "assimp",
+        "bytes": 285479405,
+        "gib": 0.266,
+        "files": 90
+      },
+      {
+        "name": "core_sim",
+        "bytes": 153035655,
+        "gib": 0.143,
+        "files": 664
+      },
+      {
+        "name": "eigen",
+        "bytes": 141330391,
+        "gib": 0.132,
+        "files": 1812
+      },
+      {
+        "name": "multirotor_api",
+        "bytes": 33825735,
+        "gib": 0.032,
+        "files": 78
+      },
+      {
+        "name": "physics",
+        "bytes": 11800551,
+        "gib": 0.011,
+        "files": 11
+      },
+      {
+        "name": "rendering_scene",
+        "bytes": 9511645,
+        "gib": 0.009,
+        "files": 10
+      },
+      {
+        "name": "rover_api",
+        "bytes": 9059010,
+        "gib": 0.008,
+        "files": 18
+      },
+      {
+        "name": "mavlinkcom",
+        "bytes": 8403079,
+        "gib": 0.008,
+        "files": 15
+      },
+      {
+        "name": "jsbsim",
+        "bytes": 3581365,
+        "gib": 0.003,
+        "files": 444
+      },
+      {
+        "name": "nng",
+        "bytes": 2010697,
+        "gib": 0.002,
+        "files": 36
+      },
+      {
+        "name": "simserver",
+        "bytes": 1609435,
+        "gib": 0.001,
+        "files": 2
+      },
+      {
+        "name": "json",
+        "bytes": 919975,
+        "gib": 0.001,
+        "files": 1
+      },
+      {
+        "name": "(root files)",
+        "bytes": 42,
+        "gib": 0.0,
+        "files": 1
+      }
+    ],
+    "skipped_reparse_points": [],
+    "errors": []
+  },
+  "ffmpeg": {
+    "path": "E:\\Environments\\ffmpeg-wiseye\\ffmpeg-9.0.2-essentials_build\\bin",
+    "exists": true,
+    "logical_bytes": 317548544,
+    "gib": 0.296,
+    "files": 3,
+    "groups": [
+      {
+        "name": "(root files)",
+        "bytes": 317548544,
+        "gib": 0.296,
+        "files": 3
+      }
+    ],
+    "skipped_reparse_points": [],
+    "errors": []
+  },
+  "mediamtx": {
+    "path": "E:\\Projects\\WISEYE-Studio\\third_party\\mediamtx",
+    "exists": true,
+    "logical_bytes": 85649604,
+    "gib": 0.08,
+    "files": 7,
+    "groups": [
+      {
+        "name": "(root files)",
+        "bytes": 85649604,
+        "gib": 0.08,
+        "files": 7
+      }
+    ],
+    "skipped_reparse_points": [],
+    "errors": []
+  },
+  "city_actors": {
+    "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Content\\__ExternalActors__\\WISEYE\\Scenes\\city\\CitySample",
+    "exists": true,
+    "logical_bytes": 978783952,
+    "gib": 0.912,
+    "files": 12412,
+    "groups": [
+      {
+        "name": "3H",
+        "bytes": 20688044,
+        "gib": 0.019,
+        "files": 26
+      },
+      {
+        "name": "52",
+        "bytes": 20643351,
+        "gib": 0.019,
+        "files": 27
+      },
+      {
+        "name": "7S",
+        "bytes": 20096059,
+        "gib": 0.019,
+        "files": 22
+      },
+      {
+        "name": "1S",
+        "bytes": 18818616,
+        "gib": 0.018,
+        "files": 21
+      },
+      {
+        "name": "9O",
+        "bytes": 18173319,
+        "gib": 0.017,
+        "files": 26
+      },
+      {
+        "name": "AM",
+        "bytes": 16907057,
+        "gib": 0.016,
+        "files": 21
+      },
+      {
+        "name": "1I",
+        "bytes": 16906222,
+        "gib": 0.016,
+        "files": 31
+      },
+      {
+        "name": "48",
+        "bytes": 16854215,
+        "gib": 0.016,
+        "files": 22
+      },
+      {
+        "name": "CM",
+        "bytes": 16787085,
+        "gib": 0.016,
+        "files": 21
+      },
+      {
+        "name": "28",
+        "bytes": 16575372,
+        "gib": 0.015,
+        "files": 28
+      },
+      {
+        "name": "9Q",
+        "bytes": 16404402,
+        "gib": 0.015,
+        "files": 22
+      },
+      {
+        "name": "38",
+        "bytes": 16299003,
+        "gib": 0.015,
+        "files": 20
+      },
+      {
+        "name": "79",
+        "bytes": 16244648,
+        "gib": 0.015,
+        "files": 21
+      },
+      {
+        "name": "70",
+        "bytes": 16196149,
+        "gib": 0.015,
+        "files": 27
+      },
+      {
+        "name": "9S",
+        "bytes": 16075228,
+        "gib": 0.015,
+        "files": 17
+      },
+      {
+        "name": "1Z",
+        "bytes": 15987556,
+        "gib": 0.015,
+        "files": 26
+      },
+      {
+        "name": "0D",
+        "bytes": 15935617,
+        "gib": 0.015,
+        "files": 25
+      },
+      {
+        "name": "D6",
+        "bytes": 15797070,
+        "gib": 0.015,
+        "files": 26
+      },
+      {
+        "name": "4W",
+        "bytes": 15731469,
+        "gib": 0.015,
+        "files": 27
+      },
+      {
+        "name": "8J",
+        "bytes": 15343445,
+        "gib": 0.014,
+        "files": 18
+      },
+      {
+        "name": "1X",
+        "bytes": 13980529,
+        "gib": 0.013,
+        "files": 24
+      },
+      {
+        "name": "02",
+        "bytes": 9247768,
+        "gib": 0.009,
+        "files": 26
+      },
+      {
+        "name": "A1",
+        "bytes": 7833600,
+        "gib": 0.007,
+        "files": 26
+      },
+      {
+        "name": "AS",
+        "bytes": 7327827,
+        "gib": 0.007,
+        "files": 13
+      },
+      {
+        "name": "7J",
+        "bytes": 6908698,
+        "gib": 0.006,
+        "files": 21
+      },
+      {
+        "name": "CS",
+        "bytes": 6441315,
+        "gib": 0.006,
+        "files": 28
+      },
+      {
+        "name": "5Q",
+        "bytes": 6160953,
+        "gib": 0.006,
+        "files": 29
+      },
+      {
+        "name": "62",
+        "bytes": 5844365,
+        "gib": 0.005,
+        "files": 32
+      },
+      {
+        "name": "AX",
+        "bytes": 5748868,
+        "gib": 0.005,
+        "files": 22
+      },
+      {
+        "name": "B2",
+        "bytes": 5423699,
+        "gib": 0.005,
+        "files": 20
+      },
+      {
+        "name": "EH",
+        "bytes": 5116278,
+        "gib": 0.005,
+        "files": 19
+      },
+      {
+        "name": "0O",
+        "bytes": 5102713,
+        "gib": 0.005,
+        "files": 23
+      },
+      {
+        "name": "2B",
+        "bytes": 4873508,
+        "gib": 0.005,
+        "files": 15
+      },
+      {
+        "name": "6K",
+        "bytes": 4610072,
+        "gib": 0.004,
+        "files": 23
+      },
+      {
+        "name": "1C",
+        "bytes": 4579095,
+        "gib": 0.004,
+        "files": 23
+      },
+      {
+        "name": "2Q",
+        "bytes": 4554148,
+        "gib": 0.004,
+        "files": 26
+      },
+      {
+        "name": "9F",
+        "bytes": 4269755,
+        "gib": 0.004,
+        "files": 27
+      },
+      {
+        "name": "AH",
+        "bytes": 4269387,
+        "gib": 0.004,
+        "files": 22
+      },
+      {
+        "name": "2V",
+        "bytes": 4263991,
+        "gib": 0.004,
+        "files": 28
+      },
+      {
+        "name": "C3",
+        "bytes": 4235383,
+        "gib": 0.004,
+        "files": 31
+      },
+      {
+        "name": "BA",
+        "bytes": 4225853,
+        "gib": 0.004,
+        "files": 21
+      },
+      {
+        "name": "4G",
+        "bytes": 4162811,
+        "gib": 0.004,
+        "files": 19
+      },
+      {
+        "name": "D4",
+        "bytes": 4151968,
+        "gib": 0.004,
+        "files": 35
+      },
+      {
+        "name": "9T",
+        "bytes": 4140782,
+        "gib": 0.004,
+        "files": 27
+      },
+      {
+        "name": "3K",
+        "bytes": 4046140,
+        "gib": 0.004,
+        "files": 23
+      },
+      {
+        "name": "CY",
+        "bytes": 3933545,
+        "gib": 0.004,
+        "files": 20
+      },
+      {
+        "name": "BT",
+        "bytes": 3895679,
+        "gib": 0.004,
+        "files": 20
+      },
+      {
+        "name": "CA",
+        "bytes": 3876660,
+        "gib": 0.004,
+        "files": 19
+      },
+      {
+        "name": "7H",
+        "bytes": 3796305,
+        "gib": 0.004,
+        "files": 29
+      },
+      {
+        "name": "15",
+        "bytes": 3790468,
+        "gib": 0.004,
+        "files": 33
+      },
+      {
+        "name": "D0",
+        "bytes": 3732595,
+        "gib": 0.003,
+        "files": 20
+      },
+      {
+        "name": "86",
+        "bytes": 3691372,
+        "gib": 0.003,
+        "files": 27
+      },
+      {
+        "name": "3O",
+        "bytes": 3687685,
+        "gib": 0.003,
+        "files": 31
+      },
+      {
+        "name": "EN",
+        "bytes": 3682493,
+        "gib": 0.003,
+        "files": 26
+      },
+      {
+        "name": "BP",
+        "bytes": 3611747,
+        "gib": 0.003,
+        "files": 25
+      },
+      {
+        "name": "B6",
+        "bytes": 3581003,
+        "gib": 0.003,
+        "files": 23
+      },
+      {
+        "name": "F4",
+        "bytes": 3578994,
+        "gib": 0.003,
+        "files": 20
+      },
+      {
+        "name": "56",
+        "bytes": 3521296,
+        "gib": 0.003,
+        "files": 14
+      },
+      {
+        "name": "05",
+        "bytes": 3518836,
+        "gib": 0.003,
+        "files": 30
+      },
+      {
+        "name": "EB",
+        "bytes": 3422344,
+        "gib": 0.003,
+        "files": 21
+      },
+      {
+        "name": "82",
+        "bytes": 3394737,
+        "gib": 0.003,
+        "files": 22
+      },
+      {
+        "name": "4H",
+        "bytes": 3341272,
+        "gib": 0.003,
+        "files": 25
+      },
+      {
+        "name": "3W",
+        "bytes": 3301666,
+        "gib": 0.003,
+        "files": 25
+      },
+      {
+        "name": "2Z",
+        "bytes": 3295717,
+        "gib": 0.003,
+        "files": 21
+      },
+      {
+        "name": "64",
+        "bytes": 3287856,
+        "gib": 0.003,
+        "files": 20
+      },
+      {
+        "name": "12",
+        "bytes": 3278211,
+        "gib": 0.003,
+        "files": 25
+      },
+      {
+        "name": "3S",
+        "bytes": 3256299,
+        "gib": 0.003,
+        "files": 28
+      },
+      {
+        "name": "2Y",
+        "bytes": 3216067,
+        "gib": 0.003,
+        "files": 17
+      },
+      {
+        "name": "0P",
+        "bytes": 3180795,
+        "gib": 0.003,
+        "files": 29
+      },
+      {
+        "name": "9M",
+        "bytes": 3140357,
+        "gib": 0.003,
+        "files": 23
+      },
+      {
+        "name": "EJ",
+        "bytes": 3080354,
+        "gib": 0.003,
+        "files": 17
+      },
+      {
+        "name": "AG",
+        "bytes": 3064988,
+        "gib": 0.003,
+        "files": 18
+      },
+      {
+        "name": "4N",
+        "bytes": 3019234,
+        "gib": 0.003,
+        "files": 25
+      },
+      {
+        "name": "66",
+        "bytes": 2843589,
+        "gib": 0.003,
+        "files": 16
+      },
+      {
+        "name": "AA",
+        "bytes": 2832045,
+        "gib": 0.003,
+        "files": 23
+      },
+      {
+        "name": "78",
+        "bytes": 2806565,
+        "gib": 0.003,
+        "files": 23
+      },
+      {
+        "name": "CF",
+        "bytes": 2733625,
+        "gib": 0.003,
+        "files": 18
+      },
+      {
+        "name": "2L",
+        "bytes": 2677622,
+        "gib": 0.002,
+        "files": 27
+      },
+      {
+        "name": "B3",
+        "bytes": 2651043,
+        "gib": 0.002,
+        "files": 33
+      },
+      {
+        "name": "5V",
+        "bytes": 2609730,
+        "gib": 0.002,
+        "files": 24
+      },
+      {
+        "name": "29",
+        "bytes": 2595342,
+        "gib": 0.002,
+        "files": 19
+      },
+      {
+        "name": "BC",
+        "bytes": 2592795,
+        "gib": 0.002,
+        "files": 21
+      },
+      {
+        "name": "53",
+        "bytes": 2569913,
+        "gib": 0.002,
+        "files": 26
+      },
+      {
+        "name": "8A",
+        "bytes": 2565247,
+        "gib": 0.002,
+        "files": 25
+      },
+      {
+        "name": "2X",
+        "bytes": 2561384,
+        "gib": 0.002,
+        "files": 21
+      },
+      {
+        "name": "DM",
+        "bytes": 2537486,
+        "gib": 0.002,
+        "files": 22
+      },
+      {
+        "name": "A7",
+        "bytes": 2531170,
+        "gib": 0.002,
+        "files": 21
+      },
+      {
+        "name": "AU",
+        "bytes": 2446183,
+        "gib": 0.002,
+        "files": 24
+      },
+      {
+        "name": "9U",
+        "bytes": 2420021,
+        "gib": 0.002,
+        "files": 28
+      },
+      {
+        "name": "9B",
+        "bytes": 2419569,
+        "gib": 0.002,
+        "files": 30
+      },
+      {
+        "name": "75",
+        "bytes": 2394178,
+        "gib": 0.002,
+        "files": 27
+      },
+      {
+        "name": "7L",
+        "bytes": 2340615,
+        "gib": 0.002,
+        "files": 26
+      },
+      {
+        "name": "D3",
+        "bytes": 2339743,
+        "gib": 0.002,
+        "files": 29
+      },
+      {
+        "name": "0M",
+        "bytes": 2319968,
+        "gib": 0.002,
+        "files": 24
+      },
+      {
+        "name": "7Z",
+        "bytes": 2310674,
+        "gib": 0.002,
+        "files": 27
+      },
+      {
+        "name": "CP",
+        "bytes": 2298752,
+        "gib": 0.002,
+        "files": 30
+      },
+      {
+        "name": "0F",
+        "bytes": 2228484,
+        "gib": 0.002,
+        "files": 28
+      },
+      {
+        "name": "22",
+        "bytes": 2217579,
+        "gib": 0.002,
+        "files": 20
+      },
+      {
+        "name": "46",
+        "bytes": 2205138,
+        "gib": 0.002,
+        "files": 21
+      },
+      {
+        "name": "43",
+        "bytes": 2203117,
+        "gib": 0.002,
+        "files": 23
+      },
+      {
+        "name": "4C",
+        "bytes": 2180515,
+        "gib": 0.002,
+        "files": 23
+      },
+      {
+        "name": "DA",
+        "bytes": 2178973,
+        "gib": 0.002,
+        "files": 17
+      },
+      {
+        "name": "3J",
+        "bytes": 2178751,
+        "gib": 0.002,
+        "files": 19
+      },
+      {
+        "name": "4B",
+        "bytes": 2167233,
+        "gib": 0.002,
+        "files": 31
+      },
+      {
+        "name": "8E",
+        "bytes": 2162845,
+        "gib": 0.002,
+        "files": 16
+      },
+      {
+        "name": "7V",
+        "bytes": 2058878,
+        "gib": 0.002,
+        "files": 23
+      },
+      {
+        "name": "76",
+        "bytes": 2032515,
+        "gib": 0.002,
+        "files": 20
+      },
+      {
+        "name": "3N",
+        "bytes": 2028476,
+        "gib": 0.002,
+        "files": 21
+      },
+      {
+        "name": "17",
+        "bytes": 2014103,
+        "gib": 0.002,
+        "files": 31
+      },
+      {
+        "name": "0C",
+        "bytes": 2000941,
+        "gib": 0.002,
+        "files": 19
+      },
+      {
+        "name": "8M",
+        "bytes": 1996006,
+        "gib": 0.002,
+        "files": 16
+      },
+      {
+        "name": "3M",
+        "bytes": 1984637,
+        "gib": 0.002,
+        "files": 18
+      },
+      {
+        "name": "E1",
+        "bytes": 1974702,
+        "gib": 0.002,
+        "files": 27
+      },
+      {
+        "name": "1H",
+        "bytes": 1951494,
+        "gib": 0.002,
+        "files": 27
+      },
+      {
+        "name": "BH",
+        "bytes": 1916441,
+        "gib": 0.002,
+        "files": 25
+      },
+      {
+        "name": "4M",
+        "bytes": 1889770,
+        "gib": 0.002,
+        "files": 23
+      },
+      {
+        "name": "2I",
+        "bytes": 1884972,
+        "gib": 0.002,
+        "files": 27
+      },
+      {
+        "name": "0G",
+        "bytes": 1850251,
+        "gib": 0.002,
+        "files": 21
+      },
+      {
+        "name": "91",
+        "bytes": 1836449,
+        "gib": 0.002,
+        "files": 21
+      },
+      {
+        "name": "BW",
+        "bytes": 1835887,
+        "gib": 0.002,
+        "files": 17
+      },
+      {
+        "name": "D5",
+        "bytes": 1828239,
+        "gib": 0.002,
+        "files": 23
+      },
+      {
+        "name": "AL",
+        "bytes": 1772140,
+        "gib": 0.002,
+        "files": 25
+      },
+      {
+        "name": "BO",
+        "bytes": 1656986,
+        "gib": 0.002,
+        "files": 25
+      },
+      {
+        "name": "23",
+        "bytes": 1638749,
+        "gib": 0.002,
+        "files": 24
+      },
+      {
+        "name": "6Q",
+        "bytes": 1630738,
+        "gib": 0.002,
+        "files": 26
+      },
+      {
+        "name": "DV",
+        "bytes": 1609245,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "6Y",
+        "bytes": 1601880,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "DB",
+        "bytes": 1601026,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "8G",
+        "bytes": 1586471,
+        "gib": 0.001,
+        "files": 14
+      },
+      {
+        "name": "CU",
+        "bytes": 1573026,
+        "gib": 0.001,
+        "files": 34
+      },
+      {
+        "name": "0S",
+        "bytes": 1534957,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "1P",
+        "bytes": 1513854,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "DQ",
+        "bytes": 1512189,
+        "gib": 0.001,
+        "files": 15
+      },
+      {
+        "name": "85",
+        "bytes": 1506722,
+        "gib": 0.001,
+        "files": 32
+      },
+      {
+        "name": "C1",
+        "bytes": 1484248,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "6Z",
+        "bytes": 1476579,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "6F",
+        "bytes": 1427863,
+        "gib": 0.001,
+        "files": 16
+      },
+      {
+        "name": "72",
+        "bytes": 1414541,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "D9",
+        "bytes": 1384749,
+        "gib": 0.001,
+        "files": 18
+      },
+      {
+        "name": "E3",
+        "bytes": 1382054,
+        "gib": 0.001,
+        "files": 20
+      },
+      {
+        "name": "DT",
+        "bytes": 1370276,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "0A",
+        "bytes": 1363243,
+        "gib": 0.001,
+        "files": 33
+      },
+      {
+        "name": "1Y",
+        "bytes": 1354234,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "DF",
+        "bytes": 1346560,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "74",
+        "bytes": 1326403,
+        "gib": 0.001,
+        "files": 32
+      },
+      {
+        "name": "6T",
+        "bytes": 1317669,
+        "gib": 0.001,
+        "files": 30
+      },
+      {
+        "name": "D8",
+        "bytes": 1312830,
+        "gib": 0.001,
+        "files": 15
+      },
+      {
+        "name": "8O",
+        "bytes": 1301391,
+        "gib": 0.001,
+        "files": 18
+      },
+      {
+        "name": "01",
+        "bytes": 1296889,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "AR",
+        "bytes": 1291837,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "3Q",
+        "bytes": 1290686,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "10",
+        "bytes": 1289209,
+        "gib": 0.001,
+        "files": 30
+      },
+      {
+        "name": "B0",
+        "bytes": 1285891,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "CG",
+        "bytes": 1276358,
+        "gib": 0.001,
+        "files": 15
+      },
+      {
+        "name": "95",
+        "bytes": 1275176,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "33",
+        "bytes": 1272756,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "6C",
+        "bytes": 1269802,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "D2",
+        "bytes": 1269162,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "88",
+        "bytes": 1245471,
+        "gib": 0.001,
+        "files": 32
+      },
+      {
+        "name": "BE",
+        "bytes": 1236305,
+        "gib": 0.001,
+        "files": 32
+      },
+      {
+        "name": "ES",
+        "bytes": 1228812,
+        "gib": 0.001,
+        "files": 18
+      },
+      {
+        "name": "7P",
+        "bytes": 1211351,
+        "gib": 0.001,
+        "files": 33
+      },
+      {
+        "name": "67",
+        "bytes": 1209970,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "2S",
+        "bytes": 1203967,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "5R",
+        "bytes": 1202183,
+        "gib": 0.001,
+        "files": 34
+      },
+      {
+        "name": "AD",
+        "bytes": 1161942,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "AQ",
+        "bytes": 1151056,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "4A",
+        "bytes": 1144714,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "CH",
+        "bytes": 1142334,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "4Q",
+        "bytes": 1126824,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "E9",
+        "bytes": 1121905,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "84",
+        "bytes": 1117926,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "3T",
+        "bytes": 1116631,
+        "gib": 0.001,
+        "files": 17
+      },
+      {
+        "name": "3Y",
+        "bytes": 1112181,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "7E",
+        "bytes": 1106159,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "8Y",
+        "bytes": 1103225,
+        "gib": 0.001,
+        "files": 30
+      },
+      {
+        "name": "4F",
+        "bytes": 1100932,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "60",
+        "bytes": 1097829,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "0W",
+        "bytes": 1095204,
+        "gib": 0.001,
+        "files": 20
+      },
+      {
+        "name": "AF",
+        "bytes": 1092484,
+        "gib": 0.001,
+        "files": 16
+      },
+      {
+        "name": "DN",
+        "bytes": 1070947,
+        "gib": 0.001,
+        "files": 35
+      },
+      {
+        "name": "6U",
+        "bytes": 1054471,
+        "gib": 0.001,
+        "files": 20
+      },
+      {
+        "name": "EW",
+        "bytes": 1052635,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "CL",
+        "bytes": 1046275,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "1N",
+        "bytes": 1044909,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "9E",
+        "bytes": 1033532,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "BM",
+        "bytes": 1033120,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "8U",
+        "bytes": 1020446,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "27",
+        "bytes": 1013828,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "19",
+        "bytes": 1008128,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "5T",
+        "bytes": 1001655,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "5Y",
+        "bytes": 993200,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "0Y",
+        "bytes": 989947,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "BZ",
+        "bytes": 987078,
+        "gib": 0.001,
+        "files": 30
+      },
+      {
+        "name": "AN",
+        "bytes": 983690,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "89",
+        "bytes": 982520,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "5U",
+        "bytes": 978177,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "C6",
+        "bytes": 976610,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "4U",
+        "bytes": 976539,
+        "gib": 0.001,
+        "files": 33
+      },
+      {
+        "name": "87",
+        "bytes": 965004,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "1F",
+        "bytes": 959510,
+        "gib": 0.001,
+        "files": 32
+      },
+      {
+        "name": "58",
+        "bytes": 951498,
+        "gib": 0.001,
+        "files": 35
+      },
+      {
+        "name": "81",
+        "bytes": 941177,
+        "gib": 0.001,
+        "files": 32
+      },
+      {
+        "name": "5J",
+        "bytes": 941121,
+        "gib": 0.001,
+        "files": 35
+      },
+      {
+        "name": "5X",
+        "bytes": 939041,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "6H",
+        "bytes": 936418,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "9A",
+        "bytes": 935358,
+        "gib": 0.001,
+        "files": 31
+      },
+      {
+        "name": "93",
+        "bytes": 928271,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "7F",
+        "bytes": 925890,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "47",
+        "bytes": 913186,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "4I",
+        "bytes": 904674,
+        "gib": 0.001,
+        "files": 30
+      },
+      {
+        "name": "6D",
+        "bytes": 903078,
+        "gib": 0.001,
+        "files": 14
+      },
+      {
+        "name": "CB",
+        "bytes": 900862,
+        "gib": 0.001,
+        "files": 20
+      },
+      {
+        "name": "2P",
+        "bytes": 891030,
+        "gib": 0.001,
+        "files": 32
+      },
+      {
+        "name": "8T",
+        "bytes": 887867,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "7D",
+        "bytes": 885174,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "20",
+        "bytes": 883722,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "C8",
+        "bytes": 880137,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "AC",
+        "bytes": 878792,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "9Z",
+        "bytes": 873951,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "9X",
+        "bytes": 867721,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "A0",
+        "bytes": 867002,
+        "gib": 0.001,
+        "files": 32
+      },
+      {
+        "name": "7Q",
+        "bytes": 865189,
+        "gib": 0.001,
+        "files": 32
+      },
+      {
+        "name": "BD",
+        "bytes": 858439,
+        "gib": 0.001,
+        "files": 31
+      },
+      {
+        "name": "3I",
+        "bytes": 856540,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "BI",
+        "bytes": 845546,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "CZ",
+        "bytes": 844454,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "B8",
+        "bytes": 840954,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "07",
+        "bytes": 839404,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "7B",
+        "bytes": 832390,
+        "gib": 0.001,
+        "files": 18
+      },
+      {
+        "name": "1L",
+        "bytes": 822431,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "CI",
+        "bytes": 818793,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "BQ",
+        "bytes": 814294,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "BX",
+        "bytes": 812225,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "4D",
+        "bytes": 809978,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "BV",
+        "bytes": 807382,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "8N",
+        "bytes": 797456,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "9W",
+        "bytes": 796802,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "AZ",
+        "bytes": 793640,
+        "gib": 0.001,
+        "files": 35
+      },
+      {
+        "name": "0K",
+        "bytes": 789009,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "3G",
+        "bytes": 788788,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "CJ",
+        "bytes": 788278,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "5Z",
+        "bytes": 787123,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "1E",
+        "bytes": 783140,
+        "gib": 0.001,
+        "files": 30
+      },
+      {
+        "name": "3A",
+        "bytes": 783090,
+        "gib": 0.001,
+        "files": 35
+      },
+      {
+        "name": "AI",
+        "bytes": 781668,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "50",
+        "bytes": 779996,
+        "gib": 0.001,
+        "files": 33
+      },
+      {
+        "name": "E6",
+        "bytes": 773733,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "2W",
+        "bytes": 772635,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "68",
+        "bytes": 772595,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "26",
+        "bytes": 770720,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "2O",
+        "bytes": 770082,
+        "gib": 0.001,
+        "files": 31
+      },
+      {
+        "name": "E5",
+        "bytes": 769428,
+        "gib": 0.001,
+        "files": 20
+      },
+      {
+        "name": "45",
+        "bytes": 763455,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "CX",
+        "bytes": 763152,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "2E",
+        "bytes": 757886,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "AJ",
+        "bytes": 757860,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "1W",
+        "bytes": 756702,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "8S",
+        "bytes": 753547,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "5O",
+        "bytes": 742533,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "E0",
+        "bytes": 739270,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "0J",
+        "bytes": 727616,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "DW",
+        "bytes": 726421,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "4E",
+        "bytes": 721509,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "EZ",
+        "bytes": 721358,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "BR",
+        "bytes": 720355,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "8I",
+        "bytes": 716297,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "69",
+        "bytes": 716183,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "5D",
+        "bytes": 715239,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "DO",
+        "bytes": 710693,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "1B",
+        "bytes": 710416,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "6L",
+        "bytes": 710193,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "DZ",
+        "bytes": 707217,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "D1",
+        "bytes": 703250,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "4O",
+        "bytes": 700799,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "3F",
+        "bytes": 699918,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "1K",
+        "bytes": 699584,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "AY",
+        "bytes": 694302,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "2H",
+        "bytes": 690644,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "7N",
+        "bytes": 688007,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "9L",
+        "bytes": 686064,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "7A",
+        "bytes": 679433,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "8D",
+        "bytes": 678247,
+        "gib": 0.001,
+        "files": 18
+      },
+      {
+        "name": "CD",
+        "bytes": 676799,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "51",
+        "bytes": 676519,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "1R",
+        "bytes": 674364,
+        "gib": 0.001,
+        "files": 18
+      },
+      {
+        "name": "40",
+        "bytes": 670768,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "F3",
+        "bytes": 670421,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "2G",
+        "bytes": 669462,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "0V",
+        "bytes": 669178,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "55",
+        "bytes": 669056,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "6X",
+        "bytes": 665899,
+        "gib": 0.001,
+        "files": 17
+      },
+      {
+        "name": "2T",
+        "bytes": 661922,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "AP",
+        "bytes": 660249,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "AW",
+        "bytes": 659069,
+        "gib": 0.001,
+        "files": 17
+      },
+      {
+        "name": "6J",
+        "bytes": 659058,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "8R",
+        "bytes": 658342,
+        "gib": 0.001,
+        "files": 20
+      },
+      {
+        "name": "DR",
+        "bytes": 655348,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "9H",
+        "bytes": 653057,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "6V",
+        "bytes": 651098,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "2C",
+        "bytes": 649908,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "96",
+        "bytes": 648371,
+        "gib": 0.001,
+        "files": 16
+      },
+      {
+        "name": "2J",
+        "bytes": 648139,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "0Q",
+        "bytes": 648106,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "5W",
+        "bytes": 646127,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "5I",
+        "bytes": 645928,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "5S",
+        "bytes": 643775,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "AT",
+        "bytes": 640741,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "35",
+        "bytes": 639896,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "61",
+        "bytes": 638560,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "DJ",
+        "bytes": 637905,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "9K",
+        "bytes": 632695,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "0B",
+        "bytes": 630265,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "9J",
+        "bytes": 627285,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "4S",
+        "bytes": 625619,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "00",
+        "bytes": 620298,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "3C",
+        "bytes": 620143,
+        "gib": 0.001,
+        "files": 31
+      },
+      {
+        "name": "E8",
+        "bytes": 618717,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "99",
+        "bytes": 618056,
+        "gib": 0.001,
+        "files": 31
+      },
+      {
+        "name": "90",
+        "bytes": 616586,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "DC",
+        "bytes": 614653,
+        "gib": 0.001,
+        "files": 17
+      },
+      {
+        "name": "4Y",
+        "bytes": 613413,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "1Q",
+        "bytes": 613110,
+        "gib": 0.001,
+        "files": 20
+      },
+      {
+        "name": "9V",
+        "bytes": 609805,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "6W",
+        "bytes": 608570,
+        "gib": 0.001,
+        "files": 18
+      },
+      {
+        "name": "30",
+        "bytes": 607695,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "4Z",
+        "bytes": 607220,
+        "gib": 0.001,
+        "files": 20
+      },
+      {
+        "name": "EG",
+        "bytes": 604391,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "37",
+        "bytes": 603947,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "8P",
+        "bytes": 602465,
+        "gib": 0.001,
+        "files": 17
+      },
+      {
+        "name": "5N",
+        "bytes": 598963,
+        "gib": 0.001,
+        "files": 35
+      },
+      {
+        "name": "AO",
+        "bytes": 598170,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "0E",
+        "bytes": 595826,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "03",
+        "bytes": 593307,
+        "gib": 0.001,
+        "files": 20
+      },
+      {
+        "name": "4R",
+        "bytes": 591552,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "0T",
+        "bytes": 588611,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "9P",
+        "bytes": 588204,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "5G",
+        "bytes": 585415,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "DL",
+        "bytes": 583753,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "4P",
+        "bytes": 580465,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "6G",
+        "bytes": 579944,
+        "gib": 0.001,
+        "files": 17
+      },
+      {
+        "name": "CV",
+        "bytes": 576895,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "32",
+        "bytes": 572533,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "BB",
+        "bytes": 570341,
+        "gib": 0.001,
+        "files": 15
+      },
+      {
+        "name": "6R",
+        "bytes": 570197,
+        "gib": 0.001,
+        "files": 18
+      },
+      {
+        "name": "BN",
+        "bytes": 569895,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "BL",
+        "bytes": 567514,
+        "gib": 0.001,
+        "files": 29
+      },
+      {
+        "name": "DU",
+        "bytes": 565532,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "AB",
+        "bytes": 565182,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "3R",
+        "bytes": 563050,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "5C",
+        "bytes": 561815,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "B9",
+        "bytes": 559879,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "71",
+        "bytes": 559855,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "6P",
+        "bytes": 559561,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "3U",
+        "bytes": 559100,
+        "gib": 0.001,
+        "files": 31
+      },
+      {
+        "name": "C9",
+        "bytes": 558468,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "ET",
+        "bytes": 556205,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "3L",
+        "bytes": 555398,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "CR",
+        "bytes": 555102,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "CK",
+        "bytes": 554826,
+        "gib": 0.001,
+        "files": 28
+      },
+      {
+        "name": "57",
+        "bytes": 553496,
+        "gib": 0.001,
+        "files": 19
+      },
+      {
+        "name": "98",
+        "bytes": 552523,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "11",
+        "bytes": 552223,
+        "gib": 0.001,
+        "files": 17
+      },
+      {
+        "name": "9Y",
+        "bytes": 552154,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "2A",
+        "bytes": 552007,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "1T",
+        "bytes": 551256,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "BG",
+        "bytes": 550709,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "49",
+        "bytes": 550422,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "6S",
+        "bytes": 550006,
+        "gib": 0.001,
+        "files": 16
+      },
+      {
+        "name": "9D",
+        "bytes": 547732,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "0N",
+        "bytes": 547510,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "7C",
+        "bytes": 545783,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "04",
+        "bytes": 545072,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "31",
+        "bytes": 544752,
+        "gib": 0.001,
+        "files": 26
+      },
+      {
+        "name": "DS",
+        "bytes": 544332,
+        "gib": 0.001,
+        "files": 24
+      },
+      {
+        "name": "4K",
+        "bytes": 544269,
+        "gib": 0.001,
+        "files": 22
+      },
+      {
+        "name": "6O",
+        "bytes": 544253,
+        "gib": 0.001,
+        "files": 23
+      },
+      {
+        "name": "EP",
+        "bytes": 541969,
+        "gib": 0.001,
+        "files": 27
+      },
+      {
+        "name": "5B",
+        "bytes": 538519,
+        "gib": 0.001,
+        "files": 25
+      },
+      {
+        "name": "AV",
+        "bytes": 538046,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "8K",
+        "bytes": 537918,
+        "gib": 0.001,
+        "files": 21
+      },
+      {
+        "name": "7O",
+        "bytes": 534205,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "5F",
+        "bytes": 530917,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "A2",
+        "bytes": 530852,
+        "gib": 0.0,
+        "files": 28
+      },
+      {
+        "name": "1A",
+        "bytes": 530420,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "59",
+        "bytes": 530244,
+        "gib": 0.0,
+        "files": 32
+      },
+      {
+        "name": "5E",
+        "bytes": 529000,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "B5",
+        "bytes": 527700,
+        "gib": 0.0,
+        "files": 15
+      },
+      {
+        "name": "83",
+        "bytes": 526614,
+        "gib": 0.0,
+        "files": 25
+      },
+      {
+        "name": "1O",
+        "bytes": 525647,
+        "gib": 0.0,
+        "files": 24
+      },
+      {
+        "name": "5H",
+        "bytes": 519230,
+        "gib": 0.0,
+        "files": 25
+      },
+      {
+        "name": "63",
+        "bytes": 519123,
+        "gib": 0.0,
+        "files": 27
+      },
+      {
+        "name": "E4",
+        "bytes": 513565,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "5L",
+        "bytes": 503136,
+        "gib": 0.0,
+        "files": 14
+      },
+      {
+        "name": "3P",
+        "bytes": 501114,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "41",
+        "bytes": 500155,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "C2",
+        "bytes": 497188,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "16",
+        "bytes": 496613,
+        "gib": 0.0,
+        "files": 28
+      },
+      {
+        "name": "0I",
+        "bytes": 493328,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "3X",
+        "bytes": 490614,
+        "gib": 0.0,
+        "files": 26
+      },
+      {
+        "name": "8C",
+        "bytes": 490552,
+        "gib": 0.0,
+        "files": 14
+      },
+      {
+        "name": "A9",
+        "bytes": 490302,
+        "gib": 0.0,
+        "files": 14
+      },
+      {
+        "name": "7U",
+        "bytes": 487701,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "CW",
+        "bytes": 487639,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "42",
+        "bytes": 486144,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "A5",
+        "bytes": 485487,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "5M",
+        "bytes": 484771,
+        "gib": 0.0,
+        "files": 25
+      },
+      {
+        "name": "1V",
+        "bytes": 484067,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "5A",
+        "bytes": 483365,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "92",
+        "bytes": 480693,
+        "gib": 0.0,
+        "files": 24
+      },
+      {
+        "name": "9I",
+        "bytes": 480591,
+        "gib": 0.0,
+        "files": 27
+      },
+      {
+        "name": "BU",
+        "bytes": 480088,
+        "gib": 0.0,
+        "files": 27
+      },
+      {
+        "name": "EU",
+        "bytes": 479481,
+        "gib": 0.0,
+        "files": 27
+      },
+      {
+        "name": "ED",
+        "bytes": 477028,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "0U",
+        "bytes": 475903,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "C7",
+        "bytes": 475840,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "0H",
+        "bytes": 473693,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "F2",
+        "bytes": 472501,
+        "gib": 0.0,
+        "files": 15
+      },
+      {
+        "name": "6N",
+        "bytes": 469753,
+        "gib": 0.0,
+        "files": 27
+      },
+      {
+        "name": "EL",
+        "bytes": 467759,
+        "gib": 0.0,
+        "files": 14
+      },
+      {
+        "name": "A3",
+        "bytes": 467306,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "EE",
+        "bytes": 466719,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "2N",
+        "bytes": 465784,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "EX",
+        "bytes": 465756,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "BJ",
+        "bytes": 465623,
+        "gib": 0.0,
+        "files": 25
+      },
+      {
+        "name": "6E",
+        "bytes": 457579,
+        "gib": 0.0,
+        "files": 26
+      },
+      {
+        "name": "F0",
+        "bytes": 457483,
+        "gib": 0.0,
+        "files": 24
+      },
+      {
+        "name": "0R",
+        "bytes": 456375,
+        "gib": 0.0,
+        "files": 25
+      },
+      {
+        "name": "EI",
+        "bytes": 455816,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "BY",
+        "bytes": 455090,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "CT",
+        "bytes": 451383,
+        "gib": 0.0,
+        "files": 24
+      },
+      {
+        "name": "4X",
+        "bytes": 448899,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "34",
+        "bytes": 447128,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "CE",
+        "bytes": 446240,
+        "gib": 0.0,
+        "files": 13
+      },
+      {
+        "name": "DG",
+        "bytes": 445896,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "7Y",
+        "bytes": 445417,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "F1",
+        "bytes": 442235,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "0Z",
+        "bytes": 441321,
+        "gib": 0.0,
+        "files": 29
+      },
+      {
+        "name": "7K",
+        "bytes": 439098,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "3E",
+        "bytes": 436655,
+        "gib": 0.0,
+        "files": 19
+      },
+      {
+        "name": "3B",
+        "bytes": 435052,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "B7",
+        "bytes": 434872,
+        "gib": 0.0,
+        "files": 24
+      },
+      {
+        "name": "CC",
+        "bytes": 434197,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "6I",
+        "bytes": 434135,
+        "gib": 0.0,
+        "files": 27
+      },
+      {
+        "name": "EA",
+        "bytes": 433815,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "A6",
+        "bytes": 432488,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "9G",
+        "bytes": 431551,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "A4",
+        "bytes": 428535,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "2R",
+        "bytes": 426686,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "DK",
+        "bytes": 425481,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "54",
+        "bytes": 425017,
+        "gib": 0.0,
+        "files": 25
+      },
+      {
+        "name": "08",
+        "bytes": 423557,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "1G",
+        "bytes": 421411,
+        "gib": 0.0,
+        "files": 19
+      },
+      {
+        "name": "C4",
+        "bytes": 419498,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "BK",
+        "bytes": 417849,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "8L",
+        "bytes": 417674,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "1J",
+        "bytes": 417473,
+        "gib": 0.0,
+        "files": 19
+      },
+      {
+        "name": "0X",
+        "bytes": 416636,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "DE",
+        "bytes": 413358,
+        "gib": 0.0,
+        "files": 15
+      },
+      {
+        "name": "EY",
+        "bytes": 412467,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "9R",
+        "bytes": 412108,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "3D",
+        "bytes": 410315,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "DH",
+        "bytes": 407903,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "CO",
+        "bytes": 405634,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "E2",
+        "bytes": 405229,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "B4",
+        "bytes": 403574,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "25",
+        "bytes": 402821,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "BS",
+        "bytes": 402408,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "CN",
+        "bytes": 401040,
+        "gib": 0.0,
+        "files": 24
+      },
+      {
+        "name": "2K",
+        "bytes": 399290,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "3Z",
+        "bytes": 394812,
+        "gib": 0.0,
+        "files": 19
+      },
+      {
+        "name": "CQ",
+        "bytes": 394083,
+        "gib": 0.0,
+        "files": 24
+      },
+      {
+        "name": "4T",
+        "bytes": 393275,
+        "gib": 0.0,
+        "files": 24
+      },
+      {
+        "name": "ER",
+        "bytes": 390542,
+        "gib": 0.0,
+        "files": 26
+      },
+      {
+        "name": "06",
+        "bytes": 390453,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "EC",
+        "bytes": 389041,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "AK",
+        "bytes": 387846,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "21",
+        "bytes": 383424,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "24",
+        "bytes": 380739,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "65",
+        "bytes": 380258,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "2U",
+        "bytes": 370271,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "8V",
+        "bytes": 368899,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "39",
+        "bytes": 368479,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "97",
+        "bytes": 367364,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "DP",
+        "bytes": 364149,
+        "gib": 0.0,
+        "files": 24
+      },
+      {
+        "name": "18",
+        "bytes": 359035,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "0L",
+        "bytes": 357302,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "DD",
+        "bytes": 354865,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "44",
+        "bytes": 353989,
+        "gib": 0.0,
+        "files": 12
+      },
+      {
+        "name": "6B",
+        "bytes": 353703,
+        "gib": 0.0,
+        "files": 15
+      },
+      {
+        "name": "7M",
+        "bytes": 353185,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "14",
+        "bytes": 352807,
+        "gib": 0.0,
+        "files": 19
+      },
+      {
+        "name": "A8",
+        "bytes": 350513,
+        "gib": 0.0,
+        "files": 19
+      },
+      {
+        "name": "4V",
+        "bytes": 350291,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "B1",
+        "bytes": 345418,
+        "gib": 0.0,
+        "files": 23
+      },
+      {
+        "name": "3V",
+        "bytes": 345337,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "5P",
+        "bytes": 345102,
+        "gib": 0.0,
+        "files": 15
+      },
+      {
+        "name": "7I",
+        "bytes": 344550,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "6M",
+        "bytes": 342832,
+        "gib": 0.0,
+        "files": 19
+      },
+      {
+        "name": "8Q",
+        "bytes": 340997,
+        "gib": 0.0,
+        "files": 12
+      },
+      {
+        "name": "4L",
+        "bytes": 340550,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "6A",
+        "bytes": 338454,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "EV",
+        "bytes": 334423,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "5K",
+        "bytes": 333954,
+        "gib": 0.0,
+        "files": 19
+      },
+      {
+        "name": "2D",
+        "bytes": 331271,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "F5",
+        "bytes": 328845,
+        "gib": 0.0,
+        "files": 15
+      },
+      {
+        "name": "94",
+        "bytes": 326834,
+        "gib": 0.0,
+        "files": 14
+      },
+      {
+        "name": "7G",
+        "bytes": 322849,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "80",
+        "bytes": 322752,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "AE",
+        "bytes": 321676,
+        "gib": 0.0,
+        "files": 13
+      },
+      {
+        "name": "7T",
+        "bytes": 320123,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "2M",
+        "bytes": 317756,
+        "gib": 0.0,
+        "files": 11
+      },
+      {
+        "name": "DI",
+        "bytes": 315466,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "DY",
+        "bytes": 314385,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "36",
+        "bytes": 310679,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "8X",
+        "bytes": 309689,
+        "gib": 0.0,
+        "files": 22
+      },
+      {
+        "name": "77",
+        "bytes": 309516,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "DX",
+        "bytes": 308545,
+        "gib": 0.0,
+        "files": 14
+      },
+      {
+        "name": "EF",
+        "bytes": 304901,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "13",
+        "bytes": 301039,
+        "gib": 0.0,
+        "files": 21
+      },
+      {
+        "name": "D7",
+        "bytes": 298006,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "7R",
+        "bytes": 297968,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "C0",
+        "bytes": 295214,
+        "gib": 0.0,
+        "files": 15
+      },
+      {
+        "name": "EQ",
+        "bytes": 289730,
+        "gib": 0.0,
+        "files": 20
+      },
+      {
+        "name": "1U",
+        "bytes": 287585,
+        "gib": 0.0,
+        "files": 19
+      },
+      {
+        "name": "8H",
+        "bytes": 275213,
+        "gib": 0.0,
+        "files": 13
+      },
+      {
+        "name": "09",
+        "bytes": 268782,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "EK",
+        "bytes": 267814,
+        "gib": 0.0,
+        "files": 12
+      },
+      {
+        "name": "C5",
+        "bytes": 265221,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "BF",
+        "bytes": 263527,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "9C",
+        "bytes": 258662,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "4J",
+        "bytes": 253068,
+        "gib": 0.0,
+        "files": 17
+      },
+      {
+        "name": "1D",
+        "bytes": 246187,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "7X",
+        "bytes": 245208,
+        "gib": 0.0,
+        "files": 13
+      },
+      {
+        "name": "8Z",
+        "bytes": 242062,
+        "gib": 0.0,
+        "files": 12
+      },
+      {
+        "name": "8F",
+        "bytes": 241423,
+        "gib": 0.0,
+        "files": 18
+      },
+      {
+        "name": "E7",
+        "bytes": 237060,
+        "gib": 0.0,
+        "files": 13
+      },
+      {
+        "name": "EO",
+        "bytes": 233363,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "9N",
+        "bytes": 231526,
+        "gib": 0.0,
+        "files": 16
+      },
+      {
+        "name": "EM",
+        "bytes": 225636,
+        "gib": 0.0,
+        "files": 14
+      },
+      {
+        "name": "73",
+        "bytes": 223984,
+        "gib": 0.0,
+        "files": 15
+      },
+      {
+        "name": "2F",
+        "bytes": 213866,
+        "gib": 0.0,
+        "files": 14
+      },
+      {
+        "name": "8B",
+        "bytes": 198097,
+        "gib": 0.0,
+        "files": 12
+      },
+      {
+        "name": "1M",
+        "bytes": 197495,
+        "gib": 0.0,
+        "files": 15
+      },
+      {
+        "name": "8W",
+        "bytes": 167470,
+        "gib": 0.0,
+        "files": 13
+      },
+      {
+        "name": "7W",
+        "bytes": 150110,
+        "gib": 0.0,
+        "files": 9
+      }
+    ],
+    "skipped_reparse_points": [],
+    "errors": []
+  },
+  "city_mapped": {
+    "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Content\\WISEYE\\Scenes\\city",
+    "exists": true,
+    "logical_bytes": 15037,
+    "gib": 0.0,
+    "files": 1,
+    "groups": [
+      {
+        "name": "(root files)",
+        "bytes": 15037,
+        "gib": 0.0,
+        "files": 1
+      }
+    ],
+    "skipped_reparse_points": [],
+    "errors": []
+  },
+  "migration_manifest_structure": {
+    "type": "list",
+    "keys": null,
+    "first": "[{'path': '__ExternalActors__/Map/Small_City_LVL/00/09/NLTWJ8TN48G3YUZSOQSMJ.uasset', 'bytes': 18615, 'sha256': '539adadfd173ac90be6cfca84cbccc887fa9727f57ac6e5de7809df38de92c13'}]"
+  },
+  "measured_local_time": "2026-10-22 Asia/Shanghai",
+  "elapsed_s": 67.66797590255737,
+  "method": "Logical file length; directory junctions/reparse points skipped to avoid duplicate counting; overlapping categories are not additive. No cooking or packaging performed.",
+  "desktop_external_dependencies": {
+    "PySide6": {
+      "path": "E:\\Environments\\anaconda3\\Lib\\site-packages\\PySide6",
+      "bytes": 31487475,
+      "gib": 0.029,
+      "files": 82,
+      "largest": [
+        [
+          "QtOpenGL.cp314-win_amd64.pyd",
+          8715592
+        ],
+        [
+          "QtWidgets.cp314-win_amd64.pyd",
+          4906824
+        ],
+        [
+          "QtGui.cp314-win_amd64.pyd",
+          3914056
+        ],
+        [
+          "QtCore.cp314-win_amd64.pyd",
+          3352904
+        ],
+        [
+          "QtOpenGL.pyi",
+          1218622
+        ],
+        [
+          "QtNetwork.cp314-win_amd64.pyd",
+          1014600
+        ],
+        [
+          "QtQuick.cp314-win_amd64.pyd",
+          780616
+        ],
+        [
+          "QtGui.pyi",
+          640657
+        ]
+      ]
+    },
+    "shiboken6": {
+      "path": "E:\\Environments\\anaconda3\\Lib\\site-packages\\shiboken6",
+      "bytes": 37734,
+      "gib": 0.0,
+      "files": 9,
+      "largest": [
+        [
+          "Shiboken.cp314-win_amd64.pyd",
+          33608
+        ],
+        [
+          "__pycache__",
+          1451
+        ],
+        [
+          "Shiboken.pyi",
+          1083
+        ],
+        [
+          "_git_shiboken_module_version.py",
+          713
+        ],
+        [
+          "__init__.py",
+          691
+        ],
+        [
+          "_config.py",
+          154
+        ],
+        [
+          "py.typed",
+          34
+        ]
+      ]
+    },
+    "python": {
+      "executable": "E:\\Projects\\WISEYE-Studio\\.venv\\Scripts\\python.exe",
+      "base_prefix": "E:\\Environments\\anaconda3",
+      "version": "3.14.6 | packaged by Anaconda, Inc. | (main, Jul  9 2026, 14:29:05) [MSC v.1942 64 bit (AMD64)]"
+    }
+  },
+  "qt_external_runtime": {
+    "PrefixPath": "E:/Environments/anaconda3/Library",
+    "BinariesPath": "E:/Environments/anaconda3/Library/lib/qt6/bin",
+    "LibrariesPath": "E:/Environments/anaconda3/Library/lib",
+    "PluginsPath": "E:/Environments/anaconda3/Library/lib/qt6/plugins",
+    "QmlImportsPath": "E:/Environments/anaconda3/Library/lib/qt6/qml",
+    "qt_version": "6.11.0",
+    "bin_dlls": [
+      {
+        "name": "Qt6Concurrent.dll",
+        "bytes": 35656
+      },
+      {
+        "name": "Qt6Core.dll",
+        "bytes": 6043464
+      },
+      {
+        "name": "Qt6DBus.dll",
+        "bytes": 789320
+      },
+      {
+        "name": "Qt6Designer.dll",
+        "bytes": 5277000
+      },
+      {
+        "name": "Qt6DesignerComponents.dll",
+        "bytes": 2475848
+      },
+      {
+        "name": "Qt6Gui.dll",
+        "bytes": 8805704
+      },
+      {
+        "name": "Qt6Help.dll",
+        "bytes": 613704
+      },
+      {
+        "name": "Qt6LabsAnimation.dll",
+        "bytes": 55112
+      },
+      {
+        "name": "Qt6LabsFolderListModel.dll",
+        "bytes": 121672
+      },
+      {
+        "name": "Qt6LabsPlatform.dll",
+        "bytes": 283976
+      },
+      {
+        "name": "Qt6LabsQmlModels.dll",
+        "bytes": 190792
+      },
+      {
+        "name": "Qt6LabsSettings.dll",
+        "bytes": 61256
+      },
+      {
+        "name": "Qt6LabsSharedImage.dll",
+        "bytes": 56648
+      },
+      {
+        "name": "Qt6LabsStyleKit.dll",
+        "bytes": 1444680
+      },
+      {
+        "name": "Qt6LabsStyleKitImpl.dll",
+        "bytes": 278856
+      },
+      {
+        "name": "Qt6LabsSynchronizer.dll",
+        "bytes": 68424
+      },
+      {
+        "name": "Qt6LabsWavefrontMesh.dll",
+        "bytes": 60744
+      },
+      {
+        "name": "Qt6Network.dll",
+        "bytes": 1793864
+      },
+      {
+        "name": "Qt6OpenGL.dll",
+        "bytes": 1994568
+      },
+      {
+        "name": "Qt6OpenGLWidgets.dll",
+        "bytes": 64840
+      },
+      {
+        "name": "Qt6Pdf.dll",
+        "bytes": 4413768
+      },
+      {
+        "name": "Qt6PdfQuick.dll",
+        "bytes": 573256
+      },
+      {
+        "name": "Qt6PdfWidgets.dll",
+        "bytes": 103240
+      },
+      {
+        "name": "Qt6PrintSupport.dll",
+        "bytes": 406344
+      },
+      {
+        "name": "Qt6Qml.dll",
+        "bytes": 5419848
+      },
+      {
+        "name": "Qt6QmlCompiler.dll",
+        "bytes": 2533704
+      },
+      {
+        "name": "Qt6QmlCore.dll",
+        "bytes": 134984
+      },
+      {
+        "name": "Qt6QmlLocalStorage.dll",
+        "bytes": 62280
+      },
+      {
+        "name": "Qt6QmlMeta.dll",
+        "bytes": 161096
+      },
+      {
+        "name": "Qt6QmlModels.dll",
+        "bytes": 994632
+      },
+      {
+        "name": "Qt6QmlNetwork.dll",
+        "bytes": 128840
+      },
+      {
+        "name": "Qt6QmlWorkerScript.dll",
+        "bytes": 79688
+      },
+      {
+        "name": "Qt6QmlXmlListModel.dll",
+        "bytes": 132936
+      },
+      {
+        "name": "Qt6Quick.dll",
+        "bytes": 6685512
+      },
+      {
+        "name": "Qt6QuickControls2.dll",
+        "bytes": 104264
+      },
+      {
+        "name": "Qt6QuickControls2Basic.dll",
+        "bytes": 1842504
+      },
+      {
+        "name": "Qt6QuickControls2BasicStyleImpl.dll",
+        "bytes": 91464
+      },
+      {
+        "name": "Qt6QuickControls2FluentWinUI3StyleImpl.dll",
+        "bytes": 217416
+      },
+      {
+        "name": "Qt6QuickControls2Fusion.dll",
+        "bytes": 1492296
+      },
+      {
+        "name": "Qt6QuickControls2FusionStyleImpl.dll",
+        "bytes": 186696
+      },
+      {
+        "name": "Qt6QuickControls2Imagine.dll",
+        "bytes": 3052872
+      },
+      {
+        "name": "Qt6QuickControls2ImagineStyleImpl.dll",
+        "bytes": 70472
+      },
+      {
+        "name": "Qt6QuickControls2Impl.dll",
+        "bytes": 332104
+      },
+      {
+        "name": "Qt6QuickControls2Material.dll",
+        "bytes": 1916744
+      },
+      {
+        "name": "Qt6QuickControls2MaterialStyleImpl.dll",
+        "bytes": 310088
+      },
+      {
+        "name": "Qt6QuickControls2Universal.dll",
+        "bytes": 1582920
+      },
+      {
+        "name": "Qt6QuickControls2UniversalStyleImpl.dll",
+        "bytes": 142664
+      },
+      {
+        "name": "Qt6QuickControls2WindowsStyleImpl.dll",
+        "bytes": 66376
+      },
+      {
+        "name": "Qt6QuickDialogs2.dll",
+        "bytes": 163656
+      },
+      {
+        "name": "Qt6QuickDialogs2QuickImpl.dll",
+        "bytes": 2907464
+      },
+      {
+        "name": "Qt6QuickDialogs2Utils.dll",
+        "bytes": 46920
+      },
+      {
+        "name": "Qt6QuickEffects.dll",
+        "bytes": 446792
+      },
+      {
+        "name": "Qt6QuickLayouts.dll",
+        "bytes": 311624
+      },
+      {
+        "name": "Qt6QuickParticles.dll",
+        "bytes": 641352
+      },
+      {
+        "name": "Qt6QuickShapes.dll",
+        "bytes": 348488
+      },
+      {
+        "name": "Qt6QuickShapesDesignHelpers.dll",
+        "bytes": 184136
+      },
+      {
+        "name": "Qt6QuickTemplates2.dll",
+        "bytes": 2075976
+      },
+      {
+        "name": "Qt6QuickTest.dll",
+        "bytes": 312136
+      },
+      {
+        "name": "Qt6QuickVectorImage.dll",
+        "bytes": 70984
+      },
+      {
+        "name": "Qt6QuickVectorImageGenerator.dll",
+        "bytes": 285512
+      },
+      {
+        "name": "Qt6QuickVectorImageHelpers.dll",
+        "bytes": 200520
+      },
+      {
+        "name": "Qt6QuickWidgets.dll",
+        "bytes": 133960
+      },
+      {
+        "name": "Qt6ShaderTools.dll",
+        "bytes": 4324680
+      },
+      {
+        "name": "Qt6Sql.dll",
+        "bytes": 333640
+      },
+      {
+        "name": "Qt6Svg.dll",
+        "bytes": 661320
+      },
+      {
+        "name": "Qt6SvgWidgets.dll",
+        "bytes": 59208
+      },
+      {
+        "name": "Qt6Test.dll",
+        "bytes": 395080
+      },
+      {
+        "name": "Qt6UiTools.dll",
+        "bytes": 687944
+      },
+      {
+        "name": "Qt6WebChannel.dll",
+        "bytes": 252744
+      },
+      {
+        "name": "Qt6WebChannelQuick.dll",
+        "bytes": 63304
+      },
+      {
+        "name": "Qt6WebEngineCore.dll",
+        "bytes": 209790280
+      },
+      {
+        "name": "Qt6WebEngineQuick.dll",
+        "bytes": 691016
+      },
+      {
+        "name": "Qt6WebEngineQuickDelegatesQml.dll",
+        "bytes": 165192
+      },
+      {
+        "name": "Qt6WebEngineWidgets.dll",
+        "bytes": 189768
+      },
+      {
+        "name": "Qt6WebSockets.dll",
+        "bytes": 216392
+      },
+      {
+        "name": "Qt6Widgets.dll",
+        "bytes": 6609736
+      },
+      {
+        "name": "Qt6Xml.dll",
+        "bytes": 159560
+      }
+    ],
+    "qt_family_dll_bytes": 296484520,
+    "qt_plugins_bytes": 5492728
+  }
+}

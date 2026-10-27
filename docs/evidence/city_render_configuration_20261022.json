@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "map": "/Game/WISEYE/Scenes/city/UEDPIE_0_CitySample.CitySample",
+  "night_controllers": [],
+  "captures": {
+    "EO_Capture": {
+      "gamma": 2.200000047683716,
+      "persist": true
+    },
+    "IR_Capture": {
+      "gamma": 0.0,
+      "persist": true
+    },
+    "SceneCaptureComponent2D_0": {
+      "gamma": 2.200000047683716,
+      "persist": true
+    }
+  }
+}

@@ -1,0 +1,406 @@
+{
+  "passed": true,
+  "checks": [
+    "Flight approach to the real CitySample wall using uploaded waypoints (within 0.85m target tolerance, then hover)",
+    "Three repeated real building collisions; reverse input moves >1m away each time while simulation and controls remain live",
+    "Return to takeoff area via uploaded waypoints, physical landing and real motor disarm after repeated collisions"
+  ],
+  "rounds": [
+    {
+      "index": 1,
+      "before": [
+        -241.9844970703125,
+        4.689843654632568,
+        -15.826512336730957
+      ],
+      "contact": [
+        -240.7666473388672,
+        4.789430141448975,
+        -16.621042251586914
+      ],
+      "released": [
+        -247.56419372558594,
+        4.784001350402832,
+        -17.279027938842773
+      ],
+      "new_collision_events": 54,
+      "simulation_advanced_s": 8.435455322265625,
+      "error": ""
+    },
+    {
+      "index": 2,
+      "before": [
+        -242.13148498535156,
+        4.700453758239746,
+        -15.879186630249023
+      ],
+      "contact": [
+        -240.75791931152344,
+        4.745593547821045,
+        -16.744173049926758
+      ],
+      "released": [
+        -247.4952392578125,
+        4.751436710357666,
+        -17.405284881591797
+      ],
+      "new_collision_events": 53,
+      "simulation_advanced_s": 8.368576049804688,
+      "error": ""
+    },
+    {
+      "index": 3,
+      "before": [
+        -242.1931915283203,
+        4.699809551239014,
+        -15.852174758911133
+      ],
+      "contact": [
+        -240.7542266845703,
+        4.710210800170898,
+        -16.706932067871094
+      ],
+      "released": [
+        -247.35499572753906,
+        4.717133522033691,
+        -17.365657806396484
+      ],
+      "new_collision_events": 51,
+      "simulation_advanced_s": 8.335113525390625,
+      "error": ""
+    }
+  ],
+  "fleet_sha256_before": "bc48982ddb6043eca0fb6dbf7a4d61a249e8b15918590e8df2188b9587fb2fa6",
+  "original_devices": [
+    {
+      "id": "uav-01",
+      "kind": "drone",
+      "model_id": "mavic3",
+      "name": "无人机 1",
+      "tracking_target": "uav-01",
+      "position_cm": [
+        -24357.94140625,
+        559.170654296875,
+        1574.898193359375
+      ],
+      "dynamics_name": "Drone1",
+      "initial_position_cm": [
+        -29298.7,
+        -100.69999999999999,
+        98
+      ],
+      "rotors_running": true,
+      "initial_yaw_deg": 0
+    },
+    {
+      "id": "ptz-01",
+      "kind": "gimbal",
+      "model_id": "eo80",
+      "name": "云台 1",
+      "tracking_target": "uav-01",
+      "position_cm": [
+        -33001.2,
+        15347.999999999998,
+        4.099999999999994
+      ],
+      "dynamics_name": "Drone1",
+      "initial_position_cm": [
+        -29298.7,
+        -100.69999999999999,
+        98
+      ],
+      "rotors_running": true,
+      "initial_yaw_deg": 0
+    },
+    {
+      "id": "ptz-02",
+      "kind": "gimbal",
+      "model_id": "eo80",
+      "name": "ptz-02",
+      "tracking_target": "uav-01",
+      "position_cm": [
+        -25557.5,
+        -856.1000000000004,
+        70.89999999999999
+      ],
+      "dynamics_name": "Drone1",
+      "initial_position_cm": [
+        0,
+        0,
+        4000
+      ],
+      "rotors_running": true,
+      "initial_yaw_deg": 0
+    }
+  ],
+  "run_id": "C6747E754A6D2E4119C634B1274C89FE",
+  "fleet_file_unchanged": true,
+  "final": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "C6747E754A6D2E4119C634B1274C89FE",
+    "connected": true,
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -292.8726501464844,
+      -0.9875230193138123,
+      -0.9226818680763245
+    ],
+    "route_loops": 1,
+    "route_status": "stopped",
+    "route_next_waypoint": 1,
+    "route": {
+      "version": 1,
+      "name": "collision verification return",
+      "scene_id": "city",
+      "frame": "ue_world_m",
+      "speed_mps": 3,
+      "repeat": false,
+      "waypoints": [
+        [
+          -247.43441772460938,
+          4.71658182144165,
+          16
+        ],
+        [
+          -292.987,
+          -1.007,
+          16
+        ],
+        [
+          -292.987,
+          -1.007,
+          4
+        ]
+      ]
+    },
+    "active_route_name": "collision verification return",
+    "velocity_mps": 3,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 163.09405854757156,
+    "motor_rpm": [
+      0.1222087417311055,
+      0.1222087417311055,
+      0.1222087417311055,
+      0.1222087417311055
+    ],
+    "rotor_sample_age_s": 0.03647230000933632,
+    "manual_command_count": 363,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "C6747E754A6D2E4119C634B1274C89FE",
+        "connected": true,
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -292.8726501464844,
+          -0.9875230193138123,
+          -0.9226818680763245
+        ],
+        "route_loops": 1,
+        "route_status": "stopped",
+        "route_next_waypoint": 1,
+        "route": {
+          "version": 1,
+          "name": "collision verification return",
+          "scene_id": "city",
+          "frame": "ue_world_m",
+          "speed_mps": 3,
+          "repeat": false,
+          "waypoints": [
+            [
+              -247.43441772460938,
+              4.71658182144165,
+              16
+            ],
+            [
+              -292.987,
+              -1.007,
+              16
+            ],
+            [
+              -292.987,
+              -1.007,
+              4
+            ]
+          ]
+        },
+        "active_route_name": "collision verification return",
+        "velocity_mps": 3,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 163.09405854757156,
+        "motor_rpm": [
+          0.1222087417311055,
+          0.1222087417311055,
+          0.1222087417311055,
+          0.1222087417311055
+        ],
+        "rotor_sample_age_s": 0.03667669999413192,
+        "manual_command_count": 363,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "elapsed_s": 77.64175309997518,
+  "settled_after_landing": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "C6747E754A6D2E4119C634B1274C89FE",
+    "connected": true,
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -292.8726501464844,
+      -0.9875230193138123,
+      -0.9226818680763245
+    ],
+    "route_loops": 1,
+    "route_status": "stopped",
+    "route_next_waypoint": 1,
+    "route": {
+      "version": 1,
+      "name": "collision verification return",
+      "scene_id": "city",
+      "frame": "ue_world_m",
+      "speed_mps": 3,
+      "repeat": false,
+      "waypoints": [
+        [
+          -247.43441772460938,
+          4.71658182144165,
+          16
+        ],
+        [
+          -292.987,
+          -1.007,
+          16
+        ],
+        [
+          -292.987,
+          -1.007,
+          4
+        ]
+      ]
+    },
+    "active_route_name": "collision verification return",
+    "velocity_mps": 3,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 163.09405854757156,
+    "motor_rpm": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_sample_age_s": 0.01887289999285713,
+    "manual_command_count": 363,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "C6747E754A6D2E4119C634B1274C89FE",
+        "connected": true,
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -292.8726501464844,
+          -0.9875230193138123,
+          -0.9226818680763245
+        ],
+        "route_loops": 1,
+        "route_status": "stopped",
+        "route_next_waypoint": 1,
+        "route": {
+          "version": 1,
+          "name": "collision verification return",
+          "scene_id": "city",
+          "frame": "ue_world_m",
+          "speed_mps": 3,
+          "repeat": false,
+          "waypoints": [
+            [
+              -247.43441772460938,
+              4.71658182144165,
+              16
+            ],
+            [
+              -292.987,
+              -1.007,
+              16
+            ],
+            [
+              -292.987,
+              -1.007,
+              4
+            ]
+          ]
+        },
+        "active_route_name": "collision verification return",
+        "velocity_mps": 3,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 163.09405854757156,
+        "motor_rpm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotor_sample_age_s": 0.018978600041009486,
+        "manual_command_count": 363,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "post_test_runner_restarted": {
+    "ready": true,
+    "temporary_route_cleared": true,
+    "editor_ticks_advancing": true,
+    "wiseeye_clock_paused_while_ready": true,
+    "dynamics_connected": true,
+    "motor_rpm": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "device_ids": [
+      "uav-01",
+      "ptz-01",
+      "ptz-02"
+    ],
+    "fleet_file_unchanged": true
+  }
+}

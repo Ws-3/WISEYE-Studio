@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "scene_id": "city",
+  "devices": [
+    {
+      "id": "uav-01",
+      "kind": "drone",
+      "model_id": "mavic3",
+      "name": "无人机 1",
+      "position_cm": [
+        -29298.7,
+        -100.69999999999999,
+        98.0
+      ],
+      "rotation_deg": [
+        0,
+        0.0,
+        0
+      ]
+    },
+    {
+      "id": "ptz-01",
+      "kind": "gimbal",
+      "model_id": "eo80",
+      "name": "云台 1",
+      "position_cm": [
+        -33001.2,
+        15347.999999999998,
+        4.1000000000000005
+      ],
+      "rotation_deg": [
+        0,
+        0.0,
+        0
+      ],
+      "tracking_target": "uav-01"
+    },
+    {
+      "id": "ptz-02",
+      "kind": "gimbal",
+      "model_id": "eo80",
+      "name": "ptz-02",
+      "position_cm": [
+        -25557.5,
+        -856.1,
+        70.89999999999999
+      ],
+      "rotation_deg": [
+        0,
+        0.0,
+        0
+      ],
+      "tracking_target": "uav-01"
+    }
+  ]
+}

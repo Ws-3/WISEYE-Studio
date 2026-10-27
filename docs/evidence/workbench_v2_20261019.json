@@ -1,0 +1,167 @@
+{
+  "date": "2026-10-19",
+  "phase": "A first increment; full V2 not complete",
+  "build": "testEditor UE 5.8.3 succeeded",
+  "unit_tests": 20,
+  "desktop_checks": 15,
+  "manual": {
+    "passed": true,
+    "keys": [
+      {
+        "key": "Key_W",
+        "input": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          1.54461669921875,
+          0.0,
+          -0.3604930639266968
+        ],
+        "signed_motion": 1.5446166992187498
+      },
+      {
+        "key": "Key_S",
+        "input": [
+          -1,
+          0,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          -1.668701171875,
+          0.0,
+          -0.34209728240966797
+        ],
+        "signed_motion": 1.6687011718749996
+      },
+      {
+        "key": "Key_A",
+        "input": [
+          0,
+          -1,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          0.0635833740234375,
+          -1.5487918853759766,
+          -0.35692763328552246
+        ],
+        "signed_motion": 1.548791884444954
+      },
+      {
+        "key": "Key_D",
+        "input": [
+          0,
+          1,
+          0,
+          0
+        ],
+        "delta_ned_m": [
+          0.0,
+          1.667348861694336,
+          -0.34255313873291016
+        ],
+        "signed_motion": 1.6673488561588465
+      },
+      {
+        "key": "Key_R",
+        "input": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "delta_ned_m": [
+          0.0,
+          -0.05992412567138672,
+          -3.3393747806549072
+        ],
+        "signed_motion": 3.3393747806549072
+      },
+      {
+        "key": "Key_F",
+        "input": [
+          0,
+          0,
+          -1,
+          0
+        ],
+        "delta_ned_m": [
+          0.0,
+          0.0011587142944335938,
+          3.116084575653076
+        ],
+        "signed_motion": 3.116084575653076
+      },
+      {
+        "key": "Key_Q",
+        "input": [
+          0,
+          0,
+          0,
+          -1
+        ],
+        "delta_ned_m": [
+          0.0,
+          0.0,
+          0.06349420547485352
+        ],
+        "signed_motion": 50.441564565348244
+      },
+      {
+        "key": "Key_E",
+        "input": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "delta_ned_m": [
+          0.0,
+          0.0,
+          0.0770108699798584
+        ],
+        "signed_motion": 44.57547861707974
+      }
+    ],
+    "held_mouse_button": true,
+    "focus_loss_stops": true,
+    "hover_drift_m": 0.0023864571719038664
+  },
+  "observer": {
+    "passed": true,
+    "observer_displacement_cm": 590.2534201741207,
+    "drone_drift_m": 0.0070449113845825195,
+    "gimbal_pitch_change_deg": 11.74675399065016
+  },
+  "workbench": {
+    "passed": true,
+    "checks": [
+      "startup stays ready without arming, takeoff or automatic route",
+      "independent free camera created; invalid observer/control modes rejected",
+      "saved layout survives travel and sets actual AirSim origin plus gimbal mount",
+      "both live sensors render; GUI stall replaces old frames with a single pending frame",
+      "lidar parameters applied and read back; invalid request rejected atomically",
+      "switch from held flight input clears motion; observer mode refuses flight hotkeys",
+      "takeoff and land return the session to ground ready"
+    ],
+    "dual_preview_completed_new_fps": {
+      "CH1": 20.497235947732552,
+      "CH2": 20.497235947732552
+    },
+    "ue_control_roundtrip_ms_p95": 57.487900001433445,
+    "p95_scope": "UE JSON control round trip; not end-to-end video latency"
+  },
+  "limitations": [
+    "numeric initial positions only; no terrain snapping or drag gizmo",
+    "single drone; model switching shares physics",
+    "independent UE observation window; no embedded viewport or standalone installer yet",
+    "RTSP still JPEG/Base64/libx264; no hardware encoder enabled",
+    "8-second dual-preview sample, not 30-minute stability test; video end-to-end latency unmeasured",
+    "cold UE FAppTime ensure remains a known limitation"
+  ]
+}

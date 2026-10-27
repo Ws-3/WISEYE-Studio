@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "scene_id": "test_range",
+  "flight_origin_cm": [
+    -2018.4,
+    -496.6,
+    25.0
+  ],
+  "gimbal_location_cm": [
+    -1086.0,
+    -626.8,
+    4.1000000000000005
+  ]
+}

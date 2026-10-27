@@ -1,0 +1,189 @@
+{
+  "release_id": "20261023-001704-All-Shipping",
+  "configuration": "Shipping",
+  "engine": "5.8.4",
+  "python": "3.14.6",
+  "qt": "6.11.0",
+  "installed_bytes": 18107757190,
+  "archive": {
+    "path": "E:\\Projects\\WISEYE-BuildWorkspace\\builds\\distribution\\WISEYE-20261023-Windows-x64.zip",
+    "bytes": 18108112700,
+    "sha256": "5a74e3d33b7bef3102ca8219d050b85f58c46c25eaf4ef1bacb845a82e15a20f",
+    "release_id": "20261023-001704-All-Shipping",
+    "zip_crc_verified": true
+  },
+  "tests": {
+    "original": {
+      "passed": true,
+      "checks": [
+        "Game and frozen flight worker ready with matching run ID",
+        "Native resolution visible, infrared and observer previews",
+        "Gimbal velocity control changes actual angle",
+        "Nonempty LIDAR points",
+        "Real takeoff, rotor telemetry, manual ascent, landing and stopped motors"
+      ],
+      "run_id": "2B0489E648168E2C0023C68E4144CDF6",
+      "active_scene": "original",
+      "devices": [
+        {
+          "id": "uav-01",
+          "model_id": "mavic3"
+        },
+        {
+          "id": "ptz-01",
+          "model_id": "eo80"
+        }
+      ],
+      "frames": {
+        "ptz-01/visible": [
+          1920,
+          1080
+        ],
+        "ptz-01/infrared": [
+          640,
+          512
+        ],
+        "scene/observer": [
+          960,
+          540
+        ]
+      },
+      "lidar_count": 288,
+      "manual_ascent_m": 0.7947207689285278,
+      "final_motor_rpm": [
+        7.200434368408717e-06,
+        7.200434368408717e-06,
+        7.200434368408717e-06,
+        7.200434368408717e-06
+      ],
+      "tick_progress": [
+        1240,
+        1693
+      ]
+    },
+    "test_range": {
+      "passed": true,
+      "checks": [
+        "Game and frozen flight worker ready with matching run ID",
+        "Native resolution visible, infrared and observer previews",
+        "Gimbal velocity control changes actual angle",
+        "Nonempty LIDAR points",
+        "Real takeoff, rotor telemetry, manual ascent, landing and stopped motors"
+      ],
+      "run_id": "5994512843E00A57F8B208BE056F523A",
+      "active_scene": "test_range",
+      "devices": [
+        {
+          "id": "uav-01",
+          "model_id": "mavic3"
+        },
+        {
+          "id": "ptz-01",
+          "model_id": "eo80"
+        }
+      ],
+      "frames": {
+        "ptz-01/visible": [
+          1920,
+          1080
+        ],
+        "ptz-01/infrared": [
+          640,
+          512
+        ],
+        "scene/observer": [
+          960,
+          540
+        ]
+      },
+      "lidar_count": 288,
+      "manual_ascent_m": 0.7960349321365356,
+      "final_motor_rpm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "tick_progress": [
+        1217,
+        1669
+      ]
+    },
+    "city": {
+      "passed": true,
+      "checks": [
+        "Game and frozen flight worker ready with matching run ID",
+        "Native resolution visible, infrared and observer previews",
+        "Gimbal velocity control changes actual angle",
+        "Nonempty LIDAR points",
+        "Real takeoff, rotor telemetry, manual ascent, landing and stopped motors"
+      ],
+      "run_id": "15E2AC4D4C960FCC43C5F38C2DC54B2D",
+      "active_scene": "city",
+      "devices": [
+        {
+          "id": "uav-01",
+          "model_id": "mavic3"
+        },
+        {
+          "id": "ptz-01",
+          "model_id": "eo80"
+        },
+        {
+          "id": "ptz-02",
+          "model_id": "eo80"
+        }
+      ],
+      "frames": {
+        "ptz-01/visible": [
+          1920,
+          1080
+        ],
+        "ptz-01/infrared": [
+          640,
+          512
+        ],
+        "scene/observer": [
+          960,
+          540
+        ]
+      },
+      "lidar_count": 576,
+      "manual_ascent_m": 0.9234702587127686,
+      "final_motor_rpm": [
+        7.221084666733524e-06,
+        7.221084666733524e-06,
+        7.221084666733524e-06,
+        7.221084666733524e-06
+      ],
+      "tick_progress": [
+        899,
+        1200
+      ]
+    }
+  },
+  "core_tests": 47,
+  "qt_regression_tests": 9,
+  "install_tree_unchanged_after_city_test": true,
+  "unicode_install_and_data_paths_verified": true,
+  "clean_windows_verified": false,
+  "thirty_minute_soak_verified": false,
+  "updater_implemented": false,
+  "delivery_f_verified": true,
+  "installed_files": 1438,
+  "delivery": {
+    "delivered_at": "2026-10-23T00:28:13.3829450+08:00",
+    "path": "F:\\WISEYE-Studio\\releases\\WISEYE-20261023-Windows-x64.zip",
+    "bytes": 18108112700,
+    "sha256": "5a74e3d33b7bef3102ca8219d050b85f58c46c25eaf4ef1bacb845a82e15a20f",
+    "verified": true
+  },
+  "rtsp_publication_paths": [
+    "CH1",
+    "CH2",
+    "OBS",
+    "ptz-02/CH1",
+    "ptz-02/CH2"
+  ],
+  "rtsp_decode_and_latency_verified": false
+}

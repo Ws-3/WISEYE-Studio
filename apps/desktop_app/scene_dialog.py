@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
-from PySide6.QtCore import QThread, Signal, QProcess
+from PySide6.QtCore import QThread, Signal, QTimer
+import subprocess
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QLabel, QPushButton,
     QListWidget, QFileDialog, QFormLayout, QLineEdit, QComboBox, QDoubleSpinBox, QMessageBox)
 from core.config import ROOT
@@ -123,6 +124,10 @@ class SceneDialog(QDialog):
         self.parent().refresh_scenes()
 
     def import_pack(self):
+        from core.runtime_paths import IS_RELEASE
+        if IS_RELEASE:
+            self.status.setText('当前发布版仅支持随版本安装的 Cooked 场景；开发资源 ZIP 请在开发工程中导入。')
+            return
         path, _ = QFileDialog.getOpenFileName(self, '导入 WISEYE 场景包', '', 'WISEYE 场景包 (*.zip)')
         if not path:
             return
@@ -140,6 +145,10 @@ class SceneDialog(QDialog):
         self.status.setText(message)
 
     def adapt(self):
+        from core.runtime_paths import IS_RELEASE
+        if IS_RELEASE:
+            self.status.setText('新场景制作需要开发工程；发布版可编排已安装场景中的设备。')
+            return
         form = SceneForm(self.store, self)
         if form.exec():
             self.refresh()
@@ -156,18 +165,38 @@ class SceneDialog(QDialog):
         self.launch_prepare(self.scenes[i]['id'])
 
     def launch_prepare(self, identifier):
-        self.process = QProcess(self)
-        self.process.setProcessChannelMode(QProcess.ProcessChannelMode.MergedChannels)
-        self.process.readyReadStandardOutput.connect(lambda: self.status.setText(bytes(self.process.readAllStandardOutput()).decode(errors='replace')[-1200:]))
-        self.process.finished.connect(lambda code, _: self.status.setText('已打开 UE 准备场景，请检查输出日志与地图，成功保存后刷新列表。' if code == 0 else '准备启动失败。请保存并关闭全部 UE 后重试；详细原因见上方输出或终端。'))
-        self.process.start('powershell.exe', ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
-                           str(ROOT/'scripts/Start-WISEYE.ps1'), '-SkipBuild', '-PrepareScene', identifier])
-        self.status.setText('正在启动场景准备工具…')
+        from core.runtime_paths import IS_RELEASE
+        if IS_RELEASE:
+            self.status.setText('发布版请安装已打包的场景组件；场景制作请使用开发工程。')
+            return
+        scene=next((item for item in self.scenes if item['id']==identifier),{})
+        if scene.get('requires_external_asset') and not scene.get('source_map'):
+            self.status.setText('City Sample 尚未下载接入；请按 docs/CITY_SAMPLE_SETUP.md 获取资源。')
+            return
+        try:
+            (ROOT/'logs').mkdir(exist_ok=True)
+            self.prepare_log=ROOT/'logs'/f'scene-prepare-{identifier}.log'
+            with self.prepare_log.open('wb') as output:
+                self.process=subprocess.Popen(['powershell.exe','-NoProfile','-ExecutionPolicy','Bypass','-File',
+                    str(ROOT/'scripts/Start-WISEYE.ps1'),'-SkipBuild','-PrepareScene',identifier],cwd=ROOT,
+                    stdout=output,stderr=output,creationflags=getattr(subprocess,'CREATE_NO_WINDOW',0))
+            self.prepare_timer=QTimer(self);self.prepare_timer.setInterval(500)
+            self.prepare_timer.timeout.connect(self.poll_prepare);self.prepare_timer.start()
+            self.status.setText('正在启动场景准备工具…')
+        except OSError as error:self.status.setText('启动失败：'+str(error))
+
+    def poll_prepare(self):
+        code=self.process.poll()
+        if code is None:return
+        self.prepare_timer.stop()
+        if code==0:self.status.setText('已打开 UE 准备场景；成功保存后刷新列表。')
+        else:self.status.setText('准备启动失败：'+self.prepare_log.read_text(encoding='utf-8',errors='replace')[-1200:])
 
     def help(self):
         from PySide6.QtGui import QDesktopServices
         from PySide6.QtCore import QUrl
-        QDesktopServices.openUrl(QUrl.fromLocalFile(str(ROOT/'docs/SCENES.md')))
+        from core.runtime_paths import RESOURCE_ROOT
+        QDesktopServices.openUrl(QUrl.fromLocalFile(str(RESOURCE_ROOT/'docs/SCENES.md')))
 
     def reject(self):
         if self.worker and self.worker.isRunning():

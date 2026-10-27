@@ -1,0 +1,82 @@
+{
+  "status": "not_deleted_policy_blocked",
+  "freed_bytes": 0,
+  "reason": "Bulk recursive delete and fixed-directory recursive delete both rejected by automatic approval review. No deletion executed.",
+  "candidates": [
+    {
+      "path": "F:\\WISEYE-Studio\\builds\\desktop",
+      "bytes": 102934007,
+      "files": 100
+    },
+    {
+      "path": "F:\\WISEYE-Studio\\builds\\pyinstaller",
+      "bytes": 26197016,
+      "files": 15
+    },
+    {
+      "path": "F:\\WISEYE-Studio\\builds\\smoke-data",
+      "bytes": 229497,
+      "files": 13
+    },
+    {
+      "path": "F:\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\Cooked",
+      "bytes": 1278111526,
+      "files": 2195
+    },
+    {
+      "path": "F:\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\ShaderDebugInfo",
+      "bytes": 3221361,
+      "files": 2
+    },
+    {
+      "path": "F:\\WISEYE-Studio\\ue5\\WISEYE\\Saved\\Shaders",
+      "bytes": 187961918,
+      "files": 8
+    },
+    {
+      "path": "F:\\WISEYE-Studio\\ue5\\WISEYE\\Intermediate",
+      "bytes": 4651186105,
+      "files": 132
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-BuildWorkspace\\builds\\distribution",
+      "bytes": 18108113091,
+      "files": 3
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-BuildWorkspace\\builds\\staged",
+      "bytes": 37546246627,
+      "files": 2818
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-BuildWorkspace\\releases\\20261022-233112-Base-Development",
+      "bytes": 1897493307,
+      "files": 1254
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-BuildWorkspace\\releases\\20261022-233243-Base-Development",
+      "bytes": 1897494127,
+      "files": 1255
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-BuildWorkspace\\releases\\20261022-234233-Base-Development",
+      "bytes": 1951431209,
+      "files": 1384
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-BuildWorkspace\\releases\\20261022-235803-All-Development",
+      "bytes": 18349359029,
+      "files": 1463
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-BuildWorkspace\\releases\\WISEYE 城市版 20261023-000219-All-Shipping",
+      "bytes": 18107847110,
+      "files": 1442
+    },
+    {
+      "path": "E:\\Projects\\WISEYE-BuildWorkspace\\ue5\\WISEYE\\Saved\\StagedBuilds",
+      "bytes": 17614100700,
+      "files": 925
+    }
+  ]
+}

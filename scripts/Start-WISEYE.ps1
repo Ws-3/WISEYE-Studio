@@ -45,5 +45,7 @@ if (-not $BuildOnly) {
         $prepareScript = Join-Path $repository 'ue5\scripts\prepare_registered_scene.py'
         $editorArgs += ('-ExecutePythonScript="' + $prepareScript + '"')
     }
+    $existingEditor = Get-CimInstance Win32_Process -Filter "Name = 'UnrealEditor.exe'" -ErrorAction SilentlyContinue | Where-Object { $_.CommandLine -like "*$project*" }
+    if ($existingEditor) { Write-Host 'WISEYE editor is already open. Reusing it; click Play if needed.'; return }
     Start-Process -FilePath $editor -WorkingDirectory (Split-Path -Parent $editor) -ArgumentList $editorArgs -WindowStyle Normal
 }

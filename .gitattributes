@@ -8,3 +8,5 @@
 *.tga binary
 *.cmd text eol=crlf
 *.ps1 text eol=crlf
+# Unified diffs intentionally contain space-only context lines.
+*.patch -whitespace

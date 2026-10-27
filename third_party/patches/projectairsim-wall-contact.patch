@@ -1,0 +1,122 @@
+diff --git a/physics/include/fast_physics.hpp b/physics/include/fast_physics.hpp
+index fd3a0fd..f8b1785 100644
+--- a/physics/include/fast_physics.hpp
++++ b/physics/include/fast_physics.hpp
+@@ -111,7 +111,8 @@ class FastPhysicsModel {
+       TimeSec dt_sec, std::shared_ptr<FastPhysicsBody>& fp_body);
+ 
+   Kinematics CalcNextKinematicsWithCollision(
+-      TimeSec dt_sec, std::shared_ptr<FastPhysicsBody>& fp_body);
++      TimeSec dt_sec, std::shared_ptr<FastPhysicsBody>& fp_body,
++      const Kinematics* predicted = nullptr);
+ 
+   Kinematics CalcNextKinematicsWithWheels(
+       TimeSec dt_sec, std::shared_ptr<FastPhysicsBody>& fp_body,
+diff --git a/physics/src/fast_physics.cpp b/physics/src/fast_physics.cpp
+index 324a570..f10c9f2 100644
+--- a/physics/src/fast_physics.cpp
++++ b/physics/src/fast_physics.cpp
+@@ -391,7 +391,7 @@ void FastPhysicsModel::StepPhysicsBody(TimeNano dt_nanos,
+           next_kin = CalcNextKinematicsGrounded(
+               landed_position, fp_body->kinematics_.pose.orientation);
+       } else {
+-        next_kin = CalcNextKinematicsWithCollision(dt_sec, fp_body);
++        next_kin = CalcNextKinematicsWithCollision(dt_sec, fp_body, &next_kin);
+       }
+     }
+ 
+@@ -601,7 +601,8 @@ Kinematics FastPhysicsModel::CalcNextKinematicsNoCollision(
+ }
+ 
+ Kinematics FastPhysicsModel::CalcNextKinematicsWithCollision(
+-    TimeSec dt_sec, std::shared_ptr<FastPhysicsBody>& fp_body) {
++    TimeSec dt_sec, std::shared_ptr<FastPhysicsBody>& fp_body,
++    const Kinematics* predicted) {
+   const auto& collision_info = fp_body->collision_info_;
+   const auto& cur_kin = fp_body->kinematics_;
+   const auto& restitution = fp_body->restitution_;
+@@ -615,10 +616,12 @@ Kinematics FastPhysicsModel::CalcNextKinematicsWithCollision(
+       collision_info.normal, cur_kin.pose.orientation);
+ 
+   const Vector3 ave_vel_lin =
+-      cur_kin.twist.linear + cur_kin.accels.linear * dt_sec;
++      predicted ? predicted->twist.linear
++                : cur_kin.twist.linear + cur_kin.accels.linear * dt_sec;
+ 
+   const Vector3 ave_vel_ang =
+-      cur_kin.twist.angular + cur_kin.accels.angular * dt_sec;
++      predicted ? predicted->twist.angular
++                : cur_kin.twist.angular + cur_kin.accels.angular * dt_sec;
+ 
+   // Step 1 - Calculate restitution impulse (normal to impact)
+ 
+@@ -694,10 +697,15 @@ Kinematics FastPhysicsModel::CalcNextKinematicsWithCollision(
+ 
+   kin_with_collision.pose.position =
+       collision_info.position +
+-      (collision_info.normal * collision_info.penetration_depth) +
++      (collision_info.normal * (collision_info.penetration_depth +
++                               FastPhysicsBody::kCollisionOffset)) +
+       (kin_with_collision.twist.linear * dt_sec);
+ 
+-  kin_with_collision.pose.orientation = cur_kin.pose.orientation;
++  // Keep the flight controller's torque response while touching a wall.
++  // Reusing cur_kin with zeroed accelerations used to freeze both attitude and
++  // velocity on every collision substep, so reverse input could never release it.
++  kin_with_collision.pose.orientation =
++      predicted ? predicted->pose.orientation : cur_kin.pose.orientation;
+ 
+   return kin_with_collision;
+ }
+diff --git a/physics/test/gtest_fast_physics.cpp b/physics/test/gtest_fast_physics.cpp
+index 862718b..bb226b4 100644
+--- a/physics/test/gtest_fast_physics.cpp
++++ b/physics/test/gtest_fast_physics.cpp
+@@ -799,7 +799,7 @@ TEST(FastPhysicsModel, CalcNextKinematicsWithCollision) {
+ 
+   EXPECT_FLOAT_EQ(kin.pose.position.x(), 0.);
+   EXPECT_FLOAT_EQ(kin.pose.position.y(), 0.);
+-  EXPECT_FLOAT_EQ(kin.pose.position.z(), -10.);
++  EXPECT_FLOAT_EQ(kin.pose.position.z(), -10.001);
+ 
+   // Vertical collision aligned, with velocity -> reflect restitution to vel
+   init_kin.pose.position = {0., 0., -9.0};
+@@ -863,7 +863,37 @@ TEST(FastPhysicsModel, CalcNextKinematicsWithCollision) {
+ 
+   EXPECT_GT(kin.pose.position.x(), 0.);  // horizontal motion continues
+   EXPECT_FLOAT_EQ(kin.pose.position.y(), 0.);
+-  EXPECT_FLOAT_EQ(kin.pose.position.z(), -10.);  // collision sets z pos
++  EXPECT_FLOAT_EQ(kin.pose.position.z(), -10.001);  // includes contact air gap
++}
++
++TEST(FastPhysicsModel, WallContactPreservesNewControlResponse) {
++  projectairsim::FastPhysicsModel model;
++  auto body = std::make_shared<projectairsim::TestFastPhysicsBody>();
++  auto fp_body = std::static_pointer_cast<projectairsim::FastPhysicsBody>(body);
++  body->SetMass(1.0f);
++  body->SetInertia(projectairsim::Matrix3x3::Identity());
++  body->SetRestitution(0.1f);
++  body->SetFriction(0.0f);
++  projectairsim::Kinematics current;
++  current.pose.orientation = projectairsim::Quaternion::Identity();
++  body->SetKinematics(current);
++  projectairsim::CollisionInfo contact;
++  contact.normal = {-1., 0., 0.};
++  contact.position = {0., 0., -10.};
++  contact.impact_point = contact.position;
++  contact.penetration_depth = 0.;
++  body->SetCollisionInfo(contact);
++  projectairsim::Kinematics predicted = current;
++  predicted.twist.linear = {0.1, 0.2, -0.3};
++  predicted.pose.orientation =
++      projectairsim::TransformUtils::ToQuaternion(0., 0., 0.01);
++  auto result = model.CalcNextKinematicsWithCollision(.01, fp_body, &predicted);
++  EXPECT_LT(result.twist.linear.x(), 0.);  // stop/rebound at the wall
++  EXPECT_GT(result.twist.linear.y(), 0.);  // new tangential control survives
++  EXPECT_LT(result.twist.linear.z(), 0.);  // new lift survives contact
++  EXPECT_LT(result.pose.position.x(), -0.001f);
++  EXPECT_TRUE(result.pose.orientation.isApprox(predicted.pose.orientation));
++  EXPECT_TRUE(result.twist.linear.allFinite());
+ }
+ 
+ TEST(FastPhysicsModel, StepPhysicsBody) {

@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "scope": "RTSP decode and native dimensions after deduplication; not an end-to-end latency measurement",
+  "streams": {
+    "CH1": {
+      "codec_name": "h264",
+      "width": 1920,
+      "height": 1080,
+      "nb_read_frames": "31"
+    },
+    "CH2": {
+      "codec_name": "h264",
+      "width": 640,
+      "height": 512,
+      "nb_read_frames": "32"
+    },
+    "OBS": {
+      "codec_name": "h264",
+      "width": 960,
+      "height": 540,
+      "nb_read_frames": "25"
+    }
+  }
+}

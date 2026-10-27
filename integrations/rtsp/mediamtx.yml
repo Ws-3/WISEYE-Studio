@@ -1,9 +1,18 @@
 logLevel: info
 rtspAddress: :8554
 rtspTransports: [tcp]
+rtmp: no
+hls: no
+webrtc: no
+srt: no
+playback: no
 
 paths:
   CH1:
     source: publisher
   CH2:
+    source: publisher
+  OBS:
+    source: publisher
+  "~^ptz-[0-9]{2}/CH[12]$":
     source: publisher

@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-22",
+  "timezone": "Asia/Shanghai",
+  "drive": "F:",
+  "label": "Ws3",
+  "filesystem": "NTFS",
+  "capacity_bytes": 1000203816960,
+  "free_bytes": 651147624448,
+  "disk_model": "ZHITAI Ti600 1TB",
+  "bus": "USB",
+  "media_type": "SSD",
+  "physical_disk_health": "Healthy",
+  "volume_health": "Warning",
+  "volume_operational_status": "Spot Fix Needed",
+  "dirty_bit": true,
+  "reliability_counters": "Unavailable through current CIM/USB interface",
+  "throughput": "Not measured; USB generation and negotiated link speed unverified",
+  "method": "Read-only Get-Volume/Get-Disk/Get-PhysicalDisk/fsutil dirty query; no repair, formatting, benchmark writes or deployment to F performed",
+  "capacity_gib": 931.51,
+  "free_gib": 606.43
+}

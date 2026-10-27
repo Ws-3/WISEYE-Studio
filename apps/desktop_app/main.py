@@ -15,6 +15,7 @@ if sys.platform == 'win32':
 from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtGui import QFont, QIcon
 from core.config import AppConfig, ROOT
+from core.runtime_paths import RESOURCE_ROOT
 from apps.desktop_app.main_window import MainWindow
 
 def main():
@@ -24,7 +25,7 @@ def main():
     app = QApplication(sys.argv[:1])
     app.setApplicationName('WISEYE Studio')
     app.setFont(QFont('Microsoft YaHei UI', 10))
-    app.setWindowIcon(QIcon(str(ROOT/'LOGO.jpg')))
+    app.setWindowIcon(QIcon(str(RESOURCE_ROOT/'LOGO.jpg')))
     (ROOT/'logs').mkdir(exist_ok=True)
     handler = RotatingFileHandler(ROOT/'logs/desktop_app.log', maxBytes=1000000, backupCount=3, encoding='utf8')
     logging.basicConfig(level=logging.INFO, handlers=[handler], format='%(asctime)s %(levelname)s %(message)s')

@@ -1,0 +1,18 @@
+{
+  "checks": [
+    "all three RTSP streams render; LiDAR shares bounded data",
+    "desktop arrow turns gimbal and release stops",
+    "spinbox arrow edits parameter without moving gimbal",
+    "sensor drafts survive polling; visible and IR FOV apply independently",
+    "disable visible clears its view while IR continues",
+    "selecting disabled lidar does not implicitly enable it",
+    "select side by side views and enlarge without another decoder",
+    "embedded observer RMB+W moves camera only, release stops",
+    "route invalid coordinates rejected and dialog closes cleanly",
+    "uploaded UE-world route runs once in AirSim, completes near final waypoint and holds",
+    "loop route supports pause, resume and stop with hold"
+  ],
+  "passed": 11,
+  "errors": [],
+  "final_status": "ready"
+}

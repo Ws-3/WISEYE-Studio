@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "unit": "cm",
+  "mavic3": {
+    "body_size_xyz_cm": [34.75, 28.3, 10.77],
+    "excludes": "propeller blades; unfolded arms",
+    "source": "https://www.dji.com/support/product/mavic-3"
+  },
+  "avata": {
+    "size_xyz_cm": [18.0, 18.0, 8.0],
+    "includes": "integrated propeller guards; first-generation DJI Avata",
+    "source": "https://www.dji.com/avata"
+  },
+  "gimbal": {"height_cm": 80.0, "source": "user specified"}
+}

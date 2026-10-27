@@ -51,7 +51,10 @@ class SceneStore:
                 if file.stem != scene['id']:
                     raise ValueError('文件名必须与场景 ID 一致')
                 scene = dict(scene)
-                scene['installed'] = self.map_file(scene['map']).is_file() and scene.get('prepared', False) is True
+                from core.runtime_paths import installed_scenes
+                published = installed_scenes()
+                available = scene['id'] in published if published is not None else self.map_file(scene['map']).is_file()
+                scene['installed'] = available and scene.get('prepared', False) is True
                 result.append(scene)
             except (ValueError, OSError, TypeError) as exc:
                 errors.append(f'{file.name}: {exc}')

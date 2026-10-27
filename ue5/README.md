@@ -23,9 +23,9 @@ PTZ_Camera（固定安装根）
 
 I 切换可见光/红外，B 切换红外白热/黑热，P 导出当前模式。两套 SceneCapture 共用光心/姿态和水平 FOV，垂直 FOV 随 16:9 / 5:4 比例变化。RT_EO 保存可见光，Sensors/RT_IR 保存红外；Synthetic IR 材质为 Sensors/M_IR_Minimal。红外采用 Custom Stencil 标记模拟热强度，比较 Custom Depth 与 Scene Depth 保证遮挡；机身、电机和桨叶强度不同，天空/背景独立生成，有弱固定图案噪声。Heat/Noise 参数在 WISEYE_Demo 的 Sensors 分类，运行中调整后调用 RefreshSensors；这些值不是摄氏温度。实现源文件 WiseEyeSensors.cpp。
 
-M 切换自动/手动，WASD 移动，方向键上下升降，Q/E 转向；T 切换真值跟踪/保持当前方向，F 切换旋翼动画。停止旋翼动画不会停止运动学飞行；空格暂停会同时冻结飞行、云台和旋翼。Tab 循环总览、EO 和无人机近景。R 回到保存的航线起点，并保留当前飞行模式、跟踪和旋翼开关。
+无人机驾驶模式中，系统与UE均为WASD平移、R上升/F下降、Q/E转向；C切输入对象、Tab切观察视角、Home复位。T切换真值跟踪；O为旋翼开关请求，AirSim模式不伪造电机启停，实际RPM以物理遥测为准。自由观察仍为右键+WASD/QE，云台箭头键控制保持。完整操作见 [USER_GUIDE.md](../docs/USER_GUIDE.md)。
 
-无人机最大水平跨度约 60 cm，云台高度约 40 cm，底座落地；尺寸是演示设定，不是实物测量。原网格不变，通过装配根节点统一缩放，轴心和相机跟随缩放。无人机根已移到几何中心；本模型局部 +Y 为机头，Model Heading Offset 为 -90°。四组 WISEYE_Rotor_* 包含原始桨毂及两片桨叶，对角同向、相邻反向。
+Mavic 3 机身（不含桨叶）34.75×28.3×10.77 cm，Avata 18×18×8 cm，云台高度 80 cm，底座落地；尺寸按官方外形参数缩放，尚非厂商图纸级计量标定。原网格不变，通过装配根节点统一缩放，轴心和相机跟随缩放。无人机根已移到几何中心；本模型局部 +Y 为机头，Model Heading Offset 为 -90°。四组 WISEYE_Rotor_* 包含原始桨毂及两片桨叶，对角同向、相邻反向。
 
 轴心和镜头位置参考 `Config/WISEYE/calibration.json`；这是几何近似，不是实物计量标定。
 
@@ -38,7 +38,7 @@ M 切换自动/手动，WASD 移动，方向键上下升降，Q/E 转向；T 切
 - verify_demo：PIE 中运行 40 秒测试，报告在 Saved/WISEYE/verification.json；更改布局后要更新标定。
 - verify_controls：verify_demo 完成后在 PIE 验证手动/自动切换、旋翼启停和轴心稳定、云台保持/恢复、升降与高度限位、暂停/复位和三种视角，报告在 Saved/WISEYE/controls_verification.json。
 - configure_controls：首次配置尺寸和旋翼轴心的维护工具，会调整并保存关卡；已配置好的场景不需要重跑。
-- restore_ptz：历史原尺度恢复工具，当前 40 cm 云台不能直接运行；恢复须以当前 calibration.json 和已保存关卡为准。
+- restore_ptz：历史原尺度恢复工具，当前 80 cm 云台不能直接运行；恢复须以当前 calibration.json 和已保存关卡为准。
 - setup_scene：历史初始化工具，会重配场景；正常启动不要运行。
 - validate_portable：命令行检查关键资源和 C++ 类加载。
 - validate_controls_scene：重新打开可视编辑器后检查保存的尺寸、四组旋翼及控制参数；World Partition Actor 必须加载，不作为地图 commandlet 运行。
@@ -50,3 +50,11 @@ PNG 不含界面叠加；元数据时间是导出请求时间，图像为上一�
 ## 桌面控制
 
 先构建并在 UE 点击播放，再运行仓库 Start-Desktop.cmd 连接 127.0.0.1:50051。控制桥仅在 PIE/游戏运行期间存在，详见 ../docs/DESKTOP.md 与 PROTOCOL.md。窗口当前获取 PNG 快照，实时流待实现。
+
+## 2026-10-19 输入与实物尺寸修正
+
+UE 进入 Play 并点击游戏画面后，M 切换自动/手动，WASD、↑↓、Q/E 控制飞行，T 云台跟踪，Tab 切换视角，空格悬停暂停/继续，R 物理复位。AirSim 模式的键盘命令通过 runner 单一控制面执行；WISEYE 输入组件显式设置优先级，避免上游 T/Tab 动作消费按键。停止/重新播放后 runner 自动重建会话。
+
+尺寸基准见 Config/WISEYE/device_dimensions.json。calibrate_device_dimensions.py 用于已有地图按当前标准校准；在原始地图重新 export_rig 后，新地图也沿用该装配。旧 configure_controls.py 是历史 60/40 cm 初始化工具，不得覆盖当前场景。两张预置地图均已保存并重开验证尺寸。
+
+Avata 显示时递归隐藏 Mavic 所有子网格，避免旧桨叶叠加；Avata 动态组件归属于无人机 Actor，避免云台被错误算作无人机附属 Actor。Avata 原始一体网格的桨叶目前保持静态，不复用 Mavic 的旋翼动画。外形校准不代表质量、惯量或光学内参完成实物标定。

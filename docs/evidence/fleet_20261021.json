@@ -1,0 +1,159 @@
+{
+  "passed": 10,
+  "checks": [
+    "two PTZ instances and two actual AirSim robots start ready",
+    "unknown instance IDs rejected instead of falling back",
+    "gimbal directions and tracking targets are independent",
+    "sensor parameters, enable state and frame sources do not cross instances",
+    "native image exports carry device/sensor identity and preserve per-modality resolutions",
+    "desktop selects drone and gimbal separately; selected PTZ gets its own RTSP and settings",
+    "device draft editor adds and removes whole instances without moving runtime objects",
+    "only addressed UAV takes off and flies manually; other UAV remains grounded",
+    "two UAVs execute different routes concurrently and hold at separate destinations",
+    "same-scene reload recreates both robot/gimbal instances and restores fresh sessions"
+  ],
+  "inventory": [
+    {
+      "id": "uav-01",
+      "kind": "drone",
+      "model_id": "mavic3",
+      "name": "无人机 1",
+      "tracking_target": "uav-01",
+      "position_cm": [
+        8197.25390625,
+        1377.7110595703125,
+        302.1651611328125
+      ],
+      "dynamics_name": "Drone1",
+      "initial_position_cm": [
+        8197.253515711356,
+        1377.7111180830398,
+        603.0585154067214
+      ],
+      "rotors_running": false,
+      "initial_yaw_deg": 0
+    },
+    {
+      "id": "ptz-01",
+      "kind": "gimbal",
+      "model_id": "eo80",
+      "name": "云台 1",
+      "tracking_target": "uav-01",
+      "position_cm": [
+        9997.253515711356,
+        1377.7111180830398,
+        5.116923664164119
+      ],
+      "dynamics_name": "Drone1",
+      "initial_position_cm": [
+        8197.253515711356,
+        1377.7111180830398,
+        603.0585154067214
+      ],
+      "rotors_running": false,
+      "initial_yaw_deg": 0
+    },
+    {
+      "id": "uav-02",
+      "kind": "drone",
+      "model_id": "avata",
+      "name": "uav-02",
+      "tracking_target": "uav-02",
+      "position_cm": [
+        8697.25390625,
+        1377.7110595703125,
+        302.1651611328125
+      ],
+      "dynamics_name": "Drone2",
+      "initial_position_cm": [
+        8697.253515711356,
+        1377.7111180830398,
+        603.0585154067214
+      ],
+      "rotors_running": true,
+      "initial_yaw_deg": 0
+    },
+    {
+      "id": "ptz-02",
+      "kind": "gimbal",
+      "model_id": "eo80",
+      "name": "ptz-02",
+      "tracking_target": "uav-02",
+      "position_cm": [
+        9997.253515711356,
+        1877.7111180830398,
+        5.116923664164119
+      ],
+      "dynamics_name": "Drone2",
+      "initial_position_cm": [
+        8697.253515711356,
+        1377.7111180830398,
+        603.0585154067214
+      ],
+      "rotors_running": true,
+      "initial_yaw_deg": 0
+    }
+  ],
+  "final_fleet": [
+    {
+      "active_route_name": "",
+      "application": "WISEYE AirSim Control",
+      "command_active": false,
+      "connected": true,
+      "drone_id": "uav-01",
+      "flight_mode": "manual",
+      "flight_status": "ready",
+      "last_error": "",
+      "last_manual_input": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "manual_command_count": 0,
+      "paused": true,
+      "position_ned_m": [
+        81.9725341796875,
+        13.77711009979248,
+        -0.19268186390399933
+      ],
+      "route": null,
+      "route_loops": 0,
+      "route_next_waypoint": null,
+      "route_status": "idle",
+      "run_id": "2D88211746CE27B3FA788E9934BAFD08",
+      "velocity_mps": 3.0,
+      "yaw_deg": 0.0
+    },
+    {
+      "active_route_name": "",
+      "application": "WISEYE AirSim Control",
+      "command_active": false,
+      "connected": true,
+      "drone_id": "uav-02",
+      "flight_mode": "manual",
+      "flight_status": "ready",
+      "last_error": "",
+      "last_manual_input": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "manual_command_count": 0,
+      "paused": true,
+      "position_ned_m": [
+        86.9725341796875,
+        13.77711009979248,
+        -0.19268186390399933
+      ],
+      "route": null,
+      "route_loops": 0,
+      "route_next_waypoint": null,
+      "route_status": "idle",
+      "run_id": "2D88211746CE27B3FA788E9934BAFD08",
+      "velocity_mps": 3.0,
+      "yaw_deg": 0.0
+    }
+  ]
+}

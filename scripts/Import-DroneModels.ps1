@@ -6,5 +6,5 @@ if (-not $EngineRoot) { $EngineRoot = (Get-Content (Join-Path $PSScriptRoot 'eng
 $editor = Join-Path $EngineRoot 'Engine\Binaries\Win64\UnrealEditor-Cmd.exe'
 $project = Join-Path $repository 'ue5\WISEYE\test.uproject'
 $script = Join-Path $repository 'ue5\scripts\import_drone_models.py'
-& $editor $project "-ExecutePythonScript=$script" -unattended -nop4 -nosplash
+& $editor $project "-ExecutePythonScript=$script" -EnablePlugins=PythonScriptPlugin,GeometryScripting -unattended -nop4 -nosplash
 if ($LASTEXITCODE -ne 0) { throw "Drone model import failed ($LASTEXITCODE)." }
