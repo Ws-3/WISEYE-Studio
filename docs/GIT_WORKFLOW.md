@@ -35,7 +35,7 @@ git pull --ff-only
 cd F:\WISEYE-Studio
 git status
 git diff --stat
-git add apps core configs scripts tests ue5 docs Models integrations packaging third_party README.md AGENTS.md WISEYE_ProjectPlan.md .gitignore .gitattributes requirements.txt Start-Desktop.cmd Start-WISEYE.cmd
+git add apps core configs scripts tests ue5 docs Models integrations packaging third_party examples README.md AGENTS.md WISEYE_ProjectPlan.md .gitignore .gitattributes requirements.txt 'Start-*.cmd' 'Start-*.vbs'
 git diff --cached --stat
 git diff --cached --check
 git commit -m "说明这次完成的功能"

@@ -1,5 +1,7 @@
 # WISEYE 工作规则
 
+2026-10-27最新发布：用户要求系统只自带城市。Shipping交付版本20261027-171140-City-Shipping，City专用完整Cook，默认Build-Release Content=City；release.json与资源清单仅city，SceneStore在发布版过滤旧用户目录中未随包发布的场景，不删除用户配置。保留源码original/test_range；GameDefaultMap改为city。54核心+15Qt、最终City真实起降/RPM归零/三路原尺寸图像/云台/点云、增强IR/天气/自定义19554 RTSP解码、冻结GUI与旧配置兼容通过。修复雨效UClass需UPROPERTY强引用、Shipping无RHI STATS时按实际D3D12 Adapter LUID查询DXGI显存预算。Cook阶段先编译Editor，避免反射布局与Game不一致。F主源码/E临时构建，原Fleet hash不变；交付SHA与GitHub状态以RELEASE_BUILD和evidence/standalone-release-20261027为准。安装器/在线更新/干净机器/长期4+4仍待做。
+
 2026-10-27运行状态/环境：工作台RuntimePanel读取运行主机CPU/RAM、实际RHI显卡/专用容量/UE使用与预算、Windows PDH本UE最忙GPU引擎、实测Tick FPS，未知不填0、持续3个新样本才提示。environment.configure/reset为全局运行参数，独立太阳光路/天空强度、指数高度雾、复用AirSim雨效并覆盖云台/观察相机；可恢复场景默认，非天文/天气动力学/红外温度模型。Editor构建、真实city图像/接口及53核心+15Qt通过，见ENVIRONMENT_AND_PERFORMANCE与evidence/environment-20261027。新入口Start-SimulationPreview.ps1复用红外预览流程；旧ZIP尚未重Cook，F源码/E临时构建，用户Fleet不改。
 
 2026-10-26红外试验：已新增独立M_IR_Experimental（原Minimal保留），增强/原始A/B、模糊/对比/背景层次与逐帧噪声，协议和按云台UI已接。内置E构建Editor成功、真实city ptz02对照通过，51核心+13Qt通过；不是新的Shipping包，旧ZIP不含本改动。试用scripts/Start-InfraredPreview.ps1，详见docs/INFRARED_EXPERIMENT.md。未做整城温度材质/AGC/真实数据校准/GPU耗时或新飞行验收。用户Fleet未改，F主源码/E临时构建，勿将旧打包或试验观感当成物理红外已完成。
@@ -23,7 +25,7 @@
 - 保留模块 test、构建目标 testEditor 和 `/Script/test` 类路径，不擅自升级引擎。
 - bottom 固定；bottom2 只水平转；camera 和 ptz 一起水平及俯仰转；光学组件跟随 PitchPivot。
 - 导入模型使用独立目录，避免覆盖通用 Mesh 名称。恢复云台在 `/Game/WISEYE/PTZRecovered`。
-- World Partition 的 Content/__ExternalActors__、__ExternalObjects__ 必须提交。编辑器修改对象要 modify 并保存，不能仅改内存。
+- 自有原始/测试场的World Partition Content/__ExternalActors__、__ExternalObjects__必须提交；完整CitySample第三方城市副本及其外部Actor按.gitignore保留本地，通过Setup-CitySample重建，不强制上传整城。编辑器修改对象要modify并保存，不能仅改内存。
 - 不覆盖未提交变更、不删除用户模型/权重/实验数据；不上传凭据、Saved 日志或缓存。
 - 操作 UE 前确认工程与关卡，不强制结束有未保存数据的编辑器。
 - 只报告实际执行的验证，历史测试不代表新电脑测试通过；真值跟随不等于视觉闭环。

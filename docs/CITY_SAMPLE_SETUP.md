@@ -47,7 +47,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\Setup-CitySample.ps1 -SourceP
 
 等待 UE 播放、飞控准备完成，再双击 `Start-Desktop.cmd` 并连接。无人机地面待命，点击起飞开始；首次缓存阶段请等网格、纹理处理和画面稳定后再操作。已运行其他地图时，通过桌面“场景编排”选择城市并加载，避免同时启动第二个 WISEYE 编辑器。
 
-当前支持现有传感器、按设备寻址接口和手动/航线飞行；城市不增加避障能力，航线需要人工检查建筑与树木。红外仍是最小热强度模拟，不代表真实城市物理热辐射。Big City、自动人群/车流、打包交付、多机性能和长时间稳定性另行验收。本机 32 GB 内存的首次缓存耗时明显，地图出现不代表缓存完成。
+当前支持现有传感器、按设备寻址接口和手动/航线飞行；城市不增加避障能力，航线需要人工检查建筑与树木。红外支持原始/增强外观，不代表真实城市物理热辐射。Small City的独立包交付见[RELEASE_BUILD.md](RELEASE_BUILD.md)；Big City、自动人群/车流、多机性能和长时间稳定性另行验收。本机 32 GB 内存的首次缓存耗时明显，地图出现不代表缓存完成。
 
 ## 接入修复与证据
 
@@ -59,4 +59,4 @@ powershell -ExecutionPolicy Bypass -File .\scripts\Setup-CitySample.ps1 -SourceP
 
 最新验收：`docs/evidence/city_runtime_20261022.json`、`city_reload_20261022.json`、`city_render_configuration_20261022.json`；截图 `city_workbench_20261022.png`。当前引擎是5.8.4（本轮未执行升级），完整399项重编通过。12秒样本仿真推进357 Tick；这是短测，不代表长时稳定或传感器独立30FPS。AirSim未使用的旧CVar和缺SunSky提示仍保留。
 
-新电脑若使用All阶段新生成地图，需本机运行验收并确认道路/起点后再将 `Scenes/city.json` 的 prepared 设为 true；已有Git城市副本则仅运行Dependencies和Assets，保留其地图与装配。
+新电脑若使用All阶段新生成地图，需本机运行验收并确认道路/起点后再将 `Scenes/city.json` 的 prepared 设为 true；已有完整本地城市副本则仅运行Dependencies和Assets，保留其地图与装配。当前用户city设备清单为1机2云台，以Fleets/city.json为准；前文接入时数量是历史记录。

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "release": "E:\\Projects\\WISEYE-BuildWorkspace\\releases\\20261027-171140-City-Shipping",
+  "output": "E:\\Projects\\WISEYE-BuildWorkspace\\builds\\frozen-city-1793092417221080300",
+  "cleared_development_path": true,
+  "frozen_gui_rendered": true,
+  "bundled_scenes": [
+    "city"
+  ],
+  "retained_old_manifests_hidden": true,
+  "retained_old_manifests_preserved": true,
+  "qt_settings_restored": true
+}

@@ -1,0 +1,14 @@
+{
+  "bundled_scenes": [
+    "city"
+  ],
+  "original_map_cooked": false,
+  "test_range_map_cooked": false,
+  "city_map_cooked": true,
+  "install_tree_no_new_files": true,
+  "city_fleet_sha256": "bc48982ddb6043eca0fb6dbf7a4d61a249e8b15918590e8df2188b9587fb2fa6",
+  "source_code_commit": "0be8144",
+  "core_tests": 54,
+  "qt_tests": 15,
+  "release_id": "20261027-171140-City-Shipping"
+}

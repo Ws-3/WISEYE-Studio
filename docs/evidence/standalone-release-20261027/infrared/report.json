@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "device": "ptz-02",
+  "scene": "city",
+  "initial": {
+    "enabled": true,
+    "fov_deg": 45,
+    "palette": "white_hot",
+    "noise": 0.00800000037997961,
+    "thermal_profile": "enhanced",
+    "blur_px": 0.800000011920929,
+    "contrast": 1.350000023841858,
+    "background_detail": 0.6499999761581421
+  },
+  "profile_mean_difference": 25.37322082519531,
+  "palette_inversion_error": 0.8564849853515625,
+  "noise_mean_difference": 1.888873291015625,
+  "native_ir": [
+    640,
+    512
+  ],
+  "native_visible": [
+    1920,
+    1080
+  ],
+  "malformed_updates_rejected": 4,
+  "restored": true
+}

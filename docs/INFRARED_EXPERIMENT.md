@@ -2,11 +2,13 @@
 
 已在真实Small City中运行并采集同一云台视角的新旧对照。该版本改动相机成像材质，不改地图几何、城市材料资产、设备尺寸或用户Fleet位置。
 
+2026-10-27城市独立Shipping包已实际验证：增强材质可用，ptz-02原始/增强模式差25.37、白热/黑热互补误差0.86、噪声差1.89，IR640×512、VIS1920×1080，四种非法请求拒绝且不改状态，结束后恢复参数。数值仅表示同视角图像差异，不是成像真实性评分；证据见`evidence/standalone-release-20261027/infrared/report.json`。
+
 ## 如何试用
 
-旧20261023完整包和之前的20261026桌面接口更新ZIP都不包含本次UE红外改动。当前是已编译、实测的源码试验入口，使用已授权的内置盘构建目录，尚未重新Cook发布。
+20261027完整Shipping版本包含增强红外材质与参数控制，独立包直接双击WISEYE.exe，启动后在云台红外属性中设置。实际交付及发布版验收见[RELEASE_BUILD.md](RELEASE_BUILD.md)。旧20261023完整包和20261026桌面接口更新ZIP均不包含本次UE红外改动。
 
-先降落并关闭之前的UE/系统/飞控，释放50051和50052；在PowerShell执行：
+以下是保留的源码试验入口。先降落并关闭之前的UE/系统/飞控，释放50051和50052；在PowerShell执行：
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "F:\WISEYE-Studio\scripts\Start-InfraredPreview.ps1"

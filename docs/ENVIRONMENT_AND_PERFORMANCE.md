@@ -1,14 +1,16 @@
 # 运行状态与环境控制（2026-10-27）
 
+城市独立Shipping包已实际验证显卡/显存使用与预算、时间/雾/雨参数及1920×1080画面变化，三种非法请求拒绝且状态不变，结束后恢复环境。修复了Shipping缺少RHI显存快照和运行时雨效Blueprint类被GC回收的问题。证据见`evidence/standalone-release-20261027/environment/report.json`，自动图像差异不代表物理天气精度或长期性能验收。
+
 ## 入口
 
-源码试验版的仿真工作台上方新增硬件状态栏，右侧「环境与天气」打开全场景环境控制。使用已更新的内置构建与桌面源码：
+仿真工作台上方显示硬件状态栏，右侧「环境与天气」打开全场景环境控制。20261027完整Shipping版本包含这两项功能，独立包直接双击WISEYE.exe启动；交付、校验和发布版验收见[RELEASE_BUILD.md](RELEASE_BUILD.md)。源码开发也可使用已更新的内置构建与桌面源码：
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "F:\WISEYE-Studio\scripts\Start-SimulationPreview.ps1"
 ```
 
-等待加载后连接UE。此入口复用原红外预览的隔离配置与进程管理，也包含本次性能与天气功能；旧完整发布包和20261026桌面接口更新ZIP没有本次C++改动。当前尚未重新Cook/发布，不能仅替换Python界面就要求旧UE支持新接口。
+等待加载后连接UE。此开发入口复用原红外预览的隔离配置与进程管理；20261023旧完整包和20261026桌面接口更新ZIP没有本次C++改动，不能仅替换Python界面就要求旧UE支持新接口。
 
 启动命令只为这次PowerShell进程指定执行策略，不修改全局策略。Windows PowerShell 5.1读取无BOM中文JSON必须显式指定UTF-8；启动脚本已修复并用5.1验证场景中文读取和三项进程启动参数生成（测试中模拟进程启动，不额外启动UE）。
 
@@ -45,7 +47,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "F:\WISEYE-Studio\script
 
 `environment.reset` 的payload为空对象。配置要求hour在[0,24)，fog/rain在[0,1]且全部为有限数值；校验失败不改设置。响应仍是完整状态，`environment` 包含能力、设置值和雨体积数量。回读确认的是已应用的运行参数；GPU图像缓存需等待几个新帧才反映改变。
 
-性能字段缺失表示未知，不是0。硬件采样没有额外视频读回、子进程或GPU渲染查询等待；Windows CPU/PDH与RHI缓存统计每秒读取一次。大雾、降雨和动态光照本身可能增加渲染开销，可结合状态栏选择节能档和减少启用的传感器。
+性能字段缺失表示未知，不是0。硬件采样没有额外视频读回、子进程或GPU渲染查询等待；Windows CPU/PDH与显存统计每秒读取一次。Shipping关闭STATS时，UE的RHI显存快照可能不更新；此时用实际D3D12设备的Adapter LUID查询DXGI进程本地显存及预算，避免误选另一块显卡。大雾、降雨和动态光照本身可能增加渲染开销，可结合状态栏选择节能档和减少启用的传感器。
 
 ## 本轮验收
 

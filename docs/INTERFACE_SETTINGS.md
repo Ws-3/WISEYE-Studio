@@ -15,4 +15,6 @@
 
 桌面实时画面继续直连 UE 最新帧，编辑 RTSP 不会将桌面改为 H.264 解码往返。
 
+2026-10-27城市独立Shipping包验证：隔离用户配置设置端口19554、ptz-02红外路径`acceptance/thermal`，冻结的RTSP worker读取配置后发布，随包FFmpeg通过`rtsp://127.0.0.1:19554/acceptance/thermal`实际解码640×512图像通过。这是地址生效与真实视频传输验证，不是外部RTSP延迟验收；证据见`evidence/standalone-release-20261027/city-report.json`。
+
 验证：51 核心测试、11 Qt 回归通过；本地 MediaMTX+FFmpeg 使用自定义端口 19554、路径 `custom/camera2/thermal` 发布并解码3帧640×512测试信号通过。后者是合成信号的传输验证，不是新一轮真实UE红外或RTSP延迟验收。

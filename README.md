@@ -1,12 +1,16 @@
 # WISEYE Studio（智瞳）
 
-> 2026-10-27：当前源码包含V3多设备工作台、真实City Sample小城市、可编辑RTSP接口、增强红外试验、硬件性能栏和时间/雾/雨控制。此前已验证免装UE的独立内测包，本轮正在生成包含上述新功能的完整Shipping版本；交付状态以[发布说明](docs/RELEASE_BUILD.md)为准。日常操作见[使用指南](docs/USER_GUIDE.md)。
+> 2026-10-27：已完成城市专用Shipping独立内测版本，包含V3多设备工作台、可编辑RTSP接口、增强红外试验、硬件性能栏和时间/雾/雨控制。按照用户要求，运行包只自带真实City Sample小城市；原始场景和测试场保留在开发源码中。成品、校验和实际验收见[发布说明](docs/RELEASE_BUILD.md)，日常操作见[使用指南](docs/USER_GUIDE.md)。
 
 GitHub提供代码、配置、自有模型和项目文档，不包含UE编辑器、Python环境、完整城市资产或大型运行ZIP。源码开发需按[安装说明](docs/INSTALLATION.md)配置依赖，城市副本由[本地City Sample接入流程](docs/CITY_SAMPLE_SETUP.md)生成；普通用户使用完整独立包，无需安装开发环境。
 
 无人机光电仿真与智能感知平台。目前已接入 Project AirSim Fast Physics/SimpleFlight 无人机动力学、两轴地面云台真值跟随、云台激光扫描、可见光/红外原尺寸低延迟预览和对外RTSP、起飞/悬停/降落控制与 Mavic 3/Avata 外观切换。完整产品流程见 [docs/SYSTEM_UX_DESIGN.md](docs/SYSTEM_UX_DESIGN.md)，视频通道见 [docs/RTSP.md](docs/RTSP.md)。
 
-## 桌面系统入口
+## 独立包直接运行
+
+将单独交付的 `WISEYE-20261027-City-Windows-x64.zip` 完整解压到本机SSD，双击 `WISEYE/WISEYE.exe`，点击右上角「启动仿真」，设备就绪后再起飞。无需安装UE、VS、Python或Anaconda。默认用户数据在 `%LOCALAPPDATA%\WISEYE`，退出前先降落；当前尚无在线更新器。
+
+## 源码开发入口
 
 城市场景使用 `Start-CitySample.vbs`，等待UE播放与缓存完成，再运行 `Start-Desktop.cmd` 连接。已有UE运行时通过桌面场景编排切换，避免重复启动。
 

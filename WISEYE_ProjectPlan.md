@@ -1,5 +1,9 @@
 # WISEYE Studio（智瞳）：项目计划与持续交接文档
 
+## 2026-10-27：当前功能打包，运行版仅自带城市
+
+最终20261027-171140-City-Shipping完成全Cook，包含可编辑RTSP、增强IR、硬件性能栏和时间/雾/雨；按用户要求仅city随包，源码原始/测试场保留。发布版过滤旧配置中的未发布场景且不删配置，默认构建Content City。修复Shipping雨效类GC回收和无RHI STATS显存读数，Cook前编译Editor保证反射一致。54核心+15Qt、最终城市真实起降/云台/点云/三路原尺寸画面、IR/天气、自定义RTSP、冻结桌面与旧数据兼容通过；用户Fleet未改。源码F/E临时构建，交付路径、SHA及GitHub提交见RELEASE_BUILD，证据standalone-release-20261027。下一步为干净Windows验收、长期/多设备性能、正式安装器和签名在线更新；这些尚未交付。
+
 2026-10-27启动兼容修复：预览脚本显式UTF-8读取场景JSON，解决Windows PowerShell5.1中文乱码引起的ConvertFrom-Json错误。5.1真实入口模拟进程启动验证通过，原用户配置不变；文档提供单进程ExecutionPolicy Bypass命令。
 
 ## 2026-10-27：运行状态与环境控制试验完成

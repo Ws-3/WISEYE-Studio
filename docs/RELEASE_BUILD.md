@@ -1,4 +1,54 @@
-# 独立发布构建与运行（2026-10-23）
+# 独立发布构建与运行（2026-10-27）
+
+## 最新成品：仅自带城市场景
+
+版本 **20261027-171140-City-Shipping**，Windows x64独立运行内测包。按用户要求仅自带真实Small City；原始沙漠和测试场保留在源码中，不进入本次Cook关卡和发布场景列表。旧数据目录中保存的其他场景配置会保留，发布界面只显示当前包包含的city。
+
+- F盘交付：`F:\WISEYE-Studio\releases\WISEYE-20261027-City-Windows-x64.zip`。
+- 内置盘已验收目录：`E:\Projects\WISEYE-BuildWorkspace\releases\20261027-171140-City-Shipping`。
+- 展开目录：18,084,918,983字节，1441文件，约16.843GiB。
+- ZIP64：18,085,274,917字节，约16.843GiB；IoStore资源已压缩，外层ZIP使用Store。
+- ZIP SHA-256：`7450d6daa7bdf5fa1134f0af3f12ddd8f211f2c099ac5082df66e8cf701f36ba`。
+- 已完成全部发布文件SHA校验与ZIP完整CRC校验。F盘复制后再完整读取并计算SHA；交付确认文件为同目录`WISEYE-20261027-City-Windows-x64.zip.delivery-verified.json`，源码证据在`evidence/standalone-release-20261027/delivery-verified.json`。
+
+只保留城市主要减少地图入口及少量独有资源，城市本身仍占绝大部分容量；本版没有降低城市纹理/几何质量来换体积。旧20261023包保留回滚；20261026桌面更新ZIP不能替代本次完整包。
+
+## 普通用户运行与升级
+
+1. 完整解压到目标电脑内置SSD，例如`D:\Apps\WISEYE`，不要在ZIP内运行或单独移动EXE。首次同时保存下载ZIP和展开目录建议预留40GiB以上，录像另计。
+2. 双击解压目录的`WISEYE\WISEYE.exe`，点击右上角「启动仿真」。等待城市和飞控就绪，再点击起飞。退出前先降落全部无人机。
+3. 不需要安装UE编辑器、VS、Git、Python或Anaconda。若首次提示缺VC++运行库，运行随包`WISEYE\Simulation\Engine\Extras\Redist\en-us\vc_redist.x64.exe`安装一次；显卡驱动仍需在目标电脑正常安装。
+4. 设备、航线、接口参数、日志默认在`%LOCALAPPDATA%\WISEYE`。人工升级时先降落并关闭旧程序，将新ZIP解压到新文件夹运行；保留用户数据目录，旧程序目录可作为回滚版本。当前没有自动在线更新器。
+5. F盘只是传输介质。将完整ZIP复制到另一台电脑，或下载同一完整ZIP，再完整解压即可；安装后不依赖原移动盘。用户操作见[USER_GUIDE.md](USER_GUIDE.md)。
+
+包含当前V3多设备工作台、原尺寸低延迟预览、可编辑RTSP地址/端口/逐云台路径、增强红外A/B与模糊/对比/噪声、运行主机显卡/显存/CPU/内存/FPS和时间/雾/基础雨效。红外仍为外观近似，天气不是物理温度/降水动力学模型。
+
+## 最终城市包实际验收
+
+54项核心测试、15项Qt回归通过。最终City包实测：场景与冻结飞控run_id一致；可见光1920×1080、红外640×512、观察960×540；云台实际角速度控制；576点非空LIDAR；真实起飞、旋翼RPM、稳定悬停后手动上升约0.962m、降落及四电机归零、Tick持续推进。测试采用隔离的中文空格用户目录，没有覆盖用户设备位置。
+
+增强红外模式/极性/噪声与4项非法请求验证通过；硬件显存使用/预算、昼夜/雾/雨及3项非法请求验证通过并恢复。冻结RTSP worker按自定义19554端口、`acceptance/thermal`路径发布，随包FFmpeg实际解码640×512。冻结桌面清空开发PATH启动和中文GUI通过；模拟旧三场景配置后仅显示city、旧配置文件仍保留。运行后安装目录无新增文件，用户city Fleet SHA不变。
+
+本轮修复：Shipping关闭STATS导致RHI显存快照缺失，改为缺失时按实际D3D12设备Adapter LUID查询DXGI进程显存；雨效Blueprint类改为UPROPERTY强引用，避免AirSim GC后失效。完整证据见`evidence/standalone-release-20261027`的city-report、frozen-report、build-verification、infrared/environment图像与报告。
+
+尚未完成：干净Windows机器验收、30分钟/4+4负载、外部RTSP端到端延迟、正式安装器和签名在线更新器。当前是独立运行内测版，不能视为上述项目已验收；打包也不等于GPU纹理共享或物理红外完成。
+
+## 本轮构建与GitHub源码
+
+主源码`F:\WISEYE-Studio`；用户授权的内置盘临时构建`E:\Projects\WISEYE-BuildWorkspace`；旧E工程未改。UE5.8.4、Game Shipping、Editor Development与冻结桌面均真实构建，City执行完整Cook，不是旧包只替换Python。
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Build-Release.ps1 -Stage Game -Configuration Shipping -Content City
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Build-Release.ps1 -Stage Desktop -Configuration Shipping -Content City
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Build-Release.ps1 -Stage Cook -Configuration Shipping -Content City
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Build-Release.ps1 -Stage Assemble -Configuration Shipping -Content City
+```
+
+Cook阶段先增量编译Editor，确保反射类与Game一致。验收可用桌面构建环境运行`python -m tests.verify_release_live --release <展开目录> --scene city --allow-flight --unicode-paths --check-features`，实际会起飞，需先退出已有仿真。
+
+[GitHub仓库](https://github.com/Ws-3/WISEYE-Studio)提供代码、补丁、自有模型、配置和文档；功能/修复提交3a3d99b、e3045af，城市专用构建提交0be8144，后续文档以main为准。完整城市第三方源资产/生成副本、构建环境、运行ZIP、自动TLS私钥和本地论文不进入Git。新机器源码开发仍需按INSTALLATION和CITY_SAMPLE_SETUP准备依赖；GitHub源码ZIP不是独立运行ZIP。人工上传/下载见[GIT_WORKFLOW.md](GIT_WORKFLOW.md)。
+
+## 以下为2026-10-23历史发布记录，当前交付以上文为准
 
 ## 当前成品
 

@@ -1,8 +1,8 @@
 # WISEYE Studio 使用指南
 
-## 独立运行包（2026-10-23更新）
+## 独立运行包（2026-10-27更新）
 
-已获得独立ZIP的用户：完整解压到本机SSD，双击 `WISEYE/WISEYE.exe`，选择场景并点击右上角“启动仿真”，不需要另装UE、VS或Python。设备就绪后再起飞，退出前先降落。缺VC++运行库时使用随包 `Simulation/Engine/Extras/Redist/en-us/vc_redist.x64.exe`。配置和日志默认在 `%LOCALAPPDATA%\WISEYE`。当前内测包含原始/测试场/真实城市，尚无在线更新器。
+已获得独立ZIP的用户：完整解压到本机SSD，双击 `WISEYE/WISEYE.exe`，点击右上角“启动仿真”，不需要另装UE、VS或Python。设备就绪后再起飞，退出前先降落。缺VC++运行库时使用随包 `Simulation/Engine/Extras/Redist/en-us/vc_redist.x64.exe`。配置和日志默认在 `%LOCALAPPDATA%\WISEYE`。20261027新版仅自带真实Small City城市场景，尚无在线更新器；原始场景与测试场只保留在开发源码中。
 
 本机成品与完整校验、构建/限制见[RELEASE_BUILD.md](RELEASE_BUILD.md)。下方PowerShell/VBS启动方式面向源码开发环境，独立包无需使用。
 
@@ -10,7 +10,7 @@
 
 ## 每天如何运行
 
-本机仓库：`E:\Projects\WISEYE-Studio`；UE：`E:\Programs\UE_5.8`，当前验证版本 5.8.4。环境已配置，不用每天安装依赖。
+本机主源码：`F:\WISEYE-Studio`；临时构建：`E:\Projects\WISEYE-BuildWorkspace`；UE：`E:\Programs\UE_5.8`，当前验证版本 5.8.4。历史 `E:\Projects\WISEYE-Studio` 不作为当前修改目录。
 
 1. 如果要同步代码，先保存并关闭编辑器，执行 `git status`，处理自己的改动后再 `git pull --ff-only`。有冲突时按 [Git 工作流](GIT_WORKFLOW.md) 处理，不要强行覆盖本机文件。
 2. 城市场景双击 `Start-CitySample.vbs`；原始场景双击 `Start-ProjectAirSim.vbs`。两者隐藏后台命令行。只启动一个 WISEYE UE 编辑器。
@@ -25,7 +25,14 @@
 .\Start-Desktop.cmd -Connect
 ```
 
-代码更新包含 UE C++ 改动时，先保存关闭 UE，运行 `scripts\Start-WISEYE.ps1 -BuildOnly`，成功后再启动；`.vbs` 快捷入口跳过编译，不能代替首次构建。首次城市缓存可能明显卡顿，等画面稳定再操作。当前是开发环境，尚未交付免装 UE 的成品安装包。
+代码更新包含 UE C++ 改动时，先保存关闭 UE，运行 `scripts\Start-WISEYE.ps1 -BuildOnly`，成功后再启动；`.vbs` 快捷入口跳过编译，不能代替首次构建。首次城市缓存可能明显卡顿，等画面稳定再操作。普通用户使用上方独立ZIP；目前没有正式安装器或在线更新器。
+
+## 新增功能入口
+
+- 「数据与接口」→「编辑网络与传感器接口」：设置RTSP主机、端口和每个云台的独立流路径。先降落、退出仿真并断开连接，保存后重新启动仿真；见[接口设置](INTERFACE_SETTINGS.md)。
+- 云台的「传感器」→「红外」：选择增强或原始成像，调整模糊、对比、背景层次、噪声与白热/黑热。增强模式仍是外观近似，未达到物理热辐射仿真；见[红外试验](INFRARED_EXPERIMENT.md)。
+- 仿真工作台顶部硬件栏：连接后显示运行主机显卡、显存使用与预算、CPU/内存及实际FPS；持续低性能给出提示。未知读数显示不可用。
+- 顶部「环境与天气」：调整视觉时间、雾和基础雨效，或恢复场景默认。只影响本次运行，不改设备初始位置；见[环境与性能](ENVIRONMENT_AND_PERFORMANCE.md)。
 
 ## 仿真工作台与传感器画面
 

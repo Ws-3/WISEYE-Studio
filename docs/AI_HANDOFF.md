@@ -1,4 +1,16 @@
-# WISEYE 当前交接（2026-10-23）
+# WISEYE 当前交接（2026-10-27）
+
+## 2026-10-27：城市专用Shipping与GitHub同步（最新）
+
+用户要求打包当前全部功能并更新上传代码/文档，过程中明确系统自带场景只用城市。最终版本20261027-171140-City-Shipping：Content City完整Cook、仅city的发布清单与场景资源，保留源码original/test_range不删除。发布版SceneStore过滤旧数据目录中不在release.json的场景；原配置文件保留。GameDefaultMap为city，EditorStartupMap仍保留原始场景。默认Build-Release Content改City，Stage Cook先编译Editor确保反射类与Game一致。
+
+打包实测补了两处发布版问题：雨效Blueprint类原为弱引用，AirSim GC后雨效不可用，改为UPROPERTY TObjectPtr持有；Shipping关闭STATS导致RHI显存快照不可用，按实际D3D12设备Adapter LUID查询DXGI进程本地显存及预算，不枚举第一张卡。Win64新增dxgi.lib，原pdh.lib保留。Game Shipping与Editor重新编译、City重新全Cook；冻结桌面也因SceneStore变化重打包。
+
+54核心+15Qt通过。最终City包真实验收：场景/冻结飞控run_id一致，VIS1920×1080/IR640×512/OBS960×540，云台角速度、576点回波、起飞/电机RPM、稳定手动升高约0.962m、降落四电机归零及持续Tick；IR增强/原始/极性/噪声与4非法请求，时间/雾/雨与3非法请求、DXGI显存读数；冻结RTSP worker使用自定义19554/acceptance/thermal，随包FFmpeg实际解码640×512。冻结桌面清空开发PATH启动与中文GUI通过，模拟旧三场景配置只显示city且保留旧文件，Qt偏好测试后恢复。安装目录无新增文件，Fleet city hash仍bc48982ddb6043eca0fb6dbf7a4d61a249e8b15918590e8df2188b9587fb2fa6。证据docs/evidence/standalone-release-20261027。
+
+源码唯一主目录F:\WISEYE-Studio，构建E:\Projects\WISEYE-BuildWorkspace，旧E工程未改。完整城市资产/生成城市副本、Python环境、builds/releases、自动TLS私钥与本地论文PDF排除Git；自有模型/代码/补丁/文档已纳入。代码提交3a3d99b、e3045af、0be8144；后续交付文档提交与远端验证见RELEASE_BUILD。ZIP、体积、SHA及F盘回传结果以发布说明和delivery校验报告为准；旧20261023包保留回滚，不把旧桌面增量包当作新完整包。
+
+剩余：干净Windows机器、30分钟/4+4负载、外部RTSP端到端延迟、安装器与签名在线更新器尚未完成。增强IR仍外观近似、环境非物理天气/温度模型；未修改虚拟阴影页池预算。不能称为生产稳定或Anti-UAV保真度已达标。
 
 ## 2026-10-27：Windows PowerShell 5.1预览启动修复
 
