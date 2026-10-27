@@ -10,10 +10,35 @@
 #include "Windows/WindowsHWrapper.h"
 #include <pdh.h>
 #include <pdhmsg.h>
+#include <d3d12.h>
+#include <dxgi1_4.h>
 #endif
 
 namespace
 {
+    void ReadShippingVideoMemory(const TSharedRef<FJsonObject>& Result)
+    {
+#if PLATFORM_WINDOWS
+        // UE's D3D12 memory snapshot is compiled out when Shipping disables STATS.
+        // Query the actual RHI device's adapter, not the first enumerated GPU.
+        if (!GDynamicRHI || GDynamicRHI->GetInterfaceType()!=ERHIInterfaceType::D3D12) return;
+        auto* Device=static_cast<ID3D12Device*>(GDynamicRHI->RHIGetNativeDevice());
+        if (!Device) return;
+        IDXGIFactory4* Factory=nullptr;
+        if (FAILED(CreateDXGIFactory1(IID_PPV_ARGS(&Factory)))) return;
+        IDXGIAdapter3* Adapter=nullptr;
+        const HRESULT Found=Factory->EnumAdapterByLuid(Device->GetAdapterLuid(),IID_PPV_ARGS(&Adapter));
+        Factory->Release();
+        if (FAILED(Found)) return;
+        DXGI_QUERY_VIDEO_MEMORY_INFO Info={};
+        if (SUCCEEDED(Adapter->QueryVideoMemoryInfo(0,DXGI_MEMORY_SEGMENT_GROUP_LOCAL,&Info)) && Info.Budget>0) {
+            Result->SetNumberField(TEXT("ue_vram_used_bytes"),double(Info.CurrentUsage));
+            Result->SetNumberField(TEXT("ue_vram_budget_bytes"),double(Info.Budget));
+        }
+        Adapter->Release();
+#endif
+    }
+
     // PDH has no shell, vendor utility or child process. English paths work on
     // localized Windows. GPU is the busiest engine of THIS UE process.
     struct FWindowsLoad
@@ -83,6 +108,7 @@ void AWiseEyeDemo::UpdateRuntimeStatus()
             Snapshot->SetNumberField(TEXT("ue_vram_budget_bytes"),double(Gpu.BudgetLocal));
         }
     }
+    if (!Snapshot->HasField(TEXT("ue_vram_budget_bytes"))) ReadShippingVideoMemory(Snapshot);
     static FWindowsLoad Load;Load.Read(Snapshot);
     RuntimeStatus=Snapshot;RuntimeSampleTime=Now;RuntimeSampleTick=TickSequence;
 }

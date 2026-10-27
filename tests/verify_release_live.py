@@ -5,6 +5,9 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import subprocess
+import sys
+from dataclasses import replace
 import time
 
 parser = argparse.ArgumentParser()
@@ -12,6 +15,7 @@ parser.add_argument('--release', type=Path, required=True)
 parser.add_argument('--scene', choices=['original', 'test_range', 'city'], default='original')
 parser.add_argument('--allow-flight', action='store_true')
 parser.add_argument('--unicode-paths', action='store_true')
+parser.add_argument('--check-features', action='store_true', help='Exercise enhanced IR and environment against the packaged Game')
 args = parser.parse_args()
 release = args.release.resolve()
 repository = Path(__file__).resolve().parents[1]
@@ -34,9 +38,18 @@ from integrations.gimbal_client import GimbalClient
 app = QApplication([])
 QSettings.setDefaultFormat(QSettings.Format.IniFormat)
 QSettings.setPath(QSettings.Format.IniFormat, QSettings.Scope.UserScope, str(test_root / 'QtSettings'))
-window = MainWindow(AppConfig.load())
+config = AppConfig.load()
+if args.check_features:
+    config = replace(config, rtsp_port=19554, rtsp_paths={'ptz-02/infrared': 'acceptance/thermal'})
+    config.save()
+window = MainWindow(config)
 window.resize(1600, 950)
 window.show()
+original_log = window.log
+def capture_log(message):
+    print(str(message), flush=True)
+    original_log(message)
+window.log = capture_log
 report = dict(passed=False, release=str(release), scene=args.scene, checks=[], test_root=str(test_root))
 airborne = False
 saved_gimbal = None
@@ -77,6 +90,7 @@ def air(command='sim.get_state', **payload):
 try:
     index = next(i for i in range(window.scenes.count()) if window.scenes.itemData(i)['id'] == args.scene)
     window.scenes.setCurrentIndex(index)
+    window.pages.setCurrentIndex(1)
     window.launch_ue()
     wait(lambda: window.client.ready and window.air_client.ready, 300)
     state = rpc()
@@ -108,6 +122,43 @@ try:
     assert cloud.get('lidar_points_m'), cloud
     report['lidar_count'] = len(cloud['lidar_points_m'])
     report['checks'].append('Nonempty LIDAR points')
+    if args.check_features:
+        for script, name in [('verify_infrared_live.py', 'infrared'), ('verify_environment_live.py', 'environment')]:
+            output = test_root / name
+            with (test_root / f'{name}.log').open('w', encoding='utf-8') as log:
+                process = subprocess.Popen([sys.executable, '-X', 'utf8', str(repository / 'tests' / script),
+                                            '--output', str(output)], stdout=log, stderr=subprocess.STDOUT)
+                deadline = time.monotonic() + 180
+                while process.poll() is None and time.monotonic() < deadline:
+                    pump(.1)
+                if process.poll() is None:
+                    process.kill()
+                    process.wait()
+                    raise TimeoutError(f'{name} verification timed out; see {log.name}')
+                assert process.returncode == 0, f'{name} verification failed; see {log.name}'
+            result = json.loads((output / 'report.json').read_text(encoding='utf-8'))
+            assert result['passed'], result
+            report[name] = result
+            report['checks'].append(f'Packaged {name} native runtime and rendered output')
+        with (test_root / 'rtsp.log').open('w', encoding='utf-8') as log:
+            target = test_root / 'custom-rtsp.png'
+            process = subprocess.Popen([str(release / 'Tools/ffmpeg.exe'), '-nostdin', '-y',
+                                        '-rtsp_transport', 'tcp', '-i', config.stream_url('ptz-02', 'infrared'),
+                                        '-frames:v', '1', str(target)], stdout=log, stderr=subprocess.STDOUT,
+                                       creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+            deadline = time.monotonic() + 45
+            while process.poll() is None and time.monotonic() < deadline:
+                pump(.1)
+            if process.poll() is None:
+                process.kill()
+                process.wait()
+                raise TimeoutError('Custom RTSP stream timed out')
+            assert process.returncode == 0 and target.is_file(), f'RTSP decode failed; see {log.name}'
+        from PySide6.QtGui import QImage
+        decoded = QImage(str(target))
+        assert (decoded.width(), decoded.height()) == (640, 512)
+        report['custom_rtsp_url'] = config.stream_url('ptz-02', 'infrared')
+        report['checks'].append('Frozen RTSP publisher and bundled FFmpeg decode custom port/path at 640x512')
     if args.allow_flight:
         airborne = True
         air('flight.takeoff')

@@ -17,6 +17,12 @@ if ($Stage -eq 'Game') {
     if ($LASTEXITCODE -ne 0) { throw "Game build failed: $LASTEXITCODE" }
 }
 if ($Stage -in @('Cook','Stage')) {
+    if ($Stage -eq 'Cook') {
+        # Cook uses the Editor module's reflected classes and serialization.
+        # Rebuild it too when the Game's native properties have changed.
+        & "$EngineRoot\Engine\Build\BatchFiles\Build.bat" Win64 Development "-Project=$project" -TargetType=Editor -WaitMutex -NoHotReloadFromIDE
+        if ($LASTEXITCODE -ne 0) { throw "Editor build for Cook failed: $LASTEXITCODE" }
+    }
     $maps = switch ($Content) {
         Base { '/Game/WISEYE-test+/Game/WISEYE/Scenes/test_range/TestRange' }
         City { '/Game/WISEYE/Scenes/city/CitySample' }

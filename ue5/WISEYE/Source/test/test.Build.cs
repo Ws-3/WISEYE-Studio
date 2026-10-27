@@ -11,7 +11,7 @@ public class test : ModuleRules
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "ProjectAirSim" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] { "Sockets", "Networking", "Json", "ImageWrapper", "RHI", "RenderCore", "EngineSettings" });
-		if (Target.Platform == UnrealTargetPlatform.Win64) PublicSystemLibraries.Add("pdh.lib");
+		if (Target.Platform == UnrealTargetPlatform.Win64) PublicSystemLibraries.AddRange(new string[] { "pdh.lib", "dxgi.lib" });
 		if (Target.bBuildEditor)
 		{
 			PrivateDependencyModuleNames.Add("UnrealEd");

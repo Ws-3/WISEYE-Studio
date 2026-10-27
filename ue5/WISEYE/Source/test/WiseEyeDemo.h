@@ -82,7 +82,8 @@ public:
     FLinearColor EnvironmentFogColor;
     bool EnvironmentFogVisible=true,EnvironmentFogOwnerHidden=false;
     TWeakObjectPtr<UMaterialParameterCollectionInstance> EnvironmentWeatherParameters;
-    TWeakObjectPtr<UClass> EnvironmentRainClass;
+    // A runtime-loaded Blueprint class must remain referenced across AirSim GC.
+    UPROPERTY() TObjectPtr<UClass> EnvironmentRainClass;
     float EnvironmentOriginalRain=0,EnvironmentOriginalWeatherEnabled=0;
     TArray<TWeakObjectPtr<AActor>> EnvironmentRainActors;
     TArray<TWeakObjectPtr<USceneComponent>> EnvironmentRainTargets;

@@ -50,7 +50,7 @@ TSharedPtr<FJsonObject> AWiseEyeDemo::EnvironmentState()
     auto State=MakeShared<FJsonObject>();
     State->SetBoolField(TEXT("time_supported"),EnvironmentSun.IsValid());
     State->SetBoolField(TEXT("fog_supported"),true);
-    State->SetBoolField(TEXT("rain_supported"),EnvironmentRainClass.IsValid() && EnvironmentWeatherParameters.IsValid());
+    State->SetBoolField(TEXT("rain_supported"),IsValid(EnvironmentRainClass) && EnvironmentWeatherParameters.IsValid());
     State->SetBoolField(TEXT("time_override"),EnvironmentTimeOverride);
     State->SetNumberField(TEXT("hour"),EnvironmentHour);
     State->SetNumberField(TEXT("fog"),EnvironmentFog);
@@ -64,7 +64,7 @@ bool AWiseEyeDemo::ConfigureEnvironment(bool OverrideTime,float Hour,float Fog,f
 {
     InitializeEnvironment();
     if (OverrideTime && !EnvironmentSun.IsValid()) { Error=TEXT("Scene has no supported directional light");return false; }
-    if (Rain>0 && (!EnvironmentRainClass.IsValid() || !EnvironmentWeatherParameters.IsValid())) { Error=TEXT("Rain assets are unavailable in this scene/build");return false; }
+    if (Rain>0 && (!IsValid(EnvironmentRainClass) || !EnvironmentWeatherParameters.IsValid())) { Error=TEXT("Rain assets are unavailable in this scene/build");return false; }
     if (Fog>0 && !EnvironmentFogComponent.IsValid()) {
         auto* Actor=GetWorld()->SpawnActor<AExponentialHeightFog>();
         if (!Actor) { Error=TEXT("Could not create runtime fog");return false; }
