@@ -21,8 +21,14 @@ release = root / 'releases' / datetime.now().strftime(f'%Y%m%d-%H%M%S-{args.cont
 shutil.copytree(desktop, release)
 shutil.copytree(staged, release / 'Simulation', ignore=shutil.ignore_patterns('*.pdb'))
 resources = release / 'Resources'
+scenes = {'Base': ['original', 'test_range'], 'City': ['city'], 'All': ['original', 'test_range', 'city']}[args.content]
+def resource_ignore(directory, names):
+    ignored = [name for name in names if name in ('CitySample', '__pycache__')]
+    if Path(directory) == root / 'ue5/WISEYE/Config/WISEYE/Scenes':
+        ignored.extend(name for name in names if name.endswith('.json') and Path(name).stem not in scenes)
+    return ignored
 for path in ['configs', 'ue5/WISEYE/Config/WISEYE', 'integrations/ProjectAirSim/config']:
-    shutil.copytree(root / path, resources / path, ignore=shutil.ignore_patterns('CitySample', '__pycache__'))
+    shutil.copytree(root / path, resources / path, ignore=resource_ignore)
 (resources / 'docs').mkdir()
 for name in ['USER_GUIDE.md', 'DESKTOP.md', 'SCENES.md', 'PROTOCOL.md', 'GIMBAL_INTERFACE.md', 'RTSP.md', 'RUNTIME_OPTIMIZATION.md', 'SENSOR_LATENCY_REPORT.md', 'INTERFACE_SETTINGS.md', 'INFRARED_REALISM_PLAN.md', 'INFRARED_EXPERIMENT.md', 'ENVIRONMENT_AND_PERFORMANCE.md', 'CLEANUP_REPORT.md']:
     if (root / 'docs' / name).is_file():
@@ -55,7 +61,6 @@ if (root / 'third_party/notices/ProjectAirSim-LICENSE.txt').is_file():
 binaries = [p for p in (release / 'Simulation/test/Binaries/Win64').glob('*.exe') if p.name.startswith('test')]
 if len(binaries) != 1:
     raise SystemExit(f'Expected one staged Game executable, found {binaries}')
-scenes = {'Base': ['original', 'test_range'], 'City': ['city'], 'All': ['original', 'test_range', 'city']}[args.content]
 manifest = {'version': 1, 'release_id': release.name, 'engine': '5.8.4', 'configuration': args.configuration,
             'scenes': scenes, 'simulation_executable': binaries[0].relative_to(release).as_posix(),
             'status': 'local-test-build-not-clean-machine-certified'}

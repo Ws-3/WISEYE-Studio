@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 import zipfile
 from core.scenes import SceneStore, validate_scene
 
@@ -69,6 +70,18 @@ class SceneTests(unittest.TestCase):
     def test_missing_map_is_not_installed(self):
         self.store.register(scene(), require_map=False)
         self.assertFalse(self.store.list()[0][0]['installed'])
+
+    def test_release_hides_retained_manifests_for_unshipped_maps(self):
+        self.store.register(scene(), require_map=False)
+        city = dict(scene(), id='city', name='City', map='/Game/WISEYE/Scenes/city/CitySample')
+        self.store.register(city, require_map=False)
+        with patch('core.runtime_paths.installed_scenes', return_value={'city'}):
+            items, errors = self.store.list()
+        self.assertFalse(errors)
+        self.assertEqual([item['id'] for item in items], ['city'])
+        self.assertTrue(items[0]['installed'])
+        self.assertTrue((self.store.directory / 'sample.json').is_file())
+        self.assertEqual(len(self.store.list()[0]), 2)
 
     def test_required_asset_mismatch_refuses_install(self):
         path=self.pack()

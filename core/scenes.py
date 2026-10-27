@@ -53,6 +53,10 @@ class SceneStore:
                 scene = dict(scene)
                 from core.runtime_paths import installed_scenes
                 published = installed_scenes()
+                # An upgraded user directory may retain older scene manifests.
+                # Only list maps actually shipped by this installed release.
+                if published is not None and scene['id'] not in published:
+                    continue
                 available = scene['id'] in published if published is not None else self.map_file(scene['map']).is_file()
                 scene['installed'] = available and scene.get('prepared', False) is True
                 result.append(scene)

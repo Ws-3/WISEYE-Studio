@@ -1,7 +1,7 @@
 param(
     [ValidateSet('Game','Cook','Stage','Desktop','Assemble')][string]$Stage = 'Game',
     [ValidateSet('Development','Shipping')][string]$Configuration = 'Development',
-    [ValidateSet('Base','City','All')][string]$Content = 'Base',
+    [ValidateSet('Base','City','All')][string]$Content = 'City',
     [string]$EngineRoot = 'E:\Programs\UE_5.8'
 )
 $ErrorActionPreference = 'Stop'

@@ -38,6 +38,15 @@ from integrations.gimbal_client import GimbalClient
 app = QApplication([])
 QSettings.setDefaultFormat(QSettings.Format.IniFormat)
 QSettings.setPath(QSettings.Format.IniFormat, QSettings.Scope.UserScope, str(test_root / 'QtSettings'))
+# Explicit organization/application constructors still use NativeFormat on Windows.
+# Keep every binding (including closeEvent's local import) out of the user's registry.
+class IsolatedSettings(QSettings):
+    def __init__(self, *unused, **kwargs):
+        super().__init__(str(test_root / 'QtSettings.ini'), QSettings.Format.IniFormat)
+import PySide6.QtCore
+import apps.desktop_app.sensor_workspace as workspace_module
+import apps.desktop_app.workbench_v3 as workbench_module
+PySide6.QtCore.QSettings = workspace_module.QSettings = workbench_module.QSettings = IsolatedSettings
 config = AppConfig.load()
 if args.check_features:
     config = replace(config, rtsp_port=19554, rtsp_paths={'ptz-02/infrared': 'acceptance/thermal'})
@@ -91,6 +100,9 @@ try:
     index = next(i for i in range(window.scenes.count()) if window.scenes.itemData(i)['id'] == args.scene)
     window.scenes.setCurrentIndex(index)
     window.pages.setCurrentIndex(1)
+    listed = {window.scenes.itemData(i)['id'] for i in range(window.scenes.count())}
+    assert listed == set(json.loads((release / 'release.json').read_text(encoding='utf-8'))['scenes'])
+    report['available_scenes'] = sorted(listed)
     window.launch_ue()
     wait(lambda: window.client.ready and window.air_client.ready, 300)
     state = rpc()
