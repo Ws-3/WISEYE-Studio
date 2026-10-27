@@ -1,0 +1,12 @@
+{
+  "path": "E:\\Projects\\WISEYE-BuildWorkspace\\releases\\WISEYE-20261027-City-Windows-x64.zip",
+  "bytes": 18085274917,
+  "sha256": "7450d6daa7bdf5fa1134f0af3f12ddd8f211f2c099ac5082df66e8cf701f36ba",
+  "release_id": "20261027-171140-City-Shipping",
+  "zip_crc_verified": true,
+  "destination": "F:\\WISEYE-Studio\\releases\\WISEYE-20261027-City-Windows-x64.zip",
+  "destination_sha256": "7450d6daa7bdf5fa1134f0af3f12ddd8f211f2c099ac5082df66e8cf701f36ba",
+  "source_manifest_sha256": "7450d6daa7bdf5fa1134f0af3f12ddd8f211f2c099ac5082df66e8cf701f36ba",
+  "copy_readback_verified": true,
+  "verified_at_utc": "2026-10-27T09:22:53.476875+00:00"
+}

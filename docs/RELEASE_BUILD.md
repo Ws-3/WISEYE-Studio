@@ -9,7 +9,7 @@
 - 展开目录：18,084,918,983字节，1441文件，约16.843GiB。
 - ZIP64：18,085,274,917字节，约16.843GiB；IoStore资源已压缩，外层ZIP使用Store。
 - ZIP SHA-256：`7450d6daa7bdf5fa1134f0af3f12ddd8f211f2c099ac5082df66e8cf701f36ba`。
-- 已完成全部发布文件SHA校验与ZIP完整CRC校验。F盘复制后再完整读取并计算SHA；交付确认文件为同目录`WISEYE-20261027-City-Windows-x64.zip.delivery-verified.json`，源码证据在`evidence/standalone-release-20261027/delivery-verified.json`。
+- 已完成全部发布文件SHA校验与ZIP完整CRC校验；2026-10-27 17:22:53（北京时间）F盘复制后完整读回SHA一致。交付确认文件为同目录`WISEYE-20261027-City-Windows-x64.zip.delivery-verified.json`，源码证据在`evidence/standalone-release-20261027/delivery-verified.json`。
 
 只保留城市主要减少地图入口及少量独有资源，城市本身仍占绝大部分容量；本版没有降低城市纹理/几何质量来换体积。旧20261023包保留回滚；20261026桌面更新ZIP不能替代本次完整包。
 
