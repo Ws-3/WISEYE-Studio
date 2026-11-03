@@ -1,4 +1,4 @@
-# WISEYE Studio（智瞳）
+# WISEYE Studio
 
 **v1.0.0 · 2026-11-03 · 生日纪念版**
 
