@@ -1,8 +1,8 @@
 """Stable sensor identity, independent of property or control selection."""
 from dataclasses import dataclass
 
-SENSOR_NAMES = {'visible': '可见光', 'infrared': '红外', 'lidar': '激光点云', 'observer': 'UE 观察'}
-SIZES = {'visible': (1920, 1080), 'infrared': (640, 512), 'observer': (960, 540)}
+SENSOR_NAMES = {'visible': '可见光', 'infrared': '红外', 'lidar': '激光点云', 'event':'事件相机', 'observer': 'UE 观察'}
+SIZES = {'visible': (1920, 1080), 'infrared': (640, 512), 'event':(640,480), 'observer': (960, 540)}
 
 
 @dataclass(frozen=True)
@@ -20,7 +20,7 @@ class Source:
                 else self.device_id + ' · ' + SENSOR_NAMES[self.sensor_id])
 
     def url(self, host, config):
-        if self.sensor_id == 'lidar':
+        if self.sensor_id in ('lidar','event'):
             return ''
         return config.stream_url(self.device_id, self.sensor_id)
 

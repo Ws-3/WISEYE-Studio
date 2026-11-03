@@ -1,0 +1,214 @@
+{
+  "passed": true,
+  "run_id": "2C2D0F634D18A9E40265C49FC3986437",
+  "checks": [
+    {
+      "enabled": [
+        true,
+        false,
+        false
+      ],
+      "before": {
+        "CH1": {
+          "frame_seq": 206,
+          "completed_frames": 206,
+          "readback_queued_ue_monotonic_s": 16779992.2685457,
+          "cache_age_ms": 64.75280225276947
+        },
+        "CH2": {
+          "frame_seq": 196,
+          "completed_frames": 194,
+          "readback_queued_ue_monotonic_s": 16779991.2684133,
+          "cache_age_ms": 1064.8877993226051
+        }
+      },
+      "after": {
+        "CH1": {
+          "frame_seq": 227,
+          "completed_frames": 227,
+          "readback_queued_ue_monotonic_s": 16779994.3691112,
+          "cache_age_ms": 63.90159949660301
+        },
+        "CH2": {
+          "frame_seq": 196,
+          "completed_frames": 194,
+          "readback_queued_ue_monotonic_s": 16779991.2684133,
+          "cache_age_ms": 3164.6027974784374
+        }
+      },
+      "capture_sequences": {
+        "visible": 239,
+        "infrared": 209
+      },
+      "lidar_sequence": 203
+    },
+    {
+      "enabled": [
+        true,
+        true,
+        false
+      ],
+      "before": {
+        "CH1": {
+          "frame_seq": 238,
+          "completed_frames": 238,
+          "readback_queued_ue_monotonic_s": 16779995.468831,
+          "cache_age_ms": 97.85019978880882
+        },
+        "CH2": {
+          "frame_seq": 207,
+          "completed_frames": 204,
+          "readback_queued_ue_monotonic_s": 16779995.5000399,
+          "cache_age_ms": 66.64439663290977
+        }
+      },
+      "after": {
+        "CH1": {
+          "frame_seq": 259,
+          "completed_frames": 259,
+          "readback_queued_ue_monotonic_s": 16779997.5689385,
+          "cache_age_ms": 97.76470065116882
+        },
+        "CH2": {
+          "frame_seq": 227,
+          "completed_frames": 224,
+          "readback_queued_ue_monotonic_s": 16779997.5003736,
+          "cache_age_ms": 166.82010143995285
+        }
+      },
+      "capture_sequences": {
+        "visible": 271,
+        "infrared": 240
+      },
+      "lidar_sequence": 203
+    },
+    {
+      "enabled": [
+        false,
+        true,
+        false
+      ],
+      "before": {
+        "CH1": {
+          "frame_seq": 260,
+          "completed_frames": 260,
+          "readback_queued_ue_monotonic_s": 16779997.6715983,
+          "cache_age_ms": 1061.68619915843
+        },
+        "CH2": {
+          "frame_seq": 238,
+          "completed_frames": 235,
+          "readback_queued_ue_monotonic_s": 16779998.6003582,
+          "cache_age_ms": 133.38569924235344
+        }
+      },
+      "after": {
+        "CH1": {
+          "frame_seq": 260,
+          "completed_frames": 260,
+          "readback_queued_ue_monotonic_s": 16779997.6715983,
+          "cache_age_ms": 3161.6891995072365
+        },
+        "CH2": {
+          "frame_seq": 259,
+          "completed_frames": 256,
+          "readback_queued_ue_monotonic_s": 16780000.700466,
+          "cache_age_ms": 133.372001349926
+        }
+      },
+      "capture_sequences": {
+        "visible": 273,
+        "infrared": 272
+      },
+      "lidar_sequence": 203
+    },
+    {
+      "enabled": [
+        false,
+        false,
+        false
+      ],
+      "before": {
+        "CH1": {
+          "frame_seq": 260,
+          "completed_frames": 260,
+          "readback_queued_ue_monotonic_s": 16779997.6715983,
+          "cache_age_ms": 4295.008901506662
+        },
+        "CH2": {
+          "frame_seq": 262,
+          "completed_frames": 259,
+          "readback_queued_ue_monotonic_s": 16780001.0003456,
+          "cache_age_ms": 966.2641026079655
+        }
+      },
+      "after": {
+        "CH1": {
+          "frame_seq": 260,
+          "completed_frames": 260,
+          "readback_queued_ue_monotonic_s": 16779997.6715983,
+          "cache_age_ms": 6394.997101277113
+        },
+        "CH2": {
+          "frame_seq": 262,
+          "completed_frames": 259,
+          "readback_queued_ue_monotonic_s": 16780001.0003456,
+          "cache_age_ms": 3066.252902150154
+        }
+      },
+      "capture_sequences": {
+        "visible": 273,
+        "infrared": 274
+      },
+      "lidar_sequence": 203
+    }
+  ],
+  "images": {
+    "clear_visible": {
+      "frame": 69,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    "clear_infrared": {
+      "frame": 110,
+      "shape": [
+        512,
+        640,
+        3
+      ]
+    },
+    "clouds_visible": {
+      "frame": 150,
+      "shape": [
+        1080,
+        1920,
+        3
+      ]
+    },
+    "clouds_infrared": {
+      "frame": 191,
+      "shape": [
+        512,
+        640,
+        3
+      ]
+    },
+    "resumed_infrared": {
+      "frame": 337,
+      "shape": [
+        512,
+        640,
+        3
+      ]
+    }
+  },
+  "limits": "Cloud signal estimated from rendered daylight appearance, not physical cloud temperature; stopped channels retain small configuration/render target allocations; UE scene and other devices continue running.",
+  "visible_cloud_difference": 22.82633342978395,
+  "infrared_cloud_difference": 10.51759033203125,
+  "cloud_sky_gray_std": 13.558207836572347,
+  "cloud_sky_gray_p95_p5": 44.0,
+  "sky_target_pixels": 0
+}

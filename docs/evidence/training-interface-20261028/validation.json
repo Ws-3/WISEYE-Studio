@@ -1,0 +1,30 @@
+{
+  "run_id": "ADB6EFE4490AFB9B5C9F5D8ACE39C4CF",
+  "core_tests": 67,
+  "qt_regressions": 20,
+  "gt_automation_tests": 1,
+  "gui_receiver_passed": true,
+  "flight_status": "ready",
+  "motor_rpm": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "source_build_sha256": {
+    "WiseEyeGroundTruth.h": "e5c5d797f927e23a9dfc6a72a2804f88ebfd1b39917a6f610b43e87d934e30c0",
+    "WiseEyeGroundTruth.cpp": "fcdb8381c655ef3b4c28effe6aa7fe846a214d99ea3774d9c814142fd869e4cf",
+    "WiseEyeGroundTruthTests.cpp": "6cc0c322121318c68c86801cccc8ab074e828b5e346bc1417503df31e337aae0",
+    "WiseEyeDemo.h": "110f7604c91772c0766045691ec7515d875d118f98e6e027a339e0e606394daf",
+    "WiseEyeDemo.cpp": "d049445b3d5eb5341cb8503d459b5eaa6e446aea8a81aab41d76c917c76cfc98",
+    "WiseEyeBridge.cpp": "a4014429dbfb187e59768dbe162e29b424bdd770cce6fec4fe1fd26c9a4ddb76",
+    "WiseEyeStreaming.h": "b9010a076530caff38f126cfc1c4fd74a975cab5550e1db4954d76d3eca2007d",
+    "WiseEyeStreaming.cpp": "74b89564e15532bc0d1b8575d6bd216936cb7cb766bb67be9eeb83218e637f35"
+  },
+  "automation_succeeded": 1,
+  "limits": [
+    "local computer only; no two-physical-PC validation",
+    "no actual YOLO training",
+    "no new Shipping package"
+  ]
+}

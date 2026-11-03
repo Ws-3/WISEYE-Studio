@@ -1,0 +1,67 @@
+[
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\calibration.json",
+    "sha256": "d7e2666ed95639dbd4971856d9b3404a74c6cee6d43bcd8cc70a0f8f9c73069b",
+    "unchanged": true
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\device_dimensions.json",
+    "sha256": "867297b288efdd38720ed17f36e98eb0712c58bc4014b08b5bb025263024cba4",
+    "unchanged": true
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\sensors.json",
+    "sha256": "820a291d4b2e0e05c97f438a7db91657ab9796ded626f2af03cb7249a5cb72ce",
+    "unchanged": true
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\standard_rig.json",
+    "sha256": "69509404a6c57e86ff89bbd1be9b277c7d64fa93e943cfeea08deb3de358f7c1",
+    "unchanged": true
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\thermal_material_classes.json",
+    "sha256": "6f7bfd5f473b36643542c08a9fcbf77e0216317965a8f7e98a737e56f050abaa",
+    "unchanged": true
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\CitySample\\placement.json",
+    "sha256": "cd0821d378bd8c3aaa606ee8461116b1cf955382845eb3dcb3b23421c8a2a1d2",
+    "unchanged": true
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\Fleets\\city.json",
+    "sha256": "0bf4c232369a199435da60f0450a208bfb77cea3f5b6b121ab0fe42b90d0d006",
+    "unchanged": true
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\Fleets\\city_large.json",
+    "sha256": "508bcfff16f2ed8a0d9375d31b2f0e0ed35711f8264457e1840a120b427afb39",
+    "unchanged": true
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\Layouts\\city.json",
+    "sha256": "157344335326f0ae95c36f6ebfeadd72aaa0668732b274f896e1298c5573ef81",
+    "unchanged": true
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\Scenes\\city.json",
+    "sha256": "e21c5bbd60565a9fa8d0ea4595d4e957f968bd9f8ae833bb96f6a2c7f227b493",
+    "unchanged": true
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\Scenes\\city_large.json",
+    "sha256": "c988a42fbadfb4dcb4f86594361c7d9b277479314f901e774e21af010fc14ad3",
+    "unchanged": true
+  },
+  {
+    "path": "F:\\WISEYE-Studio\\ue5\\WISEYE\\Config\\WISEYE\\Fleets\\city.json",
+    "sha256": "07abb0474fb678a531a84b24ffe3ba4e3d1e4b59a6071d5979a22e6c716eb11c",
+    "unchanged": true
+  },
+  {
+    "path": "F:\\WISEYE-Studio\\ue5\\WISEYE\\Config\\WISEYE\\Fleets\\city_large.json",
+    "sha256": "9084a1d373a8d23d9b6266b3e2c4a046307925c30d350c2fe29d8376b4ba00ba",
+    "unchanged": true
+  }
+]

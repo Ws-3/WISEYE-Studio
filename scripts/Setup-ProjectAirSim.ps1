@@ -8,7 +8,7 @@ param(
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
 $projectsRoot = Split-Path -Parent $repository
-if (-not $AirSimRoot) { $AirSimRoot = Join-Path $projectsRoot 'ProjectAirSim-Evaluation' }
+if (-not $AirSimRoot) { $AirSimRoot = Join-Path $repository 'builds\dependencies\ProjectAirSimSource' }
 $pinnedCommit = '62229cd7c77ad31da7bc8aba8dd6303c564d8ba2'
 $patch = Join-Path $repository 'third_party\patches\projectairsim-simpleflight-completion.patch'
 
@@ -138,4 +138,4 @@ if (-not $SkipBuild) {
 }
 # SimLibs does not exist on a clean checkout until the first build completes.
 Install-WiseEyeAirSimLinks
-Write-Host 'Project AirSim is patched and linked into WISEYE. Run Start-ProjectAirSim.cmd.'
+Write-Host 'Project AirSim is patched and linked into WISEYE. For a configured source project, run scripts/Start-ProjectAirSim.ps1. See docs/USER_GUIDE.md for the current preview entry.'

@@ -16,6 +16,7 @@ from PySide6.QtWidgets import QApplication, QMessageBox
 from PySide6.QtGui import QFont, QIcon
 from core.config import AppConfig, ROOT
 from core.runtime_paths import RESOURCE_ROOT
+from core.runtime_paths import DATA_ROOT,PORTABLE
 from apps.desktop_app.main_window import MainWindow
 
 def main():
@@ -23,6 +24,10 @@ def main():
     parser.add_argument('--connect', action='store_true', help='启动后连接配置中的 UE')
     args = parser.parse_args()
     app = QApplication(sys.argv[:1])
+    if PORTABLE:
+        from PySide6.QtCore import QSettings
+        QSettings.setDefaultFormat(QSettings.Format.IniFormat)
+        QSettings.setPath(QSettings.Format.IniFormat,QSettings.Scope.UserScope,str(DATA_ROOT/'QtSettings'))
     app.setApplicationName('WISEYE Studio')
     app.setFont(QFont('Microsoft YaHei UI', 10))
     app.setWindowIcon(QIcon(str(RESOURCE_ROOT/'LOGO.jpg')))

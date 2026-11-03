@@ -6,6 +6,8 @@
 #include "Components/InputComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/PrimitiveComponent.h"
+#include "Components/WorldPartitionStreamingSourceComponent.h"
+#include "Components/DirectionalLightComponent.h"
 #include "Engine/TextureRenderTarget2D.h"
 #include "Engine/Canvas.h"
 #include "Engine/Engine.h"
@@ -33,6 +35,7 @@
 AWiseEyeDemo::~AWiseEyeDemo() { delete Bridge; delete StreamManager; }
 void AWiseEyeDemo::EndPlay(const EEndPlayReason::Type Reason)
 {
+    DestroyPlacementPreview();
     delete Bridge;
     Bridge = nullptr;
     delete StreamManager;
@@ -57,6 +60,8 @@ AWiseEyeDemo::AWiseEyeDemo()
     YawPivot->SetupAttachment(Base);
     PitchPivot = CreateDefaultSubobject<USceneComponent>(TEXT("PitchPivot"));
     PitchPivot->SetupAttachment(YawPivot);
+    OpticalMount = CreateDefaultSubobject<USceneComponent>(TEXT("OpticalMount"));
+    OpticalMount->SetupAttachment(PitchPivot);
     Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("EO_Camera"));
     Camera->SetupAttachment(PitchPivot);
     Camera->bConstrainAspectRatio = true;
@@ -91,6 +96,7 @@ void AWiseEyeDemo::BeginPlay()
 {
     Super::BeginPlay();
     if (FleetChild) { InitializeFleetChild(); return; }
+    if (GEngine) GEngine->Exec(GetWorld(),TEXT("DisableAllScreenMessages"));
 #if WITH_EDITOR
     // The desktop console is normally foreground while UE supplies live sensor
     // frames. Keep editor PIE ticking at full rate in that configuration.
@@ -165,6 +171,25 @@ else
     UpdateDroneView();
     FString FleetError;
     if (!InitializeFleet(FleetError)) { UE_LOG(LogTemp,Error,TEXT("WISEYE fleet: %s"),*FleetError); SetActorTickEnabled(false); return; }
+    if (SceneId==TEXT("city_large"))
+    {
+        // Pilot: bounded sources follow every physical drone and camera base.
+        // The player source follows the active observer view independently.
+        FStreamingSourceShape Shape;
+        Shape.bUseGridLoadingRange=false;
+        Shape.Radius=25000.f;
+        if (auto* PC=GetWorld()->GetFirstPlayerController()) PC->StreamingSourceShapes={Shape};
+        auto AddSource=[&](AActor* Actor) {
+            if (!IsValid(Actor) || Actor->FindComponentByClass<UWorldPartitionStreamingSourceComponent>()) return;
+            auto* Source=NewObject<UWorldPartitionStreamingSourceComponent>(Actor,TEXT("WISEYE_StreamingSource"));
+            Actor->AddInstanceComponent(Source);
+            Source->Shapes={Shape};
+            Source->TargetState=EStreamingSourceTargetState::Activated;
+            Source->RegisterComponent();
+            Source->EnableStreamingSource();
+        };
+        for (auto Rig : FleetRigs) { AddSource(Rig); if (Rig->OwnsDrone) AddSource(Rig->Drone); }
+    }
     Bridge = new FWiseEyeBridge(*this);
     BridgeReady = Bridge->Start(ControlPort,BridgeError);
     if (!BridgeReady) UE_LOG(LogTemp,Error,TEXT("WISEYE control bridge: %s"),*BridgeError);
@@ -175,19 +200,23 @@ void AWiseEyeDemo::Tick(float Dt)
 {
     Super::Tick(Dt);
     ++TickSequence;
-    if (!FleetChild) { UpdateRuntimeStatus(); UpdateRainVolumes(); }
+    if (!FleetChild) { UpdateRuntimeStatus(); UpdateRainVolumes();UpdateEnvironmentViews(); }
     if (FleetChild) { PerformanceProfile=FleetRoot->PerformanceProfile; VisibleCaptureHz=FleetRoot->VisibleCaptureHz; InfraredCaptureHz=FleetRoot->InfraredCaptureHz; ObserverCaptureHz=FleetRoot->ObserverCaptureHz; }
-    else if (TickSequence==1) SetPerformanceProfile(SceneId==TEXT("city")?TEXT("economy"):PerformanceProfile);
+    else if (TickSequence==1) SetPerformanceProfile((SceneId==TEXT("city") || SceneId==TEXT("city_large"))?TEXT("economy"):PerformanceProfile);
     if (!FleetChild) { EnsurePlayerInput(); StepObserver(Dt); PollLocalFlightInput(); }
     else {
         ControlMode=FleetRoot->ControlMode;ObserverMode=FleetRoot->ObserverMode;
         StepObserver(Dt);
     }
     if (!IsValid(Drone)) return;
+    UpdateSensorTransforms();
+    UpdateThermalState(Dt);
     if (!FleetChild) UpdateObserverCapture();
     const double CaptureNow=FPlatformTime::Seconds();
+    TSharedPtr<FWiseEyeGTSnapshot> VisibleGT,InfraredGT;
+    const bool PairReady=GTPairPending && VisibleEnabled && InfraredEnabled && StreamManager && StreamManager->CanQueueSample(false) && StreamManager->CanQueueSample(true);
     auto CaptureDue=[&](USceneCaptureComponent2D* Component,bool Enabled,double& Next,float Hz) {
-        if (!Enabled || CaptureNow<Next || !Component) return false;
+        if (!Enabled || (!PairReady && CaptureNow<Next) || !Component) return false;
         Component->bCaptureEveryFrame=false; Component->bCaptureOnMovement=false;
         Component->bUseRayTracingIfEnabled=PerformanceProfile==TEXT("quality");
         auto& PP=Component->PostProcessSettings;
@@ -195,15 +224,34 @@ void AWiseEyeDemo::Tick(float Dt)
         PP.ReflectionMethod=EReflectionMethod::ScreenSpace;
         PP.bOverride_DynamicGlobalIlluminationMethod=PerformanceProfile==TEXT("economy");
         PP.DynamicGlobalIlluminationMethod=EDynamicGlobalIlluminationMethod::None;
-        if (Component==InfraredCapture && ThermalInstance)
+        if (Component==InfraredCapture && ThermalInstance) {
+            UpdateThermalProjection();
             ThermalInstance->SetScalarParameterValue(TEXT("NoiseFrame"),float((++ThermalFrameIndex)%4096));
+        }
+        const bool IR=Component==InfraredCapture;
+        const int32 SampleIndex=IR?1:0;
+        if ((!GTPairPending || PairReady) && !GTSampleTokens[SampleIndex].IsEmpty() && StreamManager && StreamManager->CanQueueSample(IR)) {
+            (IR?InfraredGT:VisibleGT)=CaptureWiseEyeGroundTruth(*this,IR,GTSampleTokens[SampleIndex]);
+            GTSampleTokens[SampleIndex].Empty();
+        }
         Component->CaptureScene();
+        if (Component==Capture) ++VisibleCaptureSequence;
         Next=FMath::Max(Next+1.0/Hz,CaptureNow+.001);
         return true;
     };
     const bool NewVisible=CaptureDue(Capture,VisibleEnabled,NextVisibleCapture,VisibleCaptureHz);
     const bool NewInfrared=CaptureDue(InfraredCapture,InfraredEnabled,NextInfraredCapture,InfraredCaptureHz);
-    if (StreamManager) StreamManager->Tick(NewVisible?RenderTarget.Get():nullptr,NewInfrared?InfraredTarget.Get():nullptr,SimulationTime,ObserverCaptured?ObserverTarget.Get():nullptr);
+    if (PairReady && NewVisible && NewInfrared) GTPairPending=false;
+    if (StreamManager) {
+        const bool Reference=UsesThermalReadout();
+        auto Detector=ThermalDetector;Detector.SensorNoise=HasFacadeInfrared();Detector.Noise=ThermalNoise;Detector.Facade=ThermalProfile==TEXT("facade");
+        StreamManager->ConfigureThermalReadout(Reference,ThermalAutoGain,BlackHot,ThermalGainResponse,ThermalContrast,ThermalBlurPixels,ThermalProfile==TEXT("classified") || ThermalProfile==TEXT("facade"),Detector);
+        bool NewEvent=false;
+        if (EventEnabled && EventCapture && CaptureNow+.0005>=NextEventCapture) {
+            EventCapture->CaptureScene();NextEventCapture=FMath::Max(NextEventCapture+1./EventSampleHz,CaptureNow+.000001);NewEvent=true;
+        }
+        StreamManager->Tick(NewVisible?RenderTarget.Get():nullptr,NewInfrared?InfraredCapture->TextureTarget.Get():nullptr,SimulationTime,ObserverCaptured?ObserverTarget.Get():nullptr,Reference?InfraredTarget.Get():nullptr,VisibleGT,InfraredGT,NewEvent?EventTarget.Get():nullptr,GetWorld()->GetTimeSeconds());
+    }
     if (Bridge && !FleetChild) Bridge->Tick();
     if (FlightBackend==EWiseEyeFlightBackend::ProjectAirSim)
     {
@@ -227,7 +275,8 @@ void AWiseEyeDemo::Tick(float Dt)
         }
         StepRotors(Dt);
     }
-    LidarClock += Dt;
+    if (OwnsDrone) StepNavigationLights();
+    LidarClock = LidarEnabled?LidarClock+Dt:0;
     if (LidarEnabled && LidarClock >= 1.f/FMath::Max(.05f,LidarScanRateHz))
     {
         LidarClock = 0;
@@ -483,6 +532,58 @@ void AWiseEyeDemo::StepManualFlight(float Dt)
     Drone->SetActorLocationAndRotation(Position,Heading,false,nullptr,ETeleportType::TeleportPhysics);
 }
 
+void AWiseEyeDemo::StepNavigationLights()
+{
+    if (!IsValid(Drone)) return;
+    const AWiseEyeDemo* Root=FleetRoot?FleetRoot.Get():this;
+    // A sun ray pointing up means the sun itself is below the horizon.
+    NavigationNight=Root->EnvironmentTimeOverride
+        ? (Root->EnvironmentHour<6.f || Root->EnvironmentHour>=18.f)
+        : (Root->EnvironmentSun.IsValid() && Root->EnvironmentSun->GetForwardVector().Z>=0.f);
+    const double Phase=FMath::Fmod(double(GetWorld()->GetTimeSeconds()),1.6);
+    const float DeepNight=Root->EnvironmentTimeOverride?FMath::Clamp((FMath::Abs(Root->EnvironmentHour-12.f)-6.f)/2.f,0.f,1.f):(NavigationNight?1.f:0.f);
+    const float LampStrength=FMath::Lerp(6.f,24.f,DeepNight);
+    NavigationRedOn=NavigationLightsEnabled && NavigationNight && (Phase<.22 || (Phase>=.36 && Phase<.58));
+    NavigationGreenOn=NavigationLightsEnabled && NavigationNight && ((Phase>=.8 && Phase<1.02) || (Phase>=1.16 && Phase<1.38));
+    if (NavigationLamps.IsEmpty()) {
+        auto* Sphere=LoadObject<UStaticMesh>(nullptr,TEXT("/Engine/BasicShapes/Sphere.Sphere"));
+        auto* Material=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/WISEYE/DroneModels/Common/M_NavigationLamp.M_NavigationLamp"));
+        if (!Sphere || !Material) return;
+        for (int32 I=0;I<4;++I) {
+            auto* Lamp=NewObject<UStaticMeshComponent>(Drone.Get());
+            Lamp->ComponentTags.Add(TEXT("NavigationLamp"));Lamp->SetStaticMesh(Sphere);
+            Lamp->SetMobility(EComponentMobility::Movable);Lamp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            Lamp->SetCastShadow(false);Lamp->SetRenderCustomDepth(false);
+            Lamp->RegisterComponent();Lamp->AttachToComponent(Drone->GetRootComponent(),FAttachmentTransformRules::KeepWorldTransform);
+            Lamp->SetAbsolute(false,false,true);Lamp->SetVisibility(false);
+            Lamp->SetMaterial(0,UMaterialInstanceDynamic::Create(Material,Lamp));
+            NavigationLamps.Add(Lamp);
+        }
+    }
+    const FVector Right=FRotationMatrix(FRotator(0,Drone->GetActorRotation().Yaw-ModelHeadingOffset,0)).GetUnitAxis(EAxis::Y);
+    for (int32 I=0;I<NavigationLamps.Num();++I) {
+        auto* Lamp=NavigationLamps[I].Get();FVector Mount=Drone->GetActorLocation();bool Valid=false;
+        if (DroneModel==TEXT("avata") && AvataRotors.IsValidIndex(I) && IsValid(AvataRotors[I])) {
+            Mount=AvataRotors[I]->GetComponentLocation();Valid=true;
+        } else if (DroneModel==TEXT("mavic3") && Rotors.IsValidIndex(I) && IsValid(Rotors[I])) {
+            Mount=Rotors[I]->GetActorLocation();Valid=true;
+        }
+        const bool Green=Valid && FVector::DotProduct(Mount-Drone->GetActorLocation(),Right)>=0;
+        const FVector Up=Drone->GetActorUpVector();
+        const FVector Outward=FVector::VectorPlaneProject(Mount-Drone->GetActorLocation(),Up).GetSafeNormal();
+        // Move to the exposed motor/guard edge, rather than burying the LED in its hub.
+        Mount+=Outward*(DroneModel==TEXT("avata")?2.5f:1.8f)-Up*(DroneModel==TEXT("avata")?.5f:1.f);
+        Lamp->SetWorldLocation(Mount);
+        Lamp->SetWorldScale3D(FVector(DroneModel==TEXT("avata")?.006f:.009f));
+        if (auto* Material=Cast<UMaterialInstanceDynamic>(Lamp->GetMaterial(0)))
+            Material->SetVectorParameterValue(TEXT("LampColor"),Green?FLinearColor(.01f,LampStrength,.02f):FLinearColor(LampStrength,.01f,.005f));
+        Lamp->SetVisibility(Valid && (Green?NavigationGreenOn:NavigationRedOn));
+        // Hide from every IR camera (including rigs created after this drone).
+        for (auto Rig:Root->FleetRigs) if (IsValid(Rig) && Rig->InfraredCapture)
+            Rig->InfraredCapture->HiddenComponents.AddUnique(Lamp);
+    }
+}
+
 void AWiseEyeDemo::StepRotors(float Dt)
 {
     if (FlightBackend==EWiseEyeFlightBackend::ProjectAirSim) {
@@ -577,11 +678,15 @@ void AWiseEyeDemo::ExportSensorFrame(bool bInfrared)
     const FString Name = FString::Printf(TEXT("%s_%04d.png"),Sensor,FrameNumber++);
     UKismetRenderingLibrary::ExportRenderTarget(this,Target,OutputDirectory,Name);
     LastExportPath = FPaths::ConvertRelativePathToFull(FPaths::Combine(OutputDirectory,Name));
-    const FVector Pos = Camera->GetComponentLocation();
-    const FRotator Rot = Camera->GetComponentRotation();
+    const auto* ExportCamera=bInfrared?InfraredCapture.Get():Capture.Get();
+    const FVector Pos = ExportCamera->GetComponentLocation();
+    const FRotator Rot = ExportCamera->GetComponentRotation();
     const FString Meta=FString::Printf(TEXT("{\"simulation_time_s\":%.6f,\"width\":%d,\"height\":%d,\"horizontal_fov_deg\":%.4f,\"modality\":\"%s\",\"palette\":\"%s\",\"thermal_model\":\"%s\",\"camera_cm\":[%.4f,%.4f,%.4f],\"rotation_pitch_yaw_roll_deg\":[%.4f,%.4f,%.4f],\"tracking_source\":\"UE ground truth\",\"frame_timing\":\"last completed render; not hardware synchronized\"}"),SimulationTime,Target->SizeX,Target->SizeY,bInfrared?InfraredFOV:VisibleFOV,bInfrared?TEXT("infrared"):TEXT("visible"),bInfrared?(BlackHot?TEXT("black_hot"):TEXT("white_hot")):TEXT("RGB"),bInfrared?TEXT("normalized synthetic heat; not radiometric"):TEXT("none"),Pos.X,Pos.Y,Pos.Z,Rot.Pitch,Rot.Yaw,Rot.Roll);
     const FString Identity=FString::Printf(TEXT("{\"device_id\":\"%s\",\"sensor_id\":\"%s/%s\",\"scene_id\":\"%s\",\"run_id\":\"%s\","),*GimbalId,*GimbalId,bInfrared?TEXT("infrared"):TEXT("visible"),*SceneId,*PlaySessionId);
-    FFileHelper::SaveStringToFile(Identity+Meta.Mid(1),*FPaths::Combine(OutputDirectory,Name+TEXT(".json")));
+    const FString ThermalConfig=bInfrared?FString::Printf(TEXT("\"thermal_profile\":\"%s\",\"agc_enabled\":%s,\"agc_response_s\":%.4f,\"sampling_scale\":%d,\"blur_px\":%.4f,\"contrast\":%.4f,\"noise\":%.4f,"),*ThermalProfile,ThermalAutoGain?TEXT("true"):TEXT("false"),ThermalGainResponse,ThermalSamplingScale,ThermalBlurPixels,ThermalContrast,ThermalNoise):TEXT("");
+    const auto& D=ThermalDetector;
+    const FString DetectorConfig=bInfrared?FString::Printf(TEXT("\"gain_mode\":\"%s\",\"stable_agc\":%s,\"manual_low\":%.5f,\"manual_high\":%.5f,\"brightness\":%.5f,\"sky_denoise\":%.5f,\"noise_seed\":%u,"),D.Mode==1?TEXT("locked"):D.Mode==2?TEXT("manual"):TEXT("auto"),D.Stable?TEXT("true"):TEXT("false"),D.Low,D.High,D.Brightness,D.Denoise,D.Seed):TEXT("");
+    FFileHelper::SaveStringToFile(Identity+ThermalConfig+DetectorConfig+Meta.Mid(1),*FPaths::Combine(OutputDirectory,Name+TEXT(".json")));
     UE_LOG(LogTemp,Display,TEXT("WISEYE: exported %s/%s"),*OutputDirectory,*Name);
 }
 void AWiseEyeDemo::WriteTelemetry()
@@ -599,35 +704,21 @@ void AWiseEyeHUD::DrawHUD()
     AWiseEyeDemo* Demo=nullptr;
     for (TActorIterator<AWiseEyeDemo> It(GetWorld());It;++It) { Demo=*It; break; }
     if (!Demo) return;
-    DrawRect(FLinearColor(.015f,.025f,.045f,.85f),12,12,790,145);
-    DrawText(TEXT("WISEYE  |  UAV / EO SIMULATION"),FLinearColor(.1f,.85f,1),24,20,nullptr,1.3f);
-    DrawText(FString::Printf(TEXT("%s | Flight %s/%s | Gimbal %s | Lidar %d/%d"),Demo->Paused?TEXT("PAUSED"):TEXT("RUNNING"),Demo->FlightBackend==EWiseEyeFlightBackend::ProjectAirSim?TEXT("AIRSIM"):TEXT("KINEMATIC"),Demo->DynamicsConnected?TEXT("LINKED"):TEXT("WAIT"),Demo->TrackingEnabled?TEXT("TRACK"):TEXT("HOLD"),Demo->LidarHitCount,Demo->LastLidarRangesMeters.Num()),FLinearColor::White,24,48,nullptr,1.05f);
-    DrawText(FString::Printf(TEXT("Input %s | View %s | C input | TAB view | RMB+WASD free"),*Demo->ControlMode,*Demo->ObserverMode),FLinearColor(.75f,.85f,.9f),24,73,nullptr,1);
-    DrawText(TEXT("T track/hold | O rotors | TAB view | SPACE pause | HOME reset"),FLinearColor(.75f,.85f,.9f),24,96,nullptr,1);
-    DrawText(TEXT("I visible/IR | B palette | +/- zoom | P PNG | drone: WASD, R/F up/down, Q/E yaw"),FLinearColor(.75f,.85f,.9f),24,119,nullptr,.95f);
-    if (Demo->PlacementActive)
+    // Operational status/help belongs to the desktop, not the simulation image.
+    // Keep the placement cursor and sensor thumbnail without text overlays.
+    if (Demo->PlacementActive && Demo->PlacementHoverValid)
     {
-        DrawRect(FLinearColor(0,.12f,.18f,.9f),12,164,790,36);
-        DrawText(FString::Printf(TEXT("PLACE %s | Left click surface | Right click cancel | draft only"),*Demo->PlacementDevice),FLinearColor(0,1,1),24,173,nullptr,1);
-        if (Demo->PlacementHoverValid)
-        {
-            const FVector P=Canvas->Project(Demo->PlacementSurface);
-            if (P.Z>0)
-            {
-                DrawLine(P.X-14,P.Y,P.X+14,P.Y,FLinearColor(0,1,1),2);
-                DrawLine(P.X,P.Y-14,P.X,P.Y+14,FLinearColor(0,1,1),2);
-                DrawText(TEXT("SURFACE"),FLinearColor(0,1,1),P.X+18,P.Y,nullptr,1);
-            }
+        const FVector P=Canvas->Project(Demo->PlacementSurface);
+        if (P.Z>0) {
+            DrawLine(P.X-14,P.Y,P.X+14,P.Y,FLinearColor(0,1,1),2);
+            DrawLine(P.X,P.Y-14,P.X,P.Y+14,FLinearColor(0,1,1),2);
         }
     }
-    if (UTextureRenderTarget2D* Target = Demo->GetSensorTarget())
+    if (UTextureRenderTarget2D* Target=Demo->GetSensorTarget())
     {
-        const float W=FMath::Min(520.f,Canvas->SizeX*.4f), H=W*float(Target->SizeY)/float(Target->SizeX), X=Canvas->SizeX-W-20, Y=Canvas->SizeY-H-40;
-        DrawRect(FLinearColor(.02f,.04f,.06f,1),X-4,Y-29,W+8,H+53);
-        DrawText(FString::Printf(TEXT("%s | %d x %d | FOV %.0f"),Demo->InfraredMode?(Demo->BlackHot?TEXT("IR BLACK HOT"):TEXT("IR WHITE HOT")):TEXT("VISIBLE"),Target->SizeX,Target->SizeY,Demo->FieldOfView),FLinearColor(.1f,.85f,1),X+8,Y-23,nullptr,1);
+        const float W=FMath::Min(520.f,Canvas->SizeX*.4f),H=W*float(Target->SizeY)/float(Target->SizeX),X=Canvas->SizeX-W-20,Y=Canvas->SizeY-H-40;
+        DrawRect(FLinearColor(.02f,.04f,.06f,1),X-4,Y-4,W+8,H+8);
         Canvas->K2_DrawTexture(Target,FVector2D(X,Y),FVector2D(W,H),FVector2D::ZeroVector,FVector2D::UnitVector,FLinearColor::White,BLEND_Opaque);
-        DrawLine(X+W/2-10,Y+H/2,X+W/2+10,Y+H/2,FLinearColor::Green);
-        DrawLine(X+W/2,Y+H/2-10,X+W/2,Y+H/2+10,FLinearColor::Green);
     }
 }
 

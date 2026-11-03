@@ -6,6 +6,9 @@
 #include "HAL/PlatformTime.h"
 #include "DynamicRHI.h"
 #include "RHIStats.h"
+#if WITH_EDITOR
+#include "AssetCompilingManager.h"
+#endif
 #if PLATFORM_WINDOWS
 #include "Windows/WindowsHWrapper.h"
 #include <pdh.h>
@@ -94,6 +97,9 @@ void AWiseEyeDemo::UpdateRuntimeStatus()
     Snapshot->SetStringField(TEXT("scope"),TEXT("simulation_host"));
     Snapshot->SetStringField(TEXT("cpu_name"),FPlatformMisc::GetCPUBrand());
     Snapshot->SetStringField(TEXT("gpu_name"),GRHIAdapterName);
+#if WITH_EDITOR
+    Snapshot->SetNumberField(TEXT("asset_compile_jobs"),FAssetCompilingManager::Get().GetNumRemainingAssets());
+#endif
     if (RuntimeSampleTime>0) Snapshot->SetNumberField(TEXT("ue_fps"),(TickSequence-RuntimeSampleTick)/(Now-RuntimeSampleTime));
     const auto Memory=FPlatformMemory::GetStats();
     Snapshot->SetNumberField(TEXT("system_ram_total_bytes"),double(Memory.TotalPhysical));

@@ -1,0 +1,44 @@
+{
+  "mavic": {
+    "passed": true,
+    "target_signal_p25_p99": [
+      0.344482421875,
+      0.46875
+    ],
+    "display_p25_p95": [
+      164.0,
+      192.94999999999982
+    ],
+    "warmth": {
+      "motor_warmth": 0.1446112096309662,
+      "battery_warmth": 0.05807720124721527,
+      "power_proxy": 0.1693357676267624,
+      "body_signal": 0.3846461772918701,
+      "motor_signal": 0.46230560541152954,
+      "units": "normalized engineering proxy, not Celsius"
+    },
+    "motor_region_pixels": 1893,
+    "note": "Mask/JPEG close in time; whole visible target percentiles are not individually segmented motor/battery temperatures."
+  },
+  "avata": {
+    "passed": true,
+    "target_signal_p25_p99": [
+      0.36181640625,
+      0.43460205078125
+    ],
+    "display_p25_p95": [
+      168.0,
+      185.0
+    ],
+    "warmth": {
+      "motor_warmth": 0.14511573314666748,
+      "battery_warmth": 0.07268251478672028,
+      "power_proxy": 0.16933557391166687,
+      "body_signal": 0.3858146071434021,
+      "motor_signal": 0.462557852268219,
+      "units": "normalized engineering proxy, not Celsius"
+    },
+    "motor_region_pixels": 631,
+    "note": "Mask/JPEG close in time; whole visible target percentiles are not individually segmented motor/battery temperatures."
+  }
+}

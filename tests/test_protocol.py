@@ -1,5 +1,6 @@
 import json
 import unittest
+import copy
 from core.protocol import JsonLines, ProtocolError, MAX_MESSAGE
 from core.models import validate_state
 
@@ -28,5 +29,19 @@ class FramingTests(unittest.TestCase):
     def test_incomplete_state_cannot_reach_ui(self):
         with self.assertRaises(ProtocolError):
             validate_state({'application':'WISEYE Studio'})
+
+    def test_legacy_disabled_camera_is_not_a_disconnect(self):
+        state=dict(application='WISEYE Studio',paused=False,tracking=False,rotors_running=False,
+                   simulation_time_s=0,yaw_deg=0,pitch_deg=0,pointing_error_deg=0,fov_deg=25,
+                   flight_mode='manual',sensor_mode='visible',palette='white_hot',width=0,height=0,
+                   drone_position_cm=[0,0,25],sensors=dict(visible=dict(enabled=False)))
+        self.assertIs(validate_state(state),state)
+        for enabled in (True,0,None):
+            invalid=copy.deepcopy(state);invalid['sensors']['visible']['enabled']=enabled
+            with self.assertRaises(ProtocolError):validate_state(invalid)
+        invalid=dict(state,width=640)
+        with self.assertRaises(ProtocolError):validate_state(invalid)
+        for malformed in (None,[],{'visible':None}):
+            with self.assertRaises(ProtocolError):validate_state(dict(state,sensors=malformed))
 
 if __name__=='__main__': unittest.main()

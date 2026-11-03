@@ -1,0 +1,17 @@
+[
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeThermalMath.h",
+    "sha256": "8da3b1bb0e27300c959e4da9a2f01bbcd64218a25fbe120293bbb595ea5a9a01",
+    "build_match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeStreaming.cpp",
+    "sha256": "ac5ee252fe59775f5e1fd62d7c6151b46a7995eba1309be4d134e0217a6f521c",
+    "build_match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Content\\WISEYE\\Sensors\\M_IR_Facade.uasset",
+    "sha256": "a8a0d3110530b201ec01626cf82ba35a979ad4591db59d57375852ee87dc2a2d",
+    "build_match": true
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "gt_sample_fps": 1.8293718529776575,
+  "samples": [
+    {
+      "returned_at": 44523.5940621,
+      "request_ms": 179.88479999621632,
+      "pair_id": "8C0BD4B4466D4111C3B1D59543A3ED1C"
+    },
+    {
+      "returned_at": 44524.0944208,
+      "request_ms": 500.313600001391,
+      "pair_id": "622C3C8B475AB4264F6E3DA5432C1E65"
+    },
+    {
+      "returned_at": 44524.6930959,
+      "request_ms": 598.6259000055725,
+      "pair_id": "017ECC6445E36E12B3D8D59E0C5A43F4"
+    },
+    {
+      "returned_at": 44525.2270073,
+      "request_ms": 533.8518999997177,
+      "pair_id": "DB9679474AA6743F0294289BEBE8E804"
+    },
+    {
+      "returned_at": 44525.7275776,
+      "request_ms": 500.51669999811566,
+      "pair_id": "CA9FD7EC437C8C0494D8A4A340E3AE7A"
+    },
+    {
+      "returned_at": 44526.3272407,
+      "request_ms": 599.598299995705,
+      "pair_id": "99BF488347F74747D640B398DB2579AA"
+    }
+  ],
+  "configured_ui_default_fps": 1,
+  "ue_limit_per_sensor_fps": 2,
+  "note": "Direct sequential paired requests through50100, includes intentional limit wait; no video-display FPS claim."
+}

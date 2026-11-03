@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "datum": "WGS84",
+  "height_reference": "ellipsoid",
+  "purpose": "simulation_anchor",
+  "scene_id": "city",
+  "latitude_deg": 30.0,
+  "longitude_deg": 120.0,
+  "ellipsoid_height_m": 100.0,
+  "world_origin_cm": [
+    -26971.300000000003,
+    -1998.1999999999998,
+    4900.0
+  ],
+  "x_axis_azimuth_deg": 37.0
+}

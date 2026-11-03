@@ -46,3 +46,30 @@ class GimbalClient:
     def track(self, drone_id):
         self.request('gimbal.set_target',drone_id=drone_id)
         return self.request('gimbal.set_tracking',enabled=True)
+
+    def point_at_world(self,position_cm,sensor='visible',*,scene_id=None,run_id=None):
+        """One-shot optical-axis aim; repeat with fresh coordinates to follow."""
+        from core.georeference import vector
+        position=vector(position_cm)
+        if sensor not in ('visible','infrared'):raise ValueError('Sensor must be visible or infrared')
+        state=self.state()
+        if scene_id is not None and scene_id!=state['scene_id']:raise GimbalError('Scene identity mismatch')
+        if run_id is not None and run_id!=state['run_id']:raise GimbalError('Run identity mismatch')
+        return self.request('gimbal.point_at',position_cm=position,sensor=sensor,scene_id=state['scene_id'],run_id=state['run_id'])
+
+    def point_at_geodetic(self,reference,latitude_deg,longitude_deg,ellipsoid_height_m,sensor='visible',*,run_id=None):
+        """WGS84 ellipsoid height; reference is an explicitly configured anchor."""
+        return self.point_at_world(reference.geodetic_to_world(latitude_deg,longitude_deg,ellipsoid_height_m),sensor,scene_id=reference.scene_id,run_id=run_id)
+
+    def coordinates(self,reference=None):
+        """Native device locations plus optional explicitly anchored simulation LLA."""
+        state=self.state()
+        if reference is not None and reference.scene_id!=state['scene_id']:raise GimbalError('Scene identity mismatch')
+        devices=[]
+        for device in state['devices']:
+            item=dict(id=device['id'],kind=device['kind'],position_cm=list(device['position_cm']),position_m=[v/100 for v in device['position_cm']],geodetic=None)
+            if reference is not None:
+                lat,lon,h=reference.world_to_geodetic(device['position_cm'])
+                item['geodetic']=dict(latitude_deg=lat,longitude_deg=lon,ellipsoid_height_m=h)
+            devices.append(item)
+        return dict(scene_id=state['scene_id'],run_id=state['run_id'],reference=reference.to_dict() if reference else None,devices=devices)

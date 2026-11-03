@@ -6,6 +6,15 @@ from core.layouts import LayoutStore
 
 
 class LayoutTests(unittest.TestCase):
+    def test_optional_headings_roundtrip_and_invalid_heading_preserves_file(self):
+        with tempfile.TemporaryDirectory() as root:
+            store=LayoutStore(root);scene=dict(id='original',flight_origin_cm=[0,0,20],gimbal_location_cm=[0,0,0])
+            data=store.load(scene);data['headings_deg']={'flight_origin_cm':90,'gimbal_location_cm':-45}
+            path=store.save(data);before=path.read_bytes()
+            self.assertEqual(store.load(scene)['headings_deg'],data['headings_deg'])
+            data['headings_deg']['flight_origin_cm']=float('nan')
+            with self.assertRaises(ValueError):store.save(data)
+            self.assertEqual(before,path.read_bytes())
     def test_initial_pose_roundtrip_is_separate_and_invalid_write_preserves_saved_file(self):
         with tempfile.TemporaryDirectory() as root:
             store = LayoutStore(root)

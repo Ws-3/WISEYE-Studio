@@ -16,6 +16,22 @@ from pathlib import Path
 from core.config import ROOT, AppConfig
 
 
+class SensorDisabled(RuntimeError):
+    pass
+
+
+def stop_encoder(process):
+    if process is None:return
+    if process.stdin:
+        try:process.stdin.close()
+        except OSError:pass
+    if process.poll() is None:
+        process.terminate()
+    try:process.wait(timeout=2)
+    except subprocess.TimeoutExpired:
+        process.kill();process.wait(timeout=2)
+
+
 class UEFrameClient:
     """One persistent UE connection per stream avoids reconnecting every frame."""
 
@@ -68,6 +84,7 @@ class UEFrameClient:
         if response.get("request_id") != request_id:
             raise ValueError("UE returned an unexpected frame response")
         if response.get("status") != "ok":
+            if response.get('error',{}).get('code')=='sensor_disabled':raise SensorDisabled('Sensor disabled')
             raise RuntimeError(response.get("error", {}).get("message", "UE rejected the frame request"))
         payload = response["payload"]
         if payload.get("channel") != self.channel or payload.get("encoding") != "jpeg":
@@ -114,6 +131,8 @@ def publish_channel(args, channel: str, path: str, fps: int, device_id=None, sto
     while stop is None or not stop.is_set():
         started = time.monotonic()
         try:
+            # Do not start or retain an encoder for a stopped sensor.
+            frame = source.frame()
             if process is None or process.poll() is not None:
                 if process:
                     process.wait(timeout=1)
@@ -125,7 +144,6 @@ def publish_channel(args, channel: str, path: str, fps: int, device_id=None, sto
                     stderr=subprocess.DEVNULL,
                 )
                 previous = None
-            frame = source.frame()
             identity = (source.last_payload.get('frame_number'), source.last_payload.get('simulation_time_s'))
             if identity != previous:
                 assert process.stdin is not None
@@ -133,6 +151,9 @@ def publish_channel(args, channel: str, path: str, fps: int, device_id=None, sto
                 process.stdin.flush()
                 previous = identity
             failures = 0
+        except SensorDisabled:
+            stop_encoder(process);process=None;previous=None;failures=0
+            time.sleep(.5)
         except (OSError, ValueError, RuntimeError, json.JSONDecodeError) as exc:
             source.close()
             failures += 1
@@ -146,7 +167,7 @@ def publish_channel(args, channel: str, path: str, fps: int, device_id=None, sto
             time.sleep(remaining)
 
     source.close()
-    if process and process.poll() is None:process.terminate()
+    stop_encoder(process)
 
 def discover_gimbals(args):
     with socket.create_connection((args.ue_host,args.ue_port),timeout=3) as peer:

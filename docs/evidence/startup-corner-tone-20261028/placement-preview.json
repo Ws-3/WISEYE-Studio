@@ -1,0 +1,271 @@
+{
+  "window_title": "WISEYE \uff0864-\u4f4d Development PCD3D_SM6\uff09 ",
+  "passed": true,
+  "ptz-01": {
+    "hover": [
+      {
+        "active": true,
+        "has_result": false,
+        "preview_supported": true,
+        "preview_visible": true,
+        "preview_position_cm": [
+          -27913.296715103206,
+          -2512.251864961422,
+          4059.116816520691
+        ],
+        "preview_size_cm": [
+          81.14585378331685,
+          83.21470166160725,
+          81.80703743249387
+        ],
+        "device_id": "ptz-01",
+        "request_token": "preview-ptz-01",
+        "error": "",
+        "sequence": 19,
+        "position_cm": [
+          -27941.299589020673,
+          -2522.6690848880557,
+          4080
+        ],
+        "surface_cm": [
+          -27913.296715103206,
+          -2512.251864961422,
+          4055
+        ]
+      },
+      {
+        "active": true,
+        "has_result": false,
+        "preview_supported": true,
+        "preview_visible": true,
+        "preview_position_cm": [
+          -27911.74434607667,
+          -2513.859390359078,
+          4059.116816520691
+        ],
+        "preview_size_cm": [
+          81.14585378331685,
+          83.21470166160725,
+          81.80703743249387
+        ],
+        "device_id": "ptz-01",
+        "request_token": "preview-ptz-01",
+        "error": "",
+        "sequence": 19,
+        "position_cm": [
+          -27941.299589020673,
+          -2522.6690848880557,
+          4080
+        ],
+        "surface_cm": [
+          -27911.74434607667,
+          -2513.859390359078,
+          4055
+        ]
+      }
+    ],
+    "committed": {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27911.74434607667,
+        -2513.859390359078,
+        4059.116816520691
+      ],
+      "device_id": "ptz-01",
+      "request_token": "preview-ptz-01",
+      "error": "",
+      "sequence": 20,
+      "position_cm": [
+        -27911.74434607667,
+        -2513.859390359078,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27911.74434607667,
+        -2513.859390359078,
+        4055
+      ]
+    }
+  },
+  "mavic3": {
+    "hover": [
+      {
+        "active": true,
+        "has_result": false,
+        "preview_supported": true,
+        "preview_visible": true,
+        "preview_position_cm": [
+          -27913.296715103206,
+          -2512.251864961422,
+          4080
+        ],
+        "preview_size_cm": [
+          43.68658476799828,
+          43.84520237355446,
+          10.769999999999982
+        ],
+        "device_id": "uav-01",
+        "request_token": "preview-uav-01",
+        "error": "",
+        "sequence": 23,
+        "position_cm": [
+          -27911.74434607667,
+          -2513.859390359078,
+          4059.116816520691
+        ],
+        "surface_cm": [
+          -27913.296715103206,
+          -2512.251864961422,
+          4055
+        ]
+      },
+      {
+        "active": true,
+        "has_result": false,
+        "preview_supported": true,
+        "preview_visible": true,
+        "preview_position_cm": [
+          -27911.74434607667,
+          -2513.859390359078,
+          4080
+        ],
+        "preview_size_cm": [
+          43.68658476799828,
+          43.84520237355446,
+          10.769999999999982
+        ],
+        "device_id": "uav-01",
+        "request_token": "preview-uav-01",
+        "error": "",
+        "sequence": 23,
+        "position_cm": [
+          -27911.74434607667,
+          -2513.859390359078,
+          4059.116816520691
+        ],
+        "surface_cm": [
+          -27911.74434607667,
+          -2513.859390359078,
+          4055
+        ]
+      }
+    ],
+    "committed": {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27911.74434607667,
+        -2513.859390359078,
+        4080
+      ],
+      "device_id": "uav-01",
+      "request_token": "preview-uav-01",
+      "error": "",
+      "sequence": 24,
+      "position_cm": [
+        -27911.74434607667,
+        -2513.859390359078,
+        4080
+      ],
+      "surface_cm": [
+        -27911.74434607667,
+        -2513.859390359078,
+        4055
+      ]
+    }
+  },
+  "avata": {
+    "hover": [
+      {
+        "active": true,
+        "has_result": false,
+        "preview_supported": true,
+        "preview_visible": true,
+        "preview_position_cm": [
+          -27913.296715103206,
+          -2512.251864961422,
+          4080
+        ],
+        "preview_size_cm": [
+          18,
+          18,
+          8
+        ],
+        "device_id": "uav-01",
+        "request_token": "preview-uav-01",
+        "error": "",
+        "sequence": 27,
+        "position_cm": [
+          -27911.74434607667,
+          -2513.859390359078,
+          4080
+        ],
+        "surface_cm": [
+          -27913.296715103206,
+          -2512.251864961422,
+          4055
+        ]
+      },
+      {
+        "active": true,
+        "has_result": false,
+        "preview_supported": true,
+        "preview_visible": true,
+        "preview_position_cm": [
+          -27911.74434607667,
+          -2513.859390359078,
+          4080
+        ],
+        "preview_size_cm": [
+          18,
+          18,
+          8
+        ],
+        "device_id": "uav-01",
+        "request_token": "preview-uav-01",
+        "error": "",
+        "sequence": 27,
+        "position_cm": [
+          -27911.74434607667,
+          -2513.859390359078,
+          4080
+        ],
+        "surface_cm": [
+          -27911.74434607667,
+          -2513.859390359078,
+          4055
+        ]
+      }
+    ],
+    "committed": {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27911.74434607667,
+        -2513.859390359078,
+        4080
+      ],
+      "device_id": "uav-01",
+      "request_token": "preview-uav-01",
+      "error": "",
+      "sequence": 28,
+      "position_cm": [
+        -27911.74434607667,
+        -2513.859390359078,
+        4080
+      ],
+      "surface_cm": [
+        -27911.74434607667,
+        -2513.859390359078,
+        4055
+      ]
+    }
+  }
+}

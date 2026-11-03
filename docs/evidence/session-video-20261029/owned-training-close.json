@@ -1,0 +1,11 @@
+{
+  "owned_training_pid": 18152,
+  "owned_training_job_pids": [
+    18152
+  ],
+  "connected": true,
+  "training_exited": true,
+  "job_closed": true,
+  "external_simulator_still_alive": true,
+  "passed": true
+}

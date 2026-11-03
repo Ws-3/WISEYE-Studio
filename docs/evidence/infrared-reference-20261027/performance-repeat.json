@@ -1,0 +1,33 @@
+{
+  "run_id": "70A9F8034561C834749504B9D7E157C5",
+  "performance": {
+    "legacy": {
+      "samples": 40,
+      "ue_tick_hz": 29.991212574660516,
+      "fresh_ir_hz": 9.914450437904303,
+      "cache_age_ms_p50": 65.46895019710064,
+      "cache_age_ms_p95": 107.89156034588787,
+      "readout_ms_p50": null,
+      "readout_ms_p95": null
+    },
+    "reference_1x": {
+      "samples": 41,
+      "ue_tick_hz": 29.93428471495345,
+      "fresh_ir_hz": 10.01882182296401,
+      "cache_age_ms_p50": 166.0108007490635,
+      "cache_age_ms_p95": 199.7567005455494,
+      "readout_ms_p50": 12.033600807189941,
+      "readout_ms_p95": 14.603998184204102
+    },
+    "reference_2x": {
+      "samples": 42,
+      "ue_tick_hz": 26.626986646983603,
+      "fresh_ir_hz": 8.835318296499105,
+      "cache_age_ms_p50": 231.93705081939697,
+      "cache_age_ms_p95": 294.726233370602,
+      "readout_ms_p50": 10.356351852416992,
+      "readout_ms_p95": 15.102737283706663
+    }
+  },
+  "note": "Earlier 8-second samples with the same final UE binary and static scene. This harness run stopped before flight on a Python duplicate-keyword bug; these performance samples completed. Full corrected acceptance is report.json."
+}

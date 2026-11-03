@@ -1,4 +1,5 @@
 import logging
+import math
 import time
 from datetime import datetime
 from pathlib import Path
@@ -16,27 +17,7 @@ from apps.desktop_app.lidar_view import LidarView
 
 from apps.desktop_app.ui.theme import STYLE
 
-class ImageView(QLabel):
-    def __init__(self):
-        super().__init__('等待 CH1 可见光实时画面')
-        self.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.setMinimumSize(100, 60)
-        self.setStyleSheet('background:#111317; color:#b4bcc8; border:0;')
-        self.native_pixels = False
-        self.source = QPixmap()
-
-    def show_image(self, image):
-        self.source = QPixmap.fromImage(image) if isinstance(image, QImage) else image
-        self._fit()
-
-    def _fit(self):
-        if not self.source.isNull():
-            self.setPixmap(self.source if self.native_pixels else self.source.scaled(self.size(), Qt.AspectRatioMode.KeepAspectRatio,
-                                             Qt.TransformationMode.SmoothTransformation))
-
-    def resizeEvent(self, event):
-        super().resizeEvent(event)
-        self._fit()
+from apps.desktop_app.image_view import ImageView
 
 class MainWindow(QMainWindow):
     def __init__(self, config):
@@ -97,7 +78,11 @@ class MainWindow(QMainWindow):
         self.air_client.failed.connect(self.air_failed)
         self.connection_changed(False, '未连接')
         from core.runtime_paths import IS_RELEASE
-        self.log('工作台已启动。请选择场景，点击右上角“启动仿真”。' if IS_RELEASE else '工作台已启动。请先启动 Project AirSim 仿真，再连接。')
+        import os
+        self.log('工作台已启动，UE 正在自动启动…' if os.environ.get('WISEYE_SESSION_STATUS') else
+                 '工作台已启动，尚未启动 UE。点击右上角“启动仿真”，或在连接设置中连接已有仿真。')
+        from apps.desktop_app.startup_status import watch_startup
+        watch_startup(self)
 
     def resizeEvent(self,event):
         super().resizeEvent(event)
@@ -138,6 +123,10 @@ class MainWindow(QMainWindow):
         self.simulation_healthy=healthy
         self.health_label.setText(message)
         self.health_label.setStyleSheet('color:#89e1af' if healthy else 'color:#ffbf69')
+        if self.client.ready:
+            self.badge.setText('已连接 · 断开' if healthy else '推进异常 · 断开')
+            self.badge.setStyleSheet('color:#76d6a0;' if healthy else 'color:#e6b76c;')
+            self.badge.setToolTip(message)
         if changed and not healthy and self.client.ready:
             self.clear_gimbal_input()
             self.manual_keys.clear();self.manual_input=(0.,0.,0.,0.);self.send_manual_input()
@@ -159,44 +148,58 @@ class MainWindow(QMainWindow):
         self.client.connect_to(host, self.port.value())
         self.air_client.connect_to(host)
 
+    def disconnect_ue(self):
+        self.clear_gimbal_input();self.manual_keys.clear();self.stop_manual_input()
+        self.switch_target=None;self.reconnect_timer.stop()
+        self.air_client.disconnect_from();self.client.disconnect_from()
+
+    def toggle_connection(self):
+        if self.client.ready or self.client.connect_deadline is not None:self.disconnect_ue()
+        else:self.connect_ue()
+
+    def toggle_simulation(self):
+        manager=getattr(self,'runtime_manager',None)
+        if manager and manager.running:
+            self.clear_gimbal_input();self.manual_keys.clear();self.stop_manual_input()
+            manager.closing=True;manager.stop();self.sync_session_buttons()
+            self.log('正在安全关闭本次仿真，请等待降落和进程退出。')
+        else:self.launch_ue()
+
+    def sync_session_buttons(self):
+        manager=getattr(self,'runtime_manager',None)
+        running=bool(manager and manager.running)
+        closing=bool(running and manager.closing)
+        self.quick_connect.setText('正在关闭…' if closing else '关闭仿真' if running else '启动仿真')
+        self.quick_connect.setEnabled(not closing and (running or not self.client.ready))
+        self.quick_connect.setToolTip('安全关闭本次启动的仿真，等待无人机降落。' if running else
+                                     '已有外部仿真时可连接；外部进程请从其窗口关闭。' if self.client.ready else '启动所选场景，不改变连接配置。')
+        connecting=self.client.connect_deadline is not None
+        self.badge.setText('已连接 · 断开' if self.client.ready else '连接中 · 取消' if connecting else '未连接 · 连接')
+        self.badge.setEnabled(not closing)
+
+    def runtime_stopped(self):
+        self.disconnect_ue();self.sync_session_buttons()
+
+    def runtime_ready(self):
+        manager=getattr(self,'runtime_manager',None)
+        if manager and manager.running and not manager.closing:self.connect_ue()
+
     def launch_ue(self):
-        from core.runtime_paths import IS_RELEASE
-        if IS_RELEASE:
-            if not hasattr(self, 'runtime_manager'):
-                from apps.desktop_app.runtime_manager import RuntimeManager
-                self.runtime_manager = RuntimeManager(self)
-                self.runtime_manager.message.connect(self.log)
-                self.runtime_manager.ready.connect(self.connect_ue)
-            self.runtime_manager.launch(self.scenes.currentData() or {'id': 'original'})
-            return
-        import subprocess
         if self.client.ready:
-            self.log("UE 已运行，请使用场景切换；不会重复启动编辑器。")
-            return
-        scene = self.scenes.currentData() or {}
-        scene_id = scene.get('id', 'original')
-        if scene_id in ('original', 'test_range', 'city'):
-            arguments = ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
-                         str(ROOT/'scripts/Start-ProjectAirSim.ps1'), '-SkipBuild', '-Scene', scene_id]
-            message = '已请求启动 UE 与 AirSim；播放后待命，点击起飞开始任务。'
-        else:
-            arguments = ['-NoProfile', '-ExecutionPolicy', 'Bypass', '-File',
-                         str(ROOT/'scripts/Start-WISEYE.ps1'), '-SkipBuild', '-Map',
-                         scene.get('map', '/Game/WISEYE-test')]
-            message = '该地图尚无 AirSim 配置，已打开 UE；加载后请点击播放。'
-        try:
-            (ROOT/'logs').mkdir(exist_ok=True)
-            with (ROOT/'logs/desktop-launch.log').open('ab') as output:
-                subprocess.Popen(['powershell.exe', *arguments], cwd=ROOT, stdout=output, stderr=output,
-                                 creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
-            self.log(message)
-        except OSError as error:
-            self.log(f'UE 启动失败：{error}')
+            self.log('UE 已连接，请使用场景切换。');return
+        if not hasattr(self, 'runtime_manager'):
+            from apps.desktop_app.runtime_manager import RuntimeManager
+            self.runtime_manager = RuntimeManager(self)
+            self.runtime_manager.message.connect(self.log)
+            self.runtime_manager.ready.connect(self.runtime_ready)
+            self.runtime_manager.stopped.connect(self.runtime_stopped)
+        self.runtime_manager.launch(self.scenes.currentData() or {'id':'city'})
+        self.sync_session_buttons()
 
     def connection_changed(self, connected, text):
-        self.badge.setText('已连接' if connected else '未连接')
+        self.badge.setToolTip(text)
         self.badge.setStyleSheet('color:#76d6a0;' if connected else 'color:#b4bcc8;')
-        self.quick_connect.setEnabled(not connected and self.client.connect_deadline is None)
+        self.sync_session_buttons()
         self.connection_detail.setText(text)
         connecting = self.client.connect_deadline is not None
         self.connect_button.setEnabled(not connected and not connecting)
@@ -222,6 +225,7 @@ class MainWindow(QMainWindow):
             self.arrangement.tools.disconnected()
             self.sensor_applied.setText('实际参数：连接已断开，状态不可用')
             self.source_urls.setPlainText('仿真未连接，运行状态不可用。')
+            self.distance_label.setText('距所选云台：未连接')
             self.lidar.set_points([], 0, 0)
             self.dual_infrared.source=QPixmap();self.dual_infrared.clear()
             self.dual_visible.source = QPixmap()
@@ -279,24 +283,24 @@ class MainWindow(QMainWindow):
             self.air_client.request(command, payload)
         else:
             self.client.request(command, payload)
-        if command in ('camera.capture', 'sensor.lidar.capture'):
+        if command in ('camera.capture', 'sensor.lidar.capture','sensor.event.capture'):
             self.capture_button.setEnabled(False)
 
     def capture_sensor(self,sensor):
         self.capture_source(self.selected_gimbal,sensor)
 
     def capture_source(self,device,sensor):
-        if any(command in ('camera.capture','sensor.lidar.capture') for command,_ in self.client.pending.values()):
+        if any(command in ('camera.capture','sensor.lidar.capture','sensor.event.capture') for command,_ in self.client.pending.values()):
             self.log('正在保存数据，请等待当前保存完成。');return
         actual=self.gallery.states.get(device,self.state if device==self.selected_gimbal else {})
         if not actual.get('sensors',{}).get(sensor,{}).get('enabled',False):
             self.log('该传感器已停用，请先启用并应用设置。');return
         if not self.client.ready:
             self.log('请先连接 UE。');return
-        self.command('sensor.lidar.capture' if sensor=='lidar' else 'camera.capture',dict(device_id=device,**({} if sensor=='lidar' else {'sensor':sensor})))
+        self.command('sensor.event.capture' if sensor=='event' else 'sensor.lidar.capture' if sensor=='lidar' else 'camera.capture',dict(device_id=device,**({} if sensor in ('lidar','event') else {'sensor':sensor})))
 
     def capture_active_sensor(self):
-        self.capture_sensor(('visible','infrared','lidar')[self.sensor_settings.currentIndex()])
+        self.capture_sensor(('visible','infrared','lidar','event')[self.sensor_settings.currentIndex()])
 
     def apply_state(self, state):
         self.fleet_selection.inventory(state)
@@ -377,9 +381,9 @@ class MainWindow(QMainWindow):
         detail.setText(f"指向误差 {state['pointing_error_deg']:.3f}° · 真值指向")
         value, detail = self.summary_values['sensor']
         active_sensor = state.get('active_sensor', state['sensor_mode'])
-        sensor_names = {'visible': '可见光', 'infrared': '红外', 'lidar': '激光雷达'}
+        sensor_names = {'visible': '可见光', 'infrared': '红外', 'lidar': '激光雷达','event':'事件相机'}
         self.capture_button.setText('保存当前传感器页数据')
-        value.setText(f"{sum(bool(v.get('enabled')) for v in state.get('sensors',{}).values())} / 3 启用")
+        value.setText(f"{sum(bool(v.get('enabled')) for v in state.get('sensors',{}).values())} / {len(state.get('sensors',{}))} 启用")
         if active_sensor == 'lidar':
             detail.setText(
                 f"回波 {state.get('lidar_hits',0)}/{state.get('lidar_rays',0)} · 最近 {state.get('lidar_nearest_m',0):.1f} m")
@@ -409,6 +413,13 @@ class MainWindow(QMainWindow):
         ned=self.air_state.get('position_ned_m')
         position=[ned[0]*100,ned[1]*100,-ned[2]*100] if ned else next((d['position_cm'] for d in state.get('devices',[]) if d['id']==self.selected_drone),state['drone_position_cm'])
         self.position_label.setText(f'{self.selected_drone} 位置（m）\nX {position[0]/100:.2f} · Y {position[1]/100:.2f} · Z {position[2]/100:.2f}')
+        gimbal=next((d for d in state.get('devices',[]) if d['id']==self.selected_gimbal and d['kind']=='gimbal'),None)
+        base=gimbal.get('position_cm') if gimbal else state.get('gimbal_position_cm') if state.get('gimbal_id')==self.selected_gimbal else None
+        if base and len(base)==3:
+            dx,dy,dz=[(float(a)-float(b))/100 for a,b in zip(position,base)]
+            self.distance_label.setText(f'{self.selected_drone} → {self.selected_gimbal}\n三维距离 {math.sqrt(dx*dx+dy*dy+dz*dz):.2f} m · 水平 {math.hypot(dx,dy):.2f} m\n高差 {dz:+.2f} m')
+            self.distance_label.setToolTip('UE世界坐标几何真值；以所选云台底座为参考，不是激光测距回波。')
+        else:self.distance_label.setText('距所选云台：等待设备坐标')
         from apps.desktop_app.workbench_v3 import update_sources, refresh_inspector
         update_sources(self)
         refresh_inspector(self)
@@ -596,7 +607,7 @@ class MainWindow(QMainWindow):
         self.gallery.sync_clients()
 
     def completed(self, command, state):
-        if state.get('gimbal_id',self.selected_gimbal)!=self.selected_gimbal and command not in ('sim.load_scene','camera.capture','sensor.lidar.capture'):return
+        if state.get('gimbal_id',self.selected_gimbal)!=self.selected_gimbal and command not in ('sim.load_scene','camera.capture','sensor.lidar.capture','sensor.event.capture'):return
         if command == 'sensor.lidar.set_parameters':
             self.lidar_dirty.clear()
             self.apply_state(state)
@@ -606,7 +617,8 @@ class MainWindow(QMainWindow):
             if not self.switch_target:
                 self.log('UE 未返回切换目标，请检查引擎版本。')
                 return
-            self.switch_deadline = time.monotonic() + 90
+            self.switch_timeout_seconds = 900 if self.switch_target == 'city_large' else 90
+            self.switch_deadline = time.monotonic() + self.switch_timeout_seconds
             self.reconnect_timer.start()
             self.switch_button.setEnabled(False)
             self.image.source = QPixmap()
@@ -618,10 +630,14 @@ class MainWindow(QMainWindow):
             return
         if command == 'sensor.lidar.get_points':
             point_count = state.get('lidar_point_count', 0)
-            self.lidar.set_points(state.get('lidar_points_m', []), point_count, state.get('lidar_rays', 0))
+            self.lidar.set_points(state.get('lidar_points_m', []), point_count, state.get('lidar_rays', 0),
+                                  state.get('lidar_horizontal_fov_deg',30),state.get('lidar_vertical_fov_deg',8))
             if self.video_channel.currentData() == 'LIDAR':
                 self.image_caption.setText(
                     f"LIDAR 激光点云 · 实时 · {point_count} 个回波点 · 最近 {state.get('lidar_nearest_m', 0):.1f} m")
+        elif command == 'sensor.event.capture':
+            self.capture_button.setEnabled(self.client.ready)
+            self.log(f"已保存最近事件窗口：{state.get('event_last_export_path','UE Saved/WISEYE')}")
         elif command == 'sensor.lidar.capture':
             self.capture_button.setEnabled(self.client.ready)
             point_count = state.get('lidar_point_count', state.get('lidar_hits', 0))
@@ -666,30 +682,53 @@ class MainWindow(QMainWindow):
     def failed(self, command, message):
         self.arrangement.tools.failed(command, message)
         self.log(f'操作失败：{message}')
-        if command in ('camera.capture', 'sensor.lidar.capture'):
+        if command in ('camera.capture', 'sensor.lidar.capture','sensor.event.capture'):
             self.capture_button.setEnabled(self.client.ready)
 
     def closeEvent(self, event):
         self.sensor_settings.stash()
-        if self.sensor_settings.pending or any(item.get('dirty') for item in self.sensor_settings.bank.values()):
+        device_draft=hasattr(self,'device_page') and self.device_page.has_draft()
+        if not getattr(self, '_exit_confirmed', False) and (device_draft or self.sensor_settings.pending or any(item.get('dirty') for item in self.sensor_settings.bank.values())):
             from PySide6.QtWidgets import QMessageBox
-            answer=QMessageBox.question(self,'退出工作台','存在未应用的传感器草稿或尚未确认的提交。退出将丢弃本地草稿，已经发送的操作可能已生效。是否退出？',QMessageBox.StandardButton.Yes|QMessageBox.StandardButton.Cancel,QMessageBox.StandardButton.Cancel)
+            answer=QMessageBox.question(self,'退出工作台','存在未保存的设备编辑、未应用的传感器草稿或尚未确认的提交。退出将丢弃本地草稿，已经发送的操作可能已生效。是否退出？',QMessageBox.StandardButton.Yes|QMessageBox.StandardButton.Cancel,QMessageBox.StandardButton.Cancel)
             if answer!=QMessageBox.StandardButton.Yes:
                 event.ignore();return
+        self._exit_confirmed = True
+        self.runtime_panel.rating_timer.stop()
         manager = getattr(self, 'runtime_manager', None)
-        if manager and manager.running:
-            fleet = getattr(self, 'air_state', {}).get('fleet', [])
-            if any(item.get('flight_status') != 'ready' for item in fleet):
-                self.log('请先降落全部无人机，再退出仿真。')
-                event.ignore()
-                return
-            if not manager.closing:
-                manager.closing = True
-                manager.stopped.connect(self.close)
-                manager.stop()
+        if not getattr(self, '_training_job', None) and not (manager and manager.running):
+            self._shutdown_complete = True
+        if not getattr(self, '_shutdown_complete', False):
             event.ignore()
+            if not getattr(self, '_shutdown_started', False):
+                import threading
+                from PySide6.QtCore import QTimer
+                from apps.desktop_app.training_launcher import close_owned_training
+                self._shutdown_started = True
+                self.clear_gimbal_input(); self.stop_manual_input()
+                self.log('正在停止训练采集并关闭本次启动的仿真，请稍候…')
+                self.setEnabled(False)
+                manager = getattr(self, 'runtime_manager', None)
+                def finish():
+                    try:
+                        close_owned_training(self)
+                    finally:
+                        if manager and manager.running:
+                            manager.stop()
+                            while manager.running:time.sleep(.1)
+                        self._shutdown_complete = True
+                threading.Thread(target=finish, daemon=True).start()
+                self._close_timer = QTimer(self)
+                self._close_timer.timeout.connect(lambda: self.close() if getattr(self,'_shutdown_complete',False) else None)
+                self._close_timer.start(100)
             return
+        if getattr(self, '_close_timer', None):self._close_timer.stop()
         if getattr(self,'route_editor',None):self.route_editor.close()
+        if hasattr(self,'machine_summary'):self.machine_summary.dialog.close()
+        if getattr(self.runtime_panel,'dialog',None):self.runtime_panel.dialog.close()
+        if getattr(self,'gimbal_device_dialog',None):self.gimbal_device_dialog.close()
+        from apps.desktop_app.workbench_polish import AdvancedControl
+        for section in self.findChildren(AdvancedControl):section.dialog.close()
         from PySide6.QtCore import QSettings
         QSettings('WISEYE','Studio').setValue('workbench/split',self.workbench_split.saveState())
         self.gallery.shutdown()
@@ -709,7 +748,7 @@ class MainWindow(QMainWindow):
         super().closeEvent(event)
 
     def refresh_scenes(self):
-        previous = (self.scenes.currentData() or {}).get('id')
+        previous = (self.scenes.currentData() or {}).get('id') or 'city'
         self.scenes.clear()
         scenes, _ = SceneStore(ROOT).list()
         for scene in scenes:
@@ -738,6 +777,6 @@ class MainWindow(QMainWindow):
             self.reconnect_timer.stop()
             self.switch_target = None
             self.switch_button.setEnabled(self.client.ready)
-            self.log('场景切换未在 90 秒内确认；请检查 UE 地图加载结果，再手动连接。')
+            self.log(f'场景切换未在 {self.switch_timeout_seconds} 秒内确认；请检查 UE 地图加载结果，再手动连接。')
         elif not self.client.ready and self.client.connect_deadline is None:
             self.client.connect_to(self.host.text().strip(), self.port.value())

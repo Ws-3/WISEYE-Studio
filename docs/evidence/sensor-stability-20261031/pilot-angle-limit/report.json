@@ -1,0 +1,111 @@
+{
+  "passed": false,
+  "scenes": {
+    "city": {
+      "power": [
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        }
+      ],
+      "gain": [],
+      "initial_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "all_off_control_and_observer_alive": true,
+      "clear_visible": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 425728,
+        "grey_percentiles": [
+          25.0,
+          74.0,
+          144.0
+        ],
+        "frame": 224
+      },
+      "clear_infrared": {
+        "size": [
+          640,
+          512
+        ],
+        "bytes": 44245,
+        "grey_percentiles": [
+          21.0,
+          25.0,
+          119.0
+        ],
+        "frame": 239
+      },
+      "rain": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0.699999988079071,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 2,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      }
+    }
+  },
+  "limits": "No flight, no all-city traversal, visual weather only; isolated data",
+  "owned_session_stopped": true
+}

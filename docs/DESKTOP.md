@@ -1,24 +1,30 @@
 # WISEYE 桌面窗口运行说明
 
+最新启动要求（2026-10-30）：根 VBS 现在只打开桌面，不自动启动 UE。右上“启动仿真”由用户手动触发；已有 UE 从资源设置连接。下方“一次启动完整预览”的文字为旧入口行为，已被取代。UI 未完成项见 [差异复核](UI_V4_GAP_REVIEW.md)。
+
+2026-10-30：源码已切换 V4 原生 Qt 界面，启动命令不变。五项左侧导航、场景编排观察画面、参数停靠栏及训练双路主画面的操作与真实验收见 [UI_V4_IMPLEMENTATION.md](UI_V4_IMPLEMENTATION.md)。旧包未重建；下文 V3 布局为历史记录。
+
+2026-10-28：本机日常统一双击根目录 **`Start-WISEYE-Studio.vbs`**，一次启动当前城市预览、飞控和桌面。下方保留的分步 PowerShell 命令面向开发；在仓库 PowerShell 执行，遇执行策略限制加 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File`。已启动UE时仅重开桌面用 `scripts/Start-Desktop.ps1 -Connect`。详见[当前使用指南](USER_GUIDE.md)。
+
 ## 当前使用入口（2026-10-22）
 
-请优先阅读[完整使用指南](USER_GUIDE.md)和[实际传感器延迟报告](SENSOR_LATENCY_REPORT.md)。城市已经接入；当前城市场景默认节能、地面待命，使用Start-CitySample.vbs启动。
+请优先阅读[完整使用指南](USER_GUIDE.md)和[实际传感器延迟报告](SENSOR_LATENCY_REPORT.md)。城市已经接入；当前城市场景默认节能、地面待命，使用scripts/Start-ProjectAirSim.ps1 -Scene city -SkipBuild启动。
 
 以下保留开发阶段记录，其中旧布局、固定设备数量和“城市待下载”等表述不代表当前功能，以最新指南和磁盘配置为准。
 
 ## V3 界面运行（2026-10-21，本节优先）
 
-重开 `Start-WISEYE-Studio.vbs` 即为新版；无需重编译 UE。默认场景大画面+传感器缩略图，顶部选择双模态/多源监看；画面“更多”可替换、原始单帧、1:1、弹窗或移除，拖动标题换位、拖动分隔条调整比例。跨云台画面固定绑定来源，切驾驶/云台对象不会换画面或关闭它的弹窗。设备树只选属性，需要显式设为驾驶对象才切飞行目标。参数编辑支持按设备保留草稿与请求确认，底部应用/撤销固定可见。航线入口只打开编辑器，上传后需单独执行；RPM为只读。详见 [UI_REDESIGN_IMPLEMENTATION.md](UI_REDESIGN_IMPLEMENTATION.md)。下方旧总览随所选云台变化、切云台关闭弹窗等说明已被新版替代。
+重开 `scripts/Start-Desktop.ps1 -Connect` 即为新版；无需重编译 UE。默认场景大画面+传感器缩略图，顶部选择双模态/多源监看；画面“更多”可替换、原始单帧、1:1、弹窗或移除，拖动标题换位、拖动分隔条调整比例。跨云台画面固定绑定来源，切驾驶/云台对象不会换画面或关闭它的弹窗。设备树只选属性，需要显式设为驾驶对象才切飞行目标。参数编辑支持按设备保留草稿与请求确认，底部应用/撤销固定可见。航线入口只打开编辑器，上传后需单独执行；RPM为只读。详见 [UI_REDESIGN_IMPLEMENTATION.md](UI_REDESIGN_IMPLEMENTATION.md)。下方旧总览随所选云台变化、切云台关闭弹窗等说明已被新版替代。
 
 ## 2026-10-21 运行更新（优先于下方旧旋翼快捷键说明）
 
-使用 `Start-ProjectAirSim.vbs` 和 `Start-WISEYE-Studio.vbs` 可隐藏后台命令行。起飞前地面待命，AirSim 电机按实时遥测显示 RPM，只随实际起降启停，O 不再伪造动画。当前用户布局3机2云台；配置以 Fleets 文件为准。
+使用根目录 `Start-WISEYE-Studio.vbs` 可隐藏启动后台命令行。起飞前地面待命，AirSim 电机按实时遥测显示 RPM，只随实际起降启停，O 不再伪造动画。设备数量以当前 Fleets 文件为准。
 
 顶部新增画质/均衡/节能，默认均衡。GPU 满载时可切节能；会降低捕获频率、阴影和动态间接光，分辨率不变。下方“UE正在推进”与网络已连接独立；约3秒推进停滞将提示异常并拦截新起飞。操作与实测见 [RUNTIME_OPTIMIZATION.md](RUNTIME_OPTIMIZATION.md)。外部云台接口见 [GIMBAL_INTERFACE.md](GIMBAL_INTERFACE.md)。City Sample 已选择但按用户要求稍后下载，见 [CITY_SAMPLE_SETUP.md](CITY_SAMPLE_SETUP.md)。
 
 ## 多设备运行（2026-10-21）
 
-1. 通过 `Start-ProjectAirSim.cmd` 启动，再打开 `Start-Desktop.cmd` 连接。当前原始场景预设两架无人机和两套云台，全部待命。
+1. 通过 `scripts/Start-ProjectAirSim.ps1` 启动，再打开 `scripts/Start-Desktop.ps1` 连接。当前原始场景预设两架无人机和两套云台，全部待命。
 2. 顶部“驾驶对象”和“云台对象”分别选择实例。起飞/降落/手动飞行/旋翼/航线只作用于驾驶对象；摇杆、传感器参数与保存只作用于云台对象。设备树也能选择实例；切对象不会自动开始飞行。
 3. 云台属性里的跟踪目标可独立选择任意已配置无人机。“无人机跟随”视角跟随驾驶对象，“光电云台”视角跟随云台对象；UE O/T/I/缩放/P 快捷键也按当前所选对象操作。
 4. 点击“新增 / 管理场景设备”或编排页同名入口：新增/复制无人机或云台，修改名字、型号、位置（米、Z 向上）、初始偏航和云台默认目标。默认实例保留，每类最多 4 个；俯仰/横滚初始值固定 0。保存只改草稿文件；“保存并加载场景”要求飞控连接且所有无人机已降落，再重建实例。
@@ -42,7 +48,7 @@
 
 ## 2026-10-21 工作台更新
 
-启动仍为仓库根目录 `Start-ProjectAirSim.cmd`，待 UE 播放后运行 `Start-Desktop.cmd` 并连接；已有旧视频服务时先关闭再启动，使 MediaMTX 加载新增 OBS 通道。无人机初始为地面待命，点击“起飞”，待动作完成后执行任务。
+启动仍为仓库根目录 `scripts/Start-ProjectAirSim.ps1`，待 UE 播放后运行 `scripts/Start-Desktop.ps1` 并连接；已有旧视频服务时先关闭再启动，使 MediaMTX 加载新增 OBS 通道。无人机初始为地面待命，点击“起飞”，待动作完成后执行任务。
 
 - **云台方向键**：顶部键盘控制选“操作云台”，在非文本/数值编辑区域按 ↑↓←→，或按住云台属性中的方向按钮。按方向会退出跟踪并保持方向；松键、窗口失焦、切控制模式停止，UE 另有 300 ms 输入超时保护。数字输入框中的箭头仍编辑数字。自动跟踪可用原有按钮恢复。
 - **航线**：无人机属性点击“编辑航线 / 管理任务”。航点为 UE 世界坐标米、Z 向上；表格编辑高度、XY 俯视图拖动位置，支持增加/删除、排序、用当前位置替换、速度、单次/循环。打开/保存 JSON 默认 `configs/routes/`，可随 Git 同步。先起飞再“上传并开始”；仅“上传草稿”不运动，上传新草稿不改变正在执行的快照。逐点执行，拐点减速；暂停保留下一未完成航点，继续前往该点；停止转为悬停。当前只有 uav-01，无自动避障或多架任务。
@@ -52,7 +58,7 @@
 
 2026-10-21 本机验证：testEditor 构建成功；28 项单元测试、11 项 Qt/UE/AirSim/RTSP 联调通过，结束降落待命。证据见 `docs/evidence/workbench_v3_live_20261021.json` 和同日截图。未测视频端到端延迟或长时稳定性；接收 FPS 不等于独立渲染帧率。
 
-> 实时图像已接入：CH1 可见光、CH2 红外。首次使用先运行 `scripts/Setup-RTSP.ps1`，详见 [RTSP.md](RTSP.md)。`Start-ProjectAirSim.cmd` 会自动启动视频服务。
+> 实时图像已接入：CH1 可见光、CH2 红外。首次使用先运行 `scripts/Setup-RTSP.ps1`，详见 [RTSP.md](RTSP.md)。`scripts/Start-ProjectAirSim.ps1` 会自动启动视频服务。
 
 当前窗口同时连接本机 UE（50051）、AirSim 飞控（50052）和 RTSP（8554），支持起飞/悬停/降落、物理复位、自动/手动飞行、Mavic 3/Avata 外观切换、云台、旋翼、CH1/CH2 画面和激光点云。
 
@@ -84,8 +90,8 @@
 ## 这台电脑每天运行
 
 1. 保存并关闭 UE 后，在仓库执行 `git pull --ff-only`，同步另一台电脑的成果。
-2. 双击仓库根目录 `Start-ProjectAirSim.cmd`。等待 UE 播放与飞控连接；默认地面待命，点击“起飞”后开始。
-3. 双击 `Start-Desktop.cmd`。点击“连接 UE”；窗口会同时连接 50051 和 50052。
+2. 在仓库 PowerShell 中运行 `scripts/Start-ProjectAirSim.ps1`。等待 UE 播放与飞控连接；默认地面待命，点击“起飞”后开始。
+3. 在 PowerShell 中运行 `scripts/Start-Desktop.ps1`。点击“连接 UE”；窗口会同时连接 50051 和 50052。
 4. 起飞完成后，选择“手动飞行”与“驾驶无人机”输入模式，再按住九键控制区按钮飞行；切到“激光点云”查看实时扫描。复位会按物理航迹返回原点。
 5. 结束时先断开/关闭窗口，停止 UE 播放，在 UE 保存全部资源。
 
@@ -101,7 +107,7 @@ ZIP 不包含 `.venv`，所以首次点击 Start-Desktop 可能提示 `Desktop e
 cd D:\Projects\WISEYE-Studio
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\Start-Desktop.cmd
+.\scripts\Start-Desktop.ps1
 ```
 
 上面的目录请按本机实际位置修改。当前启动脚本固定使用 `.venv\Scripts\pythonw.exe`；只在 conda 环境安装依赖不能满足该检查。更新 ZIP 时保留本机 `.venv`，如 requirements.txt 有变化，再运行安装命令。ZIP 没有 `.git`，不能直接在解压目录执行 git pull；需另行 git clone 才能使用 Git 同步。
@@ -119,13 +125,13 @@ cd WISEYE-Studio
 Set-Content -Path scripts\engine-root.local.txt -Value 'E:\Programs\UE_5.8'
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\Start-WISEYE.cmd
+.\scripts\Start-WISEYE.ps1
 ```
 
 UE 加载后点击播放，再运行：
 
 ```powershell
-.\Start-Desktop.cmd
+.\scripts\Start-Desktop.ps1
 ```
 
 不需激活虚拟环境；启动脚本固定使用本仓库 `.venv`。不要复用或升级已有训练环境。模型、材质、关卡都在 Git 中，无需重新导入。每台电脑的引擎路径与虚拟环境不上传。
@@ -137,7 +143,7 @@ UE 加载后点击播放，再运行：
 - 使用 Anaconda 创建 venv 时出现 QtCore/QtWidgets `DLL load failed`：2026-10-15 的桌面入口已处理系统 ICU 与 conda 同名 DLL 的冲突；用 Start-Desktop 或 `python -m apps.desktop_app.main` 启动，不要删除 conda 的 DLL。
 - 首次 UE 构建失败：检查 VS 的 C++ 工作负载和 SDK；关闭已保存的旧 UE 编辑器再构建。不要只复制另一台电脑的 Binaries。
 - 引擎找不到：修正 `scripts/engine-root.local.txt` 为包含 Engine 子目录的安装根目录。
-- CH1/CH2 不更新：确认由 `Start-ProjectAirSim.cmd` 启动了 RTSP 服务，`ffmpeg -version` 可运行，并检查 `logs/rtsp-gateway-error.log`；“保存当前传感器”仍是单帧 PNG/PLY 导出。
+- CH1/CH2 不更新：确认由 `scripts/Start-ProjectAirSim.ps1` 启动了 RTSP 服务，`ffmpeg -version` 可运行，并检查 `logs/rtsp-gateway-error.log`；“保存当前传感器”仍是单帧 PNG/PLY 导出。
 - 桌面报错：在仓库运行 `.\.venv\Scripts\python.exe -m apps.desktop_app.main` 查看终端输出，日志在 `logs/desktop_app.log`。
 
 当前桥仅监听回环地址；另一台电脑需自行运行 UE 和桌面窗口。跨电脑同步的是 Git 工程，当前不是两台电脑远程连接仿真。
@@ -148,7 +154,7 @@ UE 加载后点击播放，再运行：
 
 UE 内先进入 Play、点击游戏画面，按 M 进入手动，再用 WASD、↑↓、Q/E；空格暂停/恢复，R 复位，T 跟踪/保持，Tab 视角切换。AirSim 暂停是物理悬停，物理时钟继续；外观仍跟随物理位置，避免起飞/降落时画面冻结。
 
-停止再播放 UE 后，飞控服务会检测新会话并重新加载当前场景，桌面自动恢复飞控连接。若仍显示未连接，检查是否从 Start-ProjectAirSim.cmd 启动，勿同时运行两个 runner。
+停止再播放 UE 后，飞控服务会检测新会话并重新加载当前场景，桌面自动恢复飞控连接。若仍显示未连接，检查是否从 scripts/Start-ProjectAirSim.ps1 启动，勿同时运行两个 runner。
 
 设备外形：Mavic 3 机身不含桨叶为 34.75×28.3×10.77 cm；初代 Avata 含护圈为 18×18×8 cm；云台高 80 cm。真实尺寸的 Avata 会明显小于 Mavic，可使用视角切换/变焦查看。
 

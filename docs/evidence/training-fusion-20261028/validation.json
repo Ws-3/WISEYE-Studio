@@ -1,0 +1,36 @@
+{
+  "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+  "core_tests": 68,
+  "existing_qt_regressions": 20,
+  "new_fusion_qt_tests": 6,
+  "single_vbs_launcher_passed": true,
+  "standalone_folder_import_passed": true,
+  "simulator_owned_service_passed": true,
+  "live_pair_checks": {
+    "same_tick": true,
+    "different_fov": true,
+    "disabled_rejected": true,
+    "resumed_fresh": true,
+    "paired_negatives": true,
+    "single_source": true
+  },
+  "gui_three_views_passed": true,
+  "source_build_sha256": {
+    "WiseEyeDemo.h": "bb47b589c86ee355911979037deba3fea3c557f8ff5350a2d10656e4a8125b94",
+    "WiseEyeDemo.cpp": "4b42c4b7a1f87b6862a1487dc2a3f65ce1d3273b3535eeb5aad2e797b6e59fe5",
+    "WiseEyeBridge.cpp": "c5e7b23bf1213628a1365dd9497efc50a0268f7d57704392309285c42e804a4a"
+  },
+  "flight_status": "ready",
+  "motor_rpm": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "limits": [
+    "no physical two-PC test",
+    "fusion is calibrated-FOV alpha blending, not learned fusion",
+    "same optical center/rotation required",
+    "no actual training or updated Shipping package"
+  ]
+}

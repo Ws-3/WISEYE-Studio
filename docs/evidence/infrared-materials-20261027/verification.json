@@ -1,0 +1,18 @@
+{
+  "core_tests": 58,
+  "qt_tests": 17,
+  "native_math": "passed",
+  "editor_build": "succeeded: build-material-acceptance.log",
+  "matching_native_sources": {
+    "WiseEyeBridge.cpp": true,
+    "WiseEyeDemo.cpp": true,
+    "WiseEyeDemo.h": true,
+    "WiseEyeSensors.cpp": true,
+    "WiseEyeStreaming.cpp": true,
+    "WiseEyeStreaming.h": true,
+    "WiseEyeThermalMath.h": true
+  },
+  "material_sha256": "19180ecc20e3d55825816f343d31a9fb69963dbd4a58fb69f1626e1c4c660fb6",
+  "fleet_sha256": "bc48982ddb6043eca0fb6dbf7a4d61a249e8b15918590e8df2188b9587fb2fa6",
+  "notes": "Final full runtime test report.json and legacy compatibility passed. Selective actor-package tagging reapply and Windows PowerShell 5.1 audit wrapper executed; no Shipping rebuild or push."
+}

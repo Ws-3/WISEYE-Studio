@@ -1,0 +1,20 @@
+{
+  "building_baseline.png": "455f760b168bbf0beb0b3d90d426095522c2bad5cfd613c42c5e328349ecb7b8",
+  "building_smooth.png": "a1dff73b20d0378ba5b8c70f129df1d3d6f5ff27e21e22284aa4045111b42ae3",
+  "cloud_baseline.png": "2b7817025a32fb1953ea40abb990c539896a71cc6fdb5ae60b20088ca5b5fb0b",
+  "cloud_raw_baseline.png": "f3f3ab340c37cd3964fef141e3f3f110ae01f2beedaa722b860b728f9137e37a",
+  "cloud_raw_smooth.png": "85a285d88d92737247363db931e5fa614742b2e0d9c6dbf0908cd251685bc9f2",
+  "cloud_smooth.png": "36b980aee664da316f0fcba107fad63978046449ef03aff8aa4b5189fb2247be",
+  "cloud.f32": "0d3a37ac1db8bc3252cc0fb8e2fb248d2e50d913ab118281752d155fb4c010ec",
+  "cloud.raw.json": "9b6c243f753f3ce0540801e5752dfd4f87d97d71d61764e2c196615ed49f6785",
+  "cloud.sky.u8": "eb2cfd1edc710cf455dc1dc8f7e469f3bd84f3164def9001e130d78e630fc050",
+  "cloud.target.u8": "dae4d3dce1bb0a9414f61a65ee07622fa225ec01e6efe6df6e78f9ad5c58480d",
+  "comparison.png": "914593774ab47abd34493eb704e86dc8dd0c9ac1a9813249fc7c29b6ecd7c868",
+  "controls.png": "3a3e1e59b4b0eff234a2ee6989a46a93dd0ff11e1248d0cf465f8dc5445c7f32",
+  "final-state.json": "189690e1e4b92b33ec9830ef1709a4e782c71943e5f568ee5e745db88afc8c23",
+  "landed_small_target_baseline.png": "92cd99722d8528a5936e4025e9c33368adb840a61b895dab238de509ee4d9273",
+  "landed_small_target_smooth.png": "5f5f8712d94f00e9f6584751747e7a9a5e3b76192623c8d45dc56ef9ee92a45b",
+  "report.json": "8f16fd1175bae2925ac01b94e7a612dd4fbbced6058873067d88ac2d51703e54",
+  "target-regression.json": "5713e5aae996d0510b59ae0079568315a0f4bf015c2f4b4f7e8a7753fb0f2c1e",
+  "verification.json": "5a12344879f21f999c41d15f9fe9d2a8c0ea1750022ec54ee933dbef5324f74e"
+}

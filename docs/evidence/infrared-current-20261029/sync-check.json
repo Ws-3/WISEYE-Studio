@@ -1,0 +1,19 @@
+[
+  {
+    "file": "WiseEyeSensors.cpp",
+    "match": true
+  },
+  {
+    "file": "WiseEyeStreaming.cpp",
+    "match": true
+  },
+  {
+    "file": "WiseEyeThermalMath.h",
+    "match": true
+  },
+  {
+    "file": "M_IR_Facade.uasset",
+    "match": true,
+    "sha256": "3f4d63877d7d4c1ac3dae34d0f597c54bbc36d5ad51e8429a14d5f7cca41f669"
+  }
+]

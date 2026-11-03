@@ -1,0 +1,12 @@
+{
+  "pair_id": "D6C1C35B4A3EF13C3CF8CC9A3041395F",
+  "run_id": "F74655FF46DAC33F89D350866FB4012F",
+  "simulation_time_s": 6.579838275909424,
+  "samples": {
+    "visible": "7bc3b5be5a48ddb82d61b38d",
+    "infrared": "3f222ad3771539c71c999828"
+  },
+  "training_eligible": true,
+  "capture_delta_ms": 0.0,
+  "request_round_trip_ms": 321.22090000484604
+}

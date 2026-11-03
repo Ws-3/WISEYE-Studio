@@ -1,0 +1,3878 @@
+{
+  "map": "/Game/WISEYE/Scenes/city_large/BigCity.BigCity",
+  "descriptors": 101981,
+  "classes": {
+    "Actor": 68369,
+    "PackedLevelActor": 24208,
+    "WorldPartitionHLOD": 6061,
+    "WorldAudioDataClusterActor": 2739,
+    "StaticMeshActor": 261,
+    "GroupActor": 170,
+    "CitySampleConvertedISMActor": 124,
+    "PostProcessVolume": 4,
+    "DecalActor": 16,
+    "MassSpawner": 5,
+    "CineCameraActor": 7,
+    "WorldDataLayers": 1,
+    "BlockingVolume": 6,
+    "PlayerStart": 1,
+    "ZoneGraphData": 1,
+    "DirectionalLight": 1,
+    "CameraActor": 1,
+    "SkyLight": 1,
+    "CitySampleWorldInfo": 1,
+    "WorldPartitionMiniMap": 1,
+    "ExponentialHeightFog": 1,
+    "CitySampleMassVehicleBase": 2
+  },
+  "candidates": [
+    {
+      "label": "BP_MassTrafficIntersectionSpawner",
+      "cls": "MassSpawner",
+      "path": "<Struct 'SoftObjectPath' (0x0000023043B4A9D8) {}>",
+      "guid": "<Struct 'Guid' (0x0000023043B4A9C0) {}>",
+      "bounds": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "label": "BPP_Plaza_PlayerStart",
+      "cls": "PackedLevelActor",
+      "path": "<Struct 'SoftObjectPath' (0x0000023043B4AAB8) {}>",
+      "guid": "<Struct 'Guid' (0x0000023043B4AAA0) {}>",
+      "bounds": [
+        [
+          -105089.1964128718,
+          -15996.287031255797,
+          71.02469635009766
+        ],
+        [
+          -103336.6955696439,
+          -14984.847262526044,
+          785.5802993774414
+        ]
+      ]
+    },
+    {
+      "label": "BP_MassTrafficParkedVehicleSpawner",
+      "cls": "MassSpawner",
+      "path": "<Struct 'SoftObjectPath' (0x0000023043B44DF8) {}>",
+      "guid": "<Struct 'Guid' (0x0000023043B44DE0) {}>",
+      "bounds": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "label": "PlayerStart",
+      "cls": "PlayerStart",
+      "path": "<Struct 'SoftObjectPath' (0x0000023043B45878) {}>",
+      "guid": "<Struct 'Guid' (0x0000023043B45860) {}>",
+      "bounds": [
+        [
+          -72220.28569991227,
+          -38874.49924346295,
+          507.999755859375
+        ],
+        [
+          -71920.38323824956,
+          -38664.299912452305,
+          691.999755859375
+        ]
+      ]
+    },
+    {
+      "label": "BP_MassCrowdSpawner",
+      "cls": "MassSpawner",
+      "path": "<Struct 'SoftObjectPath' (0x0000023043B47478) {}>",
+      "guid": "<Struct 'Guid' (0x0000023043B47460) {}>",
+      "bounds": [
+        [
+          -227664.28125,
+          -396513.0625,
+          62.413482666015625
+        ],
+        [
+          189815.5,
+          103796.2109375,
+          3169.360107421875
+        ]
+      ]
+    },
+    {
+      "label": "BP_nightmode",
+      "cls": "Actor",
+      "path": "<Struct 'SoftObjectPath' (0x0000023043B4E0F8) {}>",
+      "guid": "<Struct 'Guid' (0x0000023043B4E0E0) {}>",
+      "bounds": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "label": "BP_MassTrafficVehicleSpawner",
+      "cls": "MassSpawner",
+      "path": "<Struct 'SoftObjectPath' (0x0000023043B44B58) {}>",
+      "guid": "<Struct 'Guid' (0x0000023043B44B40) {}>",
+      "bounds": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "label": "BP_MassTrafficTrailerSpawner",
+      "cls": "MassSpawner",
+      "path": "<Struct 'SoftObjectPath' (0x0000023043B49078) {}>",
+      "guid": "<Struct 'Guid' (0x0000023043B49060) {}>",
+      "bounds": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ]
+    },
+    {
+      "label": "BPP_Plaza_PlayerStart",
+      "cls": "PackedLevelActor",
+      "path": "<Struct 'SoftObjectPath' (0x0000023043B4AB98) {}>",
+      "guid": "<Struct 'Guid' (0x0000023043B4AB80) {}>",
+      "bounds": [
+        [
+          23323.292133018927,
+          -272848.5164733841,
+          70.0
+        ],
+        [
+          24850.152282711977,
+          -270979.5032972124,
+          784.5556030273438
+        ]
+      ]
+    }
+  ],
+  "partition": "<Object '/Game/WISEYE/Scenes/city_large/BigCity.BigCity:PersistentLevel.WorldSettings.WorldPartition_0' (0x00000230B2A83C00) Class 'WorldPartition'>",
+  "loaded": [
+    {
+      "label": "WorldDataLayers-1",
+      "cls": "WorldDataLayers",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data131",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -423349.28125,
+        -956898.0,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data76",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        871199.0625,
+        -671935.375,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb63",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -92021.578125,
+        290357.90625,
+        -949.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb218",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        743975.0,
+        172986.765625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data140",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -441900.9375,
+        807795.5625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "PostProcessVolume_WP",
+      "cls": "PostProcessVolume",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb85",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        570488.9375,
+        190458.4375,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data156",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        315851.9375,
+        728743.8125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb17",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        157255.984375,
+        -560380.875,
+        -949.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb29",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        280466.0625,
+        -642301.75,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data132",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -192341.078125,
+        -867843.0,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data55",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        98093.734375,
+        381227.1875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BP_MassTrafficIntersectionSpawner",
+      "cls": "BP_MassTrafficIntersectionSpawner_C",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BP_MassTrafficVehicleSpawner",
+      "cls": "BP_MassTrafficVehicleSpawner_C",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BP_MassTrafficTrailerSpawner",
+      "cls": "BP_MassTrafficTrailerSpawner_C",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb186",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -52259.7109375,
+        -1066655.0,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb169",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        430598.28125,
+        -1001251.9375,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb90",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        621912.0,
+        397751.75,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data113",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        623254.875,
+        -1017014.0625,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data15",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        78942.0,
+        -721209.375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb65",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -265752.5,
+        222951.5,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data91",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -791912.25,
+        -717118.125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb7",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -352292.40625,
+        -325352.3125,
+        -1574.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb68",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -130601.5625,
+        326463.78125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data130",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -331656.625,
+        -988884.9375,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb100",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        834438.3125,
+        -149595.28125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb157",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -483031.90625,
+        203260.78125,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb220",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        585503.4375,
+        207900.171875,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data51",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        276147.46875,
+        332917.3125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb84",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        508995.25,
+        33095.76171875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data61",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        527049.0,
+        -23797.62109375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb153",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -745471.625,
+        142056.984375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb94",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        448794.40625,
+        191231.0,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data36",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        453431.59375,
+        -275754.125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb30",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        258047.328125,
+        -714471.75,
+        -950.0
+      ]
+    },
+    {
+      "label": "Cam CAG0040",
+      "cls": "CineCameraActor",
+      "position": [
+        -60.31522750854492,
+        24.853832244873047,
+        113.45772552490234
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb212",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -446963.0,
+        747740.0625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb189",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -98219.2265625,
+        -973927.1875,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb222",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        822049.625,
+        177181.734375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb71",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        426548.25,
+        429760.625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb208",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -396466.375,
+        909101.1875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb96",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        511541.875,
+        421550.4375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data82",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -785787.875,
+        -485989.875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data87",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -608433.75,
+        -736422.125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb223",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        464342.53125,
+        800929.0625,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb118",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -741133.75,
+        -433460.625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb209",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -384552.6875,
+        860282.3125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data103",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -353317.0,
+        380419.53125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data99",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -466695.3125,
+        525961.125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data38",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -542817.125,
+        -171038.5625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb37",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        577207.625,
+        -564214.1875,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb98",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        771929.625,
+        -379024.4375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb21",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -116257.65625,
+        -779871.5625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb35",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        633621.8125,
+        -306514.875,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb67",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -305495.84375,
+        67358.3671875,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb202",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -53470.0234375,
+        735806.0,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data93",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -124434.53125,
+        651822.6875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data8",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -391916.96875,
+        -392474.5,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb116",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -510153.03125,
+        -397003.3125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BP_MassTrafficParkedVehicleSpawner",
+      "cls": "BP_MassTrafficParkedVehicleSpawner_C",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb45",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        327443.625,
+        -340868.5625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data46",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -300233.28125,
+        110964.0625,
+        -358.0
+      ]
+    },
+    {
+      "label": "Ref Cam CAG0040",
+      "cls": "CineCameraActor",
+      "position": [
+        -60.31522750854492,
+        24.853832244873047,
+        113.45772552490234
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb123",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -684102.875,
+        -319176.375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb128",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -676746.125,
+        -692024.375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data39",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -549418.0,
+        -84255.0546875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb162",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        698025.5,
+        -751532.4375,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb141",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -259088.34375,
+        647305.375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb93",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        422379.09375,
+        310297.75,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data95",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -93933.4921875,
+        497818.9375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data57",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        428588.1875,
+        182711.03125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb82",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        472056.9375,
+        84732.1328125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb104",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        832851.4375,
+        -318665.5,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb217",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        695543.5,
+        159585.328125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb56",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -479452.3125,
+        -125998.796875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb9",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -403159.625,
+        -328169.875,
+        -950.0
+      ]
+    },
+    {
+      "label": "PostProcessVolume_SandBox_only",
+      "cls": "PostProcessVolume",
+      "position": [
+        -71041.4375,
+        -38528.0625,
+        319.95574951171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb64",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -269886.78125,
+        172870.15625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data149",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        602621.5625,
+        258666.65625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb99",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        780504.3125,
+        -311467.125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb10",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -338227.96875,
+        -515947.5625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb13",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -188619.484375,
+        -573683.5625,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb11",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -369470.0625,
+        -466904.5,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb40",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        624605.875,
+        -664981.9375,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb136",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -144727.375,
+        590428.75,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb150",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -514547.5,
+        400015.59375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb161",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        766179.625,
+        -713833.125,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb103",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        802580.3125,
+        -42890.8671875,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb52",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -619078.625,
+        -154923.3125,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data151",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        698623.1875,
+        332541.0625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data127",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -153505.328125,
+        -1138393.375,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data128",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -158170.703125,
+        -948094.0625,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb190",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -317820.375,
+        -952399.125,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb75",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        149628.9375,
+        351112.0625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb121",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -801624.25,
+        -526957.625,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data143",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -345828.1875,
+        1001796.25,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb211",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -396047.625,
+        1020459.25,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data84",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -714301.0,
+        -315843.4375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "CA_FA_Camera",
+      "cls": "CineCameraActor",
+      "position": [
+        -80.55125427246094,
+        -8.745277404785156,
+        112.371826171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb216",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        837798.6875,
+        65378.8671875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb230",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        367297.53125,
+        818216.5625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb15",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -440695.96875,
+        -434654.1875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb195",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -166723.640625,
+        -884177.375,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data20",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        309748.9375,
+        -570286.5,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data90",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -694984.125,
+        -623534.5,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data68",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        820299.125,
+        -259718.796875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb113",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        851560.375,
+        -426553.5625,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb228",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        361661.84375,
+        615383.9375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data13",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -395879.34375,
+        -623088.25,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb158",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -736299.375,
+        90019.359375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb8",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -384658.8125,
+        -252513.28125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data9",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -307569.46875,
+        -413932.5,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data153",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        455580.28125,
+        702086.4375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb14",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -443845.28125,
+        -361885.0,
+        -950.0
+      ]
+    },
+    {
+      "label": "PlayerStart",
+      "cls": "PlayerStart",
+      "position": [
+        -72172.265625,
+        -38796.578125,
+        599.999755859375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb225",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        419649.34375,
+        825381.625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb69",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -202391.625,
+        314156.59375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb109",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        850208.25,
+        -606264.4375,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb178",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        158358.5,
+        -1103589.0,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data31",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        465051.9375,
+        -611372.6875,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb166",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        676736.375,
+        -1020172.25,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb125",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -475397.0,
+        -616838.875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb89",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        699298.4375,
+        388946.375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb110",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        818501.4375,
+        -567278.4375,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb197",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        197034.03125,
+        933521.25,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data111",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        699801.0,
+        -879944.25,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb152",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -802068.5,
+        195563.78125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb54",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -600164.875,
+        -202227.46875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb73",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        211653.296875,
+        337557.125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb108",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        904395.75,
+        -425873.5,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data114",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        572229.0,
+        -817015.625,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data117",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        362760.0,
+        -1073671.75,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb97",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        744047.6875,
+        -275881.6875,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb76",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        176044.234375,
+        232045.234375,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb72",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        349161.8125,
+        438566.0,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb165",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        586173.875,
+        -938483.4375,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb200",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -13726.71484375,
+        891399.125,
+        -950.0
+      ]
+    },
+    {
+      "label": "PlatformSpecific_PPV",
+      "cls": "PostProcessVolume",
+      "position": [
+        64193.0078125,
+        -261041.4375,
+        161.53004455566406
+      ]
+    },
+    {
+      "label": "BPC_SF_data60",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        393400.375,
+        -6738.916015625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb23",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -42786.9609375,
+        -590729.25,
+        -951.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb42",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        535303.8125,
+        -443105.5,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data52",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        181306.796875,
+        275651.0,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb24",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -97768.8125,
+        -638502.0625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb111",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        796082.75,
+        -639448.5,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb138",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -173059.0625,
+        533612.6875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb207",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -494980.1875,
+        769794.1875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb34",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        672746.1875,
+        -413580.625,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data106",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -513422.59375,
+        171550.34375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data133",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -375850.8125,
+        -845463.25,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb163",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        644566.125,
+        -913561.8125,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb120",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -797911.5,
+        -405052.375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb170",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        487895.0625,
+        -945842.4375,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data33",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        326044.4375,
+        -212452.078125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb115",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -586394.75,
+        -420247.3125,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data134",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        57275.484375,
+        923059.0,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data101",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -312864.28125,
+        494600.625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb127",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -672842.75,
+        -742124.25,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb92",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        488537.78125,
+        346824.1875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb171",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        410485.6875,
+        -954444.625,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb105",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        884354.75,
+        -267161.25,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb47",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        406922.78125,
+        -222270.90625,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb192",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -356199.9375,
+        -901825.0,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data32",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        367238.4375,
+        -289120.25,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data136",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -48207.4609375,
+        779411.6875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BP_MassCrowdSpawner",
+      "cls": "BP_MassCrowdSpawner_C",
+      "position": [
+        4870.0,
+        -175740.0,
+        900.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data141",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -459118.6875,
+        893109.8125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb167",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        645657.5625,
+        -744487.4375,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data56",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        361507.0625,
+        74444.265625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb191",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -282164.84375,
+        -916988.25,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data54",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        208702.296875,
+        458160.25,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb221",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        858373.625,
+        114048.265625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb32",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        288555.3125,
+        -513867.5,
+        -950.0
+      ]
+    },
+    {
+      "label": "TrafficCube_02",
+      "cls": "StaticMeshActor",
+      "position": [
+        38191.88671875,
+        -143104.546875,
+        0.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data100",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -356469.03125,
+        514810.125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb88",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        631126.1875,
+        347646.75,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb143",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -645114.9375,
+        538823.5,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb213",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -382747.875,
+        782115.9375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb149",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -579345.75,
+        433279.09375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb129",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -736234.75,
+        -738631.5,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data123",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        90520.203125,
+        -1176008.75,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb184",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -44368.59375,
+        -1266536.125,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb101",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        859983.4375,
+        -192869.53125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data135",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        46633.20703125,
+        836678.0,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb22",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -31892.451171875,
+        -867946.3125,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data98",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -527071.8125,
+        463274.34375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb198",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        119647.59375,
+        942326.625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb176",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        364850.21875,
+        -927809.75,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb182",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -40175.2734375,
+        -1106002.25,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb219",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        688141.5,
+        273779.5625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb124",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -536112.625,
+        -668479.0,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BP_nightmode",
+      "cls": "BP_nightmode_C",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb60",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -487268.875,
+        -203794.15625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb59",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -555222.5,
+        -230016.4375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data45",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -165035.828125,
+        184709.1875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data72",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        906492.25,
+        -246352.75,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data137",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -95211.359375,
+        769390.875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb49",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        349519.625,
+        -72292.265625,
+        -1575.0
+      ]
+    },
+    {
+      "label": "SM_dome",
+      "cls": "StaticMeshActor",
+      "position": [
+        8834.0,
+        -147146.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data102",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -487961.0625,
+        385311.09375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb41",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        578559.8125,
+        -384503.375,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data34",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        370404.09375,
+        -110931.46875,
+        -358.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb215",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        856237.875,
+        -10292.751953125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data144",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -355531.6875,
+        795619.1875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb145",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -417906.84375,
+        483526.375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data157",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        305787.625,
+        594387.375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb229",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        470718.65625,
+        560783.0625,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data116",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        353950.875,
+        -987084.375,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data11",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -276637.15625,
+        -601756.375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data19",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -175938.421875,
+        -780870.4375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data88",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -692931.25,
+        -808077.0,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb159",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -671501.125,
+        56755.8515625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data94",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -92137.9609375,
+        545845.4375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb224",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        475292.46875,
+        879879.6875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb80",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        252065.1875,
+        211670.234375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb173",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        291754.0,
+        -1033723.375,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data97",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -214877.90625,
+        491021.75,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb139",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -51148.83203125,
+        530064.375,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb180",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        138245.890625,
+        -1056781.75,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb172",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        298846.21875,
+        -1083472.25,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data17",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -85001.5,
+        -860896.9375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data40",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -467732.1875,
+        -9410.869140625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb179",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        215655.234375,
+        -1048179.5,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data28",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        598198.4375,
+        -629885.0625,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data152",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        395260.96875,
+        764828.125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb204",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        9277.408203125,
+        966125.3125,
+        -950.0
+      ]
+    },
+    {
+      "label": "GroundCollisionCube",
+      "cls": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        -100.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data150",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        807720.1875,
+        203972.171875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data43",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -365333.90625,
+        -96504.609375,
+        -147.94168090820312
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb175",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        287560.6875,
+        -1194257.5,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data80",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -648185.125,
+        -372734.4375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data109",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -510270.59375,
+        37159.79296875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb62",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -14635.2255859375,
+        281552.5,
+        -951.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb91",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        484403.5,
+        296742.9375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb137",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -192271.3125,
+        606701.6875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb206",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -571180.5,
+        753678.0625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data79",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        738052.5625,
+        -653423.0,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data67",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        370843.90625,
+        340412.9375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data47",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -347237.1875,
+        100943.25,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data22",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        333163.65625,
+        -746958.625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "ZoneGraphData",
+      "cls": "ZoneGraphData",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb70",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        358376.0,
+        388461.0,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb26",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        428276.5,
+        -453646.625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb201",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -79885.34375,
+        854872.6875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb20",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -78657.3203125,
+        -714317.5625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data138",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -20811.9609375,
+        961920.875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb131",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -597040.375,
+        -590990.875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data81",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -679767.25,
+        -453836.375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data104",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -684025.5,
+        120014.6171875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data155",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        418329.21875,
+        549574.75,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data63",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        548897.6875,
+        292103.0625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data29",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        571236.625,
+        -669669.9375,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb78",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        238791.671875,
+        462364.6875,
+        -950.0
+      ]
+    },
+    {
+      "label": "DirectionalLight_WP",
+      "cls": "DirectionalLight",
+      "position": [
+        17093.98046875,
+        -143372.8125,
+        3226.706787109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb183",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -96568.6640625,
+        -1156310.25,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data124",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -48922.25,
+        -1222850.875,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data53",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        134302.90625,
+        265630.125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb25",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        382741.71875,
+        -542944.8125,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data62",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        559539.9375,
+        378484.125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb81",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        303586.65625,
+        153260.21875,
+        -951.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data122",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        4104.48046875,
+        -1097985.25,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data146",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        798191.5625,
+        117270.9609375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb107",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        966311.9375,
+        -378623.125,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb144",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -588518.0625,
+        485316.75,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb205",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -519565.0,
+        814414.8125,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data121",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        178424.0,
+        -1066114.5,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb87",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        368254.25,
+        10311.609375,
+        -955.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb196",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        128861.78125,
+        892221.625,
+        -1575.0
+      ]
+    },
+    {
+      "label": "PerspectiveCamera",
+      "cls": "CineCameraActor",
+      "position": [
+        1931.2706298828125,
+        11.13818359375,
+        257.3291015625
+      ]
+    },
+    {
+      "label": "BPC_SF_data119",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        239403.0,
+        -1170782.5,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data23",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        306201.875,
+        -786743.5,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data125",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -92526.2890625,
+        -1243061.25,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb95",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        583332.0,
+        433857.625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb203",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        81067.578125,
+        978432.5,
+        -950.0
+      ]
+    },
+    {
+      "label": "TrafficCube_01",
+      "cls": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb77",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        310581.8125,
+        474671.875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb102",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        892903.25,
+        -124844.625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb135",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -208985.21875,
+        748486.625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data142",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -387252.0,
+        977426.8125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data58",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        537352.8125,
+        161628.8125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data139",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -131420.515625,
+        884987.875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data120",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        269182.5625,
+        -966536.9375,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data26",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        599753.4375,
+        -440922.375,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "Map_Camera",
+      "cls": "CameraActor",
+      "position": [
+        -32749.06640625,
+        -149710.0625,
+        50000.0234375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb193",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -363966.625,
+        -1018637.4375,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb31",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        359571.15625,
+        -782055.5,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb86",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        306732.65625,
+        49303.671875,
+        -950.0
+      ]
+    },
+    {
+      "label": "SkyLight_WP",
+      "cls": "SkyLight",
+      "position": [
+        -37569.6875,
+        -44951.4921875,
+        24843.3671875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb74",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        215787.546875,
+        387638.4375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb114",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        783334.75,
+        -497446.25,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb122",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -611492.375,
+        -324923.0625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data27",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        651909.125,
+        -510598.4375,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb48",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        439842.625,
+        -154246.015625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BP_CitySampleWorldInfo",
+      "cls": "BP_CitySampleWorldInfo_C",
+      "position": [
+        -11750.0,
+        -155940.0,
+        550.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data59",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        577670.625,
+        86253.3515625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb164",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        618894.1875,
+        -870362.375,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data112",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        655738.9375,
+        -981594.375,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "WorldPartitionMiniMap",
+      "cls": "WorldPartitionMiniMap",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data30",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        491543.625,
+        -479270.25,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data74",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        847784.375,
+        -495263.125,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb199",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -17860.9609375,
+        841317.8125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data105",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -623649.0,
+        182701.34375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data50",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        286789.71875,
+        419298.375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb53",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -677768.0,
+        -208855.25,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb187",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -123736.609375,
+        -1018021.4375,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb210",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -333338.3125,
+        915854.1875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data14",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        25298.2109375,
+        -680468.0,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "CineCameraActor_60",
+      "cls": "CineCameraActor",
+      "position": [
+        7857.3828125,
+        -201668.59375,
+        78.5103759765625
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb227",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        375045.71875,
+        689761.4375,
+        -950.0
+      ]
+    },
+    {
+      "label": "ExponentialHeightFog",
+      "cls": "ExponentialHeightFog",
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb44",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        259179.4375,
+        -378367.8125,
+        -951.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data148",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        626968.125,
+        166705.734375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb134",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -181496.0625,
+        821360.0,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data108",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -644914.75,
+        42051.35546875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data145",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -274924.8125,
+        903579.8125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data37",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        499307.03125,
+        -149072.234375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data85",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -840446.125,
+        -363176.0625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb214",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        793950.9375,
+        39440.8203125,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb133",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -158149.375,
+        745149.5,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data78",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        764544.25,
+        -521320.5,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb33",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        245299.359375,
+        -572469.625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data77",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        844237.25,
+        -711720.1875,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb148",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -326078.34375,
+        546520.5,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb36",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        631395.1875,
+        -383823.25,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb79",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        330337.1875,
+        196617.125,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb55",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -485275.09375,
+        -76085.625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb18",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        86534.53125,
+        -593010.0,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb168",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        594305.375,
+        -796142.25,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb185",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        92610.421875,
+        -1030146.75,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb117",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -582989.25,
+        -369416.0625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb126",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -553197.375,
+        -620483.875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb177",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        297586.6875,
+        -955754.0625,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data154",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        440199.96875,
+        592370.25,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb181",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -33083.0703125,
+        -1155751.0,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data147",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        713444.0,
+        97451.59375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb146",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -451283.375,
+        445959.90625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb61",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -82807.390625,
+        240252.90625,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb12",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -359501.625,
+        -575765.375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data44",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -154393.578125,
+        271090.28125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb83",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        435417.125,
+        50341.015625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data115",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        526724.8125,
+        -943831.375,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data25",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        200017.140625,
+        -728446.25,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb147",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -376446.34375,
+        435445.28125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data71",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        856052.5,
+        -46205.6796875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data10",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -280646.3125,
+        -553863.6875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data129",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -222340.765625,
+        -1006891.75,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb51",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        431294.09375,
+        -296562.6875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data83",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -833811.875,
+        -484129.5625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb106",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        920777.125,
+        -467921.4375,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb156",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -533400.0,
+        92185.5546875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb194",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -104127.0859375,
+        -921419.0,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data69",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        779105.125,
+        -183050.6875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data49",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -383446.375,
+        216540.25,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data18",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -121308.390625,
+        -657710.0625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data64",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        454056.96875,
+        234836.671875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data41",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -423627.40625,
+        9682.224609375,
+        -301.9629821777344
+      ]
+    },
+    {
+      "label": "BPC_SF_data70",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        823464.75,
+        -81530.0546875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb142",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -565801.75,
+        530916.875,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb160",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        734586.3125,
+        -787010.875,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb226",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        411301.21875,
+        654965.4375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data21",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        361904.625,
+        -639962.5,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb27",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        341390.71875,
+        -513187.4375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data65",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        407053.09375,
+        224815.859375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb119",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -724796.625,
+        -385938.6875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data92",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -205578.9375,
+        683295.25,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data118",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        283007.0625,
+        -1150572.25,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb130",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -691174.25,
+        -851963.875,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data73",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        952367.625,
+        -119670.84375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data110",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        658382.5,
+        -803397.0625,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data126",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -80663.8125,
+        -1077438.0,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data16",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -50021.21875,
+        -827940.0,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb50",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        379790.78125,
+        -348066.9375,
+        -950.0
+      ]
+    },
+    {
+      "label": "CineCameraActor3",
+      "cls": "CineCameraActor",
+      "position": [
+        30352.9140625,
+        -157775.859375,
+        173.2815704345703
+      ]
+    },
+    {
+      "label": "water_plane",
+      "cls": "StaticMeshActor",
+      "position": [
+        0.0,
+        0.0,
+        -350.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data86",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -611699.75,
+        -649449.25,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb38",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        545500.8125,
+        -525228.1875,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data96",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -262380.5,
+        617102.6875,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data75",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        899940.0625,
+        -564939.1875,
+        1160.49658203125
+      ]
+    },
+    {
+      "label": "BPC_SF_data107",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -469817.84375,
+        151340.90625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data66",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        481452.5,
+        417346.0,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb66",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -331911.15625,
+        186425.125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data35",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        402991.84375,
+        -75607.078125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb28",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        312172.8125,
+        -681287.75,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb19",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -56203.7109375,
+        -759273.8125,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb140",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -253439.65625,
+        719923.5,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb112",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        897606.5,
+        -707032.1875,
+        247.0537109375
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb132",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -665950.125,
+        -614586.5,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data89",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -737736.125,
+        -825463.375,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb188",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -45071.0859375,
+        -1030861.3125,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb174",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        235360.625,
+        -1084031.5,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data24",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        226508.859375,
+        -596343.75,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb151",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -722755.375,
+        187657.15625,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb154",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -574860.5,
+        140266.609375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data48",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -272837.8125,
+        293473.3125,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb16",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        120410.984375,
+        -631060.0,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb46",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        381377.625,
+        -178996.671875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb155",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -608237.0,
+        102700.1796875,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data12",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -458239.21875,
+        -503655.625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data42",
+      "cls": "BPC_BgCity_data_C",
+      "position": [
+        -458599.40625,
+        -193738.625,
+        -357.076171875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb231",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        331567.5625,
+        754745.0625,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb39",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        523082.15625,
+        -597398.1875,
+        2069.107421875
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb58",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -471171.875,
+        34376.3671875,
+        -1575.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb57",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        -421795.75,
+        -77143.3984375,
+        -950.0
+      ]
+    },
+    {
+      "label": "BPC_SF_data_suburb43",
+      "cls": "BPC_BgCity_data_suburb_C",
+      "position": [
+        290987.0,
+        -305283.125,
+        -1575.0
+      ]
+    },
+    {
+      "label": "PostProcessVolumePostToggle_SandBox_only",
+      "cls": "PostProcessVolume",
+      "position": [
+        -71041.4375,
+        -38528.0625,
+        319.95574951171875
+      ]
+    },
+    {
+      "label": "SM_sun",
+      "cls": "StaticMeshActor",
+      "position": [
+        1666027.629610455,
+        945422.5075141115,
+        107677.5074005127
+      ]
+    },
+    {
+      "label": "CT_B_010_Camera",
+      "cls": "CineCameraActor",
+      "position": [
+        -51.97867965698242,
+        -409.68701171875,
+        120.0611572265625
+      ]
+    },
+    {
+      "label": "BPP_Plaza_PlayerStart",
+      "cls": "BPP_Plaza_PlayerStart_C",
+      "position": [
+        -104290.28125,
+        -15491.3408203125,
+        71.02469635009766
+      ]
+    },
+    {
+      "label": "BPP_Plaza_PlayerStart",
+      "cls": "BPP_Plaza_PlayerStart_C",
+      "position": [
+        24043.662109375,
+        -271913.25,
+        70.0
+      ]
+    }
+  ],
+  "enable_streaming": "WorldPartition: Failed to find property 'enable_streaming' for attribute 'enable_streaming' on 'WorldPartition'",
+  "runtime_hash": "WorldPartition: Failed to find property 'runtime_hash' for attribute 'runtime_hash' on 'WorldPartition'"
+}

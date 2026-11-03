@@ -1,0 +1,25 @@
+{
+  "entry": "Start-WISEYE-Studio.vbs",
+  "processes": [
+    {
+      "ProcessId": 18072,
+      "ParentProcessId": 18504,
+      "Name": "pythonw.exe",
+      "CommandLine": "\"F:\\WISEYE-Studio\\builds\\python-env\\Scripts\\pythonw.exe\" -m apps.desktop_app.main "
+    },
+    {
+      "ProcessId": 4520,
+      "ParentProcessId": 18072,
+      "Name": "pythonw.exe",
+      "CommandLine": "\"F:\\WISEYE-Studio\\builds\\python-env\\Scripts\\pythonw.exe\" -m apps.desktop_app.main "
+    }
+  ],
+  "ue_count": 0,
+  "visible_windows": [
+    {
+      "Id": 4520,
+      "MainWindowTitle": "WISEYE Studio · 智瞳控制台"
+    }
+  ],
+  "listeners": []
+}

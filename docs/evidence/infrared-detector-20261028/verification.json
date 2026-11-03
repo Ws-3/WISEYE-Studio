@@ -1,0 +1,19 @@
+{
+  "editor_build": "build-detector-replay.log: Succeeded; final build-detector-final.log: Succeeded after initializing two validated bool outputs",
+  "core_unittest_count": 60,
+  "qt_unittest_count": 27,
+  "native_thermal_math": "passed",
+  "real_city_report": "report.json",
+  "real_avata_regression": "target-regression.json",
+  "fleet_sha256": "bc48982ddb6043eca0fb6dbf7a4d61a249e8b15918590e8df2188b9587fb2fa6",
+  "facade_asset_sha256": "7cb18e941897b41ae2ea44bb33316c46be03cf1b3ef57cbf95422f08b089e703",
+  "source_location": "F:/WISEYE-Studio",
+  "derived_build_location": "E:/Projects/WISEYE-IR-Work",
+  "native_sources_match": true,
+  "fleet_and_old_material_assets_unchanged": true,
+  "runtime_restored": true,
+  "owned_runtime_stopped": true,
+  "packaged": false,
+  "pushed": false,
+  "limits": "Engineering normalized signal, not measured temperature or Anti-UAV calibration. Sequential live clouds are stochastic. Short readout/cache measurements are not end-to-end latency or long-term performance."
+}

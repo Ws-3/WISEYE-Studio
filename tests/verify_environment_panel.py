@@ -35,3 +35,16 @@ class EnvironmentPanelTests(unittest.TestCase):
             self.assertIsNone(dialog.pending);self.assertFalse(dialog.dirty)
             dialog.disconnected();self.assertFalse(dialog.apply.isEnabled())
         finally:dialog.close();window.close()
+
+    def test_cloud_parameter_is_capability_gated(self):
+        window=MainWindow(AppConfig());window.client.ready=True;dialog=EnvironmentDialog(window)
+        try:
+            dialog.update_state(dict(run_id='a',environment=ENV))
+            self.assertFalse(dialog.clouds.isEnabled());self.assertNotIn('clouds',dialog.values())
+            dialog.update_state(dict(run_id='a',environment=dict(ENV,clouds_supported=True,clouds=.3)))
+            self.assertTrue(dialog.clouds.isEnabled());self.assertEqual(dialog.clouds.value(),30)
+            dialog.clouds.setValue(65)
+            with patch.object(window.client,'request',return_value='cloud') as send:
+                dialog.submit(False);self.assertEqual(send.call_args.args[1]['clouds'],.65)
+            self.assertFalse(dialog.clouds.isEnabled())
+        finally:dialog.close();window.close()

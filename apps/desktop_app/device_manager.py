@@ -20,6 +20,8 @@ class DeviceManager(QDialog):
             button=QPushButton(text);button.setObjectName('primary' if text=='保存并加载场景' else 'danger' if text=='删除选中实例' else '');button.clicked.connect(callback);row.addWidget(button)
         box.addLayout(row);self.message=QLabel('位置为 UE 世界坐标，Z 向上；初始俯仰/横滚当前固定 0。热新增暂采用保存并重载。');self.message.setWordWrap(True);box.addWidget(self.message);self.render()
 
+        self.saved_snapshot=copy.deepcopy(self.collect())
+
     def render(self):
         self.table.setRowCount(0)
         for item in self.data['devices']:
@@ -78,6 +80,7 @@ class DeviceManager(QDialog):
     def save(self):
         try:
             self.data=self.collect();self.store.save(self.data)
+            self.saved_snapshot=copy.deepcopy(self.data)
             self.window.arrangement.refresh_devices()
             self.message.setText('设备配置已保存，当前仿真未移动；重新加载场景后生效。');return True
         except (ValueError,OSError) as exc:self.message.setText('保存失败：'+str(exc));return False
@@ -99,6 +102,8 @@ class FleetSelection(QWidget):
         self.sensor_drafts={}
 
     def manage(self):
+        if hasattr(self.window,'device_page'):
+            self.window.pages.setCurrentIndex(4);return
         try:dialog=DeviceManager(self.window);dialog.exec()
         except (ValueError,OSError) as exc:self.window.log('设备配置读取失败：'+str(exc))
 
@@ -119,7 +124,7 @@ class FleetSelection(QWidget):
             name=d.get('name',d['id'])
             node=QTreeWidgetItem(root,[d['id'] if name==d['id'] else name+' · '+d['id']]);node.setToolTip(0,name+' / '+d['id']);node.setData(0,Qt.ItemDataRole.UserRole,(d['kind'],d['id']))
             if d['kind']=='gimbal':
-                for sensor,title in [('visible','可见光'),('infrared','红外'),('lidar','激光雷达')]:
+                for sensor,title in [('visible','可见光'),('infrared','红外'),('lidar','激光雷达'),('event','事件相机')]:
                     child=QTreeWidgetItem(node,[title]);child.setData(0,Qt.ItemDataRole.UserRole,('sensor',d['id']+'/'+sensor))
             node.setExpanded(True)
         root.setExpanded(True);del blocker

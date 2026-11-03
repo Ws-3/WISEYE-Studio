@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "run_id": "FCE5768E462AF7B4B78B748C61078485",
+  "phases": [
+    {
+      "requested_fps": 5.0,
+      "pairs": 63,
+      "actual_fps": 4.188951324682832,
+      "round_trip_median_ms": 233.71039999983623,
+      "round_trip_p95_ms": 280.4575999998633,
+      "annotation_cpu_median_ms": 5.384450778365135,
+      "pairs_with_gt": 63,
+      "tick_fps": 29.99167091449667,
+      "native_rtt_ms": 62.62490000017351,
+      "source_fps": {
+        "CH1": 9.92731298335321,
+        "CH2": 9.997223638165556
+      },
+      "hardware": {
+        "sample_time_s": 16785147.8464948,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "ue_fps": 29.993887150368757,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 22453915648,
+        "ue_ram_bytes": 9475620864,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4425981952,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.16822429906542,
+        "ue_gpu_engine_peak_pct": 60.36414672207185
+      }
+    },
+    {
+      "requested_fps": 10.0,
+      "pairs": 73,
+      "actual_fps": 4.835908425464988,
+      "round_trip_median_ms": 200.50050000008923,
+      "round_trip_p95_ms": 265.5126999998174,
+      "annotation_cpu_median_ms": 5.188649520277977,
+      "pairs_with_gt": 73,
+      "tick_fps": 30.09811561488866,
+      "native_rtt_ms": 61.48510000002716,
+      "source_fps": {
+        "CH1": 10.032705204962886,
+        "CH2": 9.96537161298327
+      },
+      "hardware": {
+        "sample_time_s": 16785165.0842304,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "ue_fps": 29.993742947378717,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 22469582848,
+        "ue_ram_bytes": 9481547776,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4392595456,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 30.007558578987148,
+        "ue_gpu_engine_peak_pct": 60.6201856045022
+      }
+    }
+  ],
+  "baseline": {
+    "tick_fps": 30.05724845776313,
+    "native_rtt_ms": 26.285599999937403,
+    "source_fps": {
+      "CH1": 10.063810867554619,
+      "CH2": 9.929626722653891
+    },
+    "hardware": {
+      "sample_time_s": 16785132.6776684,
+      "scope": "simulation_host",
+      "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+      "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+      "ue_fps": 29.99636146602893,
+      "system_ram_total_bytes": 34191093760,
+      "system_ram_used_bytes": 22573735936,
+      "ue_ram_bytes": 9457717248,
+      "gpu_dedicated_total_bytes": 12706643968,
+      "ue_vram_used_bytes": 4325126144,
+      "ue_vram_budget_bytes": 11901272064,
+      "system_cpu_pct": 19.751166407465004,
+      "ue_gpu_engine_peak_pct": 54.38687972649332
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "samples": 85,
+  "startup_seconds": 138.2229551000055,
+  "tick_hz": 29.99975525991824,
+  "manual_displacement_m": 2.6514033069418406,
+  "switch_to_small_seconds": 35.13031090000004,
+  "owned_session_stopped": true,
+  "ue_fps": {
+    "min": 29.99089476484563,
+    "median": 29.9994839071606,
+    "max": 30.00704294200669
+  },
+  "ue_ram_bytes": {
+    "min": 12211232768,
+    "median": 12218822656,
+    "max": 12274712576
+  },
+  "system_ram_used_bytes": {
+    "min": 24345214976,
+    "median": 24381648896,
+    "max": 24464592896
+  },
+  "ue_vram_used_bytes": {
+    "min": 4344631296,
+    "median": 4350361600,
+    "max": 4384178176
+  },
+  "final_motor_rpm": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "small_scene_id": "city",
+  "small_device_streaming_sources": 0,
+  "ue_gpu_engine_peak_pct": {
+    "min": 52.77175767819043,
+    "median": 54.75313816643983,
+    "max": 56.400970365399715
+  },
+  "scope": "1 Mavic + 1 EO80, economy, local 250m sources; 90s flight sampling, not training or all-city benchmark"
+}

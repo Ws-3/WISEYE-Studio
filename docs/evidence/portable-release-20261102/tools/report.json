@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "rtsp": {
+    "url": "rtsp://127.0.0.1:19554/portable/thermal",
+    "size": [
+      640,
+      512
+    ]
+  },
+  "frozen_training_launched": true,
+  "training_pid": 2972,
+  "owned_processes_stopped": true
+}

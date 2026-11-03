@@ -4,6 +4,8 @@
 #include "GameFramework/Actor.h"
 #include "GameFramework/HUD.h"
 #include "ProjectAirSimGameMode.h"
+#include "WiseEyeThermalMath.h"
+#include "WiseEyeGroundTruth.h"
 #include "WiseEyeDemo.generated.h"
 
 class FJsonObject;
@@ -19,10 +21,13 @@ class UStaticMeshComponent;
 class UPrimitiveComponent;
 class FWiseEyeBridge;
 class FWiseEyeStreamManager;
+struct FWiseEyeThermalReadoutState;
 class UDirectionalLightComponent;
 class USkyLightComponent;
 class UExponentialHeightFogComponent;
 class UMaterialParameterCollectionInstance;
+class UMaterialParameterCollection;
+class UInstancedStaticMeshComponent;
 
 UENUM(BlueprintType)
 enum class EWiseEyeFlightBackend : uint8
@@ -36,6 +41,8 @@ UCLASS()
 class TEST_API AWiseEyeDemo : public AActor
 {
     GENERATED_BODY()
+    friend class FWiseEyeBridge;
+    friend TSharedPtr<FWiseEyeGTSnapshot> CaptureWiseEyeGroundTruth(AWiseEyeDemo&,bool,const FString&);
 public:
     AWiseEyeDemo();
     bool FleetChild=false;
@@ -66,7 +73,16 @@ public:
     void InitializeEnvironment();
     bool ConfigureEnvironment(bool OverrideTime,float Hour,float Fog,float Rain,FString& Error);
     void UpdateRainVolumes();
+    void UpdateEnvironmentViews();
+    float EnvironmentNightAmount() const;
     void ResetEnvironment();
+    bool ConfigureClouds(float Coverage,FString& Error);
+    float EnvironmentClouds=0;
+    UPROPERTY() TObjectPtr<UMaterialInterface> EnvironmentCloudMaterial;
+    UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> EnvironmentCloudInstance;
+    TWeakObjectPtr<AActor> EnvironmentCloudActor;
+    TWeakObjectPtr<AActor> EnvironmentCloudAtmosphere;
+    bool EnvironmentCloudSunOriginal=false;
     bool EnvironmentInitialized=false,EnvironmentTimeOverride=false;
     float EnvironmentHour=12,EnvironmentFog=0,EnvironmentRain=0;
     TWeakObjectPtr<UDirectionalLightComponent> EnvironmentSun;
@@ -81,12 +97,20 @@ public:
     float EnvironmentFogStart=0,EnvironmentFogFalloff=.2f,EnvironmentFogOpacity=1;
     FLinearColor EnvironmentFogColor;
     bool EnvironmentFogVisible=true,EnvironmentFogOwnerHidden=false;
-    TWeakObjectPtr<UMaterialParameterCollectionInstance> EnvironmentWeatherParameters;
+    UPROPERTY() TObjectPtr<UMaterialParameterCollection> EnvironmentWeatherCollection;
+    UPROPERTY() TObjectPtr<UMaterialParameterCollectionInstance> EnvironmentWeatherParameters;
+    double EnvironmentRainRetryTime=0;
+    bool EnvironmentRainDefaultsCaptured=false;
+    void EnsureEnvironmentRainResources();
     // A runtime-loaded Blueprint class must remain referenced across AirSim GC.
     UPROPERTY() TObjectPtr<UClass> EnvironmentRainClass;
     float EnvironmentOriginalRain=0,EnvironmentOriginalWeatherEnabled=0;
     TArray<TWeakObjectPtr<AActor>> EnvironmentRainActors;
     TArray<TWeakObjectPtr<USceneComponent>> EnvironmentRainTargets;
+    UPROPERTY() TObjectPtr<UMaterialInterface> EnvironmentRainMaterial;
+    bool UpdateWorldRain(int32 Index);
+    TArray<TWeakObjectPtr<UStaticMeshComponent>> EnvironmentSkyMeshes;
+    TArray<bool> EnvironmentSkyMeshVisible;
     virtual ~AWiseEyeDemo();
     virtual void BeginPlay() override;
     void EnsurePlayerInput();
@@ -116,6 +140,21 @@ public:
     void StepPlacement();
     bool TracePlacement(const FVector& Start, const FVector& End, FVector& Point, FString& Error) const;
     void CommitPlacement(const FVector& Surface);
+    FVector PlacementAnchor(const FVector& Surface) const;
+    bool BuildPlacementPreview(FString& Error);
+    bool ApplyDevicePlacement(const FString& DeviceId,const FVector& Position,float Yaw,FString& Error);
+    void DestroyPlacementPreview();
+    void UpdatePlacementPreview(bool Valid);
+    UPROPERTY() TObjectPtr<AActor> PlacementPreview;
+    UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> PlacementPreviewMaterial;
+    FTransform PlacementPreviewReference;
+    FVector PlacementPreviewPosition=FVector::ZeroVector;
+    FVector PlacementNudge=FVector::ZeroVector;
+    bool PlacementLocked=false;
+    TMap<FName,double> PlacementRepeats;
+    float PlacementYawDegrees=0,PlacementBaseYaw=0;
+    float GimbalPlacementYaw=0;
+    FString PlacementAppliedToken,PlacementAppliedDevice;
     bool PlacementActive = false;
     bool PlacementHasResult = false;
     bool PlacementHoverValid = false;
@@ -142,6 +181,12 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly) TObjectPtr<USceneComponent> YawPivot;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly) TObjectPtr<USceneComponent> PitchPivot;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly) TObjectPtr<UCameraComponent> Camera;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly) TObjectPtr<USceneComponent> OpticalMount;
+    // Physical centimetres / pitch-yaw-roll degrees, independent of imported mesh scale.
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Calibration") FVector VisibleOffsetCm=FVector(0,-6,0);
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Calibration") FVector InfraredOffsetCm=FVector(0,6,0);
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Calibration") FRotator VisibleBoresight=FRotator::ZeroRotator;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Calibration") FRotator InfraredBoresight=FRotator(.1,.2,0);
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly) TObjectPtr<USceneCaptureComponent2D> Capture;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly) TObjectPtr<USceneCaptureComponent2D> InfraredCapture;
     /** Laser scanner origin. It is below the pitch pivot through the EO camera hierarchy. */
@@ -153,6 +198,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Sensors") TObjectPtr<UTextureRenderTarget2D> InfraredTarget;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Sensors") TObjectPtr<UMaterialInterface> ThermalMaterial;
     UPROPERTY(BlueprintReadOnly, Category="WISEYE|Sensors") TObjectPtr<UMaterialInstanceDynamic> ThermalInstance;
+    UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> ThermalDisplayInstance;
+    UPROPERTY() TObjectPtr<UTextureRenderTarget2D> InfraredSignalTarget;
     // Real‑time image processing (updated every Tick)
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|ImageProcessing")
     UTextureRenderTarget2D* ProcessedRenderTarget = nullptr;
@@ -188,6 +235,22 @@ public:
     float ThermalContrast = 1.35f;
     float ThermalBackgroundDetail = .65f;
     int32 ThermalFrameIndex = 0;
+    bool ThermalAutoGain=true;
+    WiseEyeThermal::DetectorSettings ThermalDetector;
+    float ThermalGainResponse=1.f;
+    int32 ThermalSamplingScale=1;
+    WiseEyeThermal::HeatState ThermalHeat;
+    float ThermalPower=0;
+    float ThermalNextClassify=0;
+    void UpdateThermalState(float Dt);
+    void UpdateThermalProjection();
+    bool HasReferenceInfrared() const;
+    bool HasClassifiedInfrared() const;
+    bool HasFacadeInfrared() const;
+    bool UsesThermalReadout() const { return HasReferenceInfrared() && (ThermalProfile==TEXT("reference") || ThermalProfile==TEXT("classified") || ThermalProfile==TEXT("facade")); }
+    FWiseEyeThermalReadoutState GetThermalReadout() const;
+    void SetSignalRecording(bool Enabled);
+    bool GetSignalFrame(TArray<float>& Signal,TArray<uint8>& Sky,TArray<uint8>& Target,int64& Sequence) const;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE") FVector FlightOrigin = FVector(0,0,4000);
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE") FVector TargetOffset = FVector::ZeroVector;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE", meta=(ClampMin="1")) float FlightRadius = 4000;
@@ -200,6 +263,7 @@ public:
     float VisibleFOV = 25;
     float InfraredFOV = 25;
     bool VisibleEnabled = true;
+    int64 VisibleCaptureSequence=0;
     bool InfraredEnabled = true;
     UPROPERTY(BlueprintReadOnly, Category="WISEYE") bool Paused = false;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Flight") bool AutomaticFlight = true;
@@ -232,6 +296,9 @@ public:
     bool ObserverCaptured=false;
     void SetPerformanceProfile(const FString& Profile);
     UPROPERTY(BlueprintReadOnly, Category="WISEYE|Drone") FString DroneModel = TEXT("mavic3");
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Drone") bool NavigationLightsEnabled = true;
+    bool NavigationNight=false, NavigationRedOn=false, NavigationGreenOn=false;
+    UPROPERTY() TArray<TObjectPtr<UStaticMeshComponent>> NavigationLamps;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="WISEYE|Drone") TObjectPtr<UStaticMeshComponent> AlternateDroneMesh;
     UPROPERTY(BlueprintReadOnly, Category="WISEYE") TObjectPtr<ACameraActor> DroneView;
     UPROPERTY(BlueprintReadOnly, Category="WISEYE") float SimulationTime = 0;
@@ -250,6 +317,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Lidar", meta=(ClampMin="1", ClampMax="1000")) float LidarRangeMeters = 300;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE|Lidar", meta=(ClampMin="0.05", ClampMax="10")) float LidarScanRateHz = 10;
     UPROPERTY(BlueprintReadOnly, Category="WISEYE|Lidar") int32 LidarHitCount = 0;
+    int64 LidarScanSequence=0;
     UPROPERTY(BlueprintReadOnly, Category="WISEYE|Lidar") float LidarNearestRangeMeters = 0;
     UPROPERTY(BlueprintReadOnly, Category="WISEYE|Lidar") FString LastLidarExportPath;
     TArray<float> LastLidarRangesMeters;
@@ -271,6 +339,17 @@ public:
     UFUNCTION(BlueprintCallable, Category="WISEYE|Lidar") bool ExportLidarPointCloud();
     TArray<FVector> GetLidarPreviewPoints(int32 MaxPoints=1024) const;
     UFUNCTION(BlueprintPure, Category="WISEYE|Sensors") UTextureRenderTarget2D* GetSensorTarget() const;
+    void RefreshEventSensor();
+    TSharedPtr<FJsonObject> EventSensorState() const;
+    bool EventEnabled=false;
+    float EventFOV=25,EventSampleHz=30,EventOn=.2f,EventOff=.2f;
+    int64 EventRefractoryUs=100;
+    FVector EventOffsetCm=FVector(0,0,2);
+    FRotator EventBoresight=FRotator::ZeroRotator;
+    UPROPERTY() TObjectPtr<USceneCaptureComponent2D> EventCapture;
+    UPROPERTY() TObjectPtr<UTextureRenderTarget2D> EventTarget;
+    double NextEventCapture=0;
+    FString LastEventExportPath;
     /** Normalized forward/right/up and yaw inputs; keyboard input is added at runtime. */
     UFUNCTION(BlueprintCallable, Category="WISEYE") void SetManualInput(float Forward, float Right, float Up, float Yaw);
     bool SetDroneModel(const FString& ModelId, FString& Error);
@@ -283,11 +362,13 @@ private:
     void StepManualFlight(float DeltaSeconds);
     void StepGimbal(float DeltaSeconds, bool Snap);
     void StepRotors(float DeltaSeconds);
+    void StepNavigationLights();
     void StepProjectAirSim(float DeltaSeconds);
     bool TryBindDynamicsSource();
     void SetVisualAssemblyCollision(bool Enabled);
     void UpdateDroneView();
     void InitializeSensors();
+    void UpdateSensorTransforms();
     void InitializeDroneModels();
     void ConfigureThermalActors();
     void WriteTelemetry();
@@ -309,6 +390,12 @@ private:
     FString OutputDirectory;
     FWiseEyeBridge* Bridge = nullptr;
     FWiseEyeStreamManager* StreamManager = nullptr;
+    FWiseEyeGTSettings GTSettings;
+    UPROPERTY() TArray<TObjectPtr<USceneCaptureComponent2D>> GTDepthCaptures;
+    UPROPERTY() TArray<TObjectPtr<UTextureRenderTarget2D>> GTDepthTargets;
+    FString GTSampleTokens[2];
+    bool GTPairPending=false;
+    double GTSampleRequestedAt[2]={-100,-100};
     bool PlayerInputBound = false;
 };
 

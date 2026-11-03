@@ -1,0 +1,834 @@
+{
+  "passed": true,
+  "models": {
+    "mavic3": {
+      "day": {
+        "enabled": true,
+        "night": false,
+        "red_on": false,
+        "green_on": false,
+        "lamp_count": 4,
+        "period_s": 1.6
+      },
+      "night": [
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        }
+      ],
+      "pixel_max": {
+        "red": 110,
+        "green": 71
+      },
+      "pixel_min": {
+        "red": 0,
+        "green": 0
+      },
+      "pair": {
+        "visible": {
+          "sample_token": "6CA32D0C46658351ACF3F18CA72ECB3B",
+          "run_id": "EFFFB81F4471492DFD81DBADB7DFAE7E",
+          "scene_id": "city",
+          "device_id": "ptz-01",
+          "sensor_id": "visible",
+          "environment": {
+            "time_supported": true,
+            "fog_supported": true,
+            "rain_supported": true,
+            "time_override": true,
+            "hour": 22,
+            "fog": 0,
+            "rain": 0,
+            "clouds_supported": true,
+            "clouds": 0,
+            "cloud_layer_active": false,
+            "cloud_atmosphere_created": false,
+            "rain_view_volumes": 0,
+            "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+          },
+          "scenario_models": [
+            "mavic3"
+          ],
+          "context_source": "capture_tick",
+          "frame_id": "EFFFB81F4471492DFD81DBADB7DFAE7E/ptz-01/visible/267",
+          "frame_number": 267,
+          "simulation_time_s": 5.024451732635498,
+          "width": 1920,
+          "height": 1080,
+          "horizontal_fov_deg": 25,
+          "intrinsics_fx_fy_cx_cy": [
+            4330.280163515576,
+            4330.280163515576,
+            960,
+            540
+          ],
+          "camera_position_cm": [
+            -27087.22861392913,
+            -2117.826296357255,
+            4117.55766230611
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            10.765678405761713,
+            -122.97027587890624,
+            0
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "mavic3",
+              "bbox_xyxy": [
+                811,
+                486,
+                1108,
+                589
+              ],
+              "visible_pixels": 10720,
+              "in_frame_target_pixels": 10720,
+              "visible_fraction_in_frame": 1,
+              "partially_occluded": false,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "gt_annotation_cpu_ms": 6.865400820970535,
+          "encoding": "jpeg"
+        },
+        "infrared": {
+          "sample_token": "6CA32D0C46658351ACF3F18CA72ECB3B",
+          "run_id": "EFFFB81F4471492DFD81DBADB7DFAE7E",
+          "scene_id": "city",
+          "device_id": "ptz-01",
+          "sensor_id": "infrared",
+          "environment": {
+            "time_supported": true,
+            "fog_supported": true,
+            "rain_supported": true,
+            "time_override": true,
+            "hour": 22,
+            "fog": 0,
+            "rain": 0,
+            "clouds_supported": true,
+            "clouds": 0,
+            "cloud_layer_active": false,
+            "cloud_atmosphere_created": false,
+            "rain_view_volumes": 0,
+            "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+          },
+          "scenario_models": [
+            "mavic3"
+          ],
+          "context_source": "capture_tick",
+          "frame_id": "EFFFB81F4471492DFD81DBADB7DFAE7E/ptz-01/infrared/267",
+          "frame_number": 267,
+          "simulation_time_s": 5.024451732635498,
+          "width": 640,
+          "height": 512,
+          "horizontal_fov_deg": 25,
+          "intrinsics_fx_fy_cx_cy": [
+            1443.4267211718584,
+            1443.4267211718584,
+            320,
+            256
+          ],
+          "camera_position_cm": [
+            -27077.161177869468,
+            -2124.3567428339247,
+            4117.55766230611
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            10.865612012614676,
+            -122.76662512348138,
+            0.038040489017485975
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "mavic3",
+              "bbox_xyxy": [
+                236,
+                240,
+                335,
+                275
+              ],
+              "visible_pixels": 1196,
+              "in_frame_target_pixels": 1196,
+              "visible_fraction_in_frame": 1,
+              "partially_occluded": false,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "gt_annotation_cpu_ms": 1.1010989546775818,
+          "encoding": "jpeg"
+        }
+      }
+    },
+    "avata": {
+      "day": {
+        "enabled": true,
+        "night": false,
+        "red_on": false,
+        "green_on": false,
+        "lamp_count": 4,
+        "period_s": 1.6
+      },
+      "night": [
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        }
+      ],
+      "pixel_max": {
+        "red": 43,
+        "green": 44
+      },
+      "pixel_min": {
+        "red": 0,
+        "green": 0
+      },
+      "pair": {
+        "visible": {
+          "sample_token": "562A4A15477881179DD83290A40183E8",
+          "run_id": "EFFFB81F4471492DFD81DBADB7DFAE7E",
+          "scene_id": "city",
+          "device_id": "ptz-01",
+          "sensor_id": "visible",
+          "environment": {
+            "time_supported": true,
+            "fog_supported": true,
+            "rain_supported": true,
+            "time_override": true,
+            "hour": 22,
+            "fog": 0,
+            "rain": 0,
+            "clouds_supported": true,
+            "clouds": 0,
+            "cloud_layer_active": false,
+            "cloud_atmosphere_created": false,
+            "rain_view_volumes": 0,
+            "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+          },
+          "scenario_models": [
+            "avata"
+          ],
+          "context_source": "capture_tick",
+          "frame_id": "EFFFB81F4471492DFD81DBADB7DFAE7E/ptz-01/visible/220",
+          "frame_number": 220,
+          "simulation_time_s": 5.024451732635498,
+          "width": 1920,
+          "height": 1080,
+          "horizontal_fov_deg": 25,
+          "intrinsics_fx_fy_cx_cy": [
+            4330.280163515576,
+            4330.280163515576,
+            960,
+            540
+          ],
+          "camera_position_cm": [
+            -27087.228628999103,
+            -2117.8263195893605,
+            4117.557599044067
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            10.765546798706051,
+            -122.97027587890624,
+            0
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "avata",
+              "bbox_xyxy": [
+                908,
+                503,
+                1009,
+                552
+              ],
+              "visible_pixels": 3036,
+              "in_frame_target_pixels": 3036,
+              "visible_fraction_in_frame": 1,
+              "partially_occluded": false,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "gt_annotation_cpu_ms": 6.710901856422424,
+          "encoding": "jpeg"
+        },
+        "infrared": {
+          "sample_token": "562A4A15477881179DD83290A40183E8",
+          "run_id": "EFFFB81F4471492DFD81DBADB7DFAE7E",
+          "scene_id": "city",
+          "device_id": "ptz-01",
+          "sensor_id": "infrared",
+          "environment": {
+            "time_supported": true,
+            "fog_supported": true,
+            "rain_supported": true,
+            "time_override": true,
+            "hour": 22,
+            "fog": 0,
+            "rain": 0,
+            "clouds_supported": true,
+            "clouds": 0,
+            "cloud_layer_active": false,
+            "cloud_atmosphere_created": false,
+            "rain_view_volumes": 0,
+            "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+          },
+          "scenario_models": [
+            "avata"
+          ],
+          "context_source": "capture_tick",
+          "frame_id": "EFFFB81F4471492DFD81DBADB7DFAE7E/ptz-01/infrared/220",
+          "frame_number": 220,
+          "simulation_time_s": 5.024451732635498,
+          "width": 640,
+          "height": 512,
+          "horizontal_fov_deg": 25,
+          "intrinsics_fx_fy_cx_cy": [
+            1443.4267211718584,
+            1443.4267211718584,
+            320,
+            256
+          ],
+          "camera_position_cm": [
+            -27077.161192939442,
+            -2124.35676606603,
+            4117.557599044067
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            10.865480406390343,
+            -122.76662521326992,
+            0.03804001269825152
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "avata",
+              "bbox_xyxy": [
+                268,
+                246,
+                302,
+                262
+              ],
+              "visible_pixels": 341,
+              "in_frame_target_pixels": 341,
+              "visible_fraction_in_frame": 1,
+              "partially_occluded": false,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "gt_annotation_cpu_ms": 1.0900013148784637,
+          "encoding": "jpeg"
+        }
+      }
+    }
+  },
+  "restored": true,
+  "final_flight": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "EFFFB81F4471492DFD81DBADB7DFAE7E",
+    "connected": true,
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -274.0,
+      -26.0,
+      -40.742679595947266
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 89.99999803884911,
+    "motor_rpm": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_sample_age_s": 9.329999920737464e-05,
+    "manual_command_count": 0,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "EFFFB81F4471492DFD81DBADB7DFAE7E",
+        "connected": true,
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -274.0,
+          -26.0,
+          -40.742679595947266
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 89.99999803884911,
+        "motor_rpm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotor_sample_age_s": 9.329999920737464e-05,
+        "manual_command_count": 0,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  }
+}

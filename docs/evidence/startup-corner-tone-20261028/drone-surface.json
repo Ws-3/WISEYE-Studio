@@ -1,0 +1,234 @@
+{
+  "position_cm": [
+    -27400,
+    -2600,
+    4080
+  ],
+  "samples": [
+    {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27172.933286918247,
+        -2194.946053668254,
+        4080
+      ],
+      "device_id": "uav-01",
+      "request_token": "corner-uav",
+      "error": "",
+      "sequence": 98,
+      "position_cm": [
+        -27500,
+        -2700,
+        4080
+      ],
+      "surface_cm": [
+        -27500,
+        -2700,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27172.933286918247,
+        -2194.946053668254,
+        4080
+      ],
+      "device_id": "uav-01",
+      "request_token": "corner-uav",
+      "error": "",
+      "sequence": 99,
+      "position_cm": [
+        -27500,
+        -2600,
+        4080
+      ],
+      "surface_cm": [
+        -27500,
+        -2600,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27172.933286918247,
+        -2194.946053668254,
+        4080
+      ],
+      "device_id": "uav-01",
+      "request_token": "corner-uav",
+      "error": "",
+      "sequence": 100,
+      "position_cm": [
+        -27500,
+        -2500,
+        4080
+      ],
+      "surface_cm": [
+        -27500,
+        -2500,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27172.933286918247,
+        -2194.946053668254,
+        4080
+      ],
+      "device_id": "uav-01",
+      "request_token": "corner-uav",
+      "error": "",
+      "sequence": 101,
+      "position_cm": [
+        -27400,
+        -2700,
+        4080
+      ],
+      "surface_cm": [
+        -27400,
+        -2700,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27172.933286918247,
+        -2194.946053668254,
+        4080
+      ],
+      "device_id": "uav-01",
+      "request_token": "corner-uav",
+      "error": "",
+      "sequence": 102,
+      "position_cm": [
+        -27400,
+        -2600,
+        4080
+      ],
+      "surface_cm": [
+        -27400,
+        -2600,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27172.933286918247,
+        -2194.946053668254,
+        4080
+      ],
+      "device_id": "uav-01",
+      "request_token": "corner-uav",
+      "error": "",
+      "sequence": 103,
+      "position_cm": [
+        -27400,
+        -2500,
+        4080
+      ],
+      "surface_cm": [
+        -27400,
+        -2500,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27172.933286918247,
+        -2194.946053668254,
+        4080
+      ],
+      "device_id": "uav-01",
+      "request_token": "corner-uav",
+      "error": "",
+      "sequence": 104,
+      "position_cm": [
+        -27300,
+        -2700,
+        4080
+      ],
+      "surface_cm": [
+        -27300,
+        -2700,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27172.933286918247,
+        -2194.946053668254,
+        4080
+      ],
+      "device_id": "uav-01",
+      "request_token": "corner-uav",
+      "error": "",
+      "sequence": 105,
+      "position_cm": [
+        -27300,
+        -2600,
+        4080
+      ],
+      "surface_cm": [
+        -27300,
+        -2600,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "preview_supported": true,
+      "preview_visible": false,
+      "preview_position_cm": [
+        -27172.933286918247,
+        -2194.946053668254,
+        4080
+      ],
+      "device_id": "uav-01",
+      "request_token": "corner-uav",
+      "error": "",
+      "sequence": 106,
+      "position_cm": [
+        -27300,
+        -2500,
+        4080
+      ],
+      "surface_cm": [
+        -27300,
+        -2500,
+        4055
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "roi_xyxy": [
+    20,
+    160,
+    700,
+    570
+  ],
+  "p05": 36.0,
+  "median": 79.0,
+  "p95": 168.0,
+  "note": "Hand-chosen building-dominant appearance ROI, mixed surfaces; not semantic ground truth or camera calibration. Reference image not copied into repository."
+}

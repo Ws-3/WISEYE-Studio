@@ -1,0 +1,206 @@
+[
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content-F-Reference",
+    "target": "\\\\?\\F:\\WISEYE-Studio\\ue5\\WISEYE\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\sensor-stability-test-data\\ue5\\WISEYE\\Content",
+    "target": "\\\\?\\E:\\Projects\\WISEYE-IR-Work\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\reference-test-data\\ue5\\WISEYE\\Content",
+    "target": "\\\\?\\E:\\Projects\\WISEYE-IR-Work\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Content",
+    "target": "\\\\?\\E:\\Projects\\WISEYE-IR-Work\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\WorldAudioDataSystem\\Content",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Plugins\\WorldAudioDataSystem\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\WorldAudioDataSystem\\Content-F-Reference",
+    "target": "\\\\?\\F:\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\WorldAudioDataSystem\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\Traffic\\Content",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Plugins\\Traffic\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\Traffic\\Content-F-Reference",
+    "target": "\\\\?\\F:\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\Traffic\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\RuleProcessor\\Content",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Plugins\\RuleProcessor\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\RuleProcessor\\Content-F-Reference",
+    "target": "\\\\?\\F:\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\RuleProcessor\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\ProjectAirSim\\Content",
+    "target": "\\\\?\\F:\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\ProjectAirSim\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\ProjectAirSim\\Content-F-Reference",
+    "target": "\\\\?\\F:\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\ProjectAirSim\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\ProjectAirSim\\SimLibs",
+    "target": "\\\\?\\F:\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\ProjectAirSim\\SimLibs"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\HoverDrone\\Content",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Plugins\\HoverDrone\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\HoverDrone\\Content-F-Reference",
+    "target": "\\\\?\\F:\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\HoverDrone\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\Drone\\Content",
+    "target": "\\\\?\\F:\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\Drone\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\Drone\\Content-F-Reference",
+    "target": "\\\\?\\F:\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\Drone\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\BrokenGlassEffects\\Content",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Plugins\\BrokenGlassEffects\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Plugins\\BrokenGlassEffects\\Content-F-Reference",
+    "target": "\\\\?\\F:\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\BrokenGlassEffects\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\live-placement-data\\ue5\\WISEYE\\Content",
+    "target": "\\\\?\\E:\\Projects\\WISEYE-IR-Work\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\ir-fix-test-data\\ue5\\WISEYE\\Content",
+    "target": "\\\\?\\E:\\Projects\\WISEYE-IR-Work\\Content"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\AI",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\AI"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Audio",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Audio"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Building",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Building"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Character",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Character"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Cinematics",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Cinematics"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\City",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\City"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Collections",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Collections"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Crowd",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Crowd"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Developers",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Developers"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Effect",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Effect"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Environment",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Environment"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Gameplay",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Gameplay"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\HDA",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\HDA"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Input",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Input"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Lighting",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Lighting"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Localization",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Localization"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Lookdev",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Lookdev"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Map",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Map"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Material",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Material"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Megascans",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Megascans"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\MSPresets",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\MSPresets"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Prop",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Prop"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Road",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Road"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Splash",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Splash"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Textures",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Textures"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\UI",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\UI"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\Vehicle",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\Vehicle"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\WFC",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\WFC"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\Content\\__ExternalActors__\\Map",
+    "target": "\\\\?\\E:\\Projects\\Scene\\CitySample\\Content\\__ExternalActors__\\Map"
+  },
+  {
+    "path": "E:\\Projects\\WISEYE-IR-Work\\big-city-test-data\\ue5\\WISEYE\\Content",
+    "target": "\\\\?\\E:\\Projects\\WISEYE-IR-Work\\Content"
+  }
+]

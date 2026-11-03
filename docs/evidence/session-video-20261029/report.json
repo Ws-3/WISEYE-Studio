@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "video_fps": {
+    "visible": {
+      "0": 6.927573471646475,
+      "1": 9.182333181887104
+    },
+    "infrared": {
+      "0": 7.291460581646316,
+      "1": 8.77653745673478
+    }
+  },
+  "saved_pairs": 12,
+  "gt_received": 15,
+  "clean_worker_exit": true
+}

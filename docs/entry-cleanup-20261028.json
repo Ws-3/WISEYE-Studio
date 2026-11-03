@@ -1,0 +1,62 @@
+{
+  "removed_launchers": [
+    "Start-CitySample.vbs",
+    "Start-Desktop.cmd",
+    "Start-ProjectAirSim.cmd",
+    "Start-ProjectAirSim.vbs",
+    "Start-WISEYE.cmd"
+  ],
+  "launcher_original_bytes": 1004,
+  "removed_root_log": "projectairsim_client.log",
+  "root_log_bytes": 1294,
+  "removed_caches": [
+    {
+      "path": "apps\\__pycache__",
+      "bytes": 115.0,
+      "files": 1
+    },
+    {
+      "path": "apps\\desktop_app\\__pycache__",
+      "bytes": 497671.0,
+      "files": 27
+    },
+    {
+      "path": "apps\\desktop_app\\ui\\__pycache__",
+      "bytes": 13914.0,
+      "files": 4
+    },
+    {
+      "path": "core\\__pycache__",
+      "bytes": 64604.0,
+      "files": 12
+    },
+    {
+      "path": "integrations\\ProjectAirSim\\__pycache__",
+      "bytes": 63225.0,
+      "files": 1
+    },
+    {
+      "path": "integrations\\rtsp\\__pycache__",
+      "bytes": 16626.0,
+      "files": 1
+    },
+    {
+      "path": "tests\\__pycache__",
+      "bytes": 265513.0,
+      "files": 31
+    },
+    {
+      "path": "training_client\\__pycache__",
+      "bytes": 78009.0,
+      "files": 9
+    }
+  ],
+  "retained_main": "Start-WISEYE-Studio.vbs",
+  "retained_training": "training_client/Start-Training.vbs",
+  "validation": [
+    "VBS executed against harmless stub in a path with spaces",
+    "Start PowerShell scripts parsed",
+    "Desktop target resolved to builds/python-env with --connect"
+  ],
+  "full_simulation_launched": false
+}

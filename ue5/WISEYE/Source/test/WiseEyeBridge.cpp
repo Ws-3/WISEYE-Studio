@@ -1,6 +1,14 @@
 #include "WiseEyeBridge.h"
 #include "WiseEyeDemo.h"
+#include "WiseEyeStreaming.h"
+#include "WiseEyeEventCamera.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
 #include "Components/SceneComponent.h"
+#include "Components/SceneCaptureComponent2D.h"
+#include "Components/WorldPartitionStreamingSourceComponent.h"
+#include "Engine/World.h"
+#include "WorldPartition/WorldPartition.h"
 #include "Engine/TextureRenderTarget2D.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonReader.h"
@@ -11,6 +19,7 @@
 #include "HAL/PlatformTime.h"
 #include "HAL/FileManager.h"
 #include "Misc/Base64.h"
+#include "Misc/Guid.h"
 #include "Camera/CameraActor.h"
 #include "Materials/MaterialInterface.h"
 
@@ -82,6 +91,11 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
     R->SetStringField(TEXT("application"),TEXT("WISEYE Studio"));
     R->SetStringField(TEXT("scene_id"),Demo.SceneId);
     R->SetStringField(TEXT("run_id"),Demo.PlaySessionId);
+    R->SetBoolField(TEXT("training_samples_supported"),true);
+    R->SetBoolField(TEXT("paired_training_samples_supported"),true);
+    R->SetNumberField(TEXT("gt_max_fps_supported"),20);
+    R->SetNumberField(TEXT("gt_max_fps"),Demo.GTSettings.MaxFPS);
+    R->SetBoolField(TEXT("live_placement_supported"),true);
     auto Streams=MakeShared<FJsonObject>();
     for (bool Infrared : {false,true})
     {
@@ -106,6 +120,18 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
     const auto& PlacementDemo=Demo.FleetRoot?*Demo.FleetRoot:Demo;
     Placement->SetBoolField(TEXT("active"),PlacementDemo.PlacementActive);
     Placement->SetBoolField(TEXT("has_result"),PlacementDemo.PlacementHasResult);
+    Placement->SetBoolField(TEXT("preview_supported"),true);
+    Placement->SetBoolField(TEXT("nudge_supported"),true);
+    Placement->SetBoolField(TEXT("locked"),PlacementDemo.PlacementLocked);
+    Placement->SetArrayField(TEXT("nudge_cm"),Vector(PlacementDemo.PlacementNudge));
+    Placement->SetNumberField(TEXT("yaw_deg"),PlacementDemo.PlacementYawDegrees);
+    const bool PreviewVisible=IsValid(PlacementDemo.PlacementPreview) && PlacementDemo.PlacementHoverValid && PlacementDemo.PlacementActive;
+    Placement->SetBoolField(TEXT("preview_visible"),PreviewVisible);
+    Placement->SetArrayField(TEXT("preview_position_cm"),Vector(PlacementDemo.PlacementPreviewPosition));
+    if (PreviewVisible) {
+        FVector Center,Extent;PlacementDemo.PlacementPreview->GetActorBounds(false,Center,Extent);
+        Placement->SetArrayField(TEXT("preview_size_cm"),Vector(Extent*2));
+    }
     Placement->SetStringField(TEXT("device_id"),PlacementDemo.PlacementDevice);
     Placement->SetStringField(TEXT("request_token"),PlacementDemo.PlacementToken);
     Placement->SetStringField(TEXT("error"),PlacementDemo.PlacementError);
@@ -113,10 +139,43 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
     Placement->SetArrayField(TEXT("position_cm"),Vector(PlacementDemo.PlacementPosition));
     Placement->SetArrayField(TEXT("surface_cm"),Vector(PlacementDemo.PlacementSurface));
     R->SetObjectField(TEXT("placement"),Placement);
+    auto Applied=MakeShared<FJsonObject>();
+    Applied->SetStringField(TEXT("request_token"),PlacementDemo.PlacementAppliedToken);
+    Applied->SetStringField(TEXT("device_id"),PlacementDemo.PlacementAppliedDevice);
+    R->SetObjectField(TEXT("placement_applied"),Applied);
     if (Demo.FreeObserver) R->SetArrayField(TEXT("observer_position_cm"),Vector(Demo.FreeObserver->GetActorLocation()));
     R->SetStringField(TEXT("input_mode"),Demo.FleetRoot?Demo.FleetRoot->ControlMode:Demo.ControlMode);
     R->SetNumberField(TEXT("pitch_min_deg"),Demo.MinPitch);
     R->SetNumberField(TEXT("pitch_max_deg"),Demo.MaxPitch);
+    R->SetBoolField(TEXT("coordinate_pointing_supported"),true);
+    const auto* StreamingRoot=Demo.FleetRoot?Demo.FleetRoot.Get():&Demo;
+    const auto* WorldPartition=Demo.GetWorld()->GetWorldPartition();
+    const bool StreamingEnabled=WorldPartition && WorldPartition->IsStreamingEnabled();
+    R->SetBoolField(TEXT("world_streaming_enabled"),StreamingEnabled);
+    int32 StreamingSources=0;
+    bool StreamingReady=true;
+    for (auto Rig : StreamingRoot->FleetRigs) {
+        auto CheckSource=[&](AActor* Actor) {
+            if (IsValid(Actor)) if (auto* Source=Actor->FindComponentByClass<UWorldPartitionStreamingSourceComponent>()) {
+                ++StreamingSources;
+                StreamingReady=StreamingReady && Source->IsStreamingCompleted();
+            }
+        };
+        CheckSource(Rig);
+        if (Rig->OwnsDrone) CheckSource(Rig->Drone);
+    }
+    R->SetBoolField(TEXT("world_streaming_ready"),StreamingReady && (Demo.SceneId!=TEXT("city_large") || (StreamingEnabled && StreamingSources>=2)));
+    R->SetNumberField(TEXT("device_streaming_sources"),StreamingSources);
+    if (Demo.SceneId==TEXT("city_large")) R->SetNumberField(TEXT("streaming_radius_m"),250);
+    auto Geometry=MakeShared<FJsonObject>();
+    Geometry->SetStringField(TEXT("world_unit"),TEXT("centimeter"));
+    Geometry->SetStringField(TEXT("angles_reference"),TEXT("relative_to_device_base"));
+    Geometry->SetArrayField(TEXT("base_position_cm"),Vector(Demo.Base->GetComponentLocation()));
+    Geometry->SetArrayField(TEXT("pivot_position_cm"),Vector(Demo.PitchPivot->GetComponentLocation()));
+    const auto BaseRotation=Demo.Base->GetComponentRotation();
+    Geometry->SetArrayField(TEXT("base_rotation_pitch_yaw_roll_deg"),Vector(FVector(BaseRotation.Pitch,BaseRotation.Yaw,BaseRotation.Roll)));
+    Geometry->SetNumberField(TEXT("yaw_rate_deg_s"),30);Geometry->SetNumberField(TEXT("pitch_rate_deg_s"),20);
+    R->SetObjectField(TEXT("gimbal_geometry"),Geometry);
     R->SetNumberField(TEXT("lidar_horizontal_fov_deg"),Demo.LidarHorizontalFov);
     R->SetNumberField(TEXT("lidar_vertical_fov_deg"),Demo.LidarVerticalFov);
     R->SetNumberField(TEXT("lidar_scan_rate_hz"),Demo.LidarScanRateHz);
@@ -133,10 +192,23 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
     R->SetBoolField(TEXT("dynamics_connected"),Demo.DynamicsConnected);
     R->SetStringField(TEXT("dynamics_actor"),IsValid(Demo.DynamicsSource)?Demo.DynamicsSource->GetName():TEXT(""));
     R->SetBoolField(TEXT("tracking"),Demo.TrackingEnabled);
+    R->SetBoolField(TEXT("sensor_power_supported"),true);
     R->SetBoolField(TEXT("rotors_running"),Demo.RotorsRunning);
     R->SetNumberField(TEXT("rotor_rpm"),Demo.RotorRPM);
     TArray<TSharedPtr<FJsonValue>> RPMs; for (float RPM:Demo.MotorRPMs) RPMs.Add(MakeShared<FJsonValueNumber>(RPM));
     R->SetArrayField(TEXT("motor_rpm"),RPMs);
+    auto TargetHeat=MakeShared<FJsonObject>();
+    const auto* ThermalRoot=Demo.FleetRoot?Demo.FleetRoot.Get():&Demo;
+    const auto* ThermalOwner=Demo.OwnsDrone?&Demo:ThermalRoot->FindDevice(Demo.DroneId);
+    if (ThermalOwner) {
+        TargetHeat->SetNumberField(TEXT("motor_warmth"),ThermalOwner->ThermalHeat.Motor);
+        TargetHeat->SetNumberField(TEXT("battery_warmth"),ThermalOwner->ThermalHeat.Battery);
+        TargetHeat->SetNumberField(TEXT("power_proxy"),ThermalOwner->ThermalPower);
+        TargetHeat->SetNumberField(TEXT("body_signal"),ThermalOwner->BodyHeat);
+        TargetHeat->SetNumberField(TEXT("motor_signal"),ThermalOwner->MotorHeat);
+        TargetHeat->SetStringField(TEXT("units"),TEXT("normalized engineering proxy, not Celsius"));
+    }
+    R->SetObjectField(TEXT("thermal_target"),TargetHeat);
     R->SetStringField(TEXT("rotor_source"),Demo.FlightBackend==EWiseEyeFlightBackend::ProjectAirSim?TEXT("airsim_rad_s"):TEXT("kinematic"));
     R->SetBoolField(TEXT("rotor_telemetry_fresh"),Demo.RotorTelemetryValid && FPlatformTime::Seconds()-Demo.RotorTelemetryTime<1.5);
     R->SetNumberField(TEXT("tick_seq"),Demo.TickSequence);
@@ -156,19 +228,62 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
     R->SetArrayField(TEXT("available_sensors"),{
         MakeShared<FJsonValueString>(TEXT("visible")),
         MakeShared<FJsonValueString>(TEXT("infrared")),
-        MakeShared<FJsonValueString>(TEXT("lidar"))});
+        MakeShared<FJsonValueString>(TEXT("lidar")),MakeShared<FJsonValueString>(TEXT("event"))});
     auto Sensors=MakeShared<FJsonObject>();
     for (const FString Sensor : {FString(TEXT("visible")),FString(TEXT("infrared")),FString(TEXT("lidar"))})
     {
         auto Settings=MakeShared<FJsonObject>();
         const bool IR=Sensor==TEXT("infrared"), Lidar=Sensor==TEXT("lidar");
         Settings->SetBoolField(TEXT("enabled"),Lidar?Demo.LidarEnabled:IR?Demo.InfraredEnabled:Demo.VisibleEnabled);
-        if (!Lidar) Settings->SetNumberField(TEXT("fov_deg"),IR?Demo.InfraredFOV:Demo.VisibleFOV);
+        if (!Lidar) {
+            const double HFov=IR?Demo.InfraredFOV:Demo.VisibleFOV;
+            const auto* Capture=IR?Demo.InfraredCapture.Get():Demo.Capture.Get();
+            const int32 Width=IR?640:1920,Height=IR?512:1080;
+            Settings->SetNumberField(TEXT("fov_deg"),HFov);
+            Settings->SetNumberField(TEXT("vertical_fov_deg"),FMath::RadiansToDegrees(2*FMath::Atan(FMath::Tan(FMath::DegreesToRadians(HFov)*.5)*Height/Width)));
+            Settings->SetNumberField(TEXT("width_px"),Width);Settings->SetNumberField(TEXT("height_px"),Height);
+        }
+        if (!Lidar) Settings->SetNumberField(TEXT("capture_sequence"),IR?Demo.ThermalFrameIndex:Demo.VisibleCaptureSequence);
+        if (!Lidar) {
+            const auto Offset=IR?Demo.InfraredOffsetCm:Demo.VisibleOffsetCm;
+            const auto Rotation=IR?Demo.InfraredBoresight:Demo.VisibleBoresight;
+            const auto* Source=IR?Demo.InfraredCapture.Get():Demo.Capture.Get();
+            Settings->SetBoolField(TEXT("extrinsics_supported"),true);
+            Settings->SetNumberField(TEXT("mount_x_cm"),Offset.X);Settings->SetNumberField(TEXT("mount_y_cm"),Offset.Y);Settings->SetNumberField(TEXT("mount_z_cm"),Offset.Z);
+            Settings->SetNumberField(TEXT("boresight_pitch_deg"),Rotation.Pitch);Settings->SetNumberField(TEXT("boresight_yaw_deg"),Rotation.Yaw);Settings->SetNumberField(TEXT("boresight_roll_deg"),Rotation.Roll);
+            Settings->SetArrayField(TEXT("camera_position_cm"),Vector(Source->GetComponentLocation()));
+            const auto WorldRotation=Source->GetComponentRotation();
+            Settings->SetArrayField(TEXT("camera_rotation_pitch_yaw_roll_deg"),Vector(FVector(WorldRotation.Pitch,WorldRotation.Yaw,WorldRotation.Roll)));
+        }
         if (IR) {
             Settings->SetStringField(TEXT("palette"),Demo.BlackHot?TEXT("black_hot"):TEXT("white_hot")); Settings->SetNumberField(TEXT("noise"),Demo.ThermalNoise);
-            const bool Experimental=Demo.ThermalMaterial && Demo.ThermalMaterial->GetName()==TEXT("M_IR_Experimental");
+            const bool Experimental=Demo.ThermalMaterial && (Demo.ThermalMaterial->GetName()==TEXT("M_IR_Experimental") || Demo.HasReferenceInfrared());
             Settings->SetStringField(TEXT("thermal_profile"),Experimental?Demo.ThermalProfile:TEXT("legacy"));
             Settings->SetBoolField(TEXT("enhanced_available"),Experimental);
+            Settings->SetBoolField(TEXT("reference_available"),Demo.HasReferenceInfrared());
+            Settings->SetBoolField(TEXT("classified_available"),Demo.HasClassifiedInfrared());
+            Settings->SetBoolField(TEXT("facade_available"),Demo.HasFacadeInfrared());
+            Settings->SetBoolField(TEXT("detector_controls_available"),Demo.HasFacadeInfrared());
+            const auto& D=Demo.ThermalDetector;
+            Settings->SetStringField(TEXT("gain_mode"),D.Mode==1?TEXT("locked"):D.Mode==2?TEXT("manual"):TEXT("auto"));
+            Settings->SetBoolField(TEXT("stable_agc"),D.Stable);
+            Settings->SetNumberField(TEXT("manual_low"),D.Low);Settings->SetNumberField(TEXT("manual_high"),D.High);
+            Settings->SetNumberField(TEXT("brightness"),D.Brightness);Settings->SetNumberField(TEXT("sky_denoise"),D.Denoise);
+            Settings->SetNumberField(TEXT("noise_seed"),D.Seed);
+            Settings->SetBoolField(TEXT("agc_enabled"),Demo.ThermalAutoGain);
+            Settings->SetNumberField(TEXT("agc_response_s"),Demo.ThermalGainResponse);
+            Settings->SetNumberField(TEXT("sampling_scale"),Demo.ThermalSamplingScale);
+            {
+                const auto Readout=Demo.GetThermalReadout();
+                Settings->SetNumberField(TEXT("agc_low"),Readout.Low);Settings->SetNumberField(TEXT("agc_high"),Readout.High);
+                Settings->SetNumberField(TEXT("readout_ms"),Readout.ProcessingMs);Settings->SetNumberField(TEXT("readout_sequence"),Readout.Sequence);
+                TArray<TSharedPtr<FJsonValue>> ClassPixels;for (int32 Count:Readout.ClassPixels) ClassPixels.Add(MakeShared<FJsonValueNumber>(Count));
+                Settings->SetArrayField(TEXT("class_pixels"),ClassPixels);
+                Settings->SetNumberField(TEXT("target_pixels"),Readout.TargetPixels);
+                Settings->SetNumberField(TEXT("motor_region_pixels"),Readout.MotorRegionPixels);
+                Settings->SetNumberField(TEXT("sky_pixels"),Readout.SkyPixels);
+            }
+            Settings->SetStringField(TEXT("signal_model"),TEXT("normalized thermal proxy, FP16 pre-AGC; not radiometric"));
             Settings->SetNumberField(TEXT("blur_px"),Demo.ThermalBlurPixels);
             Settings->SetNumberField(TEXT("contrast"),Demo.ThermalContrast);
             Settings->SetNumberField(TEXT("background_detail"),Demo.ThermalBackgroundDetail);
@@ -178,15 +293,17 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
             Settings->SetNumberField(TEXT("vertical_fov_deg"),Demo.LidarVerticalFov);
             Settings->SetNumberField(TEXT("range_m"),Demo.LidarRangeMeters);
             Settings->SetNumberField(TEXT("scan_rate_hz"),Demo.LidarScanRateHz);
+            Settings->SetNumberField(TEXT("scan_sequence"),Demo.LidarScanSequence);
         }
         Sensors->SetObjectField(Sensor,Settings);
     }
     R->SetObjectField(TEXT("sensors"),Sensors);
+    Sensors->SetObjectField(TEXT("event"),Demo.EventSensorState());
     R->SetStringField(TEXT("palette"),Demo.BlackHot?TEXT("black_hot"):TEXT("white_hot"));
     R->SetNumberField(TEXT("fov_deg"),Demo.FieldOfView);
-    UTextureRenderTarget2D* Target=Demo.GetSensorTarget();
-    R->SetNumberField(TEXT("width"),Target?Target->SizeX:0);
-    R->SetNumberField(TEXT("height"),Target?Target->SizeY:0);
+    // Camera specifications remain available while acquisition is off.
+    R->SetNumberField(TEXT("width"),Demo.InfraredMode?640:1920);
+    R->SetNumberField(TEXT("height"),Demo.InfraredMode?512:1080);
     R->SetArrayField(TEXT("drone_position_cm"),Vector(Demo.Drone->GetActorLocation()));
     R->SetStringField(TEXT("tracking_source"),TEXT("UE ground truth"));
     R->SetStringField(TEXT("thermal_model"),TEXT("synthetic normalized heat"));
@@ -249,7 +366,12 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
                 !Args->TryGetNumberField(TEXT("fog"),Fog) || !Args->TryGetNumberField(TEXT("rain"),Rain) ||
                 !FMath::IsFinite(Hour) || Hour<0 || Hour>=24 || !FMath::IsFinite(Fog) || Fog<0 || Fog>1 || !FMath::IsFinite(Rain) || Rain<0 || Rain>1)
                 return Fail(TEXT("Environment requires time_override, hour [0,24), fog/rain [0,1]"));
+            double Clouds=Root.EnvironmentClouds;
+            if (Args->HasField(TEXT("clouds")) && (Args->Values[TEXT("clouds")]->Type!=EJson::Number || !Args->TryGetNumberField(TEXT("clouds"),Clouds) || !FMath::IsFinite(Clouds) || Clouds<0 || Clouds>1)) return Fail(TEXT("clouds must be a number within [0,1]"));
+            Root.InitializeEnvironment();
+            if (Clouds>0 && !Root.EnvironmentCloudMaterial) return Fail(TEXT("Cloud material unavailable"));
             FString Error;if (!Root.ConfigureEnvironment(Override,Hour,Fog,Rain,Error)) return Fail(Error);
+            if (!Root.ConfigureClouds(Clouds,Error)) return Fail(Error);
         }
         return Reply(Id,State());
     }
@@ -271,7 +393,64 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         C->SetStringField(TEXT("angle_unit"),TEXT("degree")); C->SetNumberField(TEXT("yaw_min"),-180); C->SetNumberField(TEXT("yaw_max"),180);
         C->SetNumberField(TEXT("pitch_min"),Demo.MinPitch); C->SetNumberField(TEXT("pitch_max"),Demo.MaxPitch);
         C->SetNumberField(TEXT("yaw_rate_deg_s"),30); C->SetNumberField(TEXT("pitch_rate_deg_s"),20); C->SetNumberField(TEXT("input_watchdog_ms"),300);
+        C->SetBoolField(TEXT("coordinate_pointing_supported"),true);
+        C->SetStringField(TEXT("coordinate_frame"),TEXT("ue_world_cm"));
         R->SetObjectField(TEXT("gimbal_capabilities"),C); return Reply(Id,R);
+    }
+    if (Command==TEXT("gimbal.point_at")) {
+        FString Scene,Run,Sensor;
+        if (!Args->TryGetStringField(TEXT("scene_id"),Scene) || Scene!=Demo.SceneId ||
+            !Args->TryGetStringField(TEXT("run_id"),Run) || Run!=Demo.PlaySessionId ||
+            !Args->TryGetStringField(TEXT("sensor"),Sensor) || (Sensor!=TEXT("visible") && Sensor!=TEXT("infrared")))
+            return Fail(TEXT("Current scene_id, run_id and visible/infrared sensor required"));
+        const TArray<TSharedPtr<FJsonValue>>* Values=nullptr;
+        if (!Args->TryGetArrayField(TEXT("position_cm"),Values) || Values->Num()!=3) return Fail(TEXT("position_cm needs three world coordinates"));
+        FVector Target;
+        for (int32 I=0;I<3;++I) {
+            double V=0;if ((*Values)[I]->Type!=EJson::Number || !(*Values)[I]->TryGetNumber(V) || !FMath::IsFinite(V) || FMath::Abs(V)>1e7)
+                return Fail(TEXT("World coordinates must be finite numbers within 100 km"));
+            Target[I]=V;
+        }
+        auto* Source=Sensor==TEXT("infrared")?Demo.InfraredCapture.Get():Demo.Capture.Get();
+        if (!Source || FVector::Distance(Target,Source->GetComponentLocation())<1) return Fail(TEXT("Target must be at least 1 cm from the selected optical center"));
+        const FRotator OldYaw=Demo.YawPivot->GetRelativeRotation(),OldPitch=Demo.PitchPivot->GetRelativeRotation();
+        // Iterate actual component transforms so independent camera offsets,
+        // boresight and rotated/scaled device bases remain in the solution.
+        double CandidateYaw=OldYaw.Yaw,CandidatePitch=OldPitch.Pitch;
+        for (int32 I=0;I<12;++I) {
+            const auto Desired=Demo.Base->GetComponentTransform().InverseTransformVectorNoScale(Target-Source->GetComponentLocation()).Rotation();
+            const auto Actual=(Demo.Base->GetComponentQuat().Inverse()*Source->GetComponentQuat()).Rotator();
+            CandidateYaw=FRotator::NormalizeAxis(CandidateYaw+FMath::FindDeltaAngleDegrees(double(Actual.Yaw),double(Desired.Yaw)));
+            CandidatePitch+=FMath::FindDeltaAngleDegrees(double(Actual.Pitch),double(Desired.Pitch));
+            Demo.YawPivot->SetRelativeRotation(FRotator(0,CandidateYaw,0));Demo.PitchPivot->SetRelativeRotation(FRotator(CandidatePitch,0,0));
+        }
+        const double Error=FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(FVector::DotProduct((Target-Source->GetComponentLocation()).GetSafeNormal(),Source->GetForwardVector()),-1.0,1.0)));
+        if (!FMath::IsFinite(CandidatePitch) || CandidatePitch<Demo.MinPitch-1e-6 || CandidatePitch>Demo.MaxPitch+1e-6 || Error>.01) {
+            Demo.YawPivot->SetRelativeRotation(OldYaw);Demo.PitchPivot->SetRelativeRotation(OldPitch);
+            return Fail(TEXT("Target outside pitch limits or selected optical axis cannot converge; previous pose preserved"));
+        }
+        Demo.TrackingEnabled=false;Demo.RemoteGimbalInput=FVector2D::ZeroVector;
+        auto R=State();auto Pointing=MakeShared<FJsonObject>();
+        Pointing->SetStringField(TEXT("sensor"),Sensor);Pointing->SetArrayField(TEXT("position_cm"),Vector(Target));
+        Pointing->SetNumberField(TEXT("error_deg"),Error);
+        Pointing->SetNumberField(TEXT("slant_range_m"),FVector::Distance(Target,Source->GetComponentLocation())/100.);
+        R->SetObjectField(TEXT("coordinate_pointing"),Pointing);return Reply(Id,R);
+    }
+    if (Command==TEXT("placement.validate") || Command==TEXT("placement.apply")) {
+        FString Scene,Run,Token,Device,Error;double Yaw=0;const TArray<TSharedPtr<FJsonValue>>* Values=nullptr;
+        if (!Args->TryGetStringField(TEXT("scene_id"),Scene) || Scene!=Demo.SceneId ||
+            !Args->TryGetStringField(TEXT("run_id"),Run) || Run!=Demo.PlaySessionId ||
+            !Args->TryGetStringField(TEXT("request_token"),Token) || Token.IsEmpty() || Token.Len()>64 ||
+            !Args->TryGetStringField(TEXT("device_id"),Device) || !Demo.FindDevice(Device) ||
+            !Args->TryGetNumberField(TEXT("yaw_deg"),Yaw) || !FMath::IsFinite(Yaw) || FMath::Abs(Yaw)>180 ||
+            !Args->TryGetArrayField(TEXT("position_cm"),Values) || Values->Num()!=3)
+            return Fail(TEXT("Current scene/run, device, token and finite position/yaw required"));
+        double XYZ[3];for (int32 I=0;I<3;++I) if (!(*Values)[I]->TryGetNumber(XYZ[I]) || !FMath::IsFinite(XYZ[I]) || FMath::Abs(XYZ[I])>1e7) return Fail(TEXT("Invalid position_cm"));
+        if (Command==TEXT("placement.apply")) {
+            if (!Demo.ApplyDevicePlacement(Device,FVector(XYZ[0],XYZ[1],XYZ[2]),Yaw,Error)) return Fail(Error);
+            Demo.PlacementAppliedToken=Token;Demo.PlacementAppliedDevice=Device;
+        }
+        return Reply(Id,State());
     }
     if (Command.StartsWith(TEXT("placement.")))
     {
@@ -335,33 +514,112 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         }
         return Reply(Id,State());
     }
+    if (Command==TEXT("sensor.event.get_packet") || Command==TEXT("sensor.event.capture")) {
+        if (!Demo.EventEnabled || !Demo.StreamManager) return Reply(Id,Empty,TEXT("sensor_disabled"),TEXT("Event camera disabled"));
+        FString Run;
+        if (Args->TryGetStringField(TEXT("run_id"),Run) && Run!=Demo.PlaySessionId) return Fail(TEXT("Event session changed"));
+        double After=0,Limit=5000;bool Latest=false;
+        if ((Args->HasField(TEXT("after_sequence")) && !Args->TryGetNumberField(TEXT("after_sequence"),After)) ||
+            (Args->HasField(TEXT("max_events")) && !Args->TryGetNumberField(TEXT("max_events"),Limit)) ||
+            (Args->HasField(TEXT("latest")) && !Args->TryGetBoolField(TEXT("latest"),Latest)) ||
+            !FMath::IsFinite(After) || After<0 || After>9007199254740991. || FMath::FloorToDouble(After)!=After ||
+            !FMath::IsFinite(Limit) || Limit<1 || Limit>20000 || FMath::FloorToDouble(Limit)!=Limit) return Fail(TEXT("Invalid event cursor/limit"));
+        auto Data=Demo.StreamManager->EventCamera->Packet(int64(After),int32(Limit),Latest || Command==TEXT("sensor.event.capture"));
+        Data->SetStringField(TEXT("device_id"),Demo.GimbalId);Data->SetStringField(TEXT("sensor_id"),Demo.GimbalId+TEXT("/event"));
+        Data->SetStringField(TEXT("run_id"),Demo.PlaySessionId);Data->SetStringField(TEXT("scene_id"),Demo.SceneId);
+        Data->SetNumberField(TEXT("simulation_time_s"),Demo.SimulationTime);
+        Data->SetObjectField(TEXT("sensor_state"),Demo.EventSensorState());
+        if (Command==TEXT("sensor.event.get_packet")) return Reply(Id,Data);
+        FString Json;FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Json));
+        Demo.LastEventExportPath=FPaths::Combine(Demo.OutputDirectory,FString::Printf(TEXT("EVENT_%s.json"),*FGuid::NewGuid().ToString(EGuidFormats::Digits)));
+        if (!FFileHelper::SaveStringToFile(Json,*Demo.LastEventExportPath)) return Fail(TEXT("Could not save event window"));
+        auto Result=State();Result->SetStringField(TEXT("event_last_export_path"),Demo.LastEventExportPath);return Reply(Id,Result);
+    }
+    if (Command==TEXT("sensor.set_enabled")) {
+        FString Sensor;bool Enabled=false;
+        if (!Args->TryGetStringField(TEXT("sensor"),Sensor) || !Args->HasField(TEXT("enabled")) || Args->Values[TEXT("enabled")]->Type!=EJson::Boolean || !Args->TryGetBoolField(TEXT("enabled"),Enabled)) return Fail(TEXT("sensor and Boolean enabled required"));
+        if (Sensor==TEXT("event")) { Demo.EventEnabled=Enabled;Demo.RefreshEventSensor();return Reply(Id,State()); }
+        if (Sensor==TEXT("visible")) Demo.VisibleEnabled=Enabled;
+        else if (Sensor==TEXT("infrared")) Demo.InfraredEnabled=Enabled;
+        else if (Sensor==TEXT("lidar")) {
+            Demo.LidarEnabled=Enabled;
+            if (!Enabled) { Demo.LastLidarPointsWorldCm.Reset();Demo.LastLidarRangesMeters.Reset();Demo.LidarHitCount=0;Demo.LidarNearestRangeMeters=0; }
+        } else return Fail(TEXT("Unknown sensor"));
+        Demo.RefreshSensors();
+        return Reply(Id,State());
+    }
     if (Command==TEXT("sensor.configure"))
     {
         FString Sensor,Palette; bool Enabled=false;
         if (!Args->TryGetStringField(TEXT("sensor"),Sensor) || !Args->TryGetBoolField(TEXT("enabled"),Enabled)) return Fail(TEXT("sensor and enabled required"));
+        if (Sensor==TEXT("event")) {
+            double Fov,Hz,On,Off,Refractory;
+            if (!Args->TryGetNumberField(TEXT("fov_deg"),Fov) || !Args->TryGetNumberField(TEXT("sample_hz"),Hz) ||
+                !Args->TryGetNumberField(TEXT("positive_threshold"),On) || !Args->TryGetNumberField(TEXT("negative_threshold"),Off) ||
+                !Args->TryGetNumberField(TEXT("refractory_us"),Refractory)) return Fail(TEXT("Event camera parameters required"));
+            for (double V:{Fov,Hz,On,Off,Refractory}) if (!FMath::IsFinite(V)) return Fail(TEXT("Event parameters must be finite"));
+            if (Fov<5 || Fov>120 || Hz<1 || Hz>120 || On<.01 || On>1 || Off<.01 || Off>1 || Refractory<0 || Refractory>100000 || FMath::FloorToDouble(Refractory)!=Refractory) return Fail(TEXT("Event parameters exceed limits"));
+            FVector Offset=Demo.EventOffsetCm;FRotator Rotation=Demo.EventBoresight;
+            const TArray<TPair<FString,double*>> Fields={{TEXT("mount_x_cm"),&Offset.X},{TEXT("mount_y_cm"),&Offset.Y},{TEXT("mount_z_cm"),&Offset.Z},{TEXT("boresight_pitch_deg"),&Rotation.Pitch},{TEXT("boresight_yaw_deg"),&Rotation.Yaw},{TEXT("boresight_roll_deg"),&Rotation.Roll}};
+            for (int32 I=0;I<Fields.Num();++I) if (Args->HasField(Fields[I].Key) && (!Args->TryGetNumberField(Fields[I].Key,*Fields[I].Value) || !FMath::IsFinite(*Fields[I].Value) || FMath::Abs(*Fields[I].Value)>(I<3?100:15))) return Fail(TEXT("Invalid event camera extrinsics"));
+            Demo.EventEnabled=Enabled;Demo.EventFOV=Fov;Demo.EventSampleHz=Hz;Demo.EventOn=On;Demo.EventOff=Off;Demo.EventRefractoryUs=int64(Refractory);
+            Demo.EventOffsetCm=Offset;Demo.EventBoresight=Rotation;Demo.RefreshEventSensor();return Reply(Id,State());
+        }
         if (Sensor==TEXT("visible") || Sensor==TEXT("infrared")) {
+            auto Offset=Sensor==TEXT("infrared")?Demo.InfraredOffsetCm:Demo.VisibleOffsetCm;
+            auto Rotation=Sensor==TEXT("infrared")?Demo.InfraredBoresight:Demo.VisibleBoresight;
+            auto CalibrationNumber=[&](const TCHAR* Key,double& Value,double Limit) {
+                return !Args->HasField(Key) || (Args->Values[Key]->Type==EJson::Number && Args->TryGetNumberField(Key,Value) && FMath::IsFinite(Value) && FMath::Abs(Value)<=Limit);
+            };
+            if (!CalibrationNumber(TEXT("mount_x_cm"),Offset.X,100) || !CalibrationNumber(TEXT("mount_y_cm"),Offset.Y,100) || !CalibrationNumber(TEXT("mount_z_cm"),Offset.Z,100) ||
+                !CalibrationNumber(TEXT("boresight_pitch_deg"),Rotation.Pitch,15) || !CalibrationNumber(TEXT("boresight_yaw_deg"),Rotation.Yaw,15) || !CalibrationNumber(TEXT("boresight_roll_deg"),Rotation.Roll,15)) return Fail(TEXT("Invalid camera extrinsics: position +/-100cm, boresight +/-15deg"));
             double Fov,Noise=0;
             if (!Args->TryGetNumberField(TEXT("fov_deg"),Fov) || !FMath::IsFinite(Fov) || Fov<5 || Fov>120) return Fail(TEXT("fov_deg must be within [5,120]"));
             if (Sensor==TEXT("infrared")) {
                 if (!Args->TryGetStringField(TEXT("palette"),Palette) || (Palette!=TEXT("white_hot") && Palette!=TEXT("black_hot")) || !Args->TryGetNumberField(TEXT("noise"),Noise) || !FMath::IsFinite(Noise) || Noise<0 || Noise>1) return Fail(TEXT("Invalid infrared palette/noise"));
                 FString Profile=Demo.ThermalProfile;
+                bool AutoGain=Demo.ThermalAutoGain;
+                double Response=Demo.ThermalGainResponse,Scale=Demo.ThermalSamplingScale;
                 double Blur=Demo.ThermalBlurPixels,Contrast=Demo.ThermalContrast,Detail=Demo.ThermalBackgroundDetail;
-                if (Args->HasField(TEXT("thermal_profile")) && (!Args->TryGetStringField(TEXT("thermal_profile"),Profile) || (Profile!=TEXT("legacy") && Profile!=TEXT("enhanced")))) return Fail(TEXT("Invalid thermal_profile"));
+                if (Args->HasField(TEXT("thermal_profile")) && (!Args->TryGetStringField(TEXT("thermal_profile"),Profile) || (Profile!=TEXT("legacy") && Profile!=TEXT("enhanced") && Profile!=TEXT("reference") && Profile!=TEXT("classified") && Profile!=TEXT("facade")))) return Fail(TEXT("Invalid thermal_profile"));
                 auto OptionalNumber=[&](const TCHAR* Key,double& Value,double Low,double High) {
-                    return !Args->HasField(Key) || (Args->TryGetNumberField(Key,Value) && FMath::IsFinite(Value) && Value>=Low && Value<=High);
+                    return !Args->HasField(Key) || (Args->Values[Key]->Type==EJson::Number && Args->TryGetNumberField(Key,Value) && FMath::IsFinite(Value) && Value>=Low && Value<=High);
                 };
                 if (!OptionalNumber(TEXT("blur_px"),Blur,0,2) || !OptionalNumber(TEXT("contrast"),Contrast,.3,3) || !OptionalNumber(TEXT("background_detail"),Detail,0,1)) return Fail(TEXT("Invalid thermal appearance parameters"));
-                if (Profile==TEXT("enhanced") && (!Demo.ThermalMaterial || Demo.ThermalMaterial->GetName()!=TEXT("M_IR_Experimental"))) return Fail(TEXT("Enhanced infrared material is not installed"));
+                if (!OptionalNumber(TEXT("agc_response_s"),Response,.1,10) || !OptionalNumber(TEXT("sampling_scale"),Scale,1,2) || (Scale!=1 && Scale!=2) ||
+                    (Args->HasField(TEXT("agc_enabled")) && (Args->Values[TEXT("agc_enabled")]->Type!=EJson::Boolean || !Args->TryGetBoolField(TEXT("agc_enabled"),AutoGain)))) return Fail(TEXT("Invalid reference camera parameters"));
+                auto Detector=Demo.ThermalDetector;
+                FString GainMode=Detector.Mode==1?TEXT("locked"):Detector.Mode==2?TEXT("manual"):TEXT("auto");
+                double Low=Detector.Low,High=Detector.High,Brightness=Detector.Brightness,Denoise=Detector.Denoise,Seed=Detector.Seed;
+                if (Args->HasField(TEXT("gain_mode"))) {
+                    if (!Args->TryGetStringField(TEXT("gain_mode"),GainMode) || (GainMode!=TEXT("auto") && GainMode!=TEXT("locked") && GainMode!=TEXT("manual"))) return Fail(TEXT("Invalid gain_mode"));
+                    if (Args->HasField(TEXT("agc_enabled")) && AutoGain!=(GainMode==TEXT("auto"))) return Fail(TEXT("gain_mode conflicts with agc_enabled"));
+                    Detector.Mode=GainMode==TEXT("locked")?1:GainMode==TEXT("manual")?2:0;
+                } else if (Args->HasField(TEXT("agc_enabled"))) Detector.Mode=AutoGain?0:2;
+                if (!OptionalNumber(TEXT("manual_low"),Low,0,1) || !OptionalNumber(TEXT("manual_high"),High,0,1) || High-Low<.009999 ||
+                    !OptionalNumber(TEXT("brightness"),Brightness,-.3,.3) || !OptionalNumber(TEXT("sky_denoise"),Denoise,0,1) || !OptionalNumber(TEXT("noise_seed"),Seed,0,2147483647.) || Seed!=FMath::FloorToDouble(Seed)) return Fail(TEXT("Invalid detector range/brightness/denoise/seed"));
+                if (Args->HasField(TEXT("stable_agc")) && (Args->Values[TEXT("stable_agc")]->Type!=EJson::Boolean || !Args->TryGetBoolField(TEXT("stable_agc"),Detector.Stable))) return Fail(TEXT("stable_agc must be Boolean"));
+                for (const TCHAR* Key:{TEXT("gain_mode"),TEXT("stable_agc"),TEXT("manual_low"),TEXT("manual_high"),TEXT("brightness"),TEXT("sky_denoise"),TEXT("noise_seed")})
+                    if (Args->HasField(Key) && !Demo.HasFacadeInfrared()) return Fail(TEXT("Detector material is not installed"));
+                Detector.Low=Low;Detector.High=High;Detector.Brightness=Brightness;Detector.Denoise=Denoise;Detector.Seed=uint32(Seed);
+                AutoGain=Detector.Mode==0;
+                if (Profile==TEXT("reference") && !Demo.HasReferenceInfrared()) return Fail(TEXT("Reference infrared material is not installed"));
+                if (Profile==TEXT("classified") && !Demo.HasClassifiedInfrared()) return Fail(TEXT("Classified infrared material is not installed"));
+                if (Profile==TEXT("facade") && !Demo.HasFacadeInfrared()) return Fail(TEXT("Facade infrared material is not installed"));
+                if (Profile==TEXT("enhanced") && (!Demo.ThermalMaterial || (Demo.ThermalMaterial->GetName()!=TEXT("M_IR_Experimental") && !Demo.HasReferenceInfrared()))) return Fail(TEXT("Enhanced infrared material is not installed"));
+                Demo.ThermalDetector=Detector;Demo.ThermalAutoGain=AutoGain;Demo.ThermalGainResponse=Response;Demo.ThermalSamplingScale=int32(Scale);
                 Demo.ThermalProfile=Profile; Demo.ThermalBlurPixels=Blur; Demo.ThermalContrast=Contrast; Demo.ThermalBackgroundDetail=Detail;
                 Demo.InfraredEnabled=Enabled; Demo.InfraredFOV=Fov; Demo.BlackHot=Palette==TEXT("black_hot"); Demo.ThermalNoise=Noise;
             } else { Demo.VisibleEnabled=Enabled; Demo.VisibleFOV=Fov; }
+            if (Sensor==TEXT("infrared")) { Demo.InfraredOffsetCm=Offset;Demo.InfraredBoresight=Rotation; }
+            else { Demo.VisibleOffsetCm=Offset;Demo.VisibleBoresight=Rotation; }
             Demo.RefreshSensors();
         } else if (Sensor==TEXT("lidar")) {
             double H,V,R,Rate;
             if (!Args->TryGetNumberField(TEXT("horizontal_fov_deg"),H) || !Args->TryGetNumberField(TEXT("vertical_fov_deg"),V) || !Args->TryGetNumberField(TEXT("range_m"),R) || !Args->TryGetNumberField(TEXT("scan_rate_hz"),Rate)) return Fail(TEXT("All lidar parameters required"));
             if (!FMath::IsFinite(H) || H<.1 || H>60 || !FMath::IsFinite(V) || V<.1 || V>60 || !FMath::IsFinite(R) || R<1 || R>1000 || !FMath::IsFinite(Rate) || Rate<.05 || Rate>10) return Fail(TEXT("Invalid lidar parameters"));
             Demo.LidarHorizontalFov=H; Demo.LidarVerticalFov=V; Demo.LidarRangeMeters=R; Demo.LidarScanRateHz=Rate; Demo.LidarEnabled=Enabled;
-            if (Enabled) Demo.ScanLidar(); else { Demo.LastLidarPointsWorldCm.Reset(); Demo.LidarHitCount=0; }
+            Demo.ScanLidar(); // Disabled scans only clear caches and return before tracing.
         } else return Fail(TEXT("Unknown sensor"));
         return Reply(Id,State());
     }
@@ -487,6 +745,84 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         R->SetNumberField(TEXT("frame_height"),IR?512:1080);
         return Reply(Id,R);
     }
+    else if (Command==TEXT("camera.gt_configure")) {
+        auto Policy=Demo.GTSettings;
+        for (const auto& Pair:TArray<TPair<FString,bool*>>{{TEXT("keep_partial_occlusion"),&Policy.KeepPartialOcclusion},{TEXT("keep_partial_outside"),&Policy.KeepPartialOutside}}) {
+            if (Args->HasField(Pair.Key) && (Args->TryGetField(Pair.Key)->Type!=EJson::Boolean || !Args->TryGetBoolField(Pair.Key,*Pair.Value))) return Fail(TEXT("GT switches must be booleans"));
+        }
+        double Pixels=Policy.MinVisiblePixels,Fraction=Policy.MinVisibleFraction,MaxFPS=Policy.MaxFPS;
+        if (Args->HasField(TEXT("max_fps")) && (Args->Values[TEXT("max_fps")]->Type!=EJson::Number || !Args->TryGetNumberField(TEXT("max_fps"),MaxFPS) || !FMath::IsFinite(MaxFPS) || MaxFPS<.1 || MaxFPS>20)) return Fail(TEXT("max_fps must be finite within [0.1,20]"));
+        if (Args->HasField(TEXT("min_visible_pixels")) && (Args->Values[TEXT("min_visible_pixels")]->Type!=EJson::Number || !Args->TryGetNumberField(TEXT("min_visible_pixels"),Pixels))) return Fail(TEXT("Invalid min_visible_pixels"));
+        if (Args->HasField(TEXT("min_visible_fraction")) && (Args->Values[TEXT("min_visible_fraction")]->Type!=EJson::Number || !Args->TryGetNumberField(TEXT("min_visible_fraction"),Fraction))) return Fail(TEXT("Invalid min_visible_fraction"));
+        if (!FMath::IsFinite(Pixels) || Pixels<1 || Pixels>2073600 || Pixels!=FMath::FloorToDouble(Pixels) || !FMath::IsFinite(Fraction) || Fraction<0 || Fraction>1) return Fail(TEXT("GT pixels must be integer 1..2073600; fraction 0..1"));
+        Policy.MinVisiblePixels=int32(Pixels);Policy.MinVisibleFraction=float(Fraction);Policy.MaxFPS=float(MaxFPS);Demo.GTSettings=Policy;
+        auto R=MakeShared<FJsonObject>();R->SetBoolField(TEXT("keep_partial_occlusion"),Policy.KeepPartialOcclusion);R->SetBoolField(TEXT("keep_partial_outside"),Policy.KeepPartialOutside);
+        R->SetNumberField(TEXT("min_visible_pixels"),Policy.MinVisiblePixels);R->SetNumberField(TEXT("min_visible_fraction"),Policy.MinVisibleFraction);R->SetNumberField(TEXT("max_fps"),Policy.MaxFPS);return Reply(Id,R);
+    }
+    else if (Command==TEXT("camera.sample_pair_request") || Command==TEXT("camera.sample_pair_frame")) {
+        if (!Demo.VisibleEnabled || !Demo.InfraredEnabled) return Reply(Id,Empty,TEXT("sensor_disabled"),TEXT("Both visible and infrared must be enabled for paired samples"));
+        if (Command==TEXT("camera.sample_pair_request")) {
+            const double Now=FPlatformTime::Seconds();
+            for (int32 I=0;I<2;++I) {
+                if (Now-Demo.GTSampleRequestedAt[I]<1./Demo.GTSettings.MaxFPS) return Reply(Id,Empty,TEXT("rate_limited"),TEXT("GT sampling rate limit reached"));
+                if (!Demo.GTSampleTokens[I].IsEmpty() && Now-Demo.GTSampleRequestedAt[I]<5) return Reply(Id,Empty,TEXT("sample_busy"),TEXT("A sample is pending"));
+            }
+            const FString Token=FGuid::NewGuid().ToString(EGuidFormats::Digits);
+            for (int32 I=0;I<2;++I) { Demo.GTSampleTokens[I]=Token;Demo.GTSampleRequestedAt[I]=Now; }
+            Demo.GTPairPending=true;
+            auto R=MakeShared<FJsonObject>();R->SetStringField(TEXT("sample_token"),Token);R->SetStringField(TEXT("run_id"),Demo.PlaySessionId);return Reply(Id,R);
+        }
+        FString Token;
+        if (!Args->TryGetStringField(TEXT("sample_token"),Token) || Token.IsEmpty()) return Fail(TEXT("sample_token required"));
+        auto Samples=MakeShared<FJsonObject>();double PairTime=-1;
+        for (int32 I=0;I<2;++I) {
+            FString Metadata;TArray64<uint8> Image;TSharedPtr<FJsonObject> Item;
+            if (!Demo.StreamManager || !Demo.StreamManager->GetSample(I==1,Metadata,Image) || !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Metadata),Item) || !Item || Item->GetStringField(TEXT("sample_token"))!=Token)
+                return Reply(Id,Empty,TEXT("frame_unavailable"),TEXT("Paired sample pending or superseded"));
+            const double Time=Item->GetNumberField(TEXT("simulation_time_s"));
+            if (PairTime>=0 && PairTime!=Time) return Reply(Id,Empty,TEXT("frame_unavailable"),TEXT("Pair capture times do not match"));
+            PairTime=Time;Item->SetStringField(TEXT("encoding"),TEXT("jpeg"));Item->SetStringField(TEXT("image_base64"),FBase64::Encode(Image.GetData(),Image.Num()));
+            Samples->SetObjectField(I==0?TEXT("visible"):TEXT("infrared"),Item);
+        }
+        auto R=MakeShared<FJsonObject>();R->SetStringField(TEXT("pair_id"),Token);R->SetStringField(TEXT("run_id"),Demo.PlaySessionId);
+        R->SetNumberField(TEXT("simulation_time_s"),PairTime);R->SetObjectField(TEXT("samples"),Samples);return Reply(Id,R);
+    }
+    else if (Command==TEXT("camera.sample_request") || Command==TEXT("camera.sample_frame")) {
+        FString Sensor;
+        if (!Args->TryGetStringField(TEXT("sensor"),Sensor) || (Sensor!=TEXT("visible") && Sensor!=TEXT("infrared"))) return Fail(TEXT("sensor must be visible or infrared"));
+        const bool IR=Sensor==TEXT("infrared");const int32 Index=IR?1:0;
+        if (IR?!Demo.InfraredEnabled:!Demo.VisibleEnabled) return Reply(Id,Empty,TEXT("sensor_disabled"),TEXT("Sensor disabled"));
+        if (Command==TEXT("camera.sample_request")) {
+            const double Now=FPlatformTime::Seconds();
+            if (Demo.GTPairPending && Now-FMath::Max(Demo.GTSampleRequestedAt[0],Demo.GTSampleRequestedAt[1])<5) return Reply(Id,Empty,TEXT("sample_busy"),TEXT("A paired sample is pending"));
+            if (Demo.GTPairPending) { Demo.GTPairPending=false;Demo.GTSampleTokens[0].Empty();Demo.GTSampleTokens[1].Empty(); }
+            if (Now-Demo.GTSampleRequestedAt[Index]<1./Demo.GTSettings.MaxFPS) return Reply(Id,Empty,TEXT("rate_limited"),TEXT("GT sampling rate limit reached"));
+            if (!Demo.GTSampleTokens[Index].IsEmpty() && Now-Demo.GTSampleRequestedAt[Index]<5) return Reply(Id,Empty,TEXT("sample_busy"),TEXT("A sample is pending"));
+            Demo.GTSampleTokens[Index]=FGuid::NewGuid().ToString(EGuidFormats::Digits);Demo.GTSampleRequestedAt[Index]=Now;
+            auto R=MakeShared<FJsonObject>();R->SetStringField(TEXT("sample_token"),Demo.GTSampleTokens[Index]);R->SetStringField(TEXT("run_id"),Demo.PlaySessionId);return Reply(Id,R);
+        }
+        FString Token;
+        if (!Args->TryGetStringField(TEXT("sample_token"),Token) || Token.IsEmpty()) return Fail(TEXT("sample_token required"));
+        FString Metadata;TArray64<uint8> Image;TSharedPtr<FJsonObject> R;
+        if (!Demo.StreamManager || !Demo.StreamManager->GetSample(IR,Metadata,Image) || !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Metadata),R) || !R || R->GetStringField(TEXT("sample_token"))!=Token)
+            return Reply(Id,Empty,TEXT("frame_unavailable"),TEXT("Sample pending, superseded or expired; request a fresh sample after timeout"));
+        R->SetStringField(TEXT("encoding"),TEXT("jpeg"));R->SetStringField(TEXT("image_base64"),FBase64::Encode(Image.GetData(),Image.Num()));return Reply(Id,R);
+    }
+    else if (Command==TEXT("camera.signal_recording")) {
+        bool Enabled=false;
+        if (!Args->HasField(TEXT("enabled")) || Args->Values[TEXT("enabled")]->Type!=EJson::Boolean || !Args->TryGetBoolField(TEXT("enabled"),Enabled)) return Fail(TEXT("Boolean enabled required"));
+        if (Enabled && (!Demo.HasFacadeInfrared() || !Demo.UsesThermalReadout() || !Demo.InfraredEnabled)) return Fail(TEXT("Enable a supported infrared readout first"));
+        Demo.SetSignalRecording(Enabled);return Reply(Id,State());
+    }
+    else if (Command==TEXT("camera.signal_frame")) {
+        TArray<float> Signal;TArray<uint8> Sky,Target;int64 Sequence=0;
+        if (!Demo.GetSignalFrame(Signal,Sky,Target,Sequence)) return Reply(Id,Empty,TEXT("frame_unavailable"),TEXT("Enable signal recording and wait for a fresh infrared frame"));
+        auto R=MakeShared<FJsonObject>();R->SetStringField(TEXT("device_id"),Demo.GimbalId);R->SetNumberField(TEXT("frame_number"),Sequence);
+        R->SetNumberField(TEXT("width"),640);R->SetNumberField(TEXT("height"),512);R->SetStringField(TEXT("encoding"),TEXT("f32_le"));
+        R->SetStringField(TEXT("signal_base64"),FBase64::Encode(reinterpret_cast<const uint8*>(Signal.GetData()),Signal.Num()*sizeof(float)));
+        R->SetStringField(TEXT("sky_mask_base64"),FBase64::Encode(Sky));R->SetStringField(TEXT("target_mask_base64"),FBase64::Encode(Target));
+        R->SetStringField(TEXT("units"),TEXT("normalized FP16-derived proxy before detector filtering/PSF/noise/AGC, not temperature"));return Reply(Id,R);
+    }
     else if (Command==TEXT("camera.stream_frame"))
     {
         FString Channel;
@@ -513,7 +849,7 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         R->SetNumberField(TEXT("width"),Width);
         R->SetNumberField(TEXT("height"),Height);
         R->SetStringField(TEXT("encoding"),TEXT("jpeg"));
-        R->SetNumberField(TEXT("quality"),60);
+        R->SetNumberField(TEXT("quality"),90);
         R->SetStringField(TEXT("image_base64"),FBase64::Encode(Encoded.GetData(),Encoded.Num()));
         return Reply(Id,R);
     }
@@ -535,7 +871,7 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         bool Enabled=false;
         if (!Args->TryGetBoolField(TEXT("enabled"),Enabled)) return Fail(TEXT("enabled must be a boolean"));
         Demo.LidarEnabled=Enabled;
-        if (Enabled) Demo.ScanLidar();
+        Demo.ScanLidar();
     }
     else if (Command==TEXT("sensor.lidar.capture"))
     {

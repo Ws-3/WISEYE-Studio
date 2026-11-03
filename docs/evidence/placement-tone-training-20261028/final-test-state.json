@@ -1,0 +1,36 @@
+{
+  "run_id": "2C45EBCE4E2B09152A6177AC2AF2B6B5",
+  "flight_status": "ready",
+  "motor_rpm": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "placement": {
+    "active": false,
+    "has_result": true,
+    "preview_supported": true,
+    "preview_visible": false,
+    "preview_position_cm": [
+      -28861.549942074147,
+      -2791.589859696757,
+      4059.1168165206914
+    ],
+    "device_id": "ptz-01",
+    "request_token": "42fdd88000064975835d149d6f2eef82",
+    "error": "",
+    "sequence": 2,
+    "position_cm": [
+      -28861.549942074147,
+      -2791.589859696757,
+      4059.1168165206914
+    ],
+    "surface_cm": [
+      -28861.549942074147,
+      -2791.589859696757,
+      4055.0000000000005
+    ]
+  },
+  "drone_model": "mavic3"
+}

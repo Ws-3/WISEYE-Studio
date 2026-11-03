@@ -1,0 +1,3 @@
+# Optional. Install only on the algorithm computer; select the PyTorch build
+# appropriate to that computer before installing Ultralytics.
+ultralytics

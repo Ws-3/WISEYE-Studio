@@ -1,0 +1,445 @@
+{
+  "passed": true,
+  "run_id": "BADD1A454ED631C740A1ED8B13931013",
+  "device": "ptz-02",
+  "captures": {
+    "reference_day": {
+      "frame": 97,
+      "sensor": {
+        "enabled": true,
+        "fov_deg": 25,
+        "palette": "white_hot",
+        "noise": 0,
+        "thermal_profile": "reference",
+        "enhanced_available": true,
+        "reference_available": true,
+        "classified_available": true,
+        "agc_enabled": true,
+        "agc_response_s": 1,
+        "sampling_scale": 1,
+        "agc_low": 0.19248856604099274,
+        "agc_high": 0.35248854756355286,
+        "readout_ms": 8.369598388671875,
+        "readout_sequence": 98,
+        "class_pixels": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "target_pixels": 0,
+        "motor_region_pixels": 0,
+        "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+        "blur_px": 0.800000011920929,
+        "contrast": 1.350000023841858,
+        "background_detail": 0.6499999761581421
+      },
+      "environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "time_override": true,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "thermal_target": {
+        "motor_warmth": 0,
+        "battery_warmth": 0,
+        "power_proxy": 0,
+        "body_signal": 0.3799999952316284,
+        "motor_signal": 0.38999998569488525,
+        "units": "normalized engineering proxy, not Celsius"
+      }
+    },
+    "materials_day": {
+      "frame": 216,
+      "sensor": {
+        "enabled": true,
+        "fov_deg": 25,
+        "palette": "white_hot",
+        "noise": 0,
+        "thermal_profile": "classified",
+        "enhanced_available": true,
+        "reference_available": true,
+        "classified_available": true,
+        "agc_enabled": true,
+        "agc_response_s": 1,
+        "sampling_scale": 1,
+        "agc_low": 0.2513725757598877,
+        "agc_high": 0.4113725423812866,
+        "readout_ms": 9.595501899719238,
+        "readout_sequence": 216,
+        "class_pixels": [
+          91047,
+          150281,
+          73477,
+          0,
+          9815,
+          3060,
+          0
+        ],
+        "target_pixels": 24,
+        "motor_region_pixels": 0,
+        "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+        "blur_px": 0.800000011920929,
+        "contrast": 1.350000023841858,
+        "background_detail": 0.6499999761581421
+      },
+      "environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "time_override": true,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "thermal_target": {
+        "motor_warmth": 0,
+        "battery_warmth": 0,
+        "power_proxy": 0,
+        "body_signal": 0.3799999952316284,
+        "motor_signal": 0.38999998569488525,
+        "units": "normalized engineering proxy, not Celsius"
+      }
+    },
+    "materials_night": {
+      "frame": 333,
+      "sensor": {
+        "enabled": true,
+        "fov_deg": 25,
+        "palette": "white_hot",
+        "noise": 0,
+        "thermal_profile": "classified",
+        "enhanced_available": true,
+        "reference_available": true,
+        "classified_available": true,
+        "agc_enabled": true,
+        "agc_response_s": 1,
+        "sampling_scale": 1,
+        "agc_low": 0.17772305011749268,
+        "agc_high": 0.3377230763435364,
+        "readout_ms": 8.938297271728516,
+        "readout_sequence": 333,
+        "class_pixels": [
+          91047,
+          150281,
+          73477,
+          0,
+          9815,
+          3060,
+          0
+        ],
+        "target_pixels": 24,
+        "motor_region_pixels": 0,
+        "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+        "blur_px": 0.800000011920929,
+        "contrast": 1.350000023841858,
+        "background_detail": 0.6499999761581421
+      },
+      "environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "time_override": true,
+        "hour": 0,
+        "fog": 0,
+        "rain": 0,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "thermal_target": {
+        "motor_warmth": 0,
+        "battery_warmth": 0,
+        "power_proxy": 0,
+        "body_signal": 0.3799999952316284,
+        "motor_signal": 0.38999998569488525,
+        "units": "normalized engineering proxy, not Celsius"
+      }
+    },
+    "materials_night_black": {
+      "frame": 368,
+      "sensor": {
+        "enabled": true,
+        "fov_deg": 25,
+        "palette": "black_hot",
+        "noise": 0,
+        "thermal_profile": "classified",
+        "enhanced_available": true,
+        "reference_available": true,
+        "classified_available": true,
+        "agc_enabled": true,
+        "agc_response_s": 1,
+        "sampling_scale": 1,
+        "agc_low": 0.17497903108596802,
+        "agc_high": 0.3349790573120117,
+        "readout_ms": 7.738698482513428,
+        "readout_sequence": 369,
+        "class_pixels": [
+          91047,
+          150281,
+          73477,
+          0,
+          9815,
+          3060,
+          0
+        ],
+        "target_pixels": 24,
+        "motor_region_pixels": 0,
+        "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+        "blur_px": 0.800000011920929,
+        "contrast": 1.350000023841858,
+        "background_detail": 0.6499999761581421
+      },
+      "environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "time_override": true,
+        "hour": 0,
+        "fog": 0,
+        "rain": 0,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "thermal_target": {
+        "motor_warmth": 0,
+        "battery_warmth": 0,
+        "power_proxy": 0,
+        "body_signal": 0.3799999952316284,
+        "motor_signal": 0.38999998569488525,
+        "units": "normalized engineering proxy, not Celsius"
+      }
+    },
+    "avata_cold": {
+      "frame": 405,
+      "sensor": {
+        "enabled": true,
+        "fov_deg": 5,
+        "palette": "white_hot",
+        "noise": 0,
+        "thermal_profile": "classified",
+        "enhanced_available": true,
+        "reference_available": true,
+        "classified_available": true,
+        "agc_enabled": true,
+        "agc_response_s": 1,
+        "sampling_scale": 1,
+        "agc_low": 0.20967353880405426,
+        "agc_high": 0.4073704481124878,
+        "readout_ms": 9.592097282409668,
+        "readout_sequence": 406,
+        "class_pixels": [
+          129611,
+          102375,
+          56342,
+          0,
+          15112,
+          24240,
+          0
+        ],
+        "target_pixels": 131,
+        "motor_region_pixels": 26,
+        "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+        "blur_px": 0.800000011920929,
+        "contrast": 1.350000023841858,
+        "background_detail": 0.6499999761581421
+      },
+      "environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "time_override": true,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "thermal_target": {
+        "motor_warmth": 0,
+        "battery_warmth": 0,
+        "power_proxy": 0,
+        "body_signal": 0.3799999952316284,
+        "motor_signal": 0.38999998569488525,
+        "units": "normalized engineering proxy, not Celsius"
+      }
+    },
+    "avata_hover_warm": {
+      "frame": 624,
+      "sensor": {
+        "enabled": true,
+        "fov_deg": 5,
+        "palette": "white_hot",
+        "noise": 0,
+        "thermal_profile": "classified",
+        "enhanced_available": true,
+        "reference_available": true,
+        "classified_available": true,
+        "agc_enabled": true,
+        "agc_response_s": 1,
+        "sampling_scale": 1,
+        "agc_low": 0.21421560645103455,
+        "agc_high": 0.4053923189640045,
+        "readout_ms": 9.20939826965332,
+        "readout_sequence": 624,
+        "class_pixels": [
+          182558,
+          30291,
+          42013,
+          0,
+          59808,
+          13010,
+          0
+        ],
+        "target_pixels": 130,
+        "motor_region_pixels": 25,
+        "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+        "blur_px": 0.800000011920929,
+        "contrast": 1.350000023841858,
+        "background_detail": 0.6499999761581421
+      },
+      "environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": false,
+        "time_override": true,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "thermal_target": {
+        "motor_warmth": 0.14087988436222076,
+        "battery_warmth": 0.054887667298316956,
+        "power_proxy": 0.16868720948696136,
+        "body_signal": 0.38439100980758667,
+        "motor_signal": 0.46043992042541504,
+        "units": "normalized engineering proxy, not Celsius"
+      }
+    },
+    "avata_landed_warm": {
+      "frame": 744,
+      "sensor": {
+        "enabled": true,
+        "fov_deg": 5,
+        "palette": "white_hot",
+        "noise": 0,
+        "thermal_profile": "classified",
+        "enhanced_available": true,
+        "reference_available": true,
+        "classified_available": true,
+        "agc_enabled": true,
+        "agc_response_s": 1,
+        "sampling_scale": 1,
+        "agc_low": 0.2102941870689392,
+        "agc_high": 0.4093126654624939,
+        "readout_ms": 10.784000396728516,
+        "readout_sequence": 745,
+        "class_pixels": [
+          129609,
+          102372,
+          56343,
+          0,
+          15112,
+          24244,
+          0
+        ],
+        "target_pixels": 130,
+        "motor_region_pixels": 25,
+        "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+        "blur_px": 0.800000011920929,
+        "contrast": 1.350000023841858,
+        "background_detail": 0.6499999761581421
+      },
+      "environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": false,
+        "time_override": true,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "thermal_target": {
+        "motor_warmth": 0.13694511353969574,
+        "battery_warmth": 0.06743437051773071,
+        "power_proxy": 0,
+        "body_signal": 0.38539475202560425,
+        "motor_signal": 0.4584725499153137,
+        "units": "normalized engineering proxy, not Celsius"
+      }
+    }
+  },
+  "performance": {
+    "reference_1x": {
+      "tick_hz": 29.971660520850737,
+      "ir_hz": 9.950105921901864,
+      "cache_age_ms_p50": 99.62369874119759,
+      "cache_age_ms_p95": 100.80070048570633,
+      "readout_ms_p50": 8.782398223876953
+    },
+    "materials_1x": {
+      "tick_hz": 30.0014336312033,
+      "ir_hz": 9.959990112383283,
+      "cache_age_ms_p50": 133.07039812207222,
+      "cache_age_ms_p95": 133.54399800300598,
+      "readout_ms_p50": 10.025397300720215
+    }
+  },
+  "limits": "Short editor test; label counts are pixel coverage, not classification accuracy; component name rules, not measured materials; selected Avata motor spots are projection proxies.",
+  "day_night_mean_difference": 75.43610534667968,
+  "polarity_error": 5.75843505859375,
+  "avata_flight": {
+    "cold": {
+      "motor_warmth": 0,
+      "battery_warmth": 0,
+      "power_proxy": 0,
+      "body_signal": 0.3799999952316284,
+      "motor_signal": 0.38999998569488525,
+      "units": "normalized engineering proxy, not Celsius"
+    },
+    "hover": {
+      "motor_warmth": 0.14111065864562988,
+      "battery_warmth": 0.055094391107559204,
+      "power_proxy": 0.16868728399276733,
+      "body_signal": 0.38440755009651184,
+      "motor_signal": 0.4605553150177002,
+      "units": "normalized engineering proxy, not Celsius"
+    },
+    "landed": {
+      "motor_warmth": 0.13668450713157654,
+      "battery_warmth": 0.06739351898431778,
+      "power_proxy": 0,
+      "body_signal": 0.3853914737701416,
+      "motor_signal": 0.4583422541618347,
+      "units": "normalized engineering proxy, not Celsius"
+    },
+    "cooling": {
+      "motor_warmth": 0.102616086602211,
+      "battery_warmth": 0.06151853874325752,
+      "power_proxy": 0,
+      "body_signal": 0.38492149114608765,
+      "motor_signal": 0.44130802154541016,
+      "units": "normalized engineering proxy, not Celsius"
+    },
+    "rpm": [
+      4928.5869140625,
+      4928.5869140625,
+      4928.5869140625,
+      4928.5869140625
+    ]
+  },
+  "restored": true
+}

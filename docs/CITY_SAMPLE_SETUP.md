@@ -1,5 +1,7 @@
 # City Sample 城市场景
 
+2026-10-28：本机日常统一双击根目录 **`Start-WISEYE-Studio.vbs`**，一次启动当前城市预览、飞控和桌面。下方保留的分步 PowerShell 命令面向开发；在仓库 PowerShell 执行，遇执行策略限制加 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File`。已启动UE时仅重开桌面用 `scripts/Start-Desktop.ps1 -Connect`。详见[当前使用指南](USER_GUIDE.md)。
+
 ## 本机接入状态（2026-10-22）
 
 源工程：`E:\Projects\Scene\CitySample\CitySample.uproject`，UE 5.8。使用真实 `/Game/Map/Small_City_LVL`，WISEYE 副本为 `/Game/WISEYE/Scenes/city/CitySample`。原始 CitySample 工程、原沙漠场景设备配置和尺寸配置均保留。
@@ -39,13 +41,13 @@ powershell -ExecutionPolicy Bypass -File .\scripts\Setup-CitySample.ps1 -SourceP
 
 ## 运行与限制
 
-本机在没有另一个 WISEYE 编辑器运行时，可以双击仓库根目录 `Start-CitySample.vbs`（后台启动，无命令行弹窗），再启动桌面；等价命令：
+本机日常双击 `Start-WISEYE-Studio.vbs` 使用当前E盘城市预览。下方为常规源码工程的开发分步启动命令，在仓库 PowerShell 执行：
 
 ```powershell
-.\Start-ProjectAirSim.cmd -Scene city -SkipBuild
+.\scripts\Start-ProjectAirSim.ps1 -Scene city -SkipBuild
 ```
 
-等待 UE 播放、飞控准备完成，再双击 `Start-Desktop.cmd` 并连接。无人机地面待命，点击起飞开始；首次缓存阶段请等网格、纹理处理和画面稳定后再操作。已运行其他地图时，通过桌面“场景编排”选择城市并加载，避免同时启动第二个 WISEYE 编辑器。
+等待 UE 播放、飞控准备完成，再在 PowerShell 中运行 `scripts/Start-Desktop.ps1` 并连接。无人机地面待命，点击起飞开始；首次缓存阶段请等网格、纹理处理和画面稳定后再操作。已运行其他地图时，通过桌面“场景编排”选择城市并加载，避免同时启动第二个 WISEYE 编辑器。
 
 当前支持现有传感器、按设备寻址接口和手动/航线飞行；城市不增加避障能力，航线需要人工检查建筑与树木。红外支持原始/增强外观，不代表真实城市物理热辐射。Small City的独立包交付见[RELEASE_BUILD.md](RELEASE_BUILD.md)；Big City、自动人群/车流、多机性能和长时间稳定性另行验收。本机 32 GB 内存的首次缓存耗时明显，地图出现不代表缓存完成。
 

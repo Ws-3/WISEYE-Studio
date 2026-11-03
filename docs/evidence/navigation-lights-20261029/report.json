@@ -1,0 +1,1050 @@
+{
+  "passed": true,
+  "models": {
+    "mavic3": {
+      "day": {
+        "enabled": true,
+        "night": false,
+        "red_on": false,
+        "green_on": false,
+        "lamp_count": 4,
+        "period_s": 1.6
+      },
+      "night": [
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        }
+      ],
+      "pair": {
+        "visible": {
+          "sample_token": "61F59C3F40329DD1EBD95F9D2CD098B6",
+          "run_id": "EC9B8DD5464F6CDB15AC9A96E685F941",
+          "scene_id": "city",
+          "device_id": "ptz-01",
+          "sensor_id": "visible",
+          "environment": {
+            "time_supported": true,
+            "fog_supported": true,
+            "rain_supported": false,
+            "time_override": true,
+            "hour": 22,
+            "fog": 0,
+            "rain": 0,
+            "clouds_supported": true,
+            "clouds": 0,
+            "cloud_layer_active": false,
+            "cloud_atmosphere_created": false,
+            "rain_view_volumes": 0,
+            "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+          },
+          "scenario_models": [
+            "mavic3"
+          ],
+          "context_source": "capture_tick",
+          "frame_id": "EC9B8DD5464F6CDB15AC9A96E685F941/ptz-01/visible/816",
+          "frame_number": 816,
+          "simulation_time_s": 4.705024242401123,
+          "width": 1920,
+          "height": 1080,
+          "horizontal_fov_deg": 25,
+          "intrinsics_fx_fy_cx_cy": [
+            4330.280163515576,
+            4330.280163515576,
+            960,
+            540
+          ],
+          "camera_position_cm": [
+            -27087.225959288673,
+            -2117.82220392298,
+            4117.568800018042
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            10.788850784301749,
+            -122.97027587890621,
+            8.094466972629622e-16
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "mavic3",
+              "bbox_xyxy": [
+                810,
+                486,
+                1106,
+                589
+              ],
+              "visible_pixels": 10696,
+              "in_frame_target_pixels": 10696,
+              "visible_fraction_in_frame": 1,
+              "partially_occluded": false,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "gt_annotation_cpu_ms": 8.018597960472107,
+          "encoding": "jpeg"
+        },
+        "infrared": {
+          "sample_token": "61F59C3F40329DD1EBD95F9D2CD098B6",
+          "run_id": "EC9B8DD5464F6CDB15AC9A96E685F941",
+          "scene_id": "city",
+          "device_id": "ptz-01",
+          "sensor_id": "infrared",
+          "environment": {
+            "time_supported": true,
+            "fog_supported": true,
+            "rain_supported": false,
+            "time_override": true,
+            "hour": 22,
+            "fog": 0,
+            "rain": 0,
+            "clouds_supported": true,
+            "clouds": 0,
+            "cloud_layer_active": false,
+            "cloud_atmosphere_created": false,
+            "rain_view_volumes": 0,
+            "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+          },
+          "scenario_models": [
+            "mavic3"
+          ],
+          "context_source": "capture_tick",
+          "frame_id": "EC9B8DD5464F6CDB15AC9A96E685F941/ptz-01/infrared/816",
+          "frame_number": 816,
+          "simulation_time_s": 4.705024242401123,
+          "width": 640,
+          "height": 512,
+          "horizontal_fov_deg": 25,
+          "intrinsics_fx_fy_cx_cy": [
+            1443.4267211718584,
+            1443.4267211718584,
+            320,
+            256
+          ],
+          "camera_position_cm": [
+            -27077.158523229013,
+            -2124.3526503996495,
+            4117.568800018042
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            10.888784244768324,
+            -122.7666092962089,
+            0.03812436227115482
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "mavic3",
+              "bbox_xyxy": [
+                235,
+                240,
+                334,
+                275
+              ],
+              "visible_pixels": 1182,
+              "in_frame_target_pixels": 1182,
+              "visible_fraction_in_frame": 1,
+              "partially_occluded": false,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "gt_annotation_cpu_ms": 1.1913999915122986,
+          "encoding": "jpeg"
+        }
+      }
+    },
+    "avata": {
+      "day": {
+        "enabled": true,
+        "night": false,
+        "red_on": false,
+        "green_on": false,
+        "lamp_count": 4,
+        "period_s": 1.6
+      },
+      "night": [
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": true,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        {
+          "enabled": true,
+          "night": true,
+          "red_on": true,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        }
+      ],
+      "pair": {
+        "visible": {
+          "sample_token": "3A7AA3084FE665FEA8C9EFB172C88E4D",
+          "run_id": "EC9B8DD5464F6CDB15AC9A96E685F941",
+          "scene_id": "city",
+          "device_id": "ptz-01",
+          "sensor_id": "visible",
+          "environment": {
+            "time_supported": true,
+            "fog_supported": true,
+            "rain_supported": false,
+            "time_override": true,
+            "hour": 22,
+            "fog": 0,
+            "rain": 0,
+            "clouds_supported": true,
+            "clouds": 0,
+            "cloud_layer_active": false,
+            "cloud_atmosphere_created": false,
+            "rain_view_volumes": 0,
+            "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+          },
+          "scenario_models": [
+            "avata"
+          ],
+          "context_source": "capture_tick",
+          "frame_id": "EC9B8DD5464F6CDB15AC9A96E685F941/ptz-01/visible/769",
+          "frame_number": 769,
+          "simulation_time_s": 4.705024242401123,
+          "width": 1920,
+          "height": 1080,
+          "horizontal_fov_deg": 25,
+          "intrinsics_fx_fy_cx_cy": [
+            4330.280163515576,
+            4330.280163515576,
+            960,
+            540
+          ],
+          "camera_position_cm": [
+            -27087.225974372574,
+            -2117.822227176548,
+            4117.5687367672035
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            10.78871917724609,
+            -122.97027587890624,
+            0
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "avata",
+              "bbox_xyxy": [
+                908,
+                503,
+                1009,
+                564
+              ],
+              "visible_pixels": 3068,
+              "in_frame_target_pixels": 3068,
+              "visible_fraction_in_frame": 1,
+              "partially_occluded": false,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "gt_annotation_cpu_ms": 7.094498723745346,
+          "encoding": "jpeg"
+        },
+        "infrared": {
+          "sample_token": "3A7AA3084FE665FEA8C9EFB172C88E4D",
+          "run_id": "EC9B8DD5464F6CDB15AC9A96E685F941",
+          "scene_id": "city",
+          "device_id": "ptz-01",
+          "sensor_id": "infrared",
+          "environment": {
+            "time_supported": true,
+            "fog_supported": true,
+            "rain_supported": false,
+            "time_override": true,
+            "hour": 22,
+            "fog": 0,
+            "rain": 0,
+            "clouds_supported": true,
+            "clouds": 0,
+            "cloud_layer_active": false,
+            "cloud_atmosphere_created": false,
+            "rain_view_volumes": 0,
+            "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+          },
+          "scenario_models": [
+            "avata"
+          ],
+          "context_source": "capture_tick",
+          "frame_id": "EC9B8DD5464F6CDB15AC9A96E685F941/ptz-01/infrared/769",
+          "frame_number": 769,
+          "simulation_time_s": 4.705024242401123,
+          "width": 640,
+          "height": 512,
+          "horizontal_fov_deg": 25,
+          "intrinsics_fx_fy_cx_cy": [
+            1443.4267211718584,
+            1443.4267211718584,
+            320,
+            256
+          ],
+          "camera_position_cm": [
+            -27077.158538312913,
+            -2124.3526736532176,
+            4117.5687367672035
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            10.888652638544125,
+            -122.7666093862006,
+            0.03812388587788071
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "avata",
+              "bbox_xyxy": [
+                268,
+                246,
+                302,
+                262
+              ],
+              "visible_pixels": 341,
+              "in_frame_target_pixels": 341,
+              "visible_fraction_in_frame": 1,
+              "partially_occluded": false,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "gt_annotation_cpu_ms": 1.0698996484279633,
+          "encoding": "jpeg"
+        }
+      }
+    }
+  },
+  "restored": true,
+  "final_flight": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "EC9B8DD5464F6CDB15AC9A96E685F941",
+    "connected": true,
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -274.0,
+      -26.0,
+      -40.742679595947266
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 89.99999803884911,
+    "motor_rpm": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_sample_age_s": 0.03399869999884686,
+    "manual_command_count": 0,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "EC9B8DD5464F6CDB15AC9A96E685F941",
+        "connected": true,
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -274.0,
+          -26.0,
+          -40.742679595947266
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 89.99999803884911,
+        "motor_rpm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotor_sample_age_s": 0.03399869999884686,
+        "manual_command_count": 0,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  }
+}

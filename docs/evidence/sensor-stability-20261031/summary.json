@@ -1,0 +1,105 @@
+{
+  "passed": true,
+  "owned_session_stopped": true,
+  "return_to_small_rain_supported": true,
+  "scenes": {
+    "city": {
+      "power_acknowledgements": 8,
+      "all_off_control_and_observer_alive": true,
+      "rain_volumes": 2,
+      "rain_supported_at_end": true,
+      "lock_held": true,
+      "repeat_view_median_grey_delta": 5.0,
+      "repeat_view_mean_absolute_grey_difference": 4.73143310546875,
+      "auto_low_range": [
+        0.10000000149011612,
+        0.10000000149011612
+      ],
+      "auto_high_range": [
+        0.39064955711364746,
+        0.4118627607822418
+      ],
+      "max_sky_pixels": 327680,
+      "visible": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 421920,
+        "grey_percentiles": [
+          25.0,
+          74.0,
+          144.0
+        ],
+        "frame": 189
+      },
+      "infrared": {
+        "size": [
+          640,
+          512
+        ],
+        "bytes": 71833,
+        "grey_percentiles": [
+          61.0,
+          112.0,
+          184.0
+        ],
+        "frame": 191
+      },
+      "ue_fps": 29.99908807665592,
+      "ue_ram_gib": 8.88425064086914,
+      "ue_vram_gib": 4.003227233886719,
+      "sky_only_gain_held": true,
+      "sky_only_pairs": 11
+    },
+    "city_large": {
+      "power_acknowledgements": 8,
+      "all_off_control_and_observer_alive": true,
+      "rain_volumes": 2,
+      "rain_supported_at_end": true,
+      "lock_held": true,
+      "repeat_view_median_grey_delta": 1.0,
+      "repeat_view_mean_absolute_grey_difference": 1.7215087890625,
+      "auto_low_range": [
+        0.10000000149011612,
+        0.10000000149011612
+      ],
+      "auto_high_range": [
+        0.3842144310474396,
+        0.4353921711444855
+      ],
+      "max_sky_pixels": 327680,
+      "visible": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 468990,
+        "grey_percentiles": [
+          15.0,
+          83.0,
+          126.0
+        ],
+        "frame": 213
+      },
+      "infrared": {
+        "size": [
+          640,
+          512
+        ],
+        "bytes": 49476,
+        "grey_percentiles": [
+          23.0,
+          31.0,
+          190.0
+        ],
+        "frame": 214
+      },
+      "ue_fps": 30.00170530410087,
+      "ue_ram_gib": 12.205406188964844,
+      "ue_vram_gib": 4.134742736816406,
+      "sky_only_gain_held": true,
+      "sky_only_pairs": 11
+    }
+  }
+}

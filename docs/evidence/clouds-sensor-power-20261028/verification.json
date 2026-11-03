@@ -1,0 +1,18 @@
+{
+  "core_tests": 60,
+  "qt_tests": 23,
+  "run_id": "2C2D0F634D18A9E40265C49FC3986437",
+  "cloud_acceptance": true,
+  "flight_target_regression": true,
+  "editor_build": "build-cloud-acceptance.log Succeeded",
+  "rtsp_encoder_lifecycle": "mock regression; no long-duration external RTSP validation",
+  "assets": {
+    "M_IR_Facade": "d015efce6e074fbb28b3dc33c3e1e21aa7e9413fecd7a428ef8efb0ba1e57847",
+    "M_Cloud_Runtime": "9a39072bc29d99e79c5bb54eee8bc24b3d0b03692e4d74524609994f0cc3d94a",
+    "M_IR_Minimal": "675a01fd4f6df7540a7ceef093e0ccd98393e63d1409fbb6021705ca6f257b47",
+    "M_IR_Reference": "e8918f74da8199bb36a00be5c12b899a76970b9b80cd667ca3b0191f87968bcc",
+    "M_IR_Classified": "19180ecc20e3d55825816f343d31a9fb69963dbd4a58fb69f1626e1c4c660fb6"
+  },
+  "fleet_sha256": "bc48982ddb6043eca0fb6dbf7a4d61a249e8b15918590e8df2188b9587fb2fa6",
+  "native_source_matches_build": true
+}

@@ -1,5 +1,7 @@
 # WISEYE Studio 安装说明
 
+2026-10-28：本机日常统一双击根目录 **`Start-WISEYE-Studio.vbs`**，一次启动当前城市预览、飞控和桌面。下方保留的分步 PowerShell 命令面向开发；在仓库 PowerShell 执行，遇执行策略限制加 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File`。已启动UE时仅重开桌面用 `scripts/Start-Desktop.ps1 -Connect`。详见[当前使用指南](USER_GUIDE.md)。
+
 本文用于在一台新的 Windows 电脑上复现当前完整功能：UE 场景、Project AirSim 无人机动力学、CH1/CH2 实时视频、LIDAR 点云和桌面控制台。日常操作见 [DESKTOP.md](DESKTOP.md)，视频链路细节见 [RTSP.md](RTSP.md)。
 
 > 本文面向源码开发环境。普通用户可使用包含UE运行时和Python依赖的独立运行包，无需安装UE/VS/开发Python；最新包的功能、校验及限制见[RELEASE_BUILD.md](RELEASE_BUILD.md)。GitHub源码ZIP不等同于该运行包。
@@ -74,8 +76,8 @@ Project AirSim 源码、构建产物和 MediaMTX 二进制可由脚本重建，�
 
 ## 5. 启动完整系统
 
-1. 双击 `Start-ProjectAirSim.cmd`。它会启动 MediaMTX、编译并打开 UE、进入 Play，然后启动 AirSim 飞控服务。
-2. 等待 UE 场景和无人机出现后，双击 `Start-Desktop.cmd`。
+1. 在 PowerShell 中运行 `scripts/Start-ProjectAirSim.ps1`。它会启动 MediaMTX、编译并打开 UE、进入 Play，然后启动 AirSim 飞控服务。
+2. 等待 UE 场景和无人机出现后，在 PowerShell 中运行 `scripts/Start-Desktop.ps1`。
 3. 在桌面窗口点击“连接 UE”。选择手动飞行后，可用界面按钮或 W/S、A/D、R/F、Q/E 控制无人机。
 4. CH1 为可见光，目标输出 30 FPS；CH2 为红外，目标输出 25 FPS；LIDAR 页显示云台点云。
 
@@ -83,7 +85,7 @@ Project AirSim 源码、构建产物和 MediaMTX 二进制可由脚本重建，�
 
 ## 6. 只运行基础 UE 演示
 
-不使用 Project AirSim 时可双击 `Start-WISEYE.cmd`，然后在 UE 中点击绿色“播放”。该入口仍可用于场景编辑和运动学回退演示；完整动力学和桌面手动飞控请使用 `Start-ProjectAirSim.cmd`。
+不使用 Project AirSim 时可在 PowerShell 中运行 `scripts/Start-WISEYE.ps1`，然后在 UE 中点击绿色“播放”。该入口仍可用于场景编辑和运动学回退演示；完整动力学和桌面手动飞控请使用 `scripts/Start-ProjectAirSim.ps1`。
 
 ## 7. 更新与迁移
 
@@ -104,4 +106,4 @@ git pull --ff-only
 - 缺少 ProjectAirSim 插件或模块：先完成第 4 节，保存并关闭正在运行的 UE 后再构建。
 - RTSP 无画面：确认 `ffmpeg -version` 可用，并重新运行 `Setup-RTSP.ps1`。
 - 连接 50051 失败：确认 UE 已进入 Play；只打开编辑器不会启动 WISEYE 控制桥。
-- 连接 50052 失败：从 `Start-ProjectAirSim.cmd` 启动，并等待 AirSim 场景初始化完成。
+- 连接 50052 失败：从 `scripts/Start-ProjectAirSim.ps1` 启动，并等待 AirSim 场景初始化完成。

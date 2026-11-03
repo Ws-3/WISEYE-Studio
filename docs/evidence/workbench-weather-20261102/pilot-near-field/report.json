@@ -1,0 +1,153 @@
+{
+  "passed": false,
+  "scenes": {
+    "city": {
+      "power": [
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        }
+      ],
+      "gain": [],
+      "initial_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "rain_active_particles": 0,
+        "night_amount": 0,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "all_off_control_and_observer_alive": true,
+      "clear_visible": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 395831,
+        "grey_percentiles": [
+          0.0,
+          71.0,
+          120.0
+        ],
+        "grey_std": 32.70708029139654,
+        "grey_mean": 72.52356385030865,
+        "frame": 211
+      },
+      "clear_infrared": {
+        "size": [
+          640,
+          512
+        ],
+        "bytes": 64455,
+        "grey_percentiles": [
+          78.0,
+          116.0,
+          183.0
+        ],
+        "grey_std": 34.70825787977437,
+        "grey_mean": 128.1518127441406,
+        "frame": 229
+      },
+      "rain": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0.699999988079071,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 2,
+        "rain_active_particles": 159584,
+        "night_amount": 0,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "day": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 538474,
+        "grey_percentiles": [
+          0.0,
+          166.0,
+          209.0
+        ],
+        "grey_std": 61.134215467152366,
+        "grey_mean": 142.73853443287038,
+        "frame": 330
+      },
+      "fog": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 540991,
+        "grey_percentiles": [
+          0.0,
+          159.0,
+          204.0
+        ],
+        "grey_std": 59.75710910513449,
+        "grey_mean": 137.3822940779321,
+        "frame": 374
+      },
+      "fog_contrast_ratio": 0.9774740486731559
+    }
+  },
+  "limits": "No flight, no all-city traversal, visual weather only; isolated data",
+  "disconnect_reconnect_without_stopping": true,
+  "owned_session_stopped": true
+}

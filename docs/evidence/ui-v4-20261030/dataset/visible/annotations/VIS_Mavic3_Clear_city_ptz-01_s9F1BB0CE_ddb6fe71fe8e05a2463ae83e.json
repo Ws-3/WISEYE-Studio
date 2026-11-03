@@ -1,0 +1,73 @@
+{
+  "sample_token": "B57FC9E04100E692409E4EABE7D478F9",
+  "run_id": "9F1BB0CE45F499606BEAA6944248221A",
+  "scene_id": "city",
+  "device_id": "ptz-01",
+  "sensor_id": "visible",
+  "environment": {
+    "time_supported": true,
+    "fog_supported": true,
+    "rain_supported": false,
+    "time_override": false,
+    "hour": 12,
+    "fog": 0,
+    "rain": 0,
+    "clouds_supported": true,
+    "clouds": 0,
+    "cloud_layer_active": false,
+    "cloud_atmosphere_created": false,
+    "rain_view_volumes": 0,
+    "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+  },
+  "scenario_models": [
+    "mavic3"
+  ],
+  "context_source": "capture_tick",
+  "frame_id": "9F1BB0CE45F499606BEAA6944248221A/ptz-01/visible/1830",
+  "frame_number": 1830,
+  "simulation_time_s": 8.341021537780762,
+  "width": 1920,
+  "height": 1080,
+  "horizontal_fov_deg": 25,
+  "intrinsics_fx_fy_cx_cy": [
+    4330.280163515576,
+    4330.280163515576,
+    960,
+    540
+  ],
+  "camera_position_cm": [
+    -26994.215088848967,
+    -2024.6418241754782,
+    4945.270221005619
+  ],
+  "camera_rotation_pitch_yaw_roll_deg": [
+    -14.999999999999986,
+    -125.1943664550781,
+    8.231881255527395e-16
+  ],
+  "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+  "visibility_method": "raster_scene_vs_isolated_target_depth",
+  "gt_policy": {
+    "keep_partial_occlusion": true,
+    "keep_partial_outside": true,
+    "min_visible_pixels": 1,
+    "min_visible_fraction": 0
+  },
+  "annotation_status": "complete",
+  "training_eligible": true,
+  "negative_sample": true,
+  "objects": [],
+  "ignored_objects": [],
+  "gt_annotation_cpu_ms": 9.194698184728622,
+  "encoding": "jpeg",
+  "sample_group_id": "ddb6fe71fe8e05a2463ae83e",
+  "pair_id": "B57FC9E04100E692409E4EABE7D478F9",
+  "filename_model": "Mavic3",
+  "filename_weather": "Clear",
+  "counterpart_image": "IR_Mavic3_Clear_city_ptz-01_s9F1BB0CE_ddb6fe71fe8e05a2463ae83e.jpg",
+  "counterpart_directory": "IR",
+  "capture_delta_ms": 0.0,
+  "request_round_trip_ms": 228.7913000000117,
+  "image_sha256": "63517470725150628c433b6ed138c7b0c030f57d857deae347703202bb9a5d6b",
+  "dataset_schema": 3
+}

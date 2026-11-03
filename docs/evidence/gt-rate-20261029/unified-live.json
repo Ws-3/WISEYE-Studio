@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "run_id": "FCE5768E462AF7B4B78B748C61078485",
+  "displayed_pairs": 25,
+  "displayed_fps": 2.8153983426174136,
+  "saved_pairs": 9,
+  "overlay_only": true,
+  "gt_labels_preserved_while_hidden": true,
+  "manual_input_median_ms": 1.3419999995676335,
+  "final": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "FCE5768E462AF7B4B78B748C61078485",
+    "connected": true,
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -274.0,
+      -25.403852462768555,
+      -40.742679595947266
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 89.99999803884911,
+    "motor_rpm": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_sample_age_s": 0.017296399999395362,
+    "manual_command_count": 21,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "FCE5768E462AF7B4B78B748C61078485",
+        "connected": true,
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -274.0,
+          -25.403852462768555,
+          -40.742679595947266
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 89.99999803884911,
+        "motor_rpm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotor_sample_age_s": 0.017296399999395362,
+        "manual_command_count": 21,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  }
+}

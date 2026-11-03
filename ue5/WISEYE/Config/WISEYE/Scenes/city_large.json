@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "id": "city_large",
+  "name": "City Sample · 大城市（试验）",
+  "map": "/Game/WISEYE/Scenes/city_large/BigCity",
+  "rig": "standard_v1",
+  "gimbal_location_cm": [
+    -72172.26569600642,
+    -39996.57816240975,
+    77.11681270599365
+  ],
+  "flight_origin_cm": [
+    -70972.26562507449,
+    -38796.578124741725,
+    97.58875274658203
+  ],
+  "overview_location_cm": [
+    -73572.265625,
+    -41996.578125,
+    2200
+  ],
+  "overview_rotation_deg": [
+    -28,
+    45,
+    0
+  ],
+  "flight_radius_cm": 600,
+  "period_s": 24,
+  "vertical_amplitude_cm": 150,
+  "fov_deg": 25,
+  "prepared": true,
+  "requires_external_asset": true,
+  "source_map": "/Game/Map/Big_City_LVL",
+  "experimental": true,
+  "integration_status": "local_flight_and_small_city_return_verified",
+  "notes": "大城市局部流送试验；1机1云台，初始区域热分类；通过90秒采样、起降、短距离手动运动与切回小城市。未验收全城/多机/Shipping，资源依赖E盘衍生工程与原始CitySample。",
+  "assembly_revision": 2,
+  "layout_surface_reference": {
+    "kind": "runtime_fastgeo_trace",
+    "gimbal_surface_cm": [
+      -72172.26569600642,
+      -39996.57816240975,
+      72.99999618530273
+    ],
+    "drone_surface_cm": [
+      -70972.26562507449,
+      -38796.578124741725,
+      72.58875274658203
+    ]
+  }
+}

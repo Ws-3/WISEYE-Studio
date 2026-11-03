@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "run_id": "39E7880E42C02A96541CC69C18D997FA",
+  "devices_loaded": 2,
+  "draft_before": {
+    "version": 1,
+    "scene_id": "city",
+    "flight_origin_cm": [
+      -27400.0,
+      -2600.0,
+      4079.9999999999995
+    ],
+    "gimbal_location_cm": [
+      -27066.6,
+      -2092.7,
+      4059.1
+    ]
+  },
+  "load_message": "City Sample \u00b7 \u5c0f\u57ce\u5e02 \u00b7 \u5df2\u8bfb\u53d6\u4fdd\u5b58\u7684\u4f4d\u7f6e\u3002",
+  "preview": {
+    "active": true,
+    "has_result": false,
+    "preview_supported": true,
+    "preview_visible": true,
+    "preview_position_cm": [
+      -28861.549942074147,
+      -2791.589859696757,
+      4059.1168165206914
+    ],
+    "preview_size_cm": [
+      81.14580507768551,
+      83.21462657626125,
+      81.80699239382739
+    ],
+    "device_id": "ptz-01",
+    "request_token": "0ff3699cfe824b9fbe039227a72a5108",
+    "error": "",
+    "sequence": 2,
+    "position_cm": [
+      0,
+      0,
+      0
+    ],
+    "surface_cm": [
+      -28861.549942074147,
+      -2791.589859696757,
+      4055.0000000000005
+    ]
+  },
+  "first_click_committed": true,
+  "draft_after": {
+    "version": 1,
+    "scene_id": "city",
+    "flight_origin_cm": [
+      -27400.0,
+      -2600.0,
+      4079.9999999999995
+    ],
+    "gimbal_location_cm": [
+      -28861.5,
+      -2791.6,
+      4059.1
+    ]
+  },
+  "placement_through_desktop": true,
+  "training_pid": 8016,
+  "training_opened": true,
+  "training_second_click_reuses_window": true
+}

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "run_id": "FCE5768E462AF7B4B78B748C61078485",
+  "core_tests": 93,
+  "qt_tests": 52,
+  "source_build_hashes": {
+    "WiseEyeGroundTruth.h": "e34888c5685e3db09ec0a0092966dae3f5ec9877e828a80212af1db48dee09ee",
+    "WiseEyeGroundTruth.cpp": "f7e6d09ca8a6b1c07ab4d41eefde414a5da65b4636f8f3e9aa0415428ab6df53",
+    "WiseEyeBridge.cpp": "cc51957b2157b09d748cfb032eca1d181c914a30163e405ff97b417420e1e439"
+  },
+  "invalid_rate_atomic_rejection": true,
+  "final_flight_status": "ready",
+  "motor_rpm": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "default_preview_fps": 5,
+  "default_save_fps": 1,
+  "ui_rate_max": 10
+}

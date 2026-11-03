@@ -1,0 +1,91 @@
+{
+  "sample_token": "A6703C5E46AA10D204ED2283D80D50D1",
+  "run_id": "9F1BB0CE45F499606BEAA6944248221A",
+  "scene_id": "city",
+  "device_id": "ptz-01",
+  "sensor_id": "visible",
+  "environment": {
+    "time_supported": true,
+    "fog_supported": true,
+    "rain_supported": false,
+    "time_override": false,
+    "hour": 12,
+    "fog": 0,
+    "rain": 0,
+    "clouds_supported": true,
+    "clouds": 0,
+    "cloud_layer_active": false,
+    "cloud_atmosphere_created": false,
+    "rain_view_volumes": 0,
+    "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+  },
+  "scenario_models": [
+    "mavic3"
+  ],
+  "context_source": "capture_tick",
+  "frame_id": "9F1BB0CE45F499606BEAA6944248221A/ptz-01/visible/3758",
+  "frame_number": 3758,
+  "simulation_time_s": 11.677002906799316,
+  "width": 1920,
+  "height": 1080,
+  "horizontal_fov_deg": 25,
+  "intrinsics_fx_fy_cx_cy": [
+    4330.280163515576,
+    4330.280163515576,
+    960,
+    540
+  ],
+  "camera_position_cm": [
+    -26990.588970543493,
+    -2019.5004006366073,
+    4964.816036657656
+  ],
+  "camera_rotation_pitch_yaw_roll_deg": [
+    24.935363769531254,
+    -125.19436645507815,
+    0
+  ],
+  "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+  "visibility_method": "raster_scene_vs_isolated_target_depth",
+  "gt_policy": {
+    "keep_partial_occlusion": true,
+    "keep_partial_outside": true,
+    "min_visible_pixels": 1,
+    "min_visible_fraction": 0
+  },
+  "annotation_status": "complete",
+  "training_eligible": true,
+  "negative_sample": false,
+  "objects": [
+    {
+      "target_id": "uav-01",
+      "class_id": 0,
+      "class_name": "drone",
+      "model_id": "mavic3",
+      "bbox_xyxy": [
+        849,
+        485,
+        1070,
+        600
+      ],
+      "visible_pixels": 6861,
+      "in_frame_target_pixels": 6861,
+      "visible_fraction_in_frame": 1,
+      "partially_occluded": false,
+      "partially_outside": false
+    }
+  ],
+  "ignored_objects": [],
+  "gt_annotation_cpu_ms": 7.4703991413116455,
+  "encoding": "jpeg",
+  "sample_group_id": "0e9b19372c6371ca4374729d",
+  "pair_id": "A6703C5E46AA10D204ED2283D80D50D1",
+  "filename_model": "Mavic3",
+  "filename_weather": "Clear",
+  "counterpart_image": "IR_Mavic3_Clear_city_ptz-01_s9F1BB0CE_0e9b19372c6371ca4374729d.jpg",
+  "counterpart_directory": "IR",
+  "capture_delta_ms": 0.0,
+  "request_round_trip_ms": 190.3215000002092,
+  "image_sha256": "04b16b7c34603df5ef4677a9fb8dc28b5569c9d00d95a7a8e231f20434faf84b",
+  "dataset_schema": 3
+}

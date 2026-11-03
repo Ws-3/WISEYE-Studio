@@ -1,4 +1,284 @@
-# WISEYE 当前交接（2026-10-27）
+# WISEYE 当前交接（2026-10-28）
+
+## 2026-11-03 发布优先状态
+
+当前唯一开发工作副本 E:/Projects/WISEYE-PortableBuild，F 迁移暂缓；覆盖下方历史“F唯一源码”。v1.0.0 为作者 11 月 3 日生日纪念、首个功能较完整阶段版本。GitHub 发行提供源码和说明，不附大型运行包。发布前111核心测试通过；成品实测沿用11月2日记录，本次未重跑UE全量验收。迁移副本遗漏559项历史已跟踪资源已从Git恢复，避免误删；旧场景入口保持移除。详 [发行说明](releases/v1.0.0.md)。
+
+## 2026-11-02当前优先：内部盘便携打包，F迁移因USB故障暂缓
+
+用户先授权修盘/搬迁/打包，随后明确“先在内置盘打包，F盘稍后处理”。修盘MFT/卷位图已更正、Dirty一度清除，复制再次I/O重试/UASPStor重置，已停止写负载。F不可作为已完成迁移，五个小路径编辑状态亦未复核；不要删E。不可变安全备份6019文件/1.54GB，E:/Projects/_WISEYE-MigrationSafety-20261102-181223/source，初始逐文件SHA匹配F。当前便携新代码在本E:/Projects/WISEYE-PortableBuild工作副本，F尚未同步，未推送。
+
+Shipping双城市成品E:/Projects/WISEYE-PortableBuild/releases/20261102-191254-City-Shipping，portable.flag→旁边UserData，两个冻结EXE含训练端、随包FFmpeg/MediaMTX。111核心、24Qt、实际小城起降/控制/点云/原尺寸图像、city→city_large→city天气/事件、RTSP自定义19554路径实际解码、训练启动关闭均通过，所属进程退出；无干净机/长时/全城/多机认证。最终ZIP/哈希见releases。详细状态和临时E资源联接依赖见 [PORTABLE_RELEASE_20261102.md](PORTABLE_RELEASE_20261102.md)，优先于下方历史F唯一码源/旧包未更新记录。
+
+## 2026-11-02再后续：距离、夜灯与加快降落
+
+工作台实时遥测新增所选无人机到所选云台**底座**的三维距离/水平/高差，断连清除，不能称激光测距；光心斜距原设备页保留。Native StepNavigationLights工程强度6→24随深夜渐变，Visible Bloom深夜.09，覆盖后文旧.015；灯珠尺寸/闪烁不变、IR仍隐藏灯；非物理曝光标定。项目robot_wiseye_fastphysics SimpleFlight parameters.MPC_LAND_SPEED=.8替代底层默认.2，复用原生Land接地确认和disarm，不是新分段飞控，需重启。
+
+Editor/110核心/20Qt、隔离实城爬升/距离/黄昏深夜图像与实际降落通过，中位.817m/s、约10.43m下降全流程14.20秒、ready/4RPM<1；进程退出、11日常JSON SHA一致。早期低悬停有屋顶遮挡、严格颜色阈值曾失败，最终证据必须读evidence/distance-night-landing-20261102/verified。雨效本轮是评估，保留空间雨线、默认干镜头不恢复大水滴；“近滴虚焦”和“保护玻璃沾水”是不同条件，后者尚未新增。未大城/多型号实飞、未重包推送。详 [本轮说明](DISTANCE_NIGHT_LANDING_20261102.md)。
+
+## 2026-11-02后续：夜空、世界雨线、独立事件相机
+
+最新实现与验收见 [EVENT_CAMERA_WEATHER_20261102.md](EVENT_CAMERA_WEATHER_20261102.md)。此条覆盖下方“只检查rain_active_particles”和只有三传感器的历史状态。事件默认关闭，未启用不创建GPU采集目标；独立HDR640×480，原始RPC事件不是RTSP，时间UE world time帧间插值，不能宣称硬件微秒响应或无损录制。默认4个画面不自动加event，允许最多6个本地订阅。大城市事件转动确有截断/缓冲跳过，须保留每包skipped/truncated/dropped及sensor_state；最终蓄水池限流已数学和小城市复测，大小城市天气及生命周期此前往返验证通过。修复预览worker关闭/销毁时仍发信号；最终smoke无该异常。Editor、110核心、38Qt与原生数学通过，最终所属进程退出、11日常JSON SHA相同，未起飞/重包/推送。
+
+修改入口：Native WiseEyeEventMath/EventCamera/Streaming/Sensors/Bridge/Rain/Environment/Demo，desktop event_preview_client/sensor_forms/sensor_power/sensor_workspace/device_manager/source_registry/interface_settings/runtime_panel/main_window/workbench_v3，examples/event_camera_stream.py。新雨材质M_RainStreaks已同SHA存F和E，生成脚本ue5/scripts/prepare_rain_streaks.py，Sensors目录原已AlwaysCook。夜空修复雾自身散射亮度，不再次压黑楼宇来遮盖天空问题。正常目录与默认不自动启动UE保持。
+
+## 2026-11-02最新：交互、天气与依赖归位
+
+2026-11-02最新：顶部收敛为启动/关闭仿真与状态/连接/断开两个会话按钮，独立断连不停止UE；只关闭所属RuntimeManager进程。退出先获取换图后的当前run_id再安全降落。键盘归属移右侧，预览/传感器树不自动开参数；工作台放大旁有弹窗图标，ImageView支持1–16x指针锚点缩放/左拖/双击复位，不改FOV/源帧/GT。PerformanceRating按3–8新样本和档位上限给良好/一般/较差，5s数据过期，GPU高占用不单独判差。Native显式设置RainDensity和激活，关闭WeatherActor跟随Tick并限制密度，雨粒子不混IR；夜间隐藏识别的日景天幕、EV下限3/偏置-0.5/导航灯64→6/Bloom .015，保留暗部，非物理月光或低照标定。110核心/34Qt/Editor及真实city→city_large→city、启停/断连重连/雨粒子/雾/夜间/关闭按钮通过，13配置SHA不变、所属进程退出；本轮不起飞，未重包推送。F/E插件201文件SHA相同，E的ProjectAirSim与Drone Content联接已改指F，51处工作区联接无Evaluation目标；其20KB完整本地源码差异归档F builds/dependencies/evaluation-source-handoff-20261102，Setup默认源码checkout进builds/dependencies/ProjectAirSimSource。Evaluation日常依赖已解除但未删；IR-Work36GiB与Scene209GiB仍有必需地图/用户数据/共享资产，不能删。详docs/WORKBENCH_WEATHER_20261102.md和PROJECT_DEPENDENCIES.md。
+
+修改入口：image_view.py、workbench_v3/workbench_polish/main_window/runtime_manager/startup_status、runtime_metrics/runtime_panel、sensor_workspace/icons；Native WiseEyeEnvironment/Demo/Sensors。不把顶部按钮改回连接后禁用、重复三按钮；不要恢复点预览开参数。雨资源可用不等于下雨，须检查rain_active_particles和实际图像。IR-Work的两处插件Content已通过Use-LocalPluginContent.ps1改为F实体副本，不得指回Evaluation。日常正常目录仍E preview-data，未迁入F，不得因Evaluation可清理而删IR-Work或Scene。最终证据workbench-weather-20261102/final，summary在父目录。夜间首版过暗结果只作历史，最终目标灰度142→29/81→33；雾近景不是远景验收，GT仍几何标注。当前部分用户视角有近景遮挡，未挪用户设备；本轮不保证空中夜航轮廓、全天候感知或多机。
+
+## 2026-10-31最新：大小城市传感器／天气／增益稳定性
+
+2026-10-31传感器稳定性最新：大小城市共用修复已编译并实测。采集关闭时Native保留相机规格，桌面严格兼容旧0×0停用回复，不再断开整机控制；天气Collection资产/实例改UPROPERTY强引用，失效2s重试。稳定AGC排除天空/目标，背景不足保持，0.025/s限速及0.10–0.36归一化参考区间，非温度；保留现有灰度曲线/热斑/光学模糊。点云默认雷达原点透视、按实际FOV且保持比例，保留3D旋转/俯视；JPEG缓存60→90、返回真实quality=90。108核心/31Qt/原生数学通过，真实city→city_large→city启停/全关保持UE与OBS推进/雨效启停/全天空增益保持/锁定转角通过，最终所属进程退出；13配置SHA不变。本轮无飞行/全城LOD/长时GC/训练帧率验收，未重包推送。重开桌面及源码仿真使用；详docs/SENSOR_STABILITY_FIXES.md和evidence/sensor-stability-20261031。
+
+F原生修改同步并编译到E:\Projects\WISEYE-IR-Work，测试隔离目录sensor-stability-test-data；正常preview-data及F的Scene/Fleet/Layout不改。新UE state雨效失败原因字段rain_unavailable_reason。不要把MPC改回局部变量+实例弱引用，也不要把停用相机当坏连接。新点云云台视角是透视角度图：规则射线网格为真实扫描采样，不补造点；用户可切自由三维看形状，不能冒充相机配准。camera.stream_frame的quality参数仍兼容校验，缓存实际统一90，不宣称逐请求可调编码。
+
+## 2026-10-31最新：大城市独立试验接入完成
+
+2026-10-31最新：大城市city_large已作为独立试验场景接入并通过真实起降、90秒飞行采样、2.65m手动移动和切回小城市验收；小城市city仍默认，根VBS只开GUI。1机1云台/经济画质/250m设备与观察流送源，约30FPS、UE内存11.38GiB、显存4.05GiB；切回city约35.13s，最终四RPM0、所属进程全退出。F唯一代码源；新地图和约10万外部Actor在E衍生工程，依赖原始CitySample联接，未向有读取错误的F批量复制。正常E preview-data仅新增city_large Scene/Fleet，用户city Fleet及原始Big地图SHA保持。修复actual_pose缓存和Python3.14服务关闭顺序死锁，107核心/11相关Qt通过。未全城/多机/长时/Shipping验证、未重包推送；旧测试/沙漠二进制删除受审批限制仍在。详docs/BIG_CITY_INTEGRATION.md与evidence/big-city-20261031/final/report.json。此条覆盖下方历史“仅city、Big尚未接入”状态。
+
+启动入口：场景编排选择“City Sample · 大城市（试验）”，再点击“启动仿真”；已有UE时落地后加载所选场景。首次源码启动最后一轮138.22s，更冷的缓存曾约430s；大城市启动/切入允许900s，切回小城市90s。Native新增asset_compile_jobs等待初始缓存完成。实际地面高度用runtime placement.snap/FastGeo核对，不用编辑器简单Visibility覆盖已验证布局。云台/无人机为地面道路旁布局，用户city楼顶布局不动。
+
+变更入口：Prepare-BigCity.ps1（Build/Duplicate/Inspect/Surface/Assemble/Place/Thermal）、ue5/scripts/*big_city*.py、Scene/Fleet city_large、AirSim JSONC、原生流送源与状态、桌面/预览启动监督器。复制器没有-Rename，不能删共享文件夹重来；F只维护代码与配置，新地图二进制在E。正常数据仅复制新场景两JSON，禁止用隔离目录覆盖用户日常配置。flight状态只读actual_pose缓存，2s过期；close_control_server先关客户端再wait_closed，不能恢复async-with server提前等待。107核心与11相关Qt实际执行通过，其余既有Qt此前66项通过，勿混报本轮执行数量。
+## 2026-10-31最新：大城市评估／旧场景清理未完全物理删除
+
+用户要求评估Big City、删除通用测试/沙漠。F主源码、E衍生Config、E preview-data的original/test_range配置和旧Fleet/Layout已移除，两个AirSim场景JSONC已删；PS启动/CLI/组包仅city，默认路径改CitySample，FlightController默认city、相关隔离测试夹具同步。102核心/65Qt通过，PS语法与SceneStore检查见证据。未动Native/用户city Fleet，未自动UE/重包/推送。
+
+NullRHI Python commandlet只读引用审计312旧包、无外部referencers，Big原始地图可注册但未接WISEYE。Big外部Actor101981文件/9329717379字节，不等于完整体积/打包增量；本机32GB低于Epic64GB推荐，建议局部流送试验，不能宣称大城市不卡或已测。E大量联接原始CitySample，严禁删共享目录。F的Building/CH/C/Kit_Bldg_CHC_L1_A/Mesh两次枚举损坏错误，E对应可读，未修复磁盘。详BIG_CITY_ASSESSMENT。
+
+重要：批量递归删除及逐项umap删除被自动审批拒绝（blocked by policy），未绕过。二进制旧地图/Actor仍在F、E各约32.78MiB，系统入口已移除。准确四项手动删除清单在BIG_CITY_ASSESSMENT；不要写成已完成物理删除或腾出大量城市资源。原始下载和旧发行包不改。单元测试虚构ID与历史原场景验收脚本可保留，后者不能用于当前city冒称验收。
+
+## 2026-10-30最新：云台数值／坐标指向与自定义仿真基准
+
+用户明确放弃边缘盒子；不要继续做部署。用户选择“暂无真实基准，先支持自定义仿真基准”。新增core/georeference WGS84 ECEF/ENU双精度转换，按场景GeoReferenceStore默认未设置，purpose固定simulation_anchor/椭球高，北向定义UE+X相对北顺时针。DATA_ROOT/configs/georeferences文件用户需自己配置，未替用户把测试地点写到日常目录。
+
+Native WiseEyeBridge state新增gimbal_geometry/coordinate_pointing_supported、双镜头vertical_fov_deg/width_px/height_px；gimbal.point_at要求device_id、sensor、scene_id/run_id、position_cm（世界厘米），按实际独立光心/视轴/旋转底座迭代求解；非法、旧会话、<1cm、超限/不收敛恢复原姿态，成功清远程输入/退出真值跟踪/保持新姿态。此为直接位置设置，未模拟完整伺服响应；原pointing_error_deg仍是GT目标误差，新误差读coordinate_pointing.error_deg。SDK新增point_at_world/geodetic/coordinates(ref)，经纬转换在Python不在UE原生API，不自动给训练样本加geo。
+
+GUI云台“设备数值与坐标…”新增gimbal_device三页：实时角度/FOV/光心距离/XYZ/仿真LLH；单次指向；仿真基准设置。断连清空、回包按请求/设备，保存本次数据目录，原传感器草稿owner不变。examples/gimbal_coordinate_tracking从stdin有序JSONL提交新坐标，EOF保持；非GPS硬件适配或滤波/时钟/高速跟踪验收。
+
+F仅WiseEyeBridge.cpp同步E并Editor成功。102核心/65Qt；真实run5CFCFED442F678E9CA8FBA995694D4C4双光心20m、FOV回读、地理往返指向、非法/旧run/超限原姿态、实际起飞升高悬停10次坐标回读→LLH→VIS指向通过；ready/四RPM0、恢复角度/tracking、自有进程全退出。证据gimbal-geometry-20261030/final，30N/120E/100m仅isolated-config测试，不是城市真实地点，用户Fleet未动。新字段bearing/入口微调后仅Qt复测，不冒称高速端到端精度。高位Land仍先下降再降落。详GIMBAL_COORDINATES；未Cook/打包/提交推送，默认仍不自动启动UE。
+
+## 2026-10-30最新：删除顶部冗余行、导航对齐与RK3576评估
+
+workbench_v3不再构建顶部modes行，active_scene/health_label/performance_profile保持兼容owner；health移诊断、连接/推进异常合并右上badge，冻结检测清零保持。workbench_polish将唯一input_mode放原ownership条；scene_tools菜单在已有画面工具栏，打开原天气对话框或跳资源设置画质，诊断只留左下（侧栏隐藏可从设置进入）。NavigationButton固定68×68/24图标/文字框绘制；devices网格/data双箭头，不再复用settings。62Qt、原生100/150及菜单无自动UE/图标区别几何检查通过，未连接截图compact-toolbar；未启动UE/改C++/重包推送。小屏限制与其余P1缺项保留。
+
+用户询问RK3576承载UE以释放主机：已核对官方Rockchip/Epic，当前完整城市不适合该SoC，NPU非渲染GPU，Win64包不可直接ARM运行；推荐GPU x86节点跑仿真、本机仅控制显示，RK可网关/轻量推理但需独立移植。当前50051及50052仅loopback，不能宣称改IP就完整远控，50100可LAN仅数据；本轮未开放端口。见COMPACT_WORKBENCH_EDGE_DEPLOYMENT.md，未进行硬件移植/板上实测。
+
+## 2026-10-30最新：用户指出示例差距，补齐继续；默认不启动UE
+
+根VBS现调Start-Desktop.ps1，不传Connect、不自动UE；右上统一手动“启动仿真”走RuntimeManager。Start-Desktop沿用存在的E预览数据，显式DataDirectory/env优先，不依赖UE也能开GUI。实际VBS新增两层pythonw可见主窗，无UE/飞控/50051/50052/50100监听，测试后关闭。显式Start-SimulationPreview仍可全预览，旧根入口说明已过时。
+
+新增device_catalog为实例表＋详情，旧DeviceManager隐藏表仍唯一草稿owner；名称修改不截断坐标，新增复制删除ID/保存原逻辑保留。workbench_polish固定安全动作、归属条、左栏机器摘要与诊断；高级控制内嵌折叠在150%切窗复现native AV，隔离改AdvancedControl独立小窗后100/125/150通过，关闭清零/随主窗关闭（未证明Qt底层根因）。训练工具与元信息同栏、真实组身份、策略折叠；资源五组、DATA_ROOT打开输出修正、GT/飞控分区状态不伪造。
+
+94核心/62Qt（V4八项）及原生布局、实入口通过；本轮不自动启动UE测试、未重跑起降采集，之前verified只属于上一轮。证据ui-v4-20261030/refinement，layout为未连接截图、diagnostic为隔离记录。整套P1尚未逐项完成，不再泛称“主体完成”等同交付；剩余IR主布局/融合偏好/窄屏抽屉/日志计数/接口整合/编排叠加/航点详情见UI_V4_GAP_REVIEW.md。未重包提交推送，不改Fleet/IR/UE。
+
+## 2026-10-30：V4 原生界面最新
+
+用户已批准V4方案并授权实施。本轮P0/P1界面主体完成：shell_v4左侧五页导航（内部保留0编排/1工作台/2接口/3设置/4设备索引）、上下文与参数Dock；arrangement_v4复用同一OBS来源、左设备右位姿；设备常驻页有重读/退出草稿确认，DeviceManager.saved_snapshot按编辑器规范化值比较避免浮点假dirty。workbench_v3保留命令归属，属性选择不接管。sensor_forms原字段移动到折叠组，草稿/请求身份不变。training_client/layout_v4双路主画面+融合缩略/放大+集中保存动作，仍原Receiver/GT/存储、单槽解码；_theme为独立部署副本并测一致。
+
+94核心/59Qt通过；真实run F1D5974F424BEF5B47E44EA89C0AFFFC参数FOV修改/回读/恢复、编排单OBS、GT关框仍有标签、停止保存保留接收器、融合弹窗及起降，7秒7组/约4.68FPS，ready/四RPM约0.0056后全部自有进程退出。证据以docs/evidence/ui-v4-20261030/verified为准，其它同目录final/owned-final/accepted/final-pass为中间或失败测试。DPI1920在100/125/150与1440在100/125可用；1440/150钳制到960×640逻辑最小窗口，不能宣称该物理屏适配。
+
+发现高位直接Land触发AirSim60秒NNG超时/飞控重连，尚未修复；最终先手动下降到起点附近2m再降落，不代表高位关闭保护通过。前两轮恢复脚本又有缺完整sensor.configure字段的问题，最终使用真实表单完整快照恢复，未改协议。空中关主窗/直接关UE完整生命周期仍引用上一轮，不能冒称本轮重测。P2样本浏览、UE真实三维航线、进一步拖拽、完整性能基准未做。未改本轮UE/C++/IR/Fleet/模型，未重包/提交/推送。操作/代码映射/限制见UI_V4_IMPLEMENTATION.md；使用同一根VBS，重开源码GUI看新UI，旧包不更新。
+
+## 2026-10-30：关闭保护最终验收（保留后续统一训练预览）
+
+源码根VBS→preview_session Job管理UE/飞控/桌面及后代，桌面启动仿真由RuntimeManager管理，训练端独立子Job；主窗口异步退出，先停止本次训练并等待保存，UE已退出时清理所属GUI/后台；手动连接外部UE不结束对方。先挂起创建再入Job，避免venv子Python逃逸；不按进程名称全局杀。未提交传感器草稿原有确认保留。会话kill兜底不保证最后组在强杀/断电时完整。
+
+发现真实session.log降落ACK超过原2秒后提前结束会话。本轮local_rpc支持有总时限的timeout，降落ACK等8秒；ACK超时继续看状态，短暂轮询错误在总30秒内重试，先核对原生/飞控run_id并按drone_id降落。没有ready不能声称落地。未改UE/C++/IR/Fleet/模型/后续统一训练UI。
+
+94核心、54Qt通过。真实city run1760FAB04F33E18255BDC4A534282192空中关主窗口：9秒内确认降落，13.21秒整套清理、所属PID无残留；run36A337114440A13E557A16AEF7725E0A直接关UE：3.79秒整套清理、所属PID无残留。测试前无用户实例，结束全退出，不恢复额外预览。证据evidence/shutdown-final-20261030，操作与架构见SHUTDOWN_PROTECTION.md；未重包/提交/推送。
+
+注意：最初分离快速视频/GT方案的历史实测在session-video-20261029（约9视频FPS、12组保存），后来用户要求统一预览已被GT_RATE_AND_UNIFIED_PREVIEW取代。当前仍为统一同帧图像+GT、默认显示5/保存1、实际约4.5FPS；不恢复旧双模式或固定2上限，不冒称30FPS已完成。
+
+
+## 2026-10-29：无人机夜间灯光与新模型接入规范（当前最新）
+
+Mavic 3 / Avata 增加4个自发光灯珠，左红右绿交替双闪，1.6s周期；时间覆盖18–06自动启用，未覆盖时依据主太阳朝向。待机可闪，运动暂停不冻结提示灯；day关闭。机体坐标电机/护圈外缘安装点近似（首次埋入电机不够可见，最终已外移），直径0.9/0.6cm、自发光参数64，非原厂灯语/光度学标定。StepNavigationLights每帧更新姿态，组件只创建一次；切型号复用4灯，不添加投射光。DeviceInventory新增navigation_lights状态。所有IR相机隐藏灯珠，热分类跳过；IR GT深度沿用隐藏列表，VIS灯实体可参与GT，Bloom不算实体轮廓。
+
+新增build_navigation_lights.py生成Common/M_NavigationLamp，已接import_drone_models；E生成uasset回传F，既有Cook目录覆盖。F源4文件最小同步E，Editor构建成功。93核心回归通过；最终run EFFFB81F4471492DFD81DBADB7DFAE7E实际城市起降、Mavic→Avata→Mavic、白天/夜间3相位、始终4灯、两型号双路正GT通过。可见光中心区域色灯像素峰值Mavic红110绿71、Avata红43绿44，两者熄灭最低均0；状态与JPEG有缓存错位，测试另外按实际图像抓取actual_red/green，不能按查询状态标注缓存相位。结束恢复原型号、环境、相机及tracking，最终ready/四RPM0，自有测试进程全退出。证据docs/evidence/navigation-lights-20261029/final/report.json与validation.json。首轮证据保留，final为最终亮度版本。未验收多机长期/远距子像素灯珠/夜IR物理真实性，未Cook/重包/提交推送。
+
+用户要以后AI一次完成接入：新增docs/DRONE_MODEL_INTEGRATION.md，列出当前FBX静态导入、uasset运行和其他格式需另做转换；尺寸/朝向/电机轴/旋翼转向/灯位/电池热区输入、Python与UE硬编码注册点、放置/训练保存/Cook/真实起降验收及可复制任务文字。只换外观默认shared_quadrotor，不等于新机性能。后续新增型号必须先读此规范，保留Fleet和现有红外。
+
+## 2026-10-29：GT高频实测与统一预览（当前最新）
+
+用户授权测试更高GT并取消双模式。UE gt_configure新增max_fps数字0.1–20、严格/原子校验，默认2兼容旧客户端；state返回gt_max_fps_supported=20和当前gt_max_fps，GT新增gt_annotation_cpu_ms。新UI请求max_fps10，预览默认5/保存1，UI各0.1–10（是上限）。14600KF/B580实采正样本2/5/10/20档各15秒为1.84/3.86/4.63/4.74组/s，仿真30Tick；短轮询后5/10为4.19/4.84。不能把20当可达实帧率。
+
+训练UI已移除video/sample模式与VideoPreview线程/视频FPS，始终用同帧GT包，单“预览GT框”仅控制叠框；隐藏后标签/融合仍在，保存原图不带框。默认5预览最终GUI4.51FPS、保存9组、运动中控制请求1.49ms中位。Receiver解码缓存复用，最新单槽33ms轮询，legacy frame信号兼容普通包。发现源/显示重复限速按arrival抖动丢帧至2.8，已改预览驱动源时显示每个新样本，最终4.51；保存独立限速、不补帧。旧双模式live测试由verify_unified_preview_live替代，其他模式引用已调整。
+
+Editor、93核心/52Qt通过，F/E GT h/cpp/Bridge SHA一致。runFCE5768E462AF7B4B78B748C61078485，两轮起飞悬停阶梯、最终运动GUI+GT开关不换帧/隐藏仍存正标签、在线修改/换源、非法速率原子拒绝均通过。docs/GT_RATE_AND_UNIFIED_PREVIEW.md和evidence/gt-rate-20261029；最终GUI报告位于final/，根下unified-live是修复前限速问题报告。测试前无用户UE，独立E gt-rate-data；结束恢复云台和后端默认2、ready/4RPM0，自有进程退出，用户Fleet/资产/IR未改；未重包提交推送。视频/样本双模式不再是当前产品行为，旧档案仅历史。
+
+## 2026-10-29：长按延迟、连续放置与训练在线操作（当前最新）
+
+AirSimClient每设备1在途set_input+1最新待发，松键0覆盖旧值，动作/断连/错误清待发；不积累历史按键。后台高频输入使用现有SingleTaskCall替换，避免每次同步CancelLastTask及flight.sync_state；Fleet复用当前state而非重复SDK读取。其他动作保持原取消。注意Fleet复用必须dict(result)再加fleet，直接把result放进自己的fleet会循环JSON，已单测覆盖。
+
+UE放置保留点按，新增每键独立计时：.3s后10Hz连发，不追赶卡顿漏步，松键停，映射WASD/QE/RF和Shift细调不改。训练端移除连接时禁用策略/目录/数据源；Receiver锁+revision快照热更新，设置改变丢弃在途旧策略样本；VIS/IR自动异步重订阅，主机端口云台编辑后点“应用连接设置”，无需手动断开。视频线程stop后wait(0)+Qt定时器收尾，不阻塞UI。GT/融合仍需sample视图，不能把旧GT叠到快速视频。
+
+Editor build-input-online通过，F/E Demo.h/Placement SHA一致；91核心/51Qt通过。真实run986B530847DB75951659FFB049B9EBFD，60秒持续输入493ACK，首末10秒中位16.87/16.82ms、零输入6ms确认、每设备最多1在途；随后实际落地4RPM0。不是物理制动/画面端到端时延保证。UE实际长按D1s70cm、松键不再动与原点按/Shift通过；训练GUI在线政策/目录保存、双路改单路清旧图、应用连接保留选项通过。见INPUT_AND_ONLINE_SETTINGS.md、evidence/input-online-20261029。独立E input-online-data，结束恢复云台角度/跟踪、ready/4RPM0且自有进程全退出；无用户UE被关闭、Fleet/资产未改、未重包提交推送。
+
+## 2026-10-29：WASD/QE/RF 与运行中实时放置（当前最新）
+
+用户纠正上轮放置体验；已将箭头/PgUpDn改为WASD按设备朝向移动、QE转向、RF升降，10cm/1°、Shift1cm/0.1°，Home同时复原转角，确认结果携带yaw_deg。编排新增每设备朝向输入，默认实时应用；放置确认或坐标编辑400ms去抖后异步提交，无需场景重载，保存只负责下次初始布置。新增headings_deg可选预设字段，旧预设兼容；Fleet合并仅编辑设备的位置/偏航。
+
+UE live_placement_supported、placement.validate/apply带scene/run/token，云台更新完整装配；无人机由50052先SetPose重置物理位姿/速度（必须frame_id！初测漏该字段实际RPC报Unknown exception，已修复并重测），50051再校验DynamicsSource位置/朝向并更新原点。ready/无未完动作/四RPM0才允许，空中与旧run拒绝；普通失败恢复物理位姿/原点。Qt单请求+设备队列、回包按token/device/run匹配、断连/换场景清理，其他驾驶对象的placement确认不污染遥测。训练网关不开放控制。
+
+Editor构建通过，F/E Demo.h/Placement/Fleet/Bridge SHA一致，E manifest现回到UnrealEditor-test.dll。90核心/47Qt、真实city云台/无人机同run位置+偏航、移位后2秒无弹回、移位后实际起飞/降落与拒绝空中放置、真实UE W/E/R/Shift-F/Enter及实际GUI两设备自动应用/保存全部通过。run5D44BD2C4849FEE678E0A991B6043C5A，证据evidence/live-placement-20261029。测试前无用户UE，使用E独立live-placement-data，保存配置按字节恢复；用户Fleet/红外/模型不改。结束恢复位姿、ready/4RPM0，自有进程全退出，未重启常规预览。详见LIVE_PLACEMENT.md；未重包/提交/推送。
+
+## 2026-10-29：启动阶段、放置微调、VIS响应与固定目录追加（当前最新）
+
+见[本轮说明](STARTUP_PLACEMENT_VISIBLE_STORAGE.md)。用户纠正保存架构：新双路及单路使用所选根下visible/IR各自images/labels/annotations，直接追加，无samples逐组/无pairs。schema3保存counterpart_directory/image，原命名/负样本/过滤逻辑保留；训练兼容schema2组目录及旧单路。普通写入/发布异常回滚本次新增；固定两模态目录无法沿用整目录原子提交，强杀/断电坏组由完整性检查拒绝。历史数据不动。
+
+preview_session每次独立状态文件→桌面StartupStatus非阻塞轮询，UE加载/飞控初始化/ready自动连接/失败提示；飞控必须同新run。失败桌面保留直到用户关闭。UE放置新增空格锁定、方向键XY/PgUpDnZ=10cm、Shift=1cm、Home清零、锁定Enter确认，首次微调自动锁定；Z不低于表面，120秒超时；仍只草稿，保存加载生效。可见光Capture源PP饱和.88/对比.96/Gamma1.03/Bloom.08/暗角.08/颗粒.04，红外不改，无几何变换；只属实拍风格基础近似，未实机标定。
+
+86核心/43Qt通过；3组此前真实JPEG/GT重导出新结构通过，非新VIS实时验收。E Editor带后缀模块构建通过，F/E Demo.h/Placement/Sensors/Bridge SHA一致；E UnrealEditor.modules当前映射UnrealEditor-test-1029.dll，下次启动会加载新模块。常规用户UE PID1848运行preview-data，本轮从未关闭/控制/采样该会话，也未新起测试UE；新UE微调按键、VIS实际观感及完整根入口启动仍待现场验收。证据evidence/startup-placement-visible-storage-20261029。请勿将旧运行实例当已加载本轮代码；用户正常退出整套后根VBS重开。未重包/提交/推送。
+
+## 2026-10-29：采集上下文命名与整组直接保存（当前最新）
+
+用户要求以传感器/机型/气候命名、不要额外pairs文件，并询问FPS。新storage.py使用VIS/IR_机型_天气_场景_设备_s会话8位_共享组ID24位.jpg；多机型组合、负样本仍用场景机型。GT快照新增environment、scenario_models、context_source=capture_tick，环境/型号在同次采集读取，不用稍后sim.get_state冒充。天气是仿真配置标签，clouds/rain/fog非零组合，零为Clear；显式hour覆盖按6–18标Day否则Night，精确参数仍留JSON。旧后端缺上下文明确Unknown。
+
+双路保存改为samples/<组ID>/{images,labels,annotations}：同一images目录中两张原图除VIS/IR前缀外同名后缀，各有同名YOLO与JSON，不再生成pairs文件。先暂存完整六文件、整目录提交，写失败不发布半组；任一路被策略排除则整组跳过，合法双路负样本保存两图和空标签。暂存清理只限已验证位于本数据目录的自有临时路径。原单路入口保持images/labels/annotations，可读命名。历史文件不改名/删除。train.py递归支持新/旧目录，--sensor默认infrared选择模态；配对读取检查另一图/标签/JSON、ID、时间、互指及SHA，防混模态和坏组。
+
+未改变FPS限制：实时无GT视频默认轮询20、上限30（不保证新帧率）；GT显示/保存默认各1、范围0.1–2，每秒一组双路是2张原图。未勾保存时不落盘。此次隔离city run_id A0E91D454AF73E94E3DC1CB7311AC7D4源VIS/IR短测9.89/10.38新帧/s，六组GT1.76组/s，非双机长期性能承诺。
+
+Editor build-dataset-context通过，GT h/cpp F/E SHA一致；82核心/36相关Qt通过；晴天白昼、雾天夜间命名及采集Tick元数据、真实负样本机型/双空标签、无pairs、递归IR读取通过，模拟写满磁盘无半组与旧目录兼容单测通过。证据docs/evidence/dataset-storage-20261029，含3组完整实采示例。仅增GT元数据与训练保存/读取逻辑；相机、红外材质、FPS限流、用户Fleet/配置未改。测试运行前查无用户UE；自有测试最终ready/4RPM0且退出，不重启常规用户预览。未重包/提交/推送。
+
+## 2026-10-29：单一红外、轮廓柔化与局部热区（当前优先）
+
+用户认可上一版作为基础。已移除成像版本选择及清晰/实拍两个预设按钮和PRESETS数据；固定facade，白热/黑热/增益/采样/FOV等参数保留。内部单项隐藏字段维持请求兼容，不提供旧模式；旧后端无facade能力不提交新profile。修改对应Qt回归，禁止恢复旧预设。
+
+最终灰度加入低强度背景光学低通，目标及紧邻像素保护；灰度基础曲线不改。共享原生函数/回放同步，单位测试验证轮廓极值下降和微小目标不变。Mavic新增4个真实Rotors轴心投影，Avata路径保留；电池本机后向偏置，Mavic热点半径电机1.6cm/电池4cm，Avata1.5/3cm。仅目标可见像素近深度叠加，不是每零件真实辐射/自遮挡；热量由真实RPM派生功率、快慢热惯性控制。
+
+查到另一根因：FOV很窄且背景全是天空时，背景AGC会把整架机压到同样高亮。目标显示现混合AGC结果与归一化热信号平滑映射，保留局部差别，末尾再反转黑热；源热信号/GT不改。勿退回只做目标×0.82再硬夹1的旧实现。背景仍为上一版tanh曲线。
+
+最终Editor与Facade生成成功且资产E→F回传；73核心/40Qt/原生数学/回放编译通过。实际run1108EEDA4557A2903C3AEA82329521DB，Mavic/Avata各20秒悬停升温、双路GT、落地ready/4RPM0/恢复Mavic通过。Mavic目标原信号P25/P99 .344/.469，灰度P25/P95约164/193；Avata .362/.435、168/185，掩码/JPEG临近采集非精确同帧零件测温。最终测试已退出，已通过根目录VBS重新打开常规preview-data供用户使用；不要误结束该常规预览。
+
+数据50100短测6组约1.83组/s，源码限每设备每传感器0.5秒，UI默认显示/保存各1FPS/最大2；已加产品解释，没有冒然提升限流。下一步快速视频与同步GT采样分离，不能把旧GT贴到新视频。最初用户预览处于暂停、降落等待未完成且飞控曾报连接超时，未当成降落通过；本轮正式验收另在正常推进的隔离实例完成。
+
+见[当前说明](IR_CURRENT_MODEL.md)，证据evidence/infrared-current-20261029；未重包/提交/推送。
+
+## 2026-10-28：修复桌面读取/预览、楼宇对比与训练启动（当前优先）
+
+详见[本轮修复](PLACEMENT_TONE_TRAINING_FIX.md)。用户实测暴露上轮遗漏：core/devices.py误将[pitch,yaw,roll]的yaw90判为倾斜。现检查0、2轴，保留用户90°朝向；核心与Qt新增真正覆盖非零坐标/设备列表/按钮可用/请求的测试。上一轮原生预览通过并不能覆盖桌面加载。
+
+楼宇HLSL明确屋顶/墙体，增强材质/法线层次；CPU改AGC后的背景tanh中间调展开+目标×0.82、最后反转黑热，其他模式不变。旧0.72函数仅供历史回放，flag1旧/flag2新。实际同机位背景P5–P95 133–147→71–169，中位144→131；重点是对比层次，非整幅提亮。云时间与重启前后无人机位置不同，不能当同目标像素A/B；新悬停目标中位168/P95172/>235为0。用户参考未入库，非温度/实机校准。
+
+全局右上“打开训练端”由training_launcher.py启动pythonw，无console，传主机/选定云台/50100；已连接时自动连。已有窗口复用，独立运行不随桌面关闭。发布包无Training/WISEYE-Training.exe时提示缺失，不谎报可用；本轮源码验证，未新打包。 验收后已用根目录VBS恢复常规preview-data预览供用户使用，UE仍正常运行；不要把它误当未清理测试实例。
+
+E Editor与Facade生成成功并回传F，73核心+36Qt+原生数学/回放编译通过。run2C45EBCE4E2B09152A6177AC2AF2B6B5实际桌面读取、预览、第一次左键确认且仅草稿、按钮启动训练自动双路与复用窗口、Mavic起降双GT通过，最终ready/4RPM0且自有测试退出。证据evidence/placement-tone-training-20261028；未提交/推送。
+
+## 2026-10-28：启动优化、角位与模型放置预览（当前优先）
+
+详见[完整说明](STARTUP_PLACEMENT_IR_TUNING.md)，证据`evidence/startup-corner-tone-20261028`。Editor-game取消AssetRegistry启动全量扫描，真实初始化42.23/30.72/29.93秒；正常Editor/Cook不改。显示名WISEYE，内部test模块不改；文字HUD移除，屏幕光追警告单独关闭，日志保留。
+
+F Fleet/Layout/Scene与E三处配置同步：PTZ(-27066.552734375,-2092.68798828125,4059.1168165)，z4055楼面，两碰撞楼边各内缩100cm；Mavic(-27400,-2600,4080)，同楼顶±100cm九点同高。旧远处起点被屋顶结构遮挡，候选(-28200,-3000)为平台顶，均未采用。角位真实起降与双路GT最终通过，证据报告passed=true；碰撞/遮挡保留。
+
+默认facade/contrast1.1/StableAGC，降低墙体基值、保留屋顶变化，AGC后背景幅度0.72（天空/目标不改），Facade资产已由E回传F。旧机位同参数手动增益对照中位灰度193→111，非物理测温或实拍标定，不将新机位和旧机位直接比较。
+
+模型放置创建独立无碰撞/阴影/自定义深度的设备副本，保留尺寸姿态、随鼠标命中更新，未命中隐藏；与确认共用PlacementAnchor，左键仅草稿、右键/45秒取消。Nanite副本bDisallowNanite，原资产不改；M_PlacementPreview.uasset已回传F，configure_placement_preview.py可重建，曝光补偿青绿色。每路VIS/IR HiddenActors排除副本，训练深度沿用对应隐藏表；OBS展示副本。UI改“到UE预览放置”、显示悬停坐标。尚无旋转操纵器/占地冲突验证。
+
+Editor编译、72核心、35Qt、原生数学通过；UI最后改动后取点5Qt再过，回放工具编译过。真实PTZ/Mavic/Avata鼠标移动/左键坐标/离窗隐藏/右键取消通过。Mavic角位飞行run AB3F783249EA9AF0F2035E917A6E9B50双路GT通过；最终颜色预览run FA431E364FD3C90E22FAD5A9D18F9320，恢复Mavic/ready/4RPM0并退出自有进程。下方其他AI的训练融合增强保留，未重包/提交/推送。
+
+## 2026-10-28：双光心融合对照、时差/中心差、缩放与独立FPS（当前最新）
+
+用户要求恢复VIS/IR融合以观察差异，并增加放大、显示/保存帧率。仅修改training_client与相应测试/说明，UE、相机默认值和用户楼顶Fleet未改；入口仍Start-Training.vbs。融合新增raw（默认，只统一FOV尺度，保留视轴/基线差）和rotation（按UE实际相机旋转矩阵投影到IR网格，补偿旋转不补基线深度视差）。原同光心拒绝检查保留mode='strict'，旧dual-camera live测试已显式使用strict。
+
+融合下方显示仿真采集时差ms、整对样本请求返回耗时ms、基线cm和共同目标GT中心差Δx/Δy/距离px；pairs清单保存时间差/取帧耗时。采集同Tick时Δt=0不代表零传输延迟；中心差受模态可见范围影响，不是配准准确率。raw/rotation均为观察叠加，不是学习融合/深度配准。
+
+新增view.py：三路滚轮缩放、拖动、适应、实际像素1:1、独立实时放大窗口/双击打开，百分比按实际显示像素计算，断连联动清屏。rates.py独立单调时钟调度，显示/保存各0.1–2FPS在线可调，源采样跟随较高者，不补帧；记录可在线开关，显示实测更新/保存频率。GT接口上限仍2FPS；配置时间不计入取帧周期，2FPS正常限流可取消退避重试。低显示FPS按周期判断过期。
+
+72核心与31项相关Qt通过；真实city run_id 785B6501479A746720D27B9A3612EF75、12cm基线/FOV5°静态目标：仿真采集Δt0ms，GT中心差raw105.10px、rotation78.75px。7秒阶段显示2/保存0.5实际收到13/显示11/保存4；下一阶段显示0.5/保存2收到12/显示3/保存12，实测显示0.45/保存1.79FPS（设置是上限）。放大窗口307%截图及实时跟随通过。证据docs/evidence/training-inspection-20261028；结束ready/四RPM0，自有UE/飞控/数据服务退出，未飞行。未新编译UE（本轮无UE改动），未重包/提交/推送。
+
+限制：本机静态验证，无双物理电脑/运动目标配准精度/高FPS承诺；基线需要深度相关配准才能消除视差。不要因能叠加就称为像素已对齐。其他聊天/既有变更仍保留，包括DefaultEngine.ini末尾空行提示，未擅自清理。
+
+## 2026-10-28：独立双相机与楼边1机1云台（当前最新）
+
+用户要求两相机有视轴差，并将云台/无人机放同一楼顶、云台靠边。原本双Capture独立渲染但同光心；现共同OpticalMount下两个同级相机，世界物理厘米偏置不随模型缩放，默认VIS(0,-6,0)/IR(0,6,0)cm，IR pitch/yaw偏差0.1/0.2°（仿真假设非实机标定）。传感器页各自6安装/视轴字段，sensor.configure严格有限数值/原子提交、旧后端能力门控，本次运行有效。热区投影与PNG导出改用实际IR/被导出相机，GT按各自位姿。IR不读VIS RenderTarget，但背景仍有外观代理，非物理LWIR。
+
+城市F Fleet/Layout/Scene已按本次授权更新为uav-01+ptz-01；云台(-33000,-2075,4104.1168)，底面z4100、距碰撞楼边1.07m；无人机(-33800,-2900,4125)，同屋顶内侧约11.5m。各自9点碰撞平面核实。E Config与隔离数据同步，日常preview-data当时尚不存在，下次从F创建。旧模型/城市资产不改，多设备功能保留。训练默认ptz-01；无配准的双路保留显示/采集/独立GT但拒绝直接融合，后续需深度/内外参配准。基准manifest v2，不与旧地面v1直接比较。
+
+E Editor build-dual-camera-final通过，68核心+35Qt；最终city run_id 1257AD154F9416E54CA522918D3273D1几何三姿态12cm、独立参数/启停、4非法请求、同刻独立位姿、PNG元数据、50100双路/不同FOV/负样本/恢复通过。Mavic楼顶真实起降，z4119.27→4268.87→4119.27，最终ready/四RPM0；悬停两路各有GT。自有进程已退出。F唯一源/E构建，说明DUAL_CAMERA_ROOFTOP及evidence/dual-camera-rooftop-20261028；未重包/推送。
+
+## 2026-10-28：根目录唯一启动入口与冗余清理（最新）
+
+用户要求清理根目录冗余入口。现仅保留Start-WISEYE-Studio.vbs，语义从“仅桌面”改为隐藏启动Start-SimulationPreview.ps1（当前E城市预览+飞控+桌面），加载后用户点连接；不自动同步/编译。旧CitySample.vbs、Desktop.cmd、ProjectAirSim.cmd/vbs、WISEYE.cmd实际删除，开发PS保留。Start-Desktop.ps1先找F builds/python-env再.venv，已有UE只需该脚本-Connect，勿再次启动主入口。训练端Start-Training.vbs保留。
+
+实际另删根目录运行log及8目录86个pyc；总移除文件原大小约0.96MiB。README/用户指南/文件结构/开发引用与Setup提示已更新，历史证据旧名保留。VBS含空格路径无副作用桩执行、StartPS AST和桌面解释器/参数校验通过；非完整UE启动验收。详见CLEANUP_REPORT最新节及entry-cleanup-20261028.json；未推送/重包。
+
+## 2026-10-28：训练端单入口、仿真主题、双路同刻与融合（当前最新）
+
+按用户要求移除 training_client/Start-Preview.cmd、Start-Gateway.cmd，仅保留 Start-Training.vbs；已真实cscript启动可见训练窗口并正常关闭。数据服务由 integrations.ProjectAirSim.run_wiseye_flight 主进程自动启动/收尾，监听0.0.0.0:50100，仅数据/策略命令；端口占用记录错误并让仿真继续，不接管/结束其他进程。训练电脑只需填写仿真IP；源码普通AirSim入口自动生效，旧Shipping未重包。
+
+新工作台位于 training_client/workbench.py，直接复用apps.desktop_app.ui.theme；目录单独复制时使用相同_theme快照（测试校验一致）。品牌/深色侧栏/多源卡片沿用仿真风格。默认VIS+IR同时接收，三视图（可见光/红外/融合），亦可单路；GT显示和红外权重即时调整。Worker接收/保存，错误/过期清三路及关联；原图、标注分visible/infrared存储，pairs清单关联，不把融合预览当训练原图。
+
+UE新增paired_training_samples_supported、camera.sample_pair_request/frame，共享UUID，在两路可排队时强制同Tick捕获，同simulation_time_s；独立frame_number不要求相等。融合根据共同光心/姿态及FOV在IR像素网格对齐VIS，只在共同视场透明度叠加，额外IR视场保留原图，避免16:9拉伸至5:4；不同光心/姿态拒绝融合但继续显示原图。未使用学习融合或跨光心深度配准。
+
+E Editor build-training-pair通过，三处UE源F/E SHA一致；68核心、20既有Qt+6新增融合Qt测试通过，独立目录隔离导入通过。实际city run_id 96F72B7D4C0EBB30D552D7A805C0A00F：自动服务（无单独网关进程）、同刻双路GT/不同FOV融合、停IR拒绝旧对/恢复新对、双路负样本、单路兼容、真实Receiver线程三视图截图通过。证据 docs/evidence/training-fusion-20261028；本机未起飞，结束ready/四RPM0，全部自有UE/飞控退出且50100无监听，用户Fleet/城市资产未改。
+
+仅低频按需采样原型，UI约1Hz，未做双物理电脑/长时多源/运动目标精度/真实训练/新版Shipping。单源建议一个采集客户端；服务无认证TLS。手动训练按模态目录运行；尚无自动训练/模型上线。说明docs/TRAINING_DATA_INTERFACE.md、training_client/README.md已更新；未提交/推送。
+
+## 2026-10-28：独立训练端与同帧 GT 数据出口（当前最新）
+
+用户要求仿真与训练分离，局域网另一电脑接收图像/GT；部分遮挡和部分出画按配置保留，完整空标注作负样本，仿真端不显示 GT 框。新增 WiseEyeGroundTruth 独立场景/实例深度采集，与同阶段传感器图像一起 GPU 读回并缓存；camera.gt_configure/sample_request/sample_frame 和 training_samples_supported。UUID token 关联单次请求，frame_id 带 run_id/设备/模态/帧号。可见像素 bbox、可见比例与裁切标志；不改现有热成像 stencil 或地图资产。策略过滤仍可见目标记录 ignored_objects，暂不作为普通负样本训练；完全遮挡/出画的成功空标注可训练，失败不得训练。
+
+新增 training_client 独立目录：标准库数据网关默认本机50100（--bind 0.0.0.0供可信LAN）、PySide6接收/GT叠加/保存原图+JSON+YOLO标签/空负标签、手动train.py入口（独立验证会话与校验）。无仿真模块依赖；仿真保持原有RTSP，训练使用成套样本。启动/接口详见 docs/TRAINING_DATA_INTERFACE.md、training_client/README.md。入口 training_client/Start-Gateway.cmd、Start-Preview.cmd；新版UE源码预览用scripts/Start-SimulationPreview.ps1。
+
+F唯一源码，E:/Projects/WISEYE-IR-Work Editor最终构建通过，8个相关源文件F/E SHA一致；67核心+20相关Qt+1原生GT自动化通过，接收GUI实际线程与GT截图通过。最终真实city run_id ADB6EFE4490AFB9B5C9F5D8ACE39C4CF，IR640×512/VIS1920×1080同帧GT、部分遮挡保留/过滤、部分出画保留/过滤、另一云台遮挡空标注、负样本落盘、停用错误/非法配置原子拒绝/设备隔离/网关拒绝飞控通过。短时观测不采样29.998Tick/9.890IRHz，1Hz采样29.983Tick/10.214IRHz，仅单机短测，不是无开销结论。证据 docs/evidence/training-interface-20261028，包含完整接口报告、原生摘要和独立界面/带框图。使用隔离gt-test-data；未改Fleet/城市资产，未起飞，结束ready/四RPM0，自有UE/飞控/数据网关均退出。
+
+限制：默认UI约1Hz、接口最多2Hz/传感器、每源一采集客户端、只保留最近样本；额外深度捕获与复用资源有成本。部分出画为目标光栅触边，非精确完整网格比例；透明/LOD/抗锯齿/子像素/运动目标仍需专项验收。仅drone类；没有多物理电脑、长期网络、实际YOLO训练/效果、自动增量/模型上线验收。手动训练依赖需在算法电脑安装；无认证/TLS。旧Shipping不含新接口，未重包/提交/推送。后续先双机数据链路和动态目标对齐，再采集独立验证集跑模型训练。
+
+## 2026-10-28：红外P0/P1探测器优化完成（当前优先）
+
+新增同帧原始信号回放、天空掩码空间滤波、稳定AGC、自动/锁定/手动窗口、亮度及种子，UI两预设仅填草稿并保留FOV；能力门控、旧agc_enabled兼容、按云台隔离。目标排除天空平均，2×任意目标子像素保护；光学PSF仍影响目标。未加入时域滤波/物理辐射/夜间标定。camera.signal_recording显式开启后camera.signal_frame取归一化float32及掩码，默认不录，非测温数据/实时通道。
+
+E build-detector-replay Editor通过、60核心/27Qt/原生数学通过。最终run_id 30E31CB642A66C6E310B27A03183E13E同原始云帧天空高频指标0.522→0.382（下降26.7%）、重复回放逐字节一致；连续实时云截图受UE随机采样干扰，不据此宣称收益。8非法请求原子拒绝、手动/亮度/锁定跨转向和停启/2×掩码/设备隔离通过。Avata真实起降冷却回归通过，最终恢复Mavic3、4RPM0。1×云视角短测IR9.95→9.93Hz，CPU6.26→8.74ms，缓存年龄P50 97→131ms；不是端到端/长期验收，不能声称零延迟开销。
+
+F唯一源码/E最小构建；Facade新天空标识资产已回传F，Fleet/Minimal/Reference/Classified SHA不变。说明INFRARED_DETECTOR_PILOT，证据evidence/infrared-detector-20261028（含单云原始帧）。未重包、未推送，旧ZIP不含改动。下一步真实数据统计标定、远距1–3像素目标、独立云辐射与夜间，再长期性能/Cook。
+
+## 2026-10-28：云层红外和传感器快捷启停完成（当前优先）
+
+新增按云台sensor.set_enabled严格布尔接口，sensor_power_supported能力；传感器页顶部三快捷按钮即时启停VIS/IR/雷达，不提交其他参数草稿，按请求ID/设备确认、旧UE禁用新按钮。原参数页应用方式保留。停用取消后续SceneCapture/射线扫描，清JPEG和热统计并推进读回版本，旧GPU任务只收尾不发布；UE主视图IR后处理权重归零、HUD不再画停用缓存。capture_sequence/scan_sequence用于实际停采检查。桌面沿用enabled停订阅；RTSP收到sensor_disabled后释放对应FFmpeg，恢复新帧再建，低频探测保留。少量配置/RT/view-state内存、热状态与基础UE/其他设备/观察视角仍运行，不能说整体零GPU/零显存。
+
+环境增加clouds[0,1]、晴朗/多云预设与能力回读；默认0，非0创建同场景实际UE体积云。当前静态city没有SkyAtmosphere，运行时补建必要大气和太阳光标志；关云后移除补建项并恢复，不保存地图。独立M_Cloud_Runtime实例让引擎云父材质/纹理成为Cook依赖。M_IR_Facade新增实际天空亮度/色度云灰度代理。关键修复：采集远背景是有限深度，旧100km阈值漏掉天空，空CustomDepth/Stencil造成仰拍247k像素误当热目标；楼宇模式按10km远背景判天空，分类分支排除>=10km的空自定义深度。曾尝试法线/材质标识未解决，最终代码不含这些试探。10km之外地形/目标不属于当前城市模型，需要另做天空掩码和长距方案；不是实测云温度、LWIR辐射传输或夜间标定。
+
+E最小衍生Editor build-cloud-acceptance成功，F唯一源码；60核心/23Qt通过。最终同run_id 2C2D0F634D18A9E40265C49FC3986437真实city：VIS云开关平均差22.83灰度、IR10.52、纯天空ROI P95-P5=44、天空误热目标0；VIS-only/双光/IR-only/全停、采集序号和输出停止、另一云台继续、快速开关恢复、非法请求原子拒绝通过。旧RTSP编码器生命周期是Mock回归，未新做外部RTSP长期负载。另跑原材料/Avata真实起飞悬停降落冷却回归通过，恢复型号/环境/传感器/云台，最终flight_status ready、4RPM=0。参数页实际停IR与雷达截图后已恢复。F Fleet和旧Minimal/Reference/Classified资产SHA保持；Facade更新、新Cloud资产均回传F并匹配E。本轮自有UE/飞控进程已退出。
+
+说明docs/CLOUDS_AND_SENSOR_POWER.md，证据docs/evidence/clouds-sensor-power-20261028，含云开关对照、真实VIS、快捷开关截图和target-regression。入口仍Start-InfraredPreview；云量建议白天12点、多云65–75%、楼宇热像1×/detail0.8。云有额外GPU开销与低采样颗粒，近楼可能偏白；未做云层端到端/长期多设备性能或新Shipping。原有SunSky/过时CVar/光追几何预算等日志仍有，不能声称全部告警修复。未推送、未重包。下一步云信号独立通道/夜间、颗粒与曝光调优、长距地形、最终Cook/多设备长测。
+
+
+## 2026-10-27：楼宇热像外观试验通过（当前优先）
+
+用户以实拍拼图b为参考，新增独立M_IR_Facade及facade模式（UI“楼宇热像 · 试验版”、能力facade_available）。沿用classified类别/目标/FP16/AGC/PSF，增加deferred GBuffer BaseColor/Roughness/法线的有限立面纹理和低信号天空；未知竖直表面是启发式，非语义/温度测量，不解决透明玻璃真实反射和LWIR光学。保留旧四模式、资产回退与默认reference；背景细节参数控制新纹理。原M_IR_Classified/Reference/Minimal和F城市Fleet哈希不变，只新增自有材质，不改城市或原始共享材质。
+
+F唯一源码，E最小衍生工程Editor编译成功；58核心+18Qt通过，真实city两固定方向对比/640×512灰度/极性/细节/原三模式检查通过并恢复环境传感器云台。新版上部楼宇窗格从单色中显出，仍有墙面粗糙、玻璃未标定等限制，不能声称达到实拍/Anti-UAV分布。初轮约30Tick/9.95IR Hz，重复短测28.5–28.6Tick/9.34–9.90IR Hz，缓存P50 207–224ms；classified对照29.5–29.8Tick/9.55–10.02IR Hz/P50约198–199ms，CPU约10–12.5ms。不是端到端延迟测试，也不声称没有开销。无新飞行测试；此轮仅楼宇背景。
+
+说明docs/INFRARED_FACADE_PILOT.md，证据docs/evidence/infrared-facade-20261027（不含用户实拍拼图）。Start-InfraredPreview运行后手动选择楼宇热像，1×/FOV50/blur0.8/contrast1.15/detail0.8。Prepare-ThermalCity -Apply增加Facade资产生成，新机仍需准备标签并重新Cook。旧Shipping未更新、未推送。自有验证进程已结束。后续：真实同步视频拟合、混合/透明材质、降墙面纹理与性能/端到端。
+
+
+## 2026-10-27：材料热像与Avata局部区域完成（当前优先）
+
+新增独立M_IR_Classified与classified模式，原三个模式在新材质内保留，默认仍reference。背景组件按名称保守分类，混合/未知跳过；范围为初始设备周围120m，FastGeo保留低位1–6分类Stencil，32以上热目标；实际视角道路/砌体/植被/金属进入GPU，玻璃/水体当前无可见覆盖证据。昼夜是environment时间混合的工程信号预设，不是温度/发射率/热惯性求解。Avata当前跟踪目标4Socket局部投影、机身/深度遮挡、随所属实际RPM热状态变化，非网格热分割；其他Avata未同时投影。柔和高亮保留部分局部灰度。
+
+修复相机继承模型缩放导致热斑投影单位错误：InverseTransformPositionNoScale统一世界厘米，GPU motor_region_pixels实际冷26/悬停25/落地热25，修复前该计数0，已完整重测。诊断G/B通道归一化，最终PNG/JPEG仅用R热信号灰度。新class_pixels显示视角材料覆盖率，非准确率；UI补首次回读仍显示未确认的状态文字。
+
+F唯一源码与旧城市/用户Fleet保持，M_IR_Reference/Minimal哈希不变。只在E:\Projects\WISEYE-IR-Work城市副本保存组件标签；6295标签/15051组件，5710Actor描述。保存严格限已修改城市Actor包，保护非自有深度标签；规则版本/保留ID/信号范围检查，重跑可清除不再匹配的自有标签。Prepare-ThermalCity.ps1默认审计，WinPS5.1真实审计通过；底层Apply重跑/选择性保存通过，city.json与city_audit.json分开。仅标签/材质准备脚本在Git，第三方城市Actor包不入Git。新电脑/重建副本/重新Cook前须在构建副本重做标签。旧标签副本应使用新材质内的对照模式，完整回退旧二进制/资产需使用未标记城市副本，避免低位Stencil被旧公式当热目标。
+
+最终Editor build-material-acceptance.log成功；58核心+17Qt+原生数学通过。真实city 1UAV2PTZ ptz02全流程：640×512分类像素sum327680，72.2%已标记，昼夜/极性、Avata实际起降RPM4928.59/可见局部区域/落地RPM0/冷却/型号云台环境参数恢复；旧原始/增强/噪声/4非法请求兼容通过。最终材料1× IR9.96Hz/UE30Hz、cache P50/P95133.1/133.5ms、CPU10.03ms；对照参考99.6/100.8ms，不能当端到端差值。报告、对照、目标裁剪和prepare报告在docs/evidence/infrared-materials-20261027。自有测试进程已停，无未降落飞机；旧ZIP未Cook更新、未推送。
+
+入口仍Start-InfraredPreview.ps1，手动选择材料热像，保持1×；环境开启时间控制比较12点/0点。完整说明INFRARED_MATERIAL_PILOT.md。已观察VSM512页池溢出日志，未修复，不声称零告警/长期稳定。后续优先处理玻璃与混合材质、背景过平和规则误归类、实际距离/视频/真实校准、多目标局部区域与完整端到端/打包验收。
+
+## 2026-10-27：实拍参考红外源码试验（当前优先）
+
+用户授权参考实拍图改进并测试。新增M_IR_Reference/HLSL与原生WiseEyeThermalMath：FP16归一化信号、可选1/2×采集后回640×512、CPU后台Gaussian PSF/百分位平滑AGC、同一处理结果用于JPEG/PNG/HUD/UE光学视图；默认1×。按云台能力/请求ID保留草稿与严格参数校验。热状态由所属无人机实际新鲜RPM驱动电机/电池RC升温冷却，机身投影电池斑是近似；Mavic沿用部件名，Avata未细分电机。环境仍是结构/弱RGB代理，不是整城温度/发射率或物理测温，未校准Anti-UAV，用户实拍拼图未入库。
+
+唯一主源码F:\WISEYE-Studio。用户此前自行删除的E:\Projects\WISEYE-Studio、E:\Projects\WISEYE-BuildWorkspace已确认不存在；本轮最小衍生构建E:\Projects\WISEYE-IR-Work重编Editor，不是第二开发源。其城市/插件大内容联接E:\Projects\Scene\CitySample，少量自有资产实体复制，SimLibs仍引用已有安装；不可直接复制此工作区发布。F首次扫描重现disk153/UASPStor129后已停止负载并改用内部资源。新E城市复制/装配后，将6个自动系统Actor保存为EditorOnly，避免它们后台启动。用户F模型、城市/Fleet位置不改。
+
+最终Editor构建成功 build-validation.log；54核心+16Qt+原生数学通过。真实city ptz02完整检查：640×512灰度/VIS1920×1080、三模式、白黑热、AGC开关、1/2×、5非法请求原子拒绝、PNG/JPEG一致、FOV角尺寸、真实起飞RPM升温/降落归零冷却及恢复通过。最终1×约9.96Hz、cache P50/P95134/181ms、CPU10.36/15.22ms；2×约8.52Hz、231/302ms。另一次同二进制短测1×166/200ms，不能将单轮缓存年龄当端到端延迟。报告/原图见docs/evidence/infrared-reference-20261027；用户随后正常关窗，守护退出，当前无UE/飞控运行。
+
+新源码入口scripts/Start-InfraredPreview.ps1或Start-SimulationPreview.ps1默认E:\Projects\WISEYE-IR-Work，桌面/飞控解释器用F构建环境，运行数据E工作区preview-data；首次城市索引数分钟。新资产已回传F。脚本PS语法检查通过；实际UE/AirSim由隔离测试启动器运行，未重新验收完整新版桌面启动链。旧Shipping ZIP仍为20261027增强IR版，未Cook/重包/推送本轮。原M_IR_Minimal和city Fleet哈希保持。
+
+使用/实测/限制/后续见docs/INFRARED_REFERENCE_PILOT.md。优先做不同背景、实际距离/运动视频与目标局部热斑，补Avata分类，建立少量城市热材料类别；必要时将PSF/AGC迁GPU降低读出成本，再完整端到端/多设备和Shipping验收。原有清理修改是本轮开始前已存在的未提交工作，勿覆盖或当作本轮完成删除。
+
+2026-10-27清理补充：用户要求仅留最新主项目并保留20261027最新ZIP。旧E工程64.361GiB/临时E构建316.561GiB及F旧包/缓存已审计；1010个Git文件与E副本逐字节一致，Content39860文件对应长度一致，Git fsck通过。自动执行删除被blocked by policy拒绝（含用户再次授权后的固定单文件），实际删除0字节，用户改为自行删除，不能写成已清理或假定E目录已不存在。F Python环境两处__pycache__报1392，不强删/不做磁盘修复。清单见CLEANUP_REPORT最新节与evidence/cleanup-20261027；Clean-LegacyProjects仅语法检查，未执行。原启动入口仍引用E临时构建，用户删后源码需重新构建/指定BuildWorkspace，完整ZIP可直接运行。
 
 ## 2026-10-27：城市专用Shipping与GitHub同步（最新）
 

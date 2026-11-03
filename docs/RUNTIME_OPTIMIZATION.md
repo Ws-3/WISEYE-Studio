@@ -1,8 +1,10 @@
 # 运行、转速与性能更新（2026-10-21）
 
+2026-10-28：本机日常统一双击根目录 **`Start-WISEYE-Studio.vbs`**，一次启动当前城市预览、飞控和桌面。下方保留的分步 PowerShell 命令面向开发；在仓库 PowerShell 执行，遇执行策略限制加 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File`。已启动UE时仅重开桌面用 `scripts/Start-Desktop.ps1 -Connect`。详见[当前使用指南](USER_GUIDE.md)。
+
 ## 启动与操作
 
-- 先双击根目录 `Start-ProjectAirSim.vbs`，再双击 `Start-WISEYE-Studio.vbs`。前者启动 UE 并播放后地面待命，后者启动桌面并连接。命令行隐藏，UE 和系统窗口正常显示。原 `.cmd` 保留为诊断入口。
+- 日常双击根目录 `Start-WISEYE-Studio.vbs`，一次启动城市预览、飞控与桌面，后台命令行隐藏。开发分步入口在 `scripts`；根目录旧五个CMD/VBS已删除。已有UE时仅运行 `scripts/Start-Desktop.ps1 -Connect` 重开桌面。
 - 界面启动 UE、场景准备、FFmpeg 编解码和 RTSP 服务均使用隐藏后台进程。已打开同工程 UE 时复用，避免重复编辑器；如果当前没有播放，仍需在 UE 点击播放。
 - 顶部选择画质优先、均衡、节能；默认每次 PIE 均衡，本轮保持均衡待命。原始场景当前实际配置为用户已有的 **3 UAV + 2 PTZ**，没有删除第三架或改写 Fleets 布局。
 

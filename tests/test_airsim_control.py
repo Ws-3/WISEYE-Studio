@@ -1,8 +1,9 @@
 import asyncio
+import copy
 import unittest
 from unittest.mock import patch
 
-from integrations.ProjectAirSim.run_wiseye_flight import FlightController
+from integrations.ProjectAirSim.run_wiseye_flight import FlightController,FleetController
 
 
 async def completed(value=True):
@@ -18,9 +19,19 @@ class FakeDrone:
         self.position = [10.0, 20.0, -5.0]
         self.commands = []
         self.cancel_count = 0
+        self.orientation=dict(w=1,x=0,y=0,z=0)
 
     def get_ground_truth_kinematics(self):
-        return {'pose': {'position': dict(zip('xyz', self.position))}}
+        return {'pose': {'position': dict(zip('xyz', self.position)), 'orientation':dict(self.orientation)}}
+
+    def get_ground_truth_pose(self):
+        return dict(frame_id='DEFAULT_ID',translation=dict(zip('xyz',self.position)),rotation=dict(self.orientation))
+
+    def set_pose(self,pose,reset_kinematics=True):
+        if 'frame_id' not in pose:raise ValueError('AirSim requires frame_id')
+        self.commands.append(('set_pose',copy.deepcopy(pose),reset_kinematics))
+        self.position=[pose['translation'][key] for key in 'xyz'];self.orientation=dict(pose['rotation'])
+        return True
 
     def cancel_last_task(self):
         self.cancel_count += 1
@@ -65,6 +76,51 @@ class FlightControllerTests(unittest.IsolatedAsyncioTestCase):
 
     async def asyncTearDown(self):
         await self.controller.close()
+
+    async def test_held_inputs_do_not_send_cancel_or_ue_state_sync_each_tick(self):
+        ctl=self.controller;ctl.mode='manual';ctl.paused=False
+        with patch.object(ctl,'ue_request') as rpc:
+            fleet=FleetController([ctl])
+            for i in range(100):
+                state=await fleet.execute('flight.set_input',dict(forward=1))
+                await asyncio.sleep(0)
+            import json
+            json.dumps(state)
+            self.assertEqual(self.drone.cancel_count,0)
+            rpc.assert_not_called()
+        await ctl.execute('flight.set_input',dict(forward=0,right=0,up=0,yaw=0))
+        if ctl.active_task:await ctl.active_task
+
+    async def test_live_placement_updates_physics_home_and_heading_without_reload(self):
+        ctl=self.controller;ctl.ready_on_ground=True;ctl.play_session_id='run'
+        payload=dict(scene_id='city',run_id='run',request_token='token',position_cm=[1234,5678,900],yaw_deg=90)
+        with patch.object(ctl,'ue_request',return_value=dict(status='ok',payload={})) as rpc:
+            state=await ctl.execute('placement.apply',payload)
+        self.assertEqual(self.drone.position,[12.34,56.78,-9])
+        self.assertEqual(ctl.initial_position,(12.34,56.78,-9))
+        self.assertAlmostEqual(state['yaw_deg'],90)
+        self.assertTrue(state['placement_applied']['request_token']=='token')
+        self.assertEqual([call.args[0] for call in rpc.call_args_list],['placement.validate','placement.apply'])
+        self.assertTrue(self.drone.commands[-1][2]);self.assertTrue(ctl.ready_on_ground)
+
+    async def test_live_placement_rejects_airborne_stale_and_invalid_pose(self):
+        ctl=self.controller;ctl.play_session_id='run'
+        valid=dict(scene_id='city',run_id='run',request_token='token',position_cm=[1,2,3],yaw_deg=0)
+        with self.assertRaisesRegex(ValueError,'降落'):await ctl.execute('placement.apply',valid)
+        ctl.ready_on_ground=True
+        for changes in (dict(run_id='stale'),dict(position_cm=[1,float('nan'),3]),dict(yaw_deg=True)):
+            with self.assertRaises(ValueError):await ctl.execute('placement.apply',dict(valid,**changes))
+        self.assertFalse(any(c[0]=='set_pose' for c in self.drone.commands))
+
+    async def test_live_placement_rolls_back_physics_and_home_when_ue_rejects(self):
+        ctl=self.controller;ctl.ready_on_ground=True;ctl.play_session_id='run'
+        old=self.drone.position[:];home=ctl.initial_position;path=copy.deepcopy(ctl.path)
+        replies=[dict(status='ok',payload={}),dict(status='error',error=dict(message='stale session'))]
+        with patch.object(ctl,'ue_request',side_effect=replies):
+            with self.assertRaisesRegex(ValueError,'同步'):
+                await ctl.execute('placement.apply',dict(scene_id='city',run_id='run',request_token='t',position_cm=[3,4,5],yaw_deg=90))
+        self.assertEqual(self.drone.position,old);self.assertEqual(ctl.initial_position,home);self.assertEqual(ctl.path,path)
+        self.assertFalse(ctl.placing)
 
     async def test_pause_manual_auto_and_physical_reset(self):
         state = await self.controller.execute('sim.pause', {})

@@ -54,7 +54,7 @@ def edit_interfaces(window, source=None):
         fields[name] = widget; form.addRow(label, widget)
     override = None
     use_override = None
-    if source and source.sensor_id != 'lidar':
+    if source and source.sensor_id not in ('lidar','event'):
         use_override = QCheckBox('为此数据源使用独立路径（取消则跟随默认路径）')
         use_override.setChecked(source.key in config.rtsp_paths)
         form.addRow(use_override)
@@ -76,8 +76,8 @@ def edit_interfaces(window, source=None):
     def show_preview():
         candidate = current()
         preview.setText(candidate.stream_url(source.device_id, source.sensor_id)
-                        if source and source.sensor_id != 'lidar' else
-                        f'点云 / 云台：{candidate.host}:{candidate.port}\n' + candidate.stream_url('ptz-01','visible'))
+                        if source and source.sensor_id not in ('lidar','event') else
+                        f"{'事件 / sensor.event.get_packet' if source and source.sensor_id=='event' else '点云 / 云台'}：{candidate.host}:{candidate.port}")
     for widget in [*fields.values(), *([override] if override else [])]:
         (widget.valueChanged if isinstance(widget,QSpinBox) else widget.textChanged).connect(show_preview)
     if use_override: use_override.toggled.connect(show_preview)

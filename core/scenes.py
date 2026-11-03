@@ -42,6 +42,11 @@ class SceneStore:
         self.root = Path(root).resolve()
         self.project = self.root / 'ue5/WISEYE'
         self.directory = self.project / 'Config/WISEYE/Scenes'
+        from core.runtime_paths import DATA_ROOT,RESOURCE_ROOT,IS_RELEASE
+        if not IS_RELEASE and self.root==DATA_ROOT and not (self.project/'Content').exists():
+            # User manifests remain writable in UserData; source assets and
+            # imported map packs belong to the one actual Unreal project.
+            self.project=RESOURCE_ROOT/'ue5/WISEYE'
 
     def list(self):
         result, errors = [], []
@@ -67,7 +72,12 @@ class SceneStore:
     def map_file(self, package):
         if not MAP.fullmatch(package):
             raise ValueError('无效地图路径')
-        return self.project / 'Content' / (package[6:] + '.umap')
+        candidate = self.project / 'Content' / (package[6:] + '.umap')
+        from core.runtime_paths import DATA_ROOT,RESOURCE_ROOT,IS_RELEASE
+        if not IS_RELEASE and self.root==DATA_ROOT and not candidate.is_file():
+            shared=RESOURCE_ROOT/'ue5/WISEYE/Content'/(package[6:]+'.umap')
+            if shared.is_file():return shared
+        return candidate
 
     def register(self, scene, require_map=True):
         scene = validate_scene(scene)

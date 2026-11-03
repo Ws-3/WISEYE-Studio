@@ -6,7 +6,7 @@ from core.layouts import LayoutStore
 DEVICE_ID=re.compile(r'^(uav|ptz)-[0-9]{2}$')
 MODELS={'mavic3':dict(kind='drone',name='Mavic 3',physics='shared_quadrotor'),
         'avata':dict(kind='drone',name='Avata',physics='shared_quadrotor'),
-        'eo80':dict(kind='gimbal',name='80 cm 光电云台',sensors=['visible','infrared','lidar'])}
+        'eo80':dict(kind='gimbal',name='80 cm 光电云台',sensors=['visible','infrared','lidar','event'])}
 
 def validate_devices(data,scene_id):
     if not isinstance(data,dict) or type(data.get('version')) is not int or data['version']!=1 or data.get('scene_id')!=scene_id:
@@ -24,7 +24,8 @@ def validate_devices(data,scene_id):
             values=item.get(key)
             limit=1e7 if key=='position_cm' else 180
             if not isinstance(values,list) or len(values)!=3 or not all(type(x) in (int,float) and abs(x)<=limit and math.isfinite(x) for x in values):raise ValueError(f'{key} 需要三个有限坐标')
-        if kind=='drone' and any(item['rotation_deg'][:2]):raise ValueError('无人机初始俯仰/横滚暂仅支持 0')
+        # UE stores pitch / yaw / roll; heading is allowed, tilt is not.
+        if kind=='drone' and any(item['rotation_deg'][i] for i in (0,2)):raise ValueError('无人机初始俯仰/横滚暂仅支持 0')
     for kind,required in [('drone','uav-01'),('gimbal','ptz-01')]:
         group=[x for x in devices if x['kind']==kind]
         if not 1<=len(group)<=4 or required not in ids:raise ValueError('保留默认 uav-01 / ptz-01，每类最多 4 个实例')

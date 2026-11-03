@@ -100,7 +100,7 @@ class PreviewTests(unittest.TestCase):
             self.pump(.2)
             self.assertTrue(self.frames)
             self.assertTrue(all(color == '#0000fe' for color in self.frames), self.frames)
-            self.assertEqual(factory.call_args.args[2:5], ('CH2', 60, 'ptz-02'))
+            self.assertEqual(factory.call_args.args[2:5], ('CH2', 90, 'ptz-02'))
 
     def test_wrong_native_dimensions_are_rejected_and_valid_stream_recovers(self):
         source = FakeSource(jpeg('red', (16, 16)))

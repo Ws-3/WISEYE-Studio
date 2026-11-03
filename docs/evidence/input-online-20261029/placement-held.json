@@ -1,0 +1,266 @@
+{
+  "passed": true,
+  "run_id": "986B530847DB75951659FFB049B9EBFD",
+  "before": {
+    "active": true,
+    "has_result": false,
+    "preview_supported": true,
+    "nudge_supported": true,
+    "locked": true,
+    "nudge_cm": [
+      0,
+      0,
+      0
+    ],
+    "yaw_deg": 45,
+    "preview_visible": true,
+    "preview_position_cm": [
+      -29378.25195917418,
+      -2256.529187065384,
+      4059.116816520691
+    ],
+    "preview_size_cm": [
+      81.1458535335405,
+      83.21470127655448,
+      81.80703720152678
+    ],
+    "device_id": "ptz-01",
+    "request_token": "1c9dd7280a7e486fbfb4f61455164636",
+    "error": "",
+    "sequence": 1,
+    "position_cm": [
+      0,
+      0,
+      0
+    ],
+    "surface_cm": [
+      -29378.25195917418,
+      -2256.529187065384,
+      4055
+    ]
+  },
+  "after_w": {
+    "active": true,
+    "has_result": false,
+    "preview_supported": true,
+    "nudge_supported": true,
+    "locked": true,
+    "nudge_cm": [
+      7.0710678118654755,
+      7.0710678118654755,
+      0
+    ],
+    "yaw_deg": 45,
+    "preview_visible": true,
+    "preview_position_cm": [
+      -29371.180891362314,
+      -2249.458119253519,
+      4059.116816520691
+    ],
+    "preview_size_cm": [
+      81.1458535335405,
+      83.21470127655448,
+      81.80703720152678
+    ],
+    "device_id": "ptz-01",
+    "request_token": "1c9dd7280a7e486fbfb4f61455164636",
+    "error": "",
+    "sequence": 1,
+    "position_cm": [
+      0,
+      0,
+      0
+    ],
+    "surface_cm": [
+      -29378.25195917418,
+      -2256.529187065384,
+      4055
+    ]
+  },
+  "after_e": {
+    "active": true,
+    "has_result": false,
+    "preview_supported": true,
+    "nudge_supported": true,
+    "locked": true,
+    "nudge_cm": [
+      7.0710678118654755,
+      7.0710678118654755,
+      0
+    ],
+    "yaw_deg": 46,
+    "preview_visible": true,
+    "preview_position_cm": [
+      -29371.180891362314,
+      -2249.458119253519,
+      4059.116816520691
+    ],
+    "preview_size_cm": [
+      80.74314154587773,
+      82.98110904796795,
+      81.80703720152678
+    ],
+    "device_id": "ptz-01",
+    "request_token": "1c9dd7280a7e486fbfb4f61455164636",
+    "error": "",
+    "sequence": 1,
+    "position_cm": [
+      0,
+      0,
+      0
+    ],
+    "surface_cm": [
+      -29378.25195917418,
+      -2256.529187065384,
+      4055
+    ]
+  },
+  "after_r": {
+    "active": true,
+    "has_result": false,
+    "preview_supported": true,
+    "nudge_supported": true,
+    "locked": true,
+    "nudge_cm": [
+      7.0710678118654755,
+      7.0710678118654755,
+      10
+    ],
+    "yaw_deg": 46,
+    "preview_visible": true,
+    "preview_position_cm": [
+      -29371.180891362314,
+      -2249.458119253519,
+      4069.116816520691
+    ],
+    "preview_size_cm": [
+      80.74314154587773,
+      82.98110904796795,
+      81.80703720152678
+    ],
+    "device_id": "ptz-01",
+    "request_token": "1c9dd7280a7e486fbfb4f61455164636",
+    "error": "",
+    "sequence": 1,
+    "position_cm": [
+      0,
+      0,
+      0
+    ],
+    "surface_cm": [
+      -29378.25195917418,
+      -2256.529187065384,
+      4055
+    ]
+  },
+  "after_shift_f": {
+    "active": true,
+    "has_result": false,
+    "preview_supported": true,
+    "nudge_supported": true,
+    "locked": true,
+    "nudge_cm": [
+      7.0710678118654755,
+      7.0710678118654755,
+      9
+    ],
+    "yaw_deg": 46,
+    "preview_visible": true,
+    "preview_position_cm": [
+      -29371.180891362314,
+      -2249.458119253519,
+      4068.116816520691
+    ],
+    "preview_size_cm": [
+      80.74314154587773,
+      82.98110904796795,
+      81.80703720152678
+    ],
+    "device_id": "ptz-01",
+    "request_token": "1c9dd7280a7e486fbfb4f61455164636",
+    "error": "",
+    "sequence": 1,
+    "position_cm": [
+      0,
+      0,
+      0
+    ],
+    "surface_cm": [
+      -29378.25195917418,
+      -2256.529187065384,
+      4055
+    ]
+  },
+  "held_d_distance_cm": 70.00000000000213,
+  "after_held_d": {
+    "active": true,
+    "has_result": false,
+    "preview_supported": true,
+    "nudge_supported": true,
+    "locked": true,
+    "nudge_cm": [
+      -43.28271790942564,
+      55.69715405715464,
+      9
+    ],
+    "yaw_deg": 46,
+    "preview_visible": true,
+    "preview_position_cm": [
+      -29421.534677083608,
+      -2200.8320330082297,
+      4068.116816520691
+    ],
+    "preview_size_cm": [
+      80.74314154587773,
+      82.98110904796795,
+      81.80703720152678
+    ],
+    "device_id": "ptz-01",
+    "request_token": "1c9dd7280a7e486fbfb4f61455164636",
+    "error": "",
+    "sequence": 1,
+    "position_cm": [
+      0,
+      0,
+      0
+    ],
+    "surface_cm": [
+      -29378.25195917418,
+      -2256.529187065384,
+      4055
+    ]
+  },
+  "confirmed": {
+    "active": false,
+    "has_result": true,
+    "preview_supported": true,
+    "nudge_supported": true,
+    "locked": true,
+    "nudge_cm": [
+      -43.28271790942564,
+      55.69715405715464,
+      9
+    ],
+    "yaw_deg": 46,
+    "preview_visible": false,
+    "preview_position_cm": [
+      -29421.534677083608,
+      -2200.8320330082297,
+      4068.116816520691
+    ],
+    "device_id": "ptz-01",
+    "request_token": "1c9dd7280a7e486fbfb4f61455164636",
+    "error": "",
+    "sequence": 2,
+    "position_cm": [
+      -29421.534677083608,
+      -2200.8320330082297,
+      4068.116816520691
+    ],
+    "surface_cm": [
+      -29378.25195917418,
+      -2256.529187065384,
+      4055
+    ]
+  }
+}

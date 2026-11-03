@@ -1,0 +1,47 @@
+{
+  "run_id": "FA431E364FD3C90E22FAD5A9D18F9320",
+  "gimbal_position_cm": [
+    -27066.552734375,
+    -2092.68798828125,
+    4059.116816520691
+  ],
+  "drone_position_cm": [
+    -27400,
+    -2600,
+    4074.26806640625
+  ],
+  "drone_model": "mavic3",
+  "flight_status": "ready",
+  "motor_rpm": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "placement": {
+    "active": false,
+    "has_result": false,
+    "preview_supported": true,
+    "preview_visible": false,
+    "preview_position_cm": [
+      -27913.296715103206,
+      -2512.251864961422,
+      4080
+    ],
+    "device_id": "uav-01",
+    "request_token": "preview-uav-01",
+    "error": "Placement cancelled or timed out",
+    "sequence": 30,
+    "position_cm": [
+      -27911.74434607667,
+      -2513.859390359078,
+      4080
+    ],
+    "surface_cm": [
+      -27913.296715103206,
+      -2512.251864961422,
+      4055
+    ]
+  },
+  "infrared_profile": "facade"
+}

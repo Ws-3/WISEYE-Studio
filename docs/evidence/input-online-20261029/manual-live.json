@@ -1,0 +1,85 @@
+{
+  "passed": true,
+  "run_id": "986B530847DB75951659FFB049B9EBFD",
+  "release_ack_ms": 5.999099999826285,
+  "ack_count": 493,
+  "first_10s_median_ms": 16.8708000001061,
+  "last_10s_median_ms": 16.816800000015064,
+  "max_pending_per_drone": 1,
+  "final": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "986B530847DB75951659FFB049B9EBFD",
+    "connected": true,
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -274.0,
+      -26.0,
+      -40.742679595947266
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 59.996983158470016,
+    "motor_rpm": [
+      0.15906016473078757,
+      0.15906016473078757,
+      0.15906016473078757,
+      0.15906016473078757
+    ],
+    "rotor_sample_age_s": 0.013119400000505266,
+    "manual_command_count": 493,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "986B530847DB75951659FFB049B9EBFD",
+        "connected": true,
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -274.0,
+          -26.0,
+          -40.742679595947266
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 59.996983158470016,
+        "motor_rpm": [
+          0.15906016473078757,
+          0.15906016473078757,
+          0.15906016473078757,
+          0.15906016473078757
+        ],
+        "rotor_sample_age_s": 0.013119400000505266,
+        "manual_command_count": 493,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "version": 1,
+  "map": "/Game/WISEYE/Scenes/city/CitySample",
+  "applied": true,
+  "radius_cm": 12000,
+  "descriptors": 5710,
+  "components_by_class": {
+    "0": 8756,
+    "1": 1973,
+    "2": 3273,
+    "5": 440,
+    "3": 445,
+    "4": 164
+  },
+  "reasons": {
+    "unknown_or_ambiguous": 8516,
+    "material_names": 5248,
+    "mesh_name": 1047,
+    "partly_unknown_materials": 238,
+    "mixed_materials": 2
+  },
+  "changed_components": 6295,
+  "unknown_examples": [
+    [
+      "/Game/Prop/Kit_WindowStickers/mesh/SM_BLDG_Prop_Sticker_Composite_A01_N1.SM_BLDG_Prop_Sticker_Composite_A01_N1 | /Game/Building/Material/Window/MI_Sticker_Dbuffer.MI_Sticker_Dbuffer",
+      120
+    ],
+    [
+      "/Game/Prop/Kit_Primitive/Mesh/SM_Plane_NN_B.SM_Plane_NN_B | /Game/Environment/RoofTop/Material/MI/MI_Rooftop_BitumenRoofing.MI_Rooftop_BitumenRoofing",
+      115
+    ],
+    [
+      "/Game/Megascans/3D_Assets/Modular_Curb_5_M_02/Modular_Curb_5_M_LOD0_vccgfazdw.Modular_Curb_5_M_LOD0_vccgfazdw | /Game/Megascans/3D_Assets/Modular_Curb_5_M_02/Modular_Curb_5_M_02_inst.Modular_Curb_5_M_02_inst",
+      90
+    ],
+    [
+      "/Game/Road/Kit_Sidewalk_A/Mesh/SM_Curb_Collision_Box_A.SM_Curb_Collision_Box_A | /Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial",
+      70
+    ],
+    [
+      "/Game/Road/Kit_Sidewalk_A/Mesh/SM_Curb_Collision_Box_B.SM_Curb_Collision_Box_B | /Engine/EngineMaterials/WorldGridMaterial.WorldGridMaterial",
+      70
+    ],
+    [
+      "/Game/Megascans/3D_Assets/Modular_Curb_5_M_00/Modular_Curb_5_M_LOD0_vcflbc0dw.Modular_Curb_5_M_LOD0_vcflbc0dw | /Game/Megascans/3D_Assets/Modular_Curb_5_M_00/Modular_Curb_5_M_00_inst.Modular_Curb_5_M_00_inst",
+      68
+    ],
+    [
+      "/Game/Megascans/3D_Assets/Modular_Curb_5_M_00/Modular_Curb_5_M_LOD0_vcflbc0dw_RED.Modular_Curb_5_M_LOD0_vcflbc0dw_RED | /Game/Megascans/3D_Assets/Modular_Curb_5_M_00/Modular_Curb_5_M_00_inst_RED.Modular_Curb_5_M_00_inst_RED",
+      68
+    ],
+    [
+      "/Game/Megascans/3D_Assets/Modular_Curb_5_M_00/Modular_Curb_5_M_LOD0_vcflbc0dw_YELLOW.Modular_Curb_5_M_LOD0_vcflbc0dw_YELLOW | /Game/Megascans/3D_Assets/Modular_Curb_5_M_00/Modular_Curb_5_M_00_inst_YELLOW.Modular_Curb_5_M_00_inst_YELLOW",
+      68
+    ],
+    [
+      "/Game/Megascans/3D_Assets/Modular_Curb_5_M_01/Modular_Curb_5_M_LOD0_vcjmecpdw.Modular_Curb_5_M_LOD0_vcjmecpdw | /Game/Megascans/3D_Assets/Modular_Curb_5_M_01/Modular_Curb_5_M_01_inst.Modular_Curb_5_M_01_inst",
+      68
+    ],
+    [
+      "/Game/Megascans/3D_Assets/Modular_Curb_5_M_02/Modular_Curb_5_M_LOD0_vccgfazdw_RED.Modular_Curb_5_M_LOD0_vccgfazdw_RED | /Game/Megascans/3D_Assets/Modular_Curb_5_M_02/Modular_Curb_5_M_02_RED.Modular_Curb_5_M_02_RED",
+      68
+    ],
+    [
+      "/Game/Megascans/3D_Assets/Parking_Meter_00/ujpkaadfa_LOD0.ujpkaadfa_LOD0 | /Game/Megascans/3D_Assets/Parking_Meter_00/Parking_Meter_00_inst.Parking_Meter_00_inst",
+      67
+    ],
+    [
+      "/Game/Road/Kit_MeshDecals_A/Mesh/SM_Painted_Parking_Line_01_inst.SM_Painted_Parking_Line_01_inst | /Game/Megascans/Atlases/Painted_Parking_Line_01/Painted_Parking_Line_01_inst.Painted_Parking_Line_01_inst",
+      66
+    ],
+    [
+      "/Game/Megascans/3D_Assets/Modular_Curb_5_M_01/Modular_Curb_5_M_LOD0_vcjmecpdw_RED.Modular_Curb_5_M_LOD0_vcjmecpdw_RED | /Game/Megascans/3D_Assets/Modular_Curb_5_M_01/Modular_Curb_5_M_01_inst_RED.Modular_Curb_5_M_01_inst_RED",
+      65
+    ],
+    [
+      "/Game/Road/Kit_MeshDecals_A/Mesh/SM_Round_Manhole_Cover_01_inst.SM_Round_Manhole_Cover_01_inst | /Game/Megascans/Atlases/Round_Manhole_Cover_01/Round_Manhole_Cover_01_inst.Round_Manhole_Cover_01_inst",
+      65
+    ],
+    [
+      "/Game/Building/Library/Building_Shapes/Kit_Bldg_Shapes_Complex/SM_square_upper_collision.SM_square_upper_collision | /Game/Environment/RoofTop/Material/MI/MI_Rooftop_BitumenRoofing.MI_Rooftop_BitumenRoofing",
+      64
+    ],
+    [
+      "/Game/Building/NY/A/Kit_Bldg_NYA_L1_B/decal/SM_BLDG_NYA_L1_B_Entrance_01_N1_decal.SM_BLDG_NYA_L1_B_Entrance_01_N1_decal | /Game/Building/Material/MI/MI_GrdDecal.MI_GrdDecal",
+      64
+    ],
+    [
+      "/Game/Building/Library/Building_Shapes/Kit_Bldg_Shapes_Complex/SM_square_upper_collision_building.SM_square_upper_collision_building | /Game/HDA/HoudiniCollisionMaterials/houdini_default_material.houdini_default_material",
+      63
+    ],
+    [
+      "/Game/Building/Library/Building_Shapes/Kit_Bldg_Shapes_Complex/SM_square_upper_collision_ground.SM_square_upper_collision_ground | /Game/HDA/HoudiniCollisionMaterials/houdini_default_ground.houdini_default_ground",
+      63
+    ],
+    [
+      "/Game/Prop/FWY/Kit_Trash/Mesh/SM_FWYTrash_Bottle_E01_N1.SM_FWYTrash_Bottle_E01_N1 | /Game/Prop/FWY/Kit_Trash/Material/MI_FWYTrash_A01.MI_FWYTrash_A01",
+      57
+    ],
+    [
+      "/Game/Prop/FWY/Kit_Trash/Mesh/SM_FWYTrash_Lid_A01_N1.SM_FWYTrash_Lid_A01_N1 | /Game/Prop/FWY/Kit_Trash/Material/MI_FWYTrash_A01.MI_FWYTrash_A01",
+      57
+    ],
+    [
+      "/Game/Building/NY/A/Kit_Bldg_NYA_L1_E/decal/SM_BLDG_NYA_L1_B_Entrance_15_N2_decal.SM_BLDG_NYA_L1_B_Entrance_15_N2_decal | /Game/Building/Material/MI/MI_GrdDecal.MI_GrdDecal",
+      57
+    ],
+    [
+      "/Game/Building/NY/A/Kit_Bldg_NYA_L1_E/decal/SM_BLDG_NYA_L1_E_CornerEx_11_N2_decal.SM_BLDG_NYA_L1_E_CornerEx_11_N2_decal | /Game/Building/Material/MI/MI_GrdDecal.MI_GrdDecal",
+      57
+    ],
+    [
+      "/Game/Prop/FWY/Kit_Trash/Mesh/SM_FWYTrash_Cup_C01_N1.SM_FWYTrash_Cup_C01_N1 | /Game/Prop/FWY/Kit_Trash/Material/MI_FWYTrash_A01.MI_FWYTrash_A01",
+      56
+    ],
+    [
+      "/Game/Road/Kit_MeshDecals_A/Mesh/SM_Round_Manhole_Cover_00_inst.SM_Round_Manhole_Cover_00_inst | /Game/Megascans/Atlases/Round_Manhole_Cover_00/Round_Manhole_Cover_00_inst.Round_Manhole_Cover_00_inst",
+      56
+    ],
+    [
+      "/Game/Prop/Kit_roof_exhaust_RR/Mesh/SM_roof_pipe_b_N1.SM_roof_pipe_b_N1 | ",
+      56
+    ],
+    [
+      "/Game/Prop/FWY/Kit_Trash/Mesh/SM_FWYTrash_Pouch_A01_N1.SM_FWYTrash_Pouch_A01_N1 | /Game/Prop/FWY/Kit_Trash/Material/MI_FWYTrash_A01.MI_FWYTrash_A01",
+      55
+    ],
+    [
+      "/Game/Megascans/3D_Assets/Mailbox_00/uhcjaisfa_LOD0.uhcjaisfa_LOD0 | /Game/Megascans/3D_Assets/Mailbox_00/Mailbox_00_inst.Mailbox_00_inst",
+      54
+    ],
+    [
+      "/Game/Prop/FWY/Kit_Trash/Mesh/SM_FWYTrash_Bottle_D01_N1.SM_FWYTrash_Bottle_D01_N1 | /Game/Prop/FWY/Kit_Trash/Material/MI_FWYTrash_A01.MI_FWYTrash_A01",
+      54
+    ],
+    [
+      "/Game/Prop/FWY/Kit_Trash/Mesh/SM_FWYTrash_Bottle_F01_N1.SM_FWYTrash_Bottle_F01_N1 | /Game/Prop/FWY/Kit_Trash/Material/MI_FWYTrash_A01.MI_FWYTrash_A01",
+      54
+    ],
+    [
+      "/Game/Prop/FWY/Kit_Trash/Mesh/SM_FWYTrash_Can_B01_N1.SM_FWYTrash_Can_B01_N1 | /Game/Prop/FWY/Kit_Trash/Material/MI_FWYTrash_A01.MI_FWYTrash_A01",
+      54
+    ]
+  ],
+  "rules": [
+    {
+      "id": 1,
+      "name": "road",
+      "pattern": "asphalt|tarmac|(^|[^a-z])road([^a-z]|$)",
+      "day_signal": 0.38,
+      "night_signal": 0.25
+    },
+    {
+      "id": 2,
+      "name": "masonry",
+      "pattern": "concrete|pavement|sidewalk|brick|facade|(^|[^a-z])(wall|stone)([^a-z]|$)",
+      "day_signal": 0.32,
+      "night_signal": 0.27
+    },
+    {
+      "id": 3,
+      "name": "glass",
+      "pattern": "glass|window",
+      "day_signal": 0.16,
+      "night_signal": 0.15
+    },
+    {
+      "id": 4,
+      "name": "vegetation",
+      "pattern": "foliage|leaves|(^|[^a-z])(tree|leaf|bark|oak|grass|hedge|shrub|plant)([^a-z]|$)",
+      "day_signal": 0.28,
+      "night_signal": 0.24
+    },
+    {
+      "id": 5,
+      "name": "metal",
+      "pattern": "metal|steel|alumin",
+      "day_signal": 0.24,
+      "night_signal": 0.2
+    },
+    {
+      "id": 6,
+      "name": "water",
+      "pattern": "(^|[^a-z])(water|sea|lake|river)([^a-z]|$)",
+      "day_signal": 0.23,
+      "night_signal": 0.25
+    }
+  ],
+  "scope": "120m around initial devices, component-level filename heuristics; mixed/unknown skipped; not per-triangle, temperature or emissivity calibration"
+}

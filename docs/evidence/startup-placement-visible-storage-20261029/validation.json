@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "source_capture": "Re-export of previously captured real UE JPEG/GT; not a live capture from the new module",
+  "groups": [
+    "3a8e161a12e3d44b567fe737",
+    "3f2ed921a7769fb2446b6279",
+    "7962e18bda182bde1dd81288"
+  ],
+  "core_tests": 86,
+  "qt_tests": 43,
+  "source_build_hashes": {
+    "WiseEyeDemo.h": "7ba0f3a293de8fa24f729e044e9071437ce634efbf4ecc935a6b115d30d7efd8",
+    "WiseEyePlacement.cpp": "26a029309007c12fa3cabfb15e4b9409254d504bcc1bed3b605389c5e59302be",
+    "WiseEyeSensors.cpp": "9d53525e8a2dd9fcadfc91cda782f24738f91b8b37fc95f38ae203c281626c8b",
+    "WiseEyeBridge.cpp": "4c59de24b2ec7410b6a9b016c406bf954e356616447af2cca16b84decd78d955"
+  },
+  "module": "UnrealEditor-test-1029.dll",
+  "build": "Succeeded",
+  "live_visual_and_nudge": "Not run; user UE PID 1848 kept running"
+}

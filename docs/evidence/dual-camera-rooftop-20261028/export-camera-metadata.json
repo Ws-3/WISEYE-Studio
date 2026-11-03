@@ -1,0 +1,66 @@
+{
+  "visible": {
+    "device_id": "ptz-01",
+    "sensor_id": "ptz-01/visible",
+    "scene_id": "city",
+    "run_id": "1257AD154F9416E54CA522918D3273D1",
+    "simulation_time_s": 7.899623,
+    "width": 1920,
+    "height": 1080,
+    "horizontal_fov_deg": 25.0,
+    "modality": "visible",
+    "palette": "RGB",
+    "thermal_model": "none",
+    "camera_cm": [
+      -33022.1589,
+      -2097.703,
+      4156.2284
+    ],
+    "rotation_pitch_yaw_roll_deg": [
+      -1.8944,
+      -134.1133,
+      -0.0
+    ],
+    "tracking_source": "UE ground truth",
+    "frame_timing": "last completed render; not hardware synchronized"
+  },
+  "infrared": {
+    "device_id": "ptz-01",
+    "sensor_id": "ptz-01/infrared",
+    "scene_id": "city",
+    "run_id": "1257AD154F9416E54CA522918D3273D1",
+    "thermal_profile": "reference",
+    "agc_enabled": true,
+    "agc_response_s": 1.0,
+    "sampling_scale": 1,
+    "blur_px": 0.8,
+    "contrast": 1.35,
+    "noise": 0.008,
+    "gain_mode": "auto",
+    "stable_agc": false,
+    "manual_low": 0.0,
+    "manual_high": 1.0,
+    "brightness": 0.0,
+    "sky_denoise": 0.0,
+    "noise_seed": 1337,
+    "simulation_time_s": 7.899623,
+    "width": 640,
+    "height": 512,
+    "horizontal_fov_deg": 25.0,
+    "modality": "infrared",
+    "palette": "white_hot",
+    "thermal_model": "normalized synthetic heat; not radiometric",
+    "camera_cm": [
+      -33013.5433,
+      -2106.0559,
+      4156.2284
+    ],
+    "rotation_pitch_yaw_roll_deg": [
+      -1.7944,
+      -133.9132,
+      -0.0066
+    ],
+    "tracking_source": "UE ground truth",
+    "frame_timing": "last completed render; not hardware synchronized"
+  }
+}

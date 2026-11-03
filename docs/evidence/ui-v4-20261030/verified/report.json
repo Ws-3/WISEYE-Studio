@@ -1,0 +1,86 @@
+{
+  "run_id": "F1D5974F424BEF5B47E44EA89C0AFFFC",
+  "passed": true,
+  "arrangement_single_shared_observer": true,
+  "sensor_ack_is_actual": true,
+  "gt_overlay_only": true,
+  "stop_save_keeps_receiver": true,
+  "saved_pairs": 7,
+  "actual_display_fps": 4.684524709221515,
+  "final_flight": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "F1D5974F424BEF5B47E44EA89C0AFFFC",
+    "connected": true,
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -274.0,
+      -26.0,
+      -40.742679595947266
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 89.99999803884911,
+    "motor_rpm": [
+      0.005553516312704507,
+      0.005553516312704507,
+      0.005553516312704507,
+      0.005553516312704507
+    ],
+    "rotor_sample_age_s": 0.025761000000784406,
+    "manual_command_count": 48,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "F1D5974F424BEF5B47E44EA89C0AFFFC",
+        "connected": true,
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -274.0,
+          -26.0,
+          -40.742679595947266
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 89.99999803884911,
+        "motor_rpm": [
+          0.005553516312704507,
+          0.005553516312704507,
+          0.005553516312704507,
+          0.005553516312704507
+        ],
+        "rotor_sample_age_s": 0.025761000000784406,
+        "manual_command_count": 48,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  }
+}

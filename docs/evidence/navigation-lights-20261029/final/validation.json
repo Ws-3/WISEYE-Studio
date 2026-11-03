@@ -1,0 +1,49 @@
+{
+  "editor_build": "Succeeded",
+  "core_tests": 93,
+  "source_build_sha256": {
+    "Source/test/WiseEyeDemo.cpp": "06bb5c383575e93c1d90b1c6b64e19197b30caa1d110ad38b1ab16dc68aa784d",
+    "Source/test/WiseEyeDemo.h": "6c4c8e59246ff01335657a3a0b28a5b8489bf6e7316659ce4d729134568e5ded",
+    "Source/test/WiseEyeSensors.cpp": "f907948b19c6762d58d6ccb4117d4d008d2600eec89dc9d0119ff9872cbef3de",
+    "Source/test/WiseEyeFleet.cpp": "439a9fd874b387b3e54e5abd3e75e073baa80064192bdeb662557a4f3d044e92",
+    "Content/WISEYE/DroneModels/Common/M_NavigationLamp.uasset": "6f71313e858ab03c2cecc51fc1d3b387332008467bd89cc0d8fe4842bdd624ae"
+  },
+  "run_id": "EFFFB81F4471492DFD81DBADB7DFAE7E",
+  "restored": true,
+  "final_status": "ready",
+  "motor_rpm": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "pixel_results": {
+    "mavic3": {
+      "max": {
+        "red": 110,
+        "green": 71
+      },
+      "min": {
+        "red": 0,
+        "green": 0
+      }
+    },
+    "avata": {
+      "max": {
+        "red": 43,
+        "green": 44
+      },
+      "min": {
+        "red": 0,
+        "green": 0
+      }
+    }
+  },
+  "owned_runtime_stopped": true,
+  "limitations": [
+    "No new Shipping package",
+    "Navigation light mounting and blink pattern approximate",
+    "No multi-drone longevity or distant subpixel lamp visibility acceptance",
+    "No calibrated night infrared model"
+  ]
+}

@@ -1,5 +1,9 @@
 # V3 界面改版实施记录
 
+2026-10-30：当前源码界面已实施 V4，见 [新实施记录](UI_V4_IMPLEMENTATION.md)。以下 V3 页面说明保留作历史记录，不覆盖当前操作。
+
+2026-10-28：本机日常统一双击根目录 **`Start-WISEYE-Studio.vbs`**，一次启动当前城市预览、飞控和桌面。下方保留的分步 PowerShell 命令面向开发；在仓库 PowerShell 执行，遇执行策略限制加 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File`。已启动UE时仅重开桌面用 `scripts/Start-Desktop.ps1 -Connect`。详见[当前使用指南](USER_GUIDE.md)。
+
 ## 2026-10-21 剩余页面与云台接口检查
 
 数据与接口、资源与设置迁至 secondary_pages.py，统一卡片、数据源表格、连接状态、资源/布局分区；新增云台接口文档/SDK/示例入口。设备管理表格和航线网格视觉同步。云台面板新增停止并保持按钮，清零速度并退出跟踪。接口核查细节见 GIMBAL_INTERFACE.md；硬件驱动、鉴权、多客户端独占仲裁仍未实现。
@@ -41,7 +45,7 @@
 
 ## 使用
 
-启动入口仍为仓库根目录 `Start-ProjectAirSim.vbs` 与 `Start-WISEYE-Studio.vbs`。UE 已运行时只需重新打开桌面窗口；无需重新编译 UE。连接后保持地面待命，用户点击起飞才运行飞行任务。
+启动入口仍为仓库根目录 `scripts/Start-ProjectAirSim.ps1 -SkipBuild` 与 `scripts/Start-Desktop.ps1 -Connect`。UE 已运行时只需重新打开桌面窗口；无需重新编译 UE。连接后保持地面待命，用户点击起飞才运行飞行任务。
 
 1. 在工作区顶部选择场景主导、双模态或多源监看；拖动画面标题交换位置，拖动场景/缩略区之间的分隔条调整高度。
 2. “更多”菜单可替换来源、弹窗、1:1 查看、保存原始单帧或移除。改变驾驶/云台下拉不会偷偷替换已经固定的画面。

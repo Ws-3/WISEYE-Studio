@@ -1,5 +1,7 @@
 # WISEYE × Project AirSim 运行说明
 
+2026-10-28：本机日常统一双击根目录 **`Start-WISEYE-Studio.vbs`**，一次启动当前城市预览、飞控和桌面。下方保留的分步 PowerShell 命令面向开发；在仓库 PowerShell 执行，遇执行策略限制加 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File`。已启动UE时仅重开桌面用 `scripts/Start-Desktop.ps1 -Connect`。详见[当前使用指南](USER_GUIDE.md)。
+
 WISEYE 现在可把 Project AirSim 作为无人机唯一动力学与位姿来源。Project AirSim 的 Fast Physics、SimpleFlight、旋翼执行器、IMU、GPS、气压计和磁力计运行在 WISEYE 自己的 UE 地图中；WISEYE 原无人机模型关闭碰撞后作为整机外观跟随 `Drone1`，云台、相机和实验流程继续使用现有代码。
 
 地面光电云台新增激光扫描器。扫描原点挂在 `Camera` 下，因此继承 `bottom2` 的水平转动以及 `camera/ptz` 的水平和俯仰转动。默认每秒 10 帧、每帧 48×12 条射线、水平 30°、垂直 8°、最大 300 m。点云以传感器局部坐标、米为单位导出为 PLY。
@@ -19,7 +21,7 @@ cd D:\Projects\WISEYE-Studio
 
 ## 启动演示
 
-双击 `Start-ProjectAirSim.cmd`。脚本编译并打开 UE，自动进入播放并启动飞控服务；无需再点击绿色“播放”。默认在 `original` 场景持续飞行，按 Ctrl+C 停止客户端。随后双击 `Start-Desktop.cmd`，连接后即可控制飞行。
+在 PowerShell 中运行 `scripts/Start-ProjectAirSim.ps1`。脚本编译并打开 UE，自动进入播放并启动飞控服务；无需再点击绿色“播放”。默认在 `original` 场景持续飞行，按 Ctrl+C 停止客户端。随后在 PowerShell 中运行 `scripts/Start-Desktop.ps1`，连接后即可控制飞行。
 
 也可以从 PowerShell选择测试场或只飞一圈：
 

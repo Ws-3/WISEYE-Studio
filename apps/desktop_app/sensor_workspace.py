@@ -137,7 +137,7 @@ class SensorWorkspace(QWidget):
         try:
             data = json.loads(self.settings.value('workspace/v3', '{}'))
             keys = data.get('sources', DEFAULT_SOURCES)
-            if not isinstance(keys, list) or len(keys) > 4 or len(set(keys)) != len(keys):
+            if not isinstance(keys, list) or len(keys) > 6 or len(set(keys)) != len(keys):
                 raise ValueError()
             self.sources = [Source.parse(key).key for key in keys]
             self.registry.update({key: Source.parse(key) for key in self.sources})
@@ -184,15 +184,15 @@ class SensorWorkspace(QWidget):
         candidate=list(self.sources)
         if replace in candidate:candidate[candidate.index(replace)]=key
         else:candidate.append(key)
-        if len(set(candidate)|set(self.popouts))>4:
-            self.window.log('最多同时订阅四个本地画面源；请先关闭被替换来源的弹窗，或移除其他画面。')
+        if len(set(candidate)|set(self.popouts))>6:
+            self.window.log('最多同时订阅六个本地画面源；请先关闭被替换来源的弹窗，或移除其他画面。')
             return
         if replace in self.sources:
             self.sources[self.sources.index(replace)] = key
-        elif len(self.sources) < 4:
+        elif len(self.sources) < 6:
             self.sources.append(key)
         else:
-            self.window.log('最多同时显示四路；请从“替换画面源”选择要替换的位置。')
+            self.window.log('最多同时显示六路；请从“替换画面源”选择要替换的位置。')
             return
         self.registry[key] = source
         self.expanded = None
@@ -204,9 +204,9 @@ class SensorWorkspace(QWidget):
             if source.sensor_id != 'observer' and source.device_id in self.missing:
                 continue
             action = self.add_menu.addAction(source.title)
-            action.setEnabled(key not in self.sources and len(self.sources) < 4)
+            action.setEnabled(key not in self.sources and len(self.sources) < 6)
             action.triggered.connect(lambda _, k=key: self.add_source(k))
-        if len(self.sources) == 4:
+        if len(self.sources) == 6:
             info = self.add_menu.addAction('四路已满：在画面“更多”中替换或移除')
             info.setEnabled(False)
 
@@ -241,11 +241,10 @@ class SensorWorkspace(QWidget):
         box.setContentsMargins(10, 8, 10, 6)
         box.setSpacing(4)
         top = QHBoxLayout()
-        channel=QLabel({'observer':'SCENE','visible':'EO','infrared':'IR','lidar':'LIDAR'}[source.sensor_id]);channel.setObjectName('channel');top.addWidget(channel)
+        channel=QLabel({'observer':'SCENE','visible':'EO','infrared':'IR','lidar':'LIDAR','event':'EVT'}[source.sensor_id]);channel.setObjectName('channel');top.addWidget(channel)
         title = DragLabel(source.title);title.setObjectName('tileTitle')
         title.setProperty('sourceKey', key)
-        title.setToolTip(key + ' · 拖动可交换位置，点击选择属性')
-        title.selected.connect(lambda: self.select_properties(key))
+        title.setToolTip(key + ' · 拖动可交换位置；参数请使用画面菜单或右侧参数按钮')
         top.addWidget(title, 1)
         from apps.desktop_app.ui.icons import icon
         zoom = QPushButton();zoom.setIcon(icon('expand'));zoom.setFixedWidth(32);zoom.setAccessibleName('放大画面')
@@ -258,6 +257,9 @@ class SensorWorkspace(QWidget):
         more.setMenu(menu)
         menu.aboutToShow.connect(lambda: self.build_tile_menu(key, menu))
         top.addWidget(zoom)
+        popout=QPushButton();popout.setIcon(icon('popout'));popout.setFixedWidth(32)
+        popout.setObjectName('iconButton');popout.setAccessibleName('弹出画面');popout.setToolTip('弹出独立窗口')
+        popout.clicked.connect(lambda:self.enlarge(key));top.addWidget(popout)
         top.addWidget(more)
         box.addLayout(top)
         view = self.make_view(key)
@@ -280,12 +282,12 @@ class SensorWorkspace(QWidget):
         if source.sensor_id == 'observer':
             menu.addAction('接管自由观察', self.activate_observer)
         else:
-            action = menu.addAction('保存原始单帧', lambda: self.window.capture_source(source.device_id, source.sensor_id))
+            action = menu.addAction('保存最近事件窗口' if source.sensor_id=='event' else '保存原始单帧', lambda: self.window.capture_source(source.device_id, source.sensor_id))
             action.setEnabled(self.window.client.ready and self.source_enabled(key) and key not in self.messages)
             menu.addAction('编辑此传感器参数', lambda: self.select_properties(key))
         menu.addAction('弹出窗口', lambda: self.enlarge(key))
         if source.sensor_id != 'lidar':
-            menu.addAction('原始像素查看', lambda: self.enlarge(key, native=True))
+            menu.addAction('1:1 原始像素（可滚动）', lambda: self.enlarge(key, native=True))
         replace = menu.addMenu('替换画面源')
         for other, item in self.registry.items():
             if other not in self.sources and item.device_id not in self.missing:
@@ -357,7 +359,7 @@ class SensorWorkspace(QWidget):
     def activate_observer(self):
         self.window.command('input.set_mode', {'mode': 'observer'})
         self.window.command('observer.set_mode', {'mode': 'free'})
-        view = self.views.get('scene/observer')
+        view = self.window.arrangement.scene_view if self.window.pages.currentIndex()==0 and hasattr(self.window.arrangement,'scene_view') else self.views.get('scene/observer')
         if view:
             view.setFocus()
 
@@ -365,7 +367,8 @@ class SensorWorkspace(QWidget):
         return set(self.sources) | set(self.popouts)
 
     def displayed(self):
-        return (set(self.sources) if self.window.pages.currentIndex()==1 else set()) | set(self.popouts)
+        visible=set(self.sources) if self.window.pages.currentIndex()==1 else {'scene/observer'} if self.window.pages.currentIndex()==0 and hasattr(self.window.arrangement,'scene_view') else set()
+        return visible | set(self.popouts)
 
     def source_enabled(self, key):
         source = self.registry[key]
@@ -385,11 +388,14 @@ class SensorWorkspace(QWidget):
         for key in wanted:
             source = self.registry[key]
             if key not in self.clients:
-                client = UEPreviewClient(self, size=SIZES[source.sensor_id])
+                if source.sensor_id=='event':
+                    from apps.desktop_app.event_preview_client import EventPreviewClient
+                    client=EventPreviewClient(self,size=SIZES['event'])
+                else:client = UEPreviewClient(self, size=SIZES[source.sensor_id])
                 client.frame_received.connect(lambda image, fps, k=key: self.frame(k, image))
                 client.state_changed.connect(lambda connected, msg, k=key: self.stream_state(k, connected, msg))
                 self.clients[key] = client
-            channel = {'visible': 'CH1', 'infrared': 'CH2', 'observer': 'OBS'}[source.sensor_id]
+            channel = {'visible': 'CH1', 'infrared': 'CH2', 'observer': 'OBS','event':'EVT'}[source.sensor_id]
             self.clients[key].start_source(host, self.window.config.port, channel,
                                            None if channel == 'OBS' else source.device_id)
 
@@ -410,6 +416,8 @@ class SensorWorkspace(QWidget):
         result = [self.views[key]] if key in self.views else []
         if key in self.popouts:
             result.append(self.popouts[key][1])
+        if key=='scene/observer' and hasattr(self.window.arrangement,'scene_view'):
+            result.append(self.window.arrangement.scene_view)
         return result
 
     def unavailable(self, key, message):
@@ -445,7 +453,8 @@ class SensorWorkspace(QWidget):
         self.missing = {s.device_id for s in self.registry.values() if s.sensor_id != 'observer' and s.device_id not in ids} if devices else set()
         for item in devices:
             if item['kind'] == 'gimbal':
-                for sensor in ('visible', 'infrared', 'lidar'):
+                for sensor in ('visible', 'infrared', 'lidar','event'):
+                    if sensor not in state.get('sensors',{}) and sensor=='event':continue
                     source = Source(item['id'], sensor)
                     self.registry[source.key] = source
         now = time.monotonic()
@@ -474,7 +483,8 @@ class SensorWorkspace(QWidget):
         key = state.get('gimbal_id', 'ptz-01') + '/lidar'
         if key not in self.wanted() or not self.source_enabled(key):
             return
-        cloud = (state.get('lidar_points_m', []), state.get('lidar_point_count', 0), state.get('lidar_rays', 0))
+        cloud = (state.get('lidar_points_m', []), state.get('lidar_point_count', 0), state.get('lidar_rays', 0),
+                 state.get('lidar_horizontal_fov_deg',30),state.get('lidar_vertical_fov_deg',8))
         self.clouds[key] = cloud
         self.received[key] = time.monotonic()
         self.messages.pop(key, None)
@@ -493,7 +503,7 @@ class SensorWorkspace(QWidget):
             observed={self.registry[k].device_id for k in self.displayed() if self.registry[k].sensor_id!='observer'}
             if self.window.pages.currentIndex()==2:
                 observed|={source.device_id for source in self.registry.values() if source.sensor_id!='observer'}
-            if self.window.pages.currentIndex()==1 and self.window.inspectors.currentIndex()==2:
+            if (self.window.pages.currentIndex()==1 and self.window.inspectors.currentIndex()==2) or (hasattr(self.window,'sensor_dock') and self.window.sensor_dock.isVisible()):
                 observed.add(self.window.sensor_settings.device_id)
             for device in observed - self.missing:
                 if device != self.window.selected_gimbal and not any(c == 'sim.get_state' and p.get('device_id') == device for c, p in pending):
@@ -505,6 +515,9 @@ class SensorWorkspace(QWidget):
                 text = self.base_info(key)
                 if key in self.messages:
                     text += ' · ' + self.messages[key]
+                elif source.sensor_id=='event':
+                    actual=self.states.get(source.device_id,{}).get('sensors',{}).get('event',{})
+                    text+=f" · 采样 {actual.get('actual_sample_hz',0):.1f} Hz · 累计 {actual.get('events_total',0)} 事件"
                 elif source.sensor_id != 'lidar':
                     fps = self.fps.get(key)
                     text += ' · 新帧 ' + (f'{fps:.1f} Hz' if fps is not None else '未测量')

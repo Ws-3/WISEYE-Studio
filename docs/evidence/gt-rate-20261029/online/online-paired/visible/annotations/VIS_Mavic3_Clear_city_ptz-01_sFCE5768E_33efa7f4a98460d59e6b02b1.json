@@ -1,0 +1,68 @@
+{
+  "sample_token": "EBDCFFDD4104BD100833C9B09B9EB0D8",
+  "run_id": "FCE5768E462AF7B4B78B748C61078485",
+  "scene_id": "city",
+  "device_id": "ptz-01",
+  "sensor_id": "visible",
+  "environment": {
+    "time_supported": true,
+    "fog_supported": true,
+    "rain_supported": false,
+    "time_override": false,
+    "hour": 12,
+    "fog": 0,
+    "rain": 0,
+    "clouds_supported": true,
+    "clouds": 0,
+    "cloud_layer_active": false,
+    "cloud_atmosphere_created": false,
+    "rain_view_volumes": 0,
+    "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+  },
+  "scenario_models": [
+    "mavic3"
+  ],
+  "context_source": "capture_tick",
+  "frame_id": "FCE5768E462AF7B4B78B748C61078485/ptz-01/visible/7589",
+  "frame_number": 7589,
+  "simulation_time_s": 16.740938186645508,
+  "width": 1920,
+  "height": 1080,
+  "horizontal_fov_deg": 25,
+  "intrinsics_fx_fy_cx_cy": [
+    4330.280163515576,
+    4330.280163515576,
+    960,
+    540
+  ],
+  "camera_position_cm": [
+    -27082.539966174314,
+    -2116.7642404241055,
+    4123.959636761286
+  ],
+  "camera_rotation_pitch_yaw_roll_deg": [
+    25.000000000000004,
+    -115.00000000000003,
+    0
+  ],
+  "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+  "visibility_method": "raster_scene_vs_isolated_target_depth",
+  "gt_policy": {
+    "keep_partial_occlusion": false,
+    "keep_partial_outside": false,
+    "min_visible_pixels": 1,
+    "min_visible_fraction": 0
+  },
+  "annotation_status": "complete",
+  "training_eligible": true,
+  "negative_sample": true,
+  "objects": [],
+  "ignored_objects": [],
+  "gt_annotation_cpu_ms": 7.231798022985458,
+  "encoding": "jpeg",
+  "filename_model": "Mavic3",
+  "filename_weather": "Clear",
+  "sample_group_id": "33efa7f4a98460d59e6b02b1",
+  "image_sha256": "1017579ba0aecb44a6feb7fa87eef3a6bfd39afd21de7573e0d951fbb759be41",
+  "dataset_schema": 2
+}

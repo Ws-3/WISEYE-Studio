@@ -73,10 +73,15 @@ scripts/python-root.local.txt
 /ue5/WISEYE/Content/WISEYE/Scenes/city/
 /ue5/WISEYE/Content/__ExternalActors__/WISEYE/Scenes/city/
 /ue5/WISEYE/Content/__ExternalObjects__/WISEYE/Scenes/city/
+/ue5/WISEYE/Content/WISEYE/Scenes/city_large/
+/ue5/WISEYE/Content/__ExternalActors__/WISEYE/Scenes/city_large/
+/ue5/WISEYE/Content/__ExternalObjects__/WISEYE/Scenes/city_large/
 
 # Local release work and outputs
 /builds/
 /releases/
+/Tools/
+/UserData/
 
 # MediaMTX generated TLS identity; never publish the private key.
 auto.key

@@ -1,0 +1,13 @@
+{
+  "engine_pid": 6032,
+  "data_directory": "E:/Projects/WISEYE-IR-Work/preview-data",
+  "note": "Normal VBS preview reopened for user; test jobs exited. Leave this normal preview running.",
+  "run_id": "319B4E4F4A1D6C2914E7789C009F02A2",
+  "flight_status": "ready",
+  "rpm": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ]
+}

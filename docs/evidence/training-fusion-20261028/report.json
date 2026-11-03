@@ -1,0 +1,494 @@
+{
+  "passed": true,
+  "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+  "pairs": [
+    {
+      "pair_id": "14FEDD234776D7E7B5714393CE98BC8E",
+      "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+      "simulation_time_s": 72.46832275390625,
+      "samples": {
+        "visible": {
+          "sample_token": "14FEDD234776D7E7B5714393CE98BC8E",
+          "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+          "scene_id": "city",
+          "device_id": "ptz-02",
+          "sensor_id": "visible",
+          "frame_id": "96F72B7D4C0EBB30D552D7A805C0A00F/ptz-02/visible/648",
+          "frame_number": 648,
+          "simulation_time_s": 72.46832275390625,
+          "width": 1920,
+          "height": 1080,
+          "horizontal_fov_deg": 5,
+          "intrinsics_fx_fy_cx_cy": [
+            21987.614926493952,
+            21987.614926493952,
+            960,
+            540
+          ],
+          "camera_position_cm": [
+            -25591.171662323206,
+            -853.475601920742,
+            123.74004626681298
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            -0.47668230533599826,
+            168.522705078125,
+            -6.2122358571703684e-18
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "mavic3",
+              "bbox_xyxy": [
+                845,
+                508,
+                1065,
+                571
+              ],
+              "visible_pixels": 5265,
+              "in_frame_target_pixels": 5378,
+              "visible_fraction_in_frame": 0.9789884715507624,
+              "partially_occluded": true,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "encoding": "jpeg"
+        },
+        "infrared": {
+          "sample_token": "14FEDD234776D7E7B5714393CE98BC8E",
+          "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+          "scene_id": "city",
+          "device_id": "ptz-02",
+          "sensor_id": "infrared",
+          "frame_id": "96F72B7D4C0EBB30D552D7A805C0A00F/ptz-02/infrared/644",
+          "frame_number": 644,
+          "simulation_time_s": 72.46832275390625,
+          "width": 640,
+          "height": 512,
+          "horizontal_fov_deg": 5,
+          "intrinsics_fx_fy_cx_cy": [
+            7329.204975497984,
+            7329.204975497984,
+            320,
+            256
+          ],
+          "camera_position_cm": [
+            -25591.171662323206,
+            -853.475601920742,
+            123.74004626681298
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            -0.47668230533599826,
+            168.522705078125,
+            -6.2122358571703684e-18
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "mavic3",
+              "bbox_xyxy": [
+                282,
+                245,
+                355,
+                266
+              ],
+              "visible_pixels": 592,
+              "in_frame_target_pixels": 606,
+              "visible_fraction_in_frame": 0.976897689768977,
+              "partially_occluded": true,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "encoding": "jpeg"
+        }
+      }
+    },
+    {
+      "pair_id": "4D6BC47A4F4D34781982C9A92D2AEB66",
+      "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+      "simulation_time_s": 73.93521118164062,
+      "samples": {
+        "visible": {
+          "sample_token": "4D6BC47A4F4D34781982C9A92D2AEB66",
+          "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+          "scene_id": "city",
+          "device_id": "ptz-02",
+          "sensor_id": "visible",
+          "frame_id": "96F72B7D4C0EBB30D552D7A805C0A00F/ptz-02/visible/663",
+          "frame_number": 663,
+          "simulation_time_s": 73.93521118164062,
+          "width": 1920,
+          "height": 1080,
+          "horizontal_fov_deg": 10,
+          "intrinsics_fx_fy_cx_cy": [
+            10972.85021065089,
+            10972.85021065089,
+            960,
+            540
+          ],
+          "camera_position_cm": [
+            -25591.171662323206,
+            -853.475601920742,
+            123.74004626681298
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            -0.47668230533599826,
+            168.522705078125,
+            -6.2122358571703684e-18
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "mavic3",
+              "bbox_xyxy": [
+                904,
+                524,
+                1013,
+                556
+              ],
+              "visible_pixels": 1318,
+              "in_frame_target_pixels": 1339,
+              "visible_fraction_in_frame": 0.9843166542195668,
+              "partially_occluded": true,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "encoding": "jpeg"
+        },
+        "infrared": {
+          "sample_token": "4D6BC47A4F4D34781982C9A92D2AEB66",
+          "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+          "scene_id": "city",
+          "device_id": "ptz-02",
+          "sensor_id": "infrared",
+          "frame_id": "96F72B7D4C0EBB30D552D7A805C0A00F/ptz-02/infrared/659",
+          "frame_number": 659,
+          "simulation_time_s": 73.93521118164062,
+          "width": 640,
+          "height": 512,
+          "horizontal_fov_deg": 5,
+          "intrinsics_fx_fy_cx_cy": [
+            7329.204975497984,
+            7329.204975497984,
+            320,
+            256
+          ],
+          "camera_position_cm": [
+            -25591.171662323206,
+            -853.475601920742,
+            123.74004626681298
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            -0.47668230533599826,
+            168.522705078125,
+            -6.2122358571703684e-18
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "mavic3",
+              "bbox_xyxy": [
+                282,
+                245,
+                355,
+                266
+              ],
+              "visible_pixels": 592,
+              "in_frame_target_pixels": 606,
+              "visible_fraction_in_frame": 0.976897689768977,
+              "partially_occluded": true,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "encoding": "jpeg"
+        }
+      }
+    },
+    {
+      "pair_id": "C965CEBC49DF9328A263D0B804CDE7C9",
+      "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+      "simulation_time_s": 75.66873931884766,
+      "samples": {
+        "visible": {
+          "sample_token": "C965CEBC49DF9328A263D0B804CDE7C9",
+          "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+          "scene_id": "city",
+          "device_id": "ptz-02",
+          "sensor_id": "visible",
+          "frame_id": "96F72B7D4C0EBB30D552D7A805C0A00F/ptz-02/visible/680",
+          "frame_number": 680,
+          "simulation_time_s": 75.66873931884766,
+          "width": 1920,
+          "height": 1080,
+          "horizontal_fov_deg": 5,
+          "intrinsics_fx_fy_cx_cy": [
+            21987.614926493952,
+            21987.614926493952,
+            960,
+            540
+          ],
+          "camera_position_cm": [
+            -25591.171662323206,
+            -853.475601920742,
+            123.74004626681298
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            -0.47668230533599826,
+            168.522705078125,
+            -6.2122358571703684e-18
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "mavic3",
+              "bbox_xyxy": [
+                845,
+                508,
+                1065,
+                571
+              ],
+              "visible_pixels": 5265,
+              "in_frame_target_pixels": 5378,
+              "visible_fraction_in_frame": 0.9789884715507624,
+              "partially_occluded": true,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "encoding": "jpeg"
+        },
+        "infrared": {
+          "sample_token": "C965CEBC49DF9328A263D0B804CDE7C9",
+          "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+          "scene_id": "city",
+          "device_id": "ptz-02",
+          "sensor_id": "infrared",
+          "frame_id": "96F72B7D4C0EBB30D552D7A805C0A00F/ptz-02/infrared/676",
+          "frame_number": 676,
+          "simulation_time_s": 75.66873931884766,
+          "width": 640,
+          "height": 512,
+          "horizontal_fov_deg": 5,
+          "intrinsics_fx_fy_cx_cy": [
+            7329.204975497984,
+            7329.204975497984,
+            320,
+            256
+          ],
+          "camera_position_cm": [
+            -25591.171662323206,
+            -853.475601920742,
+            123.74004626681298
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            -0.47668230533599826,
+            168.522705078125,
+            -6.2122358571703684e-18
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": false,
+          "objects": [
+            {
+              "target_id": "uav-01",
+              "class_id": 0,
+              "class_name": "drone",
+              "model_id": "mavic3",
+              "bbox_xyxy": [
+                282,
+                245,
+                355,
+                266
+              ],
+              "visible_pixels": 592,
+              "in_frame_target_pixels": 606,
+              "visible_fraction_in_frame": 0.976897689768977,
+              "partially_occluded": true,
+              "partially_outside": false
+            }
+          ],
+          "ignored_objects": [],
+          "encoding": "jpeg"
+        }
+      }
+    },
+    {
+      "pair_id": "287193F74986F2B9D40CE9B470D2C887",
+      "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+      "simulation_time_s": 77.66870880126953,
+      "samples": {
+        "visible": {
+          "sample_token": "287193F74986F2B9D40CE9B470D2C887",
+          "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+          "scene_id": "city",
+          "device_id": "ptz-02",
+          "sensor_id": "visible",
+          "frame_id": "96F72B7D4C0EBB30D552D7A805C0A00F/ptz-02/visible/700",
+          "frame_number": 700,
+          "simulation_time_s": 77.66870880126953,
+          "width": 1920,
+          "height": 1080,
+          "horizontal_fov_deg": 5,
+          "intrinsics_fx_fy_cx_cy": [
+            21987.614926493952,
+            21987.614926493952,
+            960,
+            540
+          ],
+          "camera_position_cm": [
+            -25583.777040313482,
+            -867.4579568628051,
+            135.74282024059414
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            25,
+            -160.00000000000003,
+            0
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": true,
+          "objects": [],
+          "ignored_objects": [],
+          "encoding": "jpeg"
+        },
+        "infrared": {
+          "sample_token": "287193F74986F2B9D40CE9B470D2C887",
+          "run_id": "96F72B7D4C0EBB30D552D7A805C0A00F",
+          "scene_id": "city",
+          "device_id": "ptz-02",
+          "sensor_id": "infrared",
+          "frame_id": "96F72B7D4C0EBB30D552D7A805C0A00F/ptz-02/infrared/696",
+          "frame_number": 696,
+          "simulation_time_s": 77.66870880126953,
+          "width": 640,
+          "height": 512,
+          "horizontal_fov_deg": 5,
+          "intrinsics_fx_fy_cx_cy": [
+            7329.204975497984,
+            7329.204975497984,
+            320,
+            256
+          ],
+          "camera_position_cm": [
+            -25583.777040313482,
+            -867.4579568628051,
+            135.74282024059414
+          ],
+          "camera_rotation_pitch_yaw_roll_deg": [
+            25,
+            -160.00000000000003,
+            0
+          ],
+          "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+          "visibility_method": "raster_scene_vs_isolated_target_depth",
+          "gt_policy": {
+            "keep_partial_occlusion": true,
+            "keep_partial_outside": true,
+            "min_visible_pixels": 1,
+            "min_visible_fraction": 0
+          },
+          "annotation_status": "complete",
+          "training_eligible": true,
+          "negative_sample": true,
+          "objects": [],
+          "ignored_objects": [],
+          "encoding": "jpeg"
+        }
+      }
+    }
+  ],
+  "checks": {
+    "same_tick": true,
+    "different_fov": true,
+    "disabled_rejected": true,
+    "resumed_fresh": true,
+    "paired_negatives": true,
+    "single_source": true
+  }
+}

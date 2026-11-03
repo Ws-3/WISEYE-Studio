@@ -1,0 +1,288 @@
+{
+  "application": "WISEYE Studio",
+  "scene_id": "city",
+  "run_id": "1257AD154F9416E54CA522918D3273D1",
+  "training_samples_supported": true,
+  "paired_training_samples_supported": true,
+  "streams": {
+    "CH1": {
+      "frame_seq": 2491,
+      "completed_frames": 2490,
+      "readback_queued_ue_monotonic_s": 16801604.3745457,
+      "cache_age_ms": 100.01499950885773
+    },
+    "CH2": {
+      "frame_seq": 2492,
+      "completed_frames": 2491,
+      "readback_queued_ue_monotonic_s": 16801604.4411344,
+      "cache_age_ms": 33.42979773879051
+    }
+  },
+  "initial_drone_position_cm": [
+    -33800,
+    -2900,
+    4125
+  ],
+  "gimbal_position_cm": [
+    -33000,
+    -2075,
+    4104.116816520691
+  ],
+  "drone_id": "uav-01",
+  "gimbal_id": "ptz-01",
+  "devices": [
+    {
+      "id": "uav-01",
+      "kind": "drone",
+      "model_id": "mavic3",
+      "name": "\u65e0\u4eba\u673a 1",
+      "tracking_target": "uav-01",
+      "position_cm": [
+        -33800,
+        -2900,
+        4119.267578125
+      ],
+      "dynamics_name": "Drone1",
+      "initial_position_cm": [
+        -33800,
+        -2900,
+        4125
+      ],
+      "rotors_running": false,
+      "initial_yaw_deg": 90
+    },
+    {
+      "id": "ptz-01",
+      "kind": "gimbal",
+      "model_id": "eo80",
+      "name": "\u697c\u8fb9\u53cc\u5149\u4e91\u53f0",
+      "tracking_target": "uav-01",
+      "position_cm": [
+        -33000,
+        -2075,
+        4104.116816520691
+      ],
+      "dynamics_name": "Drone1",
+      "initial_position_cm": [
+        -33800,
+        -2900,
+        4125
+      ],
+      "rotors_running": false,
+      "initial_yaw_deg": 90
+    }
+  ],
+  "tracking_target": "uav-01",
+  "observer_mode": "overview",
+  "placement": {
+    "active": false,
+    "has_result": false,
+    "device_id": "",
+    "request_token": "",
+    "error": "",
+    "sequence": 0,
+    "position_cm": [
+      0,
+      0,
+      0
+    ],
+    "surface_cm": [
+      0,
+      0,
+      0
+    ]
+  },
+  "input_mode": "observer",
+  "pitch_min_deg": -15,
+  "pitch_max_deg": 75,
+  "lidar_horizontal_fov_deg": 30,
+  "lidar_vertical_fov_deg": 8,
+  "lidar_scan_rate_hz": 10,
+  "lidar_range_m": 300,
+  "pending_scene": "",
+  "paused": true,
+  "simulation_time_s": 7.899623394012451,
+  "flight_mode": "manual",
+  "flight_backend": "projectairsim",
+  "drone_model": "mavic3",
+  "drone_models_available": [
+    "mavic3",
+    "avata"
+  ],
+  "dynamics_connected": true,
+  "dynamics_actor": "Drone1",
+  "tracking": true,
+  "sensor_power_supported": true,
+  "rotors_running": false,
+  "rotor_rpm": 0,
+  "motor_rpm": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "thermal_target": {
+    "motor_warmth": 0.0003016232803929597,
+    "battery_warmth": 0.005200706887990236,
+    "power_proxy": 0,
+    "body_signal": 0.38041606545448303,
+    "motor_signal": 0.390150785446167,
+    "units": "normalized engineering proxy, not Celsius"
+  },
+  "rotor_source": "airsim_rad_s",
+  "rotor_telemetry_fresh": true,
+  "tick_seq": 7486,
+  "runtime_hardware": {
+    "sample_time_s": 16801603.5742417,
+    "scope": "simulation_host",
+    "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+    "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+    "ue_fps": 29.999486924542225,
+    "system_ram_total_bytes": 34191093760,
+    "system_ram_used_bytes": 22364999680,
+    "ue_ram_bytes": 10228789248,
+    "gpu_dedicated_total_bytes": 12706643968,
+    "ue_vram_used_bytes": 4429459456,
+    "ue_vram_budget_bytes": 11901272064,
+    "system_cpu_pct": 23.26848249027237,
+    "ue_gpu_engine_peak_pct": 54.55069566185088
+  },
+  "environment": {
+    "time_supported": true,
+    "fog_supported": true,
+    "rain_supported": false,
+    "time_override": false,
+    "hour": 12,
+    "fog": 0,
+    "rain": 0,
+    "clouds_supported": true,
+    "clouds": 0,
+    "cloud_layer_active": false,
+    "cloud_atmosphere_created": false,
+    "rain_view_volumes": 0,
+    "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+  },
+  "performance_profile": "economy",
+  "visible_capture_hz": 10,
+  "infrared_capture_hz": 10,
+  "observer_capture_hz": 8,
+  "yaw_deg": -64.11331176757815,
+  "pitch_deg": -1.8944022655487052,
+  "pointing_error_deg": 1.5128907762118615e-05,
+  "sensor_mode": "visible",
+  "active_sensor": "visible",
+  "available_sensors": [
+    "visible",
+    "infrared",
+    "lidar"
+  ],
+  "sensors": {
+    "visible": {
+      "enabled": true,
+      "fov_deg": 25,
+      "capture_sequence": 2498,
+      "extrinsics_supported": true,
+      "mount_x_cm": 0,
+      "mount_y_cm": -6,
+      "mount_z_cm": 0,
+      "boresight_pitch_deg": 0,
+      "boresight_yaw_deg": 0,
+      "boresight_roll_deg": 0,
+      "camera_position_cm": [
+        -33022.158910443104,
+        -2097.7029657117637,
+        4156.2283981158025
+      ],
+      "camera_rotation_pitch_yaw_roll_deg": [
+        -1.894402265548704,
+        -134.11331176757812,
+        0
+      ]
+    },
+    "infrared": {
+      "enabled": true,
+      "fov_deg": 25,
+      "capture_sequence": 2498,
+      "extrinsics_supported": true,
+      "mount_x_cm": 0,
+      "mount_y_cm": 6,
+      "mount_z_cm": 0,
+      "boresight_pitch_deg": 0.1,
+      "boresight_yaw_deg": 0.2,
+      "boresight_roll_deg": 0,
+      "camera_position_cm": [
+        -33013.5433353144,
+        -2106.055921188823,
+        4156.2283981158025
+      ],
+      "camera_rotation_pitch_yaw_roll_deg": [
+        -1.7943907206608163,
+        -133.91321394997163,
+        -0.006614736861418523
+      ],
+      "palette": "white_hot",
+      "noise": 0.00800000037997961,
+      "thermal_profile": "reference",
+      "enhanced_available": true,
+      "reference_available": true,
+      "classified_available": true,
+      "facade_available": true,
+      "detector_controls_available": true,
+      "gain_mode": "auto",
+      "stable_agc": false,
+      "manual_low": 0,
+      "manual_high": 1,
+      "brightness": 0,
+      "sky_denoise": 0,
+      "noise_seed": 1337,
+      "agc_enabled": true,
+      "agc_response_s": 1,
+      "sampling_scale": 1,
+      "agc_low": 0.20235289633274078,
+      "agc_high": 0.3623528480529785,
+      "readout_ms": 7.347501754760742,
+      "readout_sequence": 2492,
+      "class_pixels": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "target_pixels": 0,
+      "motor_region_pixels": 0,
+      "sky_pixels": 0,
+      "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+      "blur_px": 0.800000011920929,
+      "contrast": 1.350000023841858,
+      "background_detail": 0.6499999761581421
+    },
+    "lidar": {
+      "enabled": true,
+      "horizontal_fov_deg": 30,
+      "vertical_fov_deg": 8,
+      "range_m": 300,
+      "scan_rate_hz": 10,
+      "scan_sequence": 2505
+    }
+  },
+  "palette": "white_hot",
+  "fov_deg": 25,
+  "width": 1920,
+  "height": 1080,
+  "drone_position_cm": [
+    -33800,
+    -2900,
+    4119.267578125
+  ],
+  "tracking_source": "UE ground truth",
+  "thermal_model": "synthetic normalized heat",
+  "last_export_path": "",
+  "lidar_enabled": true,
+  "lidar_hits": 397,
+  "lidar_rays": 576,
+  "lidar_nearest_m": 5.457968711853027,
+  "lidar_last_export_path": ""
+}

@@ -1,0 +1,44 @@
+{
+  "sample_token": "52091ABC45868C3793F514B7CF49913C",
+  "run_id": "F74655FF46DAC33F89D350866FB4012F",
+  "scene_id": "city",
+  "device_id": "ptz-01",
+  "sensor_id": "visible",
+  "frame_id": "F74655FF46DAC33F89D350866FB4012F/ptz-01/visible/88",
+  "frame_number": 88,
+  "simulation_time_s": 6.579838275909424,
+  "width": 1920,
+  "height": 1080,
+  "horizontal_fov_deg": 25,
+  "intrinsics_fx_fy_cx_cy": [
+    4330.280163515576,
+    4330.280163515576,
+    960,
+    540
+  ],
+  "camera_position_cm": [
+    -26993.968046339956,
+    -2024.291601029743,
+    4110.663106668973
+  ],
+  "camera_rotation_pitch_yaw_roll_deg": [
+    -2.9573075771331774,
+    -125.19430541992189,
+    0
+  ],
+  "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+  "visibility_method": "raster_scene_vs_isolated_target_depth",
+  "gt_policy": {
+    "keep_partial_occlusion": true,
+    "keep_partial_outside": true,
+    "min_visible_pixels": 1,
+    "min_visible_fraction": 0
+  },
+  "annotation_status": "complete",
+  "training_eligible": true,
+  "negative_sample": true,
+  "objects": [],
+  "ignored_objects": [],
+  "encoding": "jpeg",
+  "image_sha256": "93cbf0aae7e1d37abc3763c5409749bffb1a4c389817e3f5cf963ea90007be43"
+}

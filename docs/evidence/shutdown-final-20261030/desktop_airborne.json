@@ -1,0 +1,22 @@
+{
+  "case": "desktop_airborne",
+  "run_id": "1760FAB04F33E18255BDC4A534282192",
+  "owned_pids": [
+    4124,
+    5664,
+    6404,
+    6656,
+    8100,
+    8936,
+    9764,
+    13080,
+    14740,
+    15564
+  ],
+  "passed": true,
+  "airborne_before_close": true,
+  "close_seconds": 13.214100700000017,
+  "remaining_owned_pids": [],
+  "shutdown_log": "2026-10-30 13:37:44 A session window/critical worker exited; stopping owned resources.\n2026-10-30 13:37:44 正在停止航线并降落无人机…\n2026-10-30 13:37:53 无人机已降落，正在关闭仿真。\n2026-10-30 13:37:56 Owned job closed; session cleanup complete.\n",
+  "landing_confirmed": true
+}

@@ -1,5 +1,7 @@
 # WISEYE Studio 文件结构
 
+2026-10-28：本机日常统一双击根目录 **`Start-WISEYE-Studio.vbs`**，一次启动当前城市预览、飞控和桌面。下方保留的分步 PowerShell 命令面向开发；在仓库 PowerShell 执行，遇执行策略限制加 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File`。已启动UE时仅重开桌面用 `scripts/Start-Desktop.ps1 -Connect`。详见[当前使用指南](USER_GUIDE.md)。
+
 ## 需要提交并在其他电脑复用
 
 | 路径 | 内容 |
@@ -39,9 +41,11 @@
 
 | 文件 | 用途 |
 |---|---|
-| `Start-ProjectAirSim.cmd` | 推荐的完整仿真入口：RTSP、UE Play、AirSim 飞控 |
-| `Start-Desktop.cmd` | 打开 WISEYE 桌面控制台 |
-| `Start-WISEYE.cmd` | 基础 UE 编辑/回退演示入口 |
+| `Start-WISEYE-Studio.vbs` | 本机唯一仿真快捷入口：当前城市预览、飞控与桌面 |
+| `training_client/Start-Training.vbs` | 独立训练工作台 |
+| `scripts/Start-ProjectAirSim.ps1` | 开发分步入口：常规源码工程、RTSP、UE Play、飞控 |
+| `scripts/Start-Desktop.ps1` | 打开 WISEYE 桌面控制台 |
+| `scripts/Start-WISEYE.ps1` | 基础 UE 编辑/回退演示入口 |
 | `scripts/Setup-ProjectAirSim.ps1` | 获取、修补、构建并联接 Project AirSim |
 | `scripts/Setup-RTSP.ps1` | 安装固定版本 MediaMTX |
 | `docs/AI_HANDOFF.md` | 下一位 AI 应优先阅读的当前实现和验证状态 |

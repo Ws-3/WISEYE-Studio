@@ -1,0 +1,22 @@
+{
+  "editor_build": "build-dual-camera-final.log: Succeeded",
+  "core_tests": 68,
+  "qt_tests": 35,
+  "geometry_report": "geometry.json",
+  "actual_flight_report": "flight.json",
+  "paired_receiver_report": "paired-receiver.json",
+  "exported_camera_pose_check": "export-camera-metadata.json",
+  "source_and_build_native_files_match": true,
+  "source_and_build_city_configuration_match": true,
+  "city_assets_modified": false,
+  "fleet_layout_change_authorized": true,
+  "active_city_inventory": "one Mavic3 uav-01, one eo80 ptz-01",
+  "baseline_cm": 12,
+  "rooftop_surface_z_cm": 4100,
+  "gimbal_center_inset_cm": 106.982421875,
+  "final_rpm": [0, 0, 0, 0],
+  "owned_runtime_stopped": true,
+  "packaged": false,
+  "pushed": false,
+  "limits": "Synthetic IR proxy, example lens extrinsics, not physical LWIR or measured calibration. Stereo fusion requires depth/registration; originals remain usable."
+}

@@ -39,3 +39,5 @@ if any(not unreal.EditorAssetLibrary.does_asset_exist(animated + name)
     builder = project.parent / 'scripts' / 'build_avata_rotors.py'
     exec(compile(builder.read_text(encoding='utf-8-sig'), str(builder), 'exec'))
 print(f'WISEYE_DRONE_IMPORT_OK {asset_path}')
+lamp_builder = project.parent / 'scripts' / 'build_navigation_lights.py'
+exec(compile(lamp_builder.read_text(encoding='utf-8-sig'), str(lamp_builder), 'exec'))

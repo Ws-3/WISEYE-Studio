@@ -1,9 +1,9 @@
-param(
+﻿param(
     [string]$EngineRoot = $env:UE_ROOT,
     [switch]$BuildOnly,
     [switch]$SkipBuild,
     [switch]$AutoPlay,
-    [string]$Map = '/Game/WISEYE-test',
+    [string]$Map = '/Game/WISEYE/Scenes/city/CitySample',
     [string]$PrepareScene
 )
 $ErrorActionPreference = 'Stop'
@@ -22,6 +22,7 @@ if (-not $EngineRoot) {
     if (Test-Path -LiteralPath $candidate) { $EngineRoot = $candidate }
 }
 if (-not $EngineRoot) { throw 'UE 5.8 not found. Run with -EngineRoot "C:\path\UE_5.8", or set UE_ROOT.' }
+if (-not [IO.Path]::IsPathRooted($EngineRoot)) { $EngineRoot = Join-Path $repository $EngineRoot }
 $builder = Join-Path $EngineRoot 'Engine\Build\BatchFiles\Build.bat'
 $editor = Join-Path $EngineRoot 'Engine\Binaries\Win64\UnrealEditor.exe'
 if (-not (Test-Path -LiteralPath $builder)) { throw "Build tool not found: $builder" }

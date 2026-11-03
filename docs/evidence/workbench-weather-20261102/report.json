@@ -1,0 +1,1294 @@
+{
+  "passed": true,
+  "scenes": {
+    "city": {
+      "power": [
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        }
+      ],
+      "gain": [
+        {
+          "time": 4257.4330923,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 452
+        },
+        {
+          "time": 4257.7104995,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 455
+        },
+        {
+          "time": 4257.967215,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 457
+        },
+        {
+          "time": 4258.2332463,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 460
+        },
+        {
+          "time": 4258.5107016,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 463
+        },
+        {
+          "time": 4258.7680706,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 465
+        },
+        {
+          "time": 4259.0458056,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 468
+        },
+        {
+          "time": 4259.3081767,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 471
+        },
+        {
+          "time": 4259.5341649,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 473
+        },
+        {
+          "time": 4259.8365637,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 476
+        },
+        {
+          "time": 4260.1059985,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 479
+        },
+        {
+          "time": 4260.3368472,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 0,
+          "target": 0,
+          "sequence": 481
+        },
+        {
+          "time": 4260.7333652,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 485
+        },
+        {
+          "time": 4260.9688679,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 487
+        },
+        {
+          "time": 4261.2355782,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 490
+        },
+        {
+          "time": 4261.5054265,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 493
+        },
+        {
+          "time": 4261.7672431,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 495
+        },
+        {
+          "time": 4262.0365077,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 498
+        },
+        {
+          "time": 4262.2993418,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 501
+        },
+        {
+          "time": 4262.5670841,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 503
+        },
+        {
+          "time": 4262.8342069,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 506
+        },
+        {
+          "time": 4263.103117,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 509
+        },
+        {
+          "time": 4263.367637,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 511
+        },
+        {
+          "time": 4263.6334591,
+          "low": 0.10000000149011612,
+          "high": 0.4051560163497925,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 514
+        },
+        {
+          "time": 4264.033807,
+          "low": 0.10000000149011612,
+          "high": 0.40282875299453735,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 518
+        },
+        {
+          "time": 4264.2671811,
+          "low": 0.10000000149011612,
+          "high": 0.4016229510307312,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 520
+        },
+        {
+          "time": 4264.5355246,
+          "low": 0.10000000149011612,
+          "high": 0.40021124482154846,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 523
+        },
+        {
+          "time": 4264.8001119,
+          "low": 0.10000000149011612,
+          "high": 0.3991657793521881,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 526
+        },
+        {
+          "time": 4265.0336604,
+          "low": 0.10000000149011612,
+          "high": 0.3991657793521881,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 528
+        },
+        {
+          "time": 4265.2991916,
+          "low": 0.10000000149011612,
+          "high": 0.3991657793521881,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 531
+        },
+        {
+          "time": 4265.5689693,
+          "low": 0.10000000149011612,
+          "high": 0.3991657793521881,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 533
+        },
+        {
+          "time": 4265.8372846,
+          "low": 0.10000000149011612,
+          "high": 0.3991657793521881,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 536
+        },
+        {
+          "time": 4266.1020482,
+          "low": 0.10000000149011612,
+          "high": 0.3991657793521881,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 539
+        },
+        {
+          "time": 4266.3672309,
+          "low": 0.10000000149011612,
+          "high": 0.3991657793521881,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 541
+        },
+        {
+          "time": 4266.6335505,
+          "low": 0.10000000149011612,
+          "high": 0.3991657793521881,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 544
+        },
+        {
+          "time": 4266.899368,
+          "low": 0.10000000149011612,
+          "high": 0.3991657793521881,
+          "sky": 299857,
+          "target": 0,
+          "sequence": 547
+        },
+        {
+          "time": 4267.3059505,
+          "low": 0.10000000149011612,
+          "high": 0.401440292596817,
+          "sky": 0,
+          "target": 0,
+          "sequence": 551
+        },
+        {
+          "time": 4267.5697405,
+          "low": 0.10000000149011612,
+          "high": 0.4026187062263489,
+          "sky": 0,
+          "target": 0,
+          "sequence": 553
+        },
+        {
+          "time": 4267.8340693,
+          "low": 0.10000000149011612,
+          "high": 0.40399882197380066,
+          "sky": 0,
+          "target": 0,
+          "sequence": 556
+        },
+        {
+          "time": 4268.109475,
+          "low": 0.10000000149011612,
+          "high": 0.4050212502479553,
+          "sky": 0,
+          "target": 0,
+          "sequence": 559
+        },
+        {
+          "time": 4268.4099427,
+          "low": 0.10000000149011612,
+          "high": 0.4050212502479553,
+          "sky": 0,
+          "target": 0,
+          "sequence": 562
+        },
+        {
+          "time": 4268.6678012,
+          "low": 0.10000000149011612,
+          "high": 0.4050212502479553,
+          "sky": 0,
+          "target": 0,
+          "sequence": 564
+        },
+        {
+          "time": 4268.907809,
+          "low": 0.10000000149011612,
+          "high": 0.4050212502479553,
+          "sky": 0,
+          "target": 0,
+          "sequence": 567
+        },
+        {
+          "time": 4269.1336563,
+          "low": 0.10000000149011612,
+          "high": 0.4050212502479553,
+          "sky": 0,
+          "target": 0,
+          "sequence": 569
+        },
+        {
+          "time": 4269.4076637,
+          "low": 0.10000000149011612,
+          "high": 0.4050212502479553,
+          "sky": 0,
+          "target": 0,
+          "sequence": 572
+        },
+        {
+          "time": 4269.6339498,
+          "low": 0.10000000149011612,
+          "high": 0.4050212502479553,
+          "sky": 0,
+          "target": 0,
+          "sequence": 574
+        },
+        {
+          "time": 4269.9111237,
+          "low": 0.10000000149011612,
+          "high": 0.4050212502479553,
+          "sky": 0,
+          "target": 0,
+          "sequence": 577
+        },
+        {
+          "time": 4270.1721368,
+          "low": 0.10000000149011612,
+          "high": 0.4050212502479553,
+          "sky": 0,
+          "target": 0,
+          "sequence": 579
+        }
+      ],
+      "initial_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "rain_active_particles": 0,
+        "night_amount": 0,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "all_off_control_and_observer_alive": true,
+      "clear_visible": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 392874,
+        "grey_percentiles": [
+          0.0,
+          71.0,
+          120.0
+        ],
+        "grey_std": 32.782220670195265,
+        "grey_mean": 72.5705401234568,
+        "frame": 201
+      },
+      "clear_infrared": {
+        "size": [
+          640,
+          512
+        ],
+        "bytes": 64401,
+        "grey_percentiles": [
+          78.0,
+          116.0,
+          183.0
+        ],
+        "grey_std": 34.71413380775896,
+        "grey_mean": 128.16042785644532,
+        "frame": 205
+      },
+      "rain": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0.699999988079071,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 2,
+        "rain_active_particles": 15744,
+        "night_amount": 0,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "day": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 546504,
+        "grey_percentiles": [
+          0.0,
+          165.0,
+          209.0
+        ],
+        "grey_std": 61.15268357065945,
+        "grey_mean": 142.69174479166668,
+        "frame": 307
+      },
+      "day_observer": {
+        "size": [
+          960,
+          540
+        ],
+        "bytes": 246349,
+        "grey_percentiles": [
+          11.0,
+          112.0,
+          198.0
+        ],
+        "grey_std": 57.41663322018647,
+        "grey_mean": 108.5118711419753,
+        "frame": 275
+      },
+      "fog": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 547147,
+        "grey_percentiles": [
+          0.0,
+          158.0,
+          204.0
+        ],
+        "grey_std": 59.76622104334504,
+        "grey_mean": 137.33785397376542,
+        "frame": 351
+      },
+      "fog_contrast_ratio": 0.977327854701382,
+      "fog_observer": {
+        "size": [
+          960,
+          540
+        ],
+        "bytes": 213457,
+        "grey_percentiles": [
+          15.0,
+          76.0,
+          173.0
+        ],
+        "grey_std": 48.52187770089018,
+        "grey_mean": 80.8880150462963,
+        "frame": 309
+      },
+      "fog_observer_contrast_ratio": 0.8450839936018909,
+      "night": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 57703,
+        "grey_percentiles": [
+          0.0,
+          1.0,
+          2.0
+        ],
+        "grey_std": 1.2983006376758797,
+        "grey_mean": 0.8229890046296297,
+        "frame": 405
+      },
+      "night_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": true,
+        "hour": 2,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "rain_active_particles": 0,
+        "night_amount": 1,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "lock_held": true,
+      "final_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "rain_active_particles": 0,
+        "night_amount": 0,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "hardware": {
+        "sample_time_s": 16781488.9653378,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.001835860892577,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 22382702592,
+        "ue_ram_bytes": 9767006208,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4294201344,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 57.863054928517684,
+        "ue_gpu_engine_peak_pct": 51.46769870487438
+      }
+    },
+    "city_large": {
+      "power": [
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        }
+      ],
+      "gain": [
+        {
+          "time": 4490.2298635,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 465
+        },
+        {
+          "time": 4490.4733672,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 468
+        },
+        {
+          "time": 4490.7300741,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 470
+        },
+        {
+          "time": 4490.9938122,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 473
+        },
+        {
+          "time": 4491.2750534,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 476
+        },
+        {
+          "time": 4491.5303322,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 478
+        },
+        {
+          "time": 4491.8100637,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 481
+        },
+        {
+          "time": 4492.0739724,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 484
+        },
+        {
+          "time": 4492.3280868,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 486
+        },
+        {
+          "time": 4492.5948629,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 489
+        },
+        {
+          "time": 4492.8310296,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 491
+        },
+        {
+          "time": 4493.0911464,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 0,
+          "target": 0,
+          "sequence": 494
+        },
+        {
+          "time": 4493.4823303,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 498
+        },
+        {
+          "time": 4493.7485041,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 500
+        },
+        {
+          "time": 4493.9822031,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 503
+        },
+        {
+          "time": 4494.2176723,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 505
+        },
+        {
+          "time": 4494.4835943,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 508
+        },
+        {
+          "time": 4494.748276,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 510
+        },
+        {
+          "time": 4495.0148594,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 513
+        },
+        {
+          "time": 4495.2836872,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 516
+        },
+        {
+          "time": 4495.548223,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 518
+        },
+        {
+          "time": 4495.8148696,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 521
+        },
+        {
+          "time": 4496.0804788,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 524
+        },
+        {
+          "time": 4496.3497161,
+          "low": 0.10000000149011612,
+          "high": 0.43257877230644226,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 526
+        },
+        {
+          "time": 4496.7495249,
+          "low": 0.10000000149011612,
+          "high": 0.42507266998291016,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 530
+        },
+        {
+          "time": 4497.0173007,
+          "low": 0.10000000149011612,
+          "high": 0.4175768792629242,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 533
+        },
+        {
+          "time": 4497.2939351,
+          "low": 0.10000000149011612,
+          "high": 0.41007837653160095,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 536
+        },
+        {
+          "time": 4497.5522779,
+          "low": 0.10000000149011612,
+          "high": 0.4050755798816681,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 538
+        },
+        {
+          "time": 4497.848264,
+          "low": 0.10000000149011612,
+          "high": 0.3986971378326416,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 541
+        },
+        {
+          "time": 4498.1151449,
+          "low": 0.10000000149011612,
+          "high": 0.3939797282218933,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 544
+        },
+        {
+          "time": 4498.385091,
+          "low": 0.10000000149011612,
+          "high": 0.3904818892478943,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 547
+        },
+        {
+          "time": 4498.6160716,
+          "low": 0.10000000149011612,
+          "high": 0.38867518305778503,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 549
+        },
+        {
+          "time": 4498.8909913,
+          "low": 0.10000000149011612,
+          "high": 0.3865533769130707,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 552
+        },
+        {
+          "time": 4499.1487889,
+          "low": 0.10000000149011612,
+          "high": 0.3854539096355438,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 554
+        },
+        {
+          "time": 4499.4182011,
+          "low": 0.10000000149011612,
+          "high": 0.3841676414012909,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 557
+        },
+        {
+          "time": 4499.6892094,
+          "low": 0.10000000149011612,
+          "high": 0.38321441411972046,
+          "sky": 0,
+          "target": 10595,
+          "sequence": 560
+        },
+        {
+          "time": 4500.2187368,
+          "low": 0.10000000149011612,
+          "high": 0.39321982860565186,
+          "sky": 0,
+          "target": 0,
+          "sequence": 565
+        },
+        {
+          "time": 4500.5282598,
+          "low": 0.10000000149011612,
+          "high": 0.40073665976524353,
+          "sky": 0,
+          "target": 0,
+          "sequence": 568
+        },
+        {
+          "time": 4500.797409,
+          "low": 0.10000000149011612,
+          "high": 0.40822577476501465,
+          "sky": 0,
+          "target": 0,
+          "sequence": 571
+        },
+        {
+          "time": 4501.0482669,
+          "low": 0.10000000149011612,
+          "high": 0.4130657911300659,
+          "sky": 0,
+          "target": 0,
+          "sequence": 573
+        },
+        {
+          "time": 4501.3301967,
+          "low": 0.10000000149011612,
+          "high": 0.4188590347766876,
+          "sky": 0,
+          "target": 0,
+          "sequence": 576
+        },
+        {
+          "time": 4501.5936338,
+          "low": 0.10000000149011612,
+          "high": 0.42314714193344116,
+          "sky": 0,
+          "target": 0,
+          "sequence": 579
+        },
+        {
+          "time": 4501.8320402,
+          "low": 0.10000000149011612,
+          "high": 0.42536306381225586,
+          "sky": 0,
+          "target": 0,
+          "sequence": 581
+        },
+        {
+          "time": 4502.0923655,
+          "low": 0.10000000149011612,
+          "high": 0.42796260118484497,
+          "sky": 0,
+          "target": 0,
+          "sequence": 584
+        },
+        {
+          "time": 4502.3148947,
+          "low": 0.10000000149011612,
+          "high": 0.4293091893196106,
+          "sky": 0,
+          "target": 0,
+          "sequence": 586
+        },
+        {
+          "time": 4502.5895795,
+          "low": 0.10000000149011612,
+          "high": 0.4308849275112152,
+          "sky": 0,
+          "target": 0,
+          "sequence": 589
+        },
+        {
+          "time": 4502.8488267,
+          "low": 0.10000000149011612,
+          "high": 0.4317028224468231,
+          "sky": 0,
+          "target": 0,
+          "sequence": 591
+        },
+        {
+          "time": 4503.1153405,
+          "low": 0.10000000149011612,
+          "high": 0.4326585829257965,
+          "sky": 0,
+          "target": 0,
+          "sequence": 594
+        }
+      ],
+      "initial_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "rain_active_particles": 0,
+        "night_amount": 0,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "all_off_control_and_observer_alive": true,
+      "clear_visible": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 468537,
+        "grey_percentiles": [
+          15.0,
+          84.0,
+          127.0
+        ],
+        "grey_std": 35.36411444324323,
+        "grey_mean": 77.43998842592593,
+        "frame": 221
+      },
+      "clear_infrared": {
+        "size": [
+          640,
+          512
+        ],
+        "bytes": 49425,
+        "grey_percentiles": [
+          23.0,
+          31.0,
+          190.0
+        ],
+        "grey_std": 59.57486345585119,
+        "grey_mean": 63.01912841796875,
+        "frame": 221
+      },
+      "rain": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0.699999988079071,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 2,
+        "rain_active_particles": 15840,
+        "night_amount": 0,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "day": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 473048,
+        "grey_percentiles": [
+          15.0,
+          83.0,
+          173.0
+        ],
+        "grey_std": 44.09208700573774,
+        "grey_mean": 81.35430941358025,
+        "frame": 324
+      },
+      "day_observer": {
+        "size": [
+          960,
+          540
+        ],
+        "bytes": 179121,
+        "grey_percentiles": [
+          3.0,
+          102.0,
+          184.0
+        ],
+        "grey_std": 63.50551141476434,
+        "grey_mean": 90.05695023148148,
+        "frame": 288
+      },
+      "fog": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 318411,
+        "grey_percentiles": [
+          54.0,
+          75.0,
+          126.0
+        ],
+        "grey_std": 24.80484096589019,
+        "grey_mean": 78.79958767361111,
+        "frame": 367
+      },
+      "fog_contrast_ratio": 0.5625689925419569,
+      "fog_observer": {
+        "size": [
+          960,
+          540
+        ],
+        "bytes": 161121,
+        "grey_percentiles": [
+          7.0,
+          82.0,
+          167.0
+        ],
+        "grey_std": 55.09523291723318,
+        "grey_mean": 77.77280478395062,
+        "frame": 323
+      },
+      "fog_observer_contrast_ratio": 0.8675661637837647,
+      "night": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 93646,
+        "grey_percentiles": [
+          0.0,
+          1.0,
+          5.0
+        ],
+        "grey_std": 9.684535598005482,
+        "grey_mean": 2.0180367476851853,
+        "frame": 421
+      },
+      "night_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": true,
+        "hour": 2,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "rain_active_particles": 0,
+        "night_amount": 1,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "lock_held": true,
+      "final_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "rain_active_particles": 0,
+        "night_amount": 0,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "hardware": {
+        "sample_time_s": 16781722.5468223,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.996283477573915,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 26421985280,
+        "ue_ram_bytes": 13249642496,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4449370112,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 60.8424336973479,
+        "ue_gpu_engine_peak_pct": 48.09133309343437
+      }
+    }
+  },
+  "limits": "No flight, no all-city traversal, visual weather only; isolated data",
+  "disconnect_reconnect_without_stopping": true,
+  "return_to_small": {
+    "connected": true,
+    "run_id": "39C8B9A549FAC9C88829D6A105624D24",
+    "rain": {
+      "time_supported": true,
+      "fog_supported": true,
+      "rain_supported": true,
+      "rain_unavailable_reason": "",
+      "time_override": false,
+      "hour": 12,
+      "fog": 0,
+      "rain": 0,
+      "clouds_supported": true,
+      "clouds": 0,
+      "cloud_layer_active": false,
+      "cloud_atmosphere_created": false,
+      "rain_view_volumes": 0,
+      "rain_active_particles": 0,
+      "night_amount": 0,
+      "day_sky_meshes": 1,
+      "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+    }
+  },
+  "stop_button_stopped_owned_session": true,
+  "owned_session_stopped": true
+}

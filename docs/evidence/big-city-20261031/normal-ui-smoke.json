@@ -1,0 +1,15 @@
+{
+  "default_scene": "city",
+  "scenes": [
+    {
+      "id": "city",
+      "installed": true
+    },
+    {
+      "id": "city_large",
+      "installed": true
+    }
+  ],
+  "errors": [],
+  "auto_unreal": false
+}

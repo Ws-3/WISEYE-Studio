@@ -1,0 +1,46 @@
+[
+  {
+    "Path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\calibration.json",
+    "Hash": "D7E2666ED95639DBD4971856D9B3404A74C6CEE6D43BCD8CC70A0F8F9C73069B"
+  },
+  {
+    "Path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\device_dimensions.json",
+    "Hash": "867297B288EFDD38720ED17F36E98EB0712C58BC4014B08B5BB025263024CBA4"
+  },
+  {
+    "Path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\sensors.json",
+    "Hash": "820A291D4B2E0E05C97F438A7DB91657AB9796DED626F2AF03CB7249A5CB72CE"
+  },
+  {
+    "Path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\standard_rig.json",
+    "Hash": "69509404A6C57E86FF89BBD1BE9B277C7D64FA93E943CFEEA08DEB3DE358F7C1"
+  },
+  {
+    "Path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\thermal_material_classes.json",
+    "Hash": "6F7BFD5F473B36643542C08A9FCBF77E0216317965A8F7E98A737E56F050ABAA"
+  },
+  {
+    "Path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\CitySample\\placement.json",
+    "Hash": "CD0821D378BD8C3AAA606EE8461116B1CF955382845EB3DCB3B23421C8A2A1D2"
+  },
+  {
+    "Path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\Fleets\\city_large.json",
+    "Hash": "508BCFFF16F2ED8A0D9375D31B2F0E0ED35711F8264457E1840A120B427AFB39"
+  },
+  {
+    "Path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\Fleets\\city.json",
+    "Hash": "27A3D6F8FEF93E391BE2A6CD65361336201F55EC9532E808ABF6C6DC3EBE84F7"
+  },
+  {
+    "Path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\Layouts\\city.json",
+    "Hash": "228509492AFF0A8577FDF3E56570FF628BD42C2D22A2DABED17D1C4039389925"
+  },
+  {
+    "Path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\Scenes\\city_large.json",
+    "Hash": "C988A42FBADFB4DCB4F86594361C7D9B277479314F901E774E21AF010FC14AD3"
+  },
+  {
+    "Path": "E:\\Projects\\WISEYE-IR-Work\\preview-data\\ue5\\WISEYE\\Config\\WISEYE\\Scenes\\city.json",
+    "Hash": "E21C5BBD60565A9FA8D0EA4595D4E957F968BD9F8AE833BB96F6A2C7F227B493"
+  }
+]

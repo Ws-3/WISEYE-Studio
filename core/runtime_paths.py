@@ -9,7 +9,8 @@ SOURCE_ROOT = Path(__file__).resolve().parents[1]
 IS_RELEASE = bool(getattr(sys, 'frozen', False) or os.environ.get('WISEYE_RELEASE_ROOT'))
 INSTALL_ROOT = Path(os.environ.get('WISEYE_RELEASE_ROOT', Path(sys.executable).parent if IS_RELEASE else SOURCE_ROOT)).resolve()
 RESOURCE_ROOT = Path(os.environ.get('WISEYE_RESOURCES_DIR', INSTALL_ROOT / 'Resources' if IS_RELEASE else SOURCE_ROOT)).resolve()
-DATA_ROOT = Path(os.environ.get('WISEYE_DATA_DIR', Path(os.environ.get('LOCALAPPDATA', str(Path.home()))) / 'WISEYE' if IS_RELEASE else SOURCE_ROOT)).resolve()
+PORTABLE = IS_RELEASE and (INSTALL_ROOT / 'portable.flag').is_file()
+DATA_ROOT = Path(os.environ.get('WISEYE_DATA_DIR', INSTALL_ROOT / 'UserData' if PORTABLE else Path(os.environ.get('LOCALAPPDATA', str(Path.home()))) / 'WISEYE' if IS_RELEASE else SOURCE_ROOT / 'UserData' if (SOURCE_ROOT / 'UserData').is_dir() else SOURCE_ROOT)).resolve()
 
 
 def initialize_data():

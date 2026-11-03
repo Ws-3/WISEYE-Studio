@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "scope": "component-level filename heuristics; not measured thermal properties",
+  "classes": [
+    {"id": 1, "name": "road", "pattern": "asphalt|tarmac|(^|[^a-z])road([^a-z]|$)", "day_signal": 0.38, "night_signal": 0.25},
+    {"id": 2, "name": "masonry", "pattern": "concrete|pavement|sidewalk|brick|facade|(^|[^a-z])(wall|stone)([^a-z]|$)", "day_signal": 0.32, "night_signal": 0.27},
+    {"id": 3, "name": "glass", "pattern": "glass|window", "day_signal": 0.16, "night_signal": 0.15},
+    {"id": 4, "name": "vegetation", "pattern": "foliage|leaves|(^|[^a-z])(tree|leaf|bark|oak|grass|hedge|shrub|plant)([^a-z]|$)", "day_signal": 0.28, "night_signal": 0.24},
+    {"id": 5, "name": "metal", "pattern": "metal|steel|alumin", "day_signal": 0.24, "night_signal": 0.20},
+    {"id": 6, "name": "water", "pattern": "(^|[^a-z])(water|sea|lake|river)([^a-z]|$)", "day_signal": 0.23, "night_signal": 0.25}
+  ]
+}

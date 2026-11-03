@@ -12,7 +12,7 @@ import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--release', type=Path, required=True)
-parser.add_argument('--scene', choices=['original', 'test_range', 'city'], default='original')
+parser.add_argument('--scene', choices=['city'], default='city')
 parser.add_argument('--allow-flight', action='store_true')
 parser.add_argument('--unicode-paths', action='store_true')
 parser.add_argument('--check-features', action='store_true', help='Exercise enhanced IR and environment against the packaged Game')

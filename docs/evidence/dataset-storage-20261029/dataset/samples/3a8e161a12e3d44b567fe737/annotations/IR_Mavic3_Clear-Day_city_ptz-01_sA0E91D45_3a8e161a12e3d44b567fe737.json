@@ -1,0 +1,71 @@
+{
+  "sample_token": "4990C14A49C65873A9B61E923E7DAB4B",
+  "run_id": "A0E91D454AF73E94E3DC1CB7311AC7D4",
+  "scene_id": "city",
+  "device_id": "ptz-01",
+  "sensor_id": "infrared",
+  "environment": {
+    "time_supported": true,
+    "fog_supported": true,
+    "rain_supported": false,
+    "time_override": true,
+    "hour": 12,
+    "fog": 0,
+    "rain": 0,
+    "clouds_supported": true,
+    "clouds": 0,
+    "cloud_layer_active": false,
+    "cloud_atmosphere_created": false,
+    "rain_view_volumes": 0,
+    "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+  },
+  "scenario_models": [
+    "mavic3"
+  ],
+  "context_source": "capture_tick",
+  "frame_id": "A0E91D454AF73E94E3DC1CB7311AC7D4/ptz-01/infrared/4534",
+  "frame_number": 4534,
+  "simulation_time_s": 5.614516735076904,
+  "width": 640,
+  "height": 512,
+  "horizontal_fov_deg": 25,
+  "intrinsics_fx_fy_cx_cy": [
+    1443.4267211718584,
+    1443.4267211718584,
+    320,
+    256
+  ],
+  "camera_position_cm": [
+    -27071.664272729842,
+    -2121.8356595649834,
+    4123.959636761286
+  ],
+  "camera_rotation_pitch_yaw_roll_deg": [
+    25.099837095612877,
+    -114.77914486635237,
+    0.09333736498304067
+  ],
+  "bbox_format": "xyxy_pixels_exclusive_visible_extent",
+  "visibility_method": "raster_scene_vs_isolated_target_depth",
+  "gt_policy": {
+    "keep_partial_occlusion": true,
+    "keep_partial_outside": true,
+    "min_visible_pixels": 1,
+    "min_visible_fraction": 0
+  },
+  "annotation_status": "complete",
+  "training_eligible": true,
+  "negative_sample": true,
+  "objects": [],
+  "ignored_objects": [],
+  "encoding": "jpeg",
+  "sample_group_id": "3a8e161a12e3d44b567fe737",
+  "pair_id": "4990C14A49C65873A9B61E923E7DAB4B",
+  "filename_model": "Mavic3",
+  "filename_weather": "Clear-Day",
+  "counterpart_image": "VIS_Mavic3_Clear-Day_city_ptz-01_sA0E91D45_3a8e161a12e3d44b567fe737.jpg",
+  "capture_delta_ms": 0.0,
+  "request_round_trip_ms": 366.65789999983645,
+  "image_sha256": "23d7d9ee180d46e8bb6d6dede76e549fc723d6af73fdd0345958f81b51db8d99",
+  "dataset_schema": 2
+}

@@ -1,5 +1,7 @@
 # WISEYE 实时图像通道
 
+2026-10-28：本机日常统一双击根目录 **`Start-WISEYE-Studio.vbs`**，一次启动当前城市预览、飞控和桌面。下方保留的分步 PowerShell 命令面向开发；在仓库 PowerShell 执行，遇执行策略限制加 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File`。已启动UE时仅重开桌面用 `scripts/Start-Desktop.ps1 -Connect`。详见[当前使用指南](USER_GUIDE.md)。
+
 ## 2026-10-22 工作台预览与外部流分开（最新优先）
 
 交互工作台使用UE最新JPEG缓存直连，不再经过本机H.264/RTSP重编码环路。40秒正式单窗口内容年龄：VIS中位205/P95269ms、IR184/251ms、OBS187/271ms，原始尺寸保持。每源独立连接、单个在途请求、源帧号去重、单帧显示邮箱和2秒源停滞提示；详情及原基线见 [SENSOR_LATENCY_REPORT.md](SENSOR_LATENCY_REPORT.md)。外部扩展继续订阅下方RTSP地址，工作台数据不代表外部播放器延迟。
@@ -48,8 +50,8 @@ CH1/CH2 通道名、端口、帧率和 JPEG 桥接质量在 `configs/app.json` �
 
 1. 确保 `ffmpeg -version` 可以运行。
 2. 运行 `scripts/Setup-RTSP.ps1`。脚本下载锁定的 MediaMTX 1.21.2 并核对官方 SHA256；二进制文件不提交 Git。
-3. 双击 `Start-ProjectAirSim.cmd`。它会启动 MediaMTX、双通道网关、UE 和 AirSim。
-4. 运行 `Start-Desktop.cmd`，连接 UE，然后选择 CH1 或 CH2。
+3. 在 PowerShell 中运行 `scripts/Start-ProjectAirSim.ps1`。它会启动 MediaMTX、双通道网关、UE 和 AirSim。
+4. 运行 `scripts/Start-Desktop.ps1`，连接 UE，然后选择 CH1 或 CH2。
 
 也可单独运行 `scripts/Start-RTSP.ps1`。网关在 UE 未就绪时会等待并自动重试。
 

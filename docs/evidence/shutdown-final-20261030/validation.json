@@ -1,0 +1,11 @@
+{
+  "core_tests": 94,
+  "qt_tests": 54,
+  "ports_released": {
+    "50051": true,
+    "50052": true,
+    "50100": true
+  },
+  "passed": true,
+  "note": "No UE binary/package rebuild; current unified GT preview retained."
+}

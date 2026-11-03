@@ -1,0 +1,553 @@
+{
+  "east_edge_x_cm": -26966.552734375,
+  "north_edge_y_cm": -1992.68798828125,
+  "gimbal_position_cm": [
+    -27066.552734375,
+    -2092.68798828125,
+    4059.116816520691
+  ],
+  "surface_z_cm": 4055,
+  "inset_both_edges_cm": 100,
+  "samples": [
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 18,
+      "position_cm": [
+        -26750.000023363733,
+        -2074.9994321695503,
+        77.11681270599365
+      ],
+      "surface_cm": [
+        -26750.000023363733,
+        -2074.9994321695503,
+        72.99999618530273
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 19,
+      "position_cm": [
+        -26875,
+        -2075,
+        1774.116938591018
+      ],
+      "surface_cm": [
+        -26875,
+        -2075,
+        1770.000122070327
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 20,
+      "position_cm": [
+        -26937.5,
+        -2075,
+        1774.1169385910034
+      ],
+      "surface_cm": [
+        -26937.5,
+        -2075,
+        1770.0001220703125
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 21,
+      "position_cm": [
+        -26968.75,
+        -2075,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -26968.75,
+        -2075,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 22,
+      "position_cm": [
+        -26953.125,
+        -2075,
+        1774.1169385910034
+      ],
+      "surface_cm": [
+        -26953.125,
+        -2075,
+        1770.0001220703125
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 23,
+      "position_cm": [
+        -26960.9375,
+        -2075,
+        1774.1169385910034
+      ],
+      "surface_cm": [
+        -26960.9375,
+        -2075,
+        1770.0001220703125
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 24,
+      "position_cm": [
+        -26964.84375,
+        -2075,
+        1774.1169385910034
+      ],
+      "surface_cm": [
+        -26964.84375,
+        -2075,
+        1770.0001220703125
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 25,
+      "position_cm": [
+        -26966.796875,
+        -2075,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -26966.796875,
+        -2075,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 26,
+      "position_cm": [
+        -26965.8203125,
+        -2075,
+        1774.1169385910034
+      ],
+      "surface_cm": [
+        -26965.8203125,
+        -2075,
+        1770.0001220703125
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 27,
+      "position_cm": [
+        -26966.30859375,
+        -2075,
+        1774.1169385910034
+      ],
+      "surface_cm": [
+        -26966.30859375,
+        -2075,
+        1770.0001220703125
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 28,
+      "position_cm": [
+        -27066.552734375,
+        -1937.5,
+        1774.116938591018
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -1937.5,
+        1770.000122070327
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 29,
+      "position_cm": [
+        -27066.552734375,
+        -2006.25,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -2006.25,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 30,
+      "position_cm": [
+        -27066.552734375,
+        -1971.875,
+        1774.116938591018
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -1971.875,
+        1770.000122070327
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 31,
+      "position_cm": [
+        -27066.552734375,
+        -1989.0625,
+        1774.116938591018
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -1989.0625,
+        1770.000122070327
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 32,
+      "position_cm": [
+        -27066.552734375,
+        -1997.65625,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -1997.65625,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 33,
+      "position_cm": [
+        -27066.552734375,
+        -1993.359375,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -1993.359375,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 34,
+      "position_cm": [
+        -27066.552734375,
+        -1991.2109375,
+        1774.116938591018
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -1991.2109375,
+        1770.000122070327
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 35,
+      "position_cm": [
+        -27066.552734375,
+        -1992.28515625,
+        1774.116938591018
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -1992.28515625,
+        1770.000122070327
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 36,
+      "position_cm": [
+        -27066.552734375,
+        -1992.822265625,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -1992.822265625,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 37,
+      "position_cm": [
+        -27066.552734375,
+        -1992.5537109375,
+        1774.116938591018
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -1992.5537109375,
+        1770.000122070327
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 38,
+      "position_cm": [
+        -27066.552734375,
+        -2092.68798828125,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -2092.68798828125,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 39,
+      "position_cm": [
+        -27101.552734375,
+        -2127.68798828125,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27101.552734375,
+        -2127.68798828125,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 40,
+      "position_cm": [
+        -27101.552734375,
+        -2092.68798828125,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27101.552734375,
+        -2092.68798828125,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 41,
+      "position_cm": [
+        -27101.552734375,
+        -2057.68798828125,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27101.552734375,
+        -2057.68798828125,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 42,
+      "position_cm": [
+        -27066.552734375,
+        -2127.68798828125,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -2127.68798828125,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 43,
+      "position_cm": [
+        -27066.552734375,
+        -2092.68798828125,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -2092.68798828125,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 44,
+      "position_cm": [
+        -27066.552734375,
+        -2057.68798828125,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27066.552734375,
+        -2057.68798828125,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 45,
+      "position_cm": [
+        -27031.552734375,
+        -2127.68798828125,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27031.552734375,
+        -2127.68798828125,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 46,
+      "position_cm": [
+        -27031.552734375,
+        -2092.68798828125,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27031.552734375,
+        -2092.68798828125,
+        4055
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-corner",
+      "error": "",
+      "sequence": 47,
+      "position_cm": [
+        -27031.552734375,
+        -2057.68798828125,
+        4059.116816520691
+      ],
+      "surface_cm": [
+        -27031.552734375,
+        -2057.68798828125,
+        4055
+      ]
+    }
+  ]
+}

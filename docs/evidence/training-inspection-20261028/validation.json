@@ -1,0 +1,25 @@
+{
+  "run_id": "785B6501479A746720D27B9A3612EF75",
+  "core_tests": 72,
+  "related_qt_tests": 31,
+  "live_independent_rates": true,
+  "live_dual_camera_fusion": true,
+  "live_zoom_window": true,
+  "capture_delta_ms": 0.0,
+  "raw_gt_center_distance_px": 105.09942382757808,
+  "rotation_gt_center_distance_px": 78.7493221500373,
+  "baseline_cm": 12.000000000001473,
+  "flight_status": "ready",
+  "motor_rpm": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "limits": [
+    "GT API maximum remains 2 FPS",
+    "rotation compensation does not remove depth-dependent baseline parallax",
+    "request duration is not one-way network latency",
+    "static local test, not a two-PC or moving-target accuracy test"
+  ]
+}

@@ -77,7 +77,8 @@ def resolved_ue_state_ready(reply):
     if not isinstance(reply,dict) or reply.get('status')!='ok':return False
     state=reply.get('payload',{})
     if not isinstance(state,dict):return False
-    if not state.get('run_id') or state.get('scene_id') not in ('original','test_range','city'):return False
+    if not state.get('run_id') or state.get('scene_id') not in ('original','test_range','city','city_large'):return False
+    if state['scene_id']=='city_large' and (state.get('world_streaming_ready') is not True or state.get('world_streaming_enabled') is not True):return False
     def pose(value):
         return isinstance(value,list) and len(value)==3 and all(type(n) in (int,float) and math.isfinite(n) for n in value)
     if not pose(state.get('initial_drone_position_cm')):return False
@@ -165,12 +166,31 @@ class FlightController:
         self.last_manual_input = [0.0, 0.0, 0.0, 0.0]
         self.control_writers = set()
         self.closed = False
-        self.scene_id = "original"
+        self.scene_id = "city"
         self.uploaded_route = None
         self.active_route = None
         self.route_status = "idle"
         self.route_next_index = 0
         self.rotor_sample = (0.0, None, (0.0,)*4)
+        self.placing = False
+        self.pose_sample = None
+
+    def on_pose(self, topic, message):
+        """Cache authoritative physics telemetry; the topic thread never calls RPC."""
+        try:
+            stamp=message['time_stamp']
+            xyz=tuple(message['position'][k] for k in 'xyz')
+            q=tuple(message['orientation'][k] for k in ('w','x','y','z'))
+            if type(stamp) is not int or stamp<0 or any(type(v) not in (int,float) or not math.isfinite(v) for v in (*xyz,*q)):return
+            if max(map(abs,xyz))>100000:return
+            previous=self.pose_sample
+            if previous and previous[1] is not None and stamp<=previous[1]:return
+            norm=math.sqrt(sum(v*v for v in q))
+            if not .5<norm<1.5:return
+            w,x,y,z=(v/norm for v in q)
+            yaw=math.degrees(math.atan2(2*(w*z+x*y),1-2*(y*y+z*z)))
+            self.pose_sample=(time.monotonic(),stamp,tuple(map(float,xyz)),yaw)
+        except (KeyError,TypeError,ValueError):return
 
     def on_rotors(self, topic, message):
         """Topic thread only replaces one immutable sample; never invokes RPC."""
@@ -187,8 +207,12 @@ class FlightController:
         return wiseeye_request(command,dict(payload or {},device_id=self.device_id))
 
     def initialize_route(self) -> None:
-        state = self.drone.get_ground_truth_kinematics()["pose"]["position"]
+        kinematics=self.drone.get_ground_truth_kinematics()["pose"]
+        state = kinematics["position"]
         x, y, z = (float(state[key]) for key in "xyz")
+        q=kinematics.get('orientation',dict(w=1,x=0,y=0,z=0))
+        yaw=math.degrees(math.atan2(2*(q['w']*q['z']+q['x']*q['y']),1-2*(q['y']**2+q['z']**2)))
+        self.pose_sample=(time.monotonic(),None,(x,y,z),yaw)
         self.initial_position = (x, y, z)
         self.path = [
             [x + 6.0, y, z - 1.0],
@@ -209,8 +233,12 @@ class FlightController:
             self.drone.cancel_last_task()
         return self.command_generation
 
-    async def _issue(self, command, *, wake_route: bool = False) -> None:
-        generation = self._cancel_active()
+    async def _issue(self, command, *, wake_route: bool = False, replace: bool = False) -> None:
+        if replace:
+            # AirSim velocity APIs already use SingleTaskCall to replace the
+            # previous goal. Avoid a synchronous CancelLastTask RPC per tick.
+            self.command_generation+=1;generation=self.command_generation
+        else:generation = self._cancel_active()
         task = await command
         self.active_task = task
 
@@ -306,20 +334,22 @@ class FlightController:
                     self.route_wakeup.set()
 
     def state(self) -> dict:
-        position = [0.0, 0.0, 0.0]
-        try:
-            kinematics = self.drone.get_ground_truth_kinematics()["pose"]
-            pose = kinematics["position"]
-            position = [float(pose[key]) for key in "xyz"]
-            q = kinematics.get('orientation', dict(w=1,x=0,y=0,z=0))
-            yaw_deg = math.degrees(math.atan2(2*(q['w']*q['z']+q['x']*q['y']),1-2*(q['y']**2+q['z']**2)))
-        except Exception as exc:
-            self.last_error = str(exc)
-            yaw_deg = 0.0
+        # A synchronous NNG GetKinematics here used to block the entire control
+        # event loop for 60s after map travel, starving the session-change watcher.
+        # Read one immutable topic sample instead, preserving the last position
+        # with an explicit stale flag while the old scene is being replaced.
+        sample=self.pose_sample
+        age=time.monotonic()-sample[0] if sample else None
+        fresh=age is not None and age<2
+        position=list(sample[2]) if sample else [0.,0.,0.]
+        yaw_deg=sample[3] if sample else 0.
         return {
             "application": "WISEYE AirSim Control",
             "run_id": self.play_session_id,
-            "connected": True,
+            "connected": fresh,
+            "telemetry_valid": fresh,
+            "telemetry_age_s": age,
+            "telemetry_source": "actual_pose_topic" if sample and sample[1] is not None else "initial_kinematics_rpc",
             "drone_id": self.device_id,
             "flight_status": "ready" if self.ready_on_ground else "active",
             "paused": self.paused,
@@ -343,6 +373,10 @@ class FlightController:
     async def execute(self, command: str, payload: dict) -> dict:
         if command in ("sim.ping", "sim.get_state"):
             return self.state()
+        if self.placing:
+            raise ValueError('正在应用设备位置，请稍候')
+        if command == 'placement.apply':
+            return await self.apply_placement(payload)
         if command == 'route.upload':
             self.uploaded_route = json.loads(json.dumps(validate_route(payload, self.scene_id)))
             return self.state()
@@ -474,7 +508,7 @@ class FlightController:
             self.last_manual_input = values
             self.manual_command_count += 1
             if not any(values):
-                await self._issue(self._brake_and_hold())
+                await self._issue(self._brake_and_hold(),replace=True)
             else:
                 await self._issue(
                     self.drone.move_by_velocity_body_frame_async(
@@ -484,15 +518,63 @@ class FlightController:
                         duration=0.35,
                         yaw_is_rate=True,
                         yaw=yaw * math.radians(70.0),
-                    )
+                    ),replace=True
                 )
         else:
             raise KeyError("Command is not supported")
         self.last_error = ''
         if command == 'sim.reset':
             await asyncio.to_thread(self.ue_request, 'sim.reset')
-        await asyncio.to_thread(self.ue_request, 'flight.sync_state', {'mode': self.mode, 'paused': self.paused})
+        if command!='flight.set_input':
+            await asyncio.to_thread(self.ue_request, 'flight.sync_state', {'mode': self.mode, 'paused': self.paused})
         return self.state()
+
+    async def apply_placement(self, payload):
+        """Move the disarmed physics body, then confirm the matching UE anchor."""
+        xyz=payload.get('position_cm');yaw=payload.get('yaw_deg')
+        if (payload.get('scene_id')!=self.scene_id or payload.get('run_id')!=self.play_session_id or
+            not isinstance(payload.get('request_token'),str) or not 1<=len(payload['request_token'])<=64 or
+            not isinstance(xyz,list) or len(xyz)!=3 or
+            any(type(v) not in (int,float) or not math.isfinite(v) or abs(v)>1e7 for v in xyz) or
+            type(yaw) not in (int,float) or not math.isfinite(yaw) or abs(yaw)>180):
+            raise ValueError('当前场景/会话和有效位置、偏航角不能为空')
+        if not self.ready_on_ground or self.active_task is not None or any(rpm>1 for rpm in self.rotor_sample[2]):
+            raise ValueError('请先降落并等待电机停止，再调整无人机位置')
+        self.placing=True;old_pose=None;moved=False
+        old_origin,old_path,old_sample=self.initial_position,self.path,self.pose_sample
+        try:
+            check=await asyncio.to_thread(self.ue_request,'placement.validate',payload)
+            if not check or check.get('status')!='ok':raise ValueError('UE 未确认当前放置会话，位置未修改')
+            old_pose=await asyncio.to_thread(self.drone.get_ground_truth_pose)
+            radians=math.radians(yaw)
+            pose=dict(frame_id=old_pose.get('frame_id','DEFAULT_FRAME'),translation=dict(zip('xyz',(xyz[0]/100,xyz[1]/100,-xyz[2]/100))),
+                      rotation=dict(w=math.cos(radians/2),x=0,y=0,z=math.sin(radians/2)))
+            moved=True  # An RPC timeout can occur after the server applied it.
+            if await asyncio.to_thread(self.drone.set_pose,pose,True) is not True:
+                raise ValueError('飞控拒绝更新无人机位置')
+            self.initialize_route()
+            reply=None
+            for _ in range(15):
+                reply=await asyncio.to_thread(self.ue_request,'placement.apply',payload)
+                if reply and reply.get('status')=='ok':break
+                if not reply or 'flight controller first' not in reply.get('error',{}).get('message',''):break
+                await asyncio.sleep(.05)
+            if not reply or reply.get('status')!='ok':
+                raise ValueError('UE 未能同步新位置：'+str((reply or {}).get('error',{}).get('message','连接中断')))
+            self.active_route=None;self.route_status='idle';self.route_next_index=0
+            self.last_manual_input=[0.,0.,0.,0.];self.last_error=''
+            state=self.state();state['placement_applied']=dict(request_token=payload['request_token'],device_id=self.device_id)
+            return state
+        except Exception as error:
+            self.initial_position,self.path=old_origin,old_path
+            self.pose_sample=old_sample
+            if moved and old_pose is not None:
+                try:
+                    if await asyncio.to_thread(self.drone.set_pose,old_pose,True) is not True:raise RuntimeError('rollback rejected')
+                except Exception as rollback:
+                    raise ValueError(f'{error}；恢复原位置失败：{rollback}') from error
+            raise
+        finally:self.placing=False
 
     async def publish_rotors(self) -> None:
         """Run independently of local-key polling and interactive / --loops mode."""
@@ -570,8 +652,11 @@ class FleetController:
     async def execute(self,command,payload):
         ident=payload.get('device_id','uav-01')
         if ident not in self.controllers:raise ValueError('Unknown drone device_id')
-        await self.controllers[ident].execute(command,payload)
-        return self.state(ident)
+        result=await self.controllers[ident].execute(command,payload)
+        state=dict(result)
+        state['fleet']=[result if c.device_id==ident else c.state() for c in self.controllers.values()]
+        if command=='placement.apply':state['placement_applied']=result['placement_applied']
+        return state
     async def close(self,*,skip_remote=False):
         self.closed=True
         for writer in list(self.control_writers):writer.close()
@@ -626,9 +711,22 @@ async def handle_control(
     finally:
         controller.control_writers.discard(writer)
         writer.close()
-        with suppress(Exception):
-            with suppress(ConnectionError, OSError):
-                await writer.wait_closed()
+        with suppress(ConnectionError, OSError):
+            await writer.wait_closed()
+
+
+async def close_control_server(server, controller, *, skip_remote):
+    """Stop accepting, close clients, then await server shutdown (Python 3.12+)."""
+    if server:
+        server.close()
+    if controller:
+        await controller.close(skip_remote=skip_remote)
+    if server:
+        # wait_closed also waits for active clients. Waiting before closing the
+        # persistent desktop sockets deadlocked map travel on Python 3.14.
+        if hasattr(server,'close_clients'):
+            server.close_clients()
+        await server.wait_closed()
 
 
 async def fly(scene: str, loops: int, velocity: float, connection_timeout: float) -> None:
@@ -647,7 +745,7 @@ async def fly(scene: str, loops: int, velocity: float, connection_timeout: float
         ue_state = await wait_for_ue_snapshot(connection_timeout)
         print('UE confirmed initial poses: '+json.dumps({d['id']:d['initial_position_cm'] for d in ue_state['payload']['devices'] if d['kind']=='drone'}),flush=True)
         active_scene = (ue_state or {}).get('payload', {}).get('scene_id')
-        if active_scene in ('original', 'test_range', 'city'):
+        if active_scene in ('original', 'test_range', 'city', 'city_large'):
             scene = active_scene
         # UE can accept the service socket a moment before a full scene reload is
         # ready. Allow the real reload/actor creation operation to complete.
@@ -662,6 +760,7 @@ async def fly(scene: str, loops: int, velocity: float, connection_timeout: float
             ctl=FlightController(world,robot,loops,velocity,ready_on_ground=loops==0,device_id=device['id'])
             ctl.scene_id=scene;ctl.play_session_id=(ue_state or {}).get('payload',{}).get('run_id');ctl.initialize_route();controllers.append(ctl)
             client.subscribe(robot.robot_info["rotor_info"],ctl.on_rotors)
+            client.subscribe(robot.robot_info["actual_pose"],ctl.on_pose)
         controller=controllers[0];drone=drones[0];fleet=FleetController(controllers)
         rotor_publisher=asyncio.create_task(controller.publish_rotors())
         if loops>0:
@@ -687,8 +786,9 @@ async def fly(scene: str, loops: int, velocity: float, connection_timeout: float
             if capture and capture.get("status") == "ok":
                 print("Lidar point cloud:", capture["payload"].get("point_cloud_path"), flush=True)
         else:
-            async with server:
-                await controller.watch_ue_controls()
+            # Cleanup must close persistent clients before waiting for the
+            # server. An async-with exit waits too early on Python 3.14.
+            await controller.watch_ue_controls()
     except SessionChanged:
         stale_session = True
         raise
@@ -696,13 +796,7 @@ async def fly(scene: str, loops: int, velocity: float, connection_timeout: float
         if rotor_publisher:
             rotor_publisher.cancel()
             with suppress(asyncio.CancelledError):await rotor_publisher
-        if server:
-            server.close()
-            await server.wait_closed()
-        if fleet:
-            await fleet.close(skip_remote=stale_session)
-        elif controller:
-            await controller.close(skip_remote=stale_session)
+        await close_control_server(server,fleet or controller,skip_remote=stale_session)
         if not stale_session:
             for robot in drones:
                 with suppress(Exception):robot.disable_api_control()
@@ -724,7 +818,7 @@ async def fly(scene: str, loops: int, velocity: float, connection_timeout: float
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--scene", choices=("original", "test_range", "city"), default="original")
+    parser.add_argument("--scene", choices=("city", "city_large"), default="city")
     parser.add_argument("--loops", type=int, default=0, help="0 repeats until Ctrl+C")
     parser.add_argument("--velocity", type=float, default=3.0)
     parser.add_argument("--connection-timeout", type=float, default=180.0)
@@ -739,7 +833,20 @@ def main() -> None:
                     raise
                 print(f'Flight session restarting: {error}', flush=True)
                 await asyncio.sleep(2)
-    asyncio.run(supervise())
+    # Data publication follows the simulator lifecycle, independently of the
+    # training UI. A busy data port must not prevent normal flight operation.
+    from training_client.gateway import Service
+    data_service = None
+    try:
+        try:
+            data_service = Service()
+            print('WISEYE training data service ready on TCP 50100', flush=True)
+        except OSError as error:
+            print(f'WISEYE training data service unavailable: {error}', flush=True)
+        asyncio.run(supervise())
+    finally:
+        if data_service:
+            data_service.close()
 
 
 if __name__ == "__main__":

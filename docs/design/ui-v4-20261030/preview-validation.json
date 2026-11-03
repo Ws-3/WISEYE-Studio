@@ -1,0 +1,167 @@
+{
+  "passed": true,
+  "errors": [],
+  "screenshots": [
+    "simulation-workbench.png",
+    "sensor-parameters.png",
+    "scene-arrangement.png",
+    "fleet-management.png",
+    "data-interfaces.png",
+    "settings.png",
+    "drone-control.png",
+    "route-editor.png",
+    "training-workbench.png",
+    "sample-inspection.png"
+  ],
+  "layoutChecks": [
+    {
+      "name": "simulation-workbench",
+      "height": 920,
+      "lowestControl": 940,
+      "footerTop": 950,
+      "passed": true
+    },
+    {
+      "name": "drone-control",
+      "height": 920,
+      "lowestControl": 941.671875,
+      "footerTop": 950,
+      "passed": true
+    },
+    {
+      "name": "training-workbench",
+      "height": 894,
+      "lowestControl": 851.75,
+      "footerTop": 924,
+      "passed": true
+    }
+  ],
+  "responsive": [
+    {
+      "width": 1440,
+      "page": "workbench",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "page": "scene",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "page": "interfaces",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "page": "collect",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "page": "samples",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "page": "workbench",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "page": "scene",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "page": "interfaces",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "page": "collect",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "page": "samples",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "page": "workbench",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "page": "scene",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "page": "interfaces",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "page": "collect",
+      "overflow": false
+    },
+    {
+      "width": 736,
+      "page": "samples",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "page": "workbench",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "page": "scene",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "page": "interfaces",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "page": "collect",
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "page": "samples",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "page": "workbench",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "page": "scene",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "page": "interfaces",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "page": "collect",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "page": "samples",
+      "overflow": false
+    }
+  ],
+  "notes": "Design-only local interactions. No backend/network requests or runtime modifications."
+}

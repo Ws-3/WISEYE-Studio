@@ -1,0 +1,68 @@
+{
+  "ptz-01": {
+    "active": false,
+    "has_result": true,
+    "preview_supported": true,
+    "nudge_supported": true,
+    "locked": false,
+    "nudge_cm": [
+      0,
+      0,
+      0
+    ],
+    "yaw_deg": 0,
+    "preview_visible": false,
+    "preview_position_cm": [
+      0,
+      0,
+      0
+    ],
+    "device_id": "ptz-01",
+    "request_token": "77e304d311bb4f0995b0cdb2077ac8d9",
+    "error": "",
+    "sequence": 1,
+    "position_cm": [
+      -72172.26569600642,
+      -39996.57816240975,
+      77.11681270599365
+    ],
+    "surface_cm": [
+      -72172.26569600642,
+      -39996.57816240975,
+      72.99999618530273
+    ]
+  },
+  "uav-01": {
+    "active": false,
+    "has_result": true,
+    "preview_supported": true,
+    "nudge_supported": true,
+    "locked": false,
+    "nudge_cm": [
+      0,
+      0,
+      0
+    ],
+    "yaw_deg": 0,
+    "preview_visible": false,
+    "preview_position_cm": [
+      0,
+      0,
+      0
+    ],
+    "device_id": "uav-01",
+    "request_token": "49515e3b3c3140ff9a0e3dffcb6c668d",
+    "error": "",
+    "sequence": 2,
+    "position_cm": [
+      -70972.26562507449,
+      -38796.578124741725,
+      97.58875274658203
+    ],
+    "surface_cm": [
+      -70972.26562507449,
+      -38796.578124741725,
+      72.58875274658203
+    ]
+  }
+}

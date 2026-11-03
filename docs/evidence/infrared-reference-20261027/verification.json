@@ -1,0 +1,19 @@
+{
+  "native_build": "Editor Development: succeeded; E:/Projects/WISEYE-IR-Work/build-validation.log",
+  "core_tests": 54,
+  "qt_tests": 16,
+  "native_math": "passed",
+  "source_matches_test_binary_inputs": {
+    "WiseEyeBridge.cpp": true,
+    "WiseEyeDemo.cpp": true,
+    "WiseEyeDemo.h": true,
+    "WiseEyeSensors.cpp": true,
+    "WiseEyeStreaming.cpp": true,
+    "WiseEyeStreaming.h": true,
+    "WiseEyeThermalMath.h": true
+  },
+  "material_sha256": "e8918f74da8199bb36a00be5c12b899a76970b9b80cd667ca3b0191f87968bcc",
+  "fleet_sha256": "bc48982ddb6043eca0fb6dbf7a4d61a249e8b15918590e8df2188b9587fb2fa6",
+  "shipping_rebuilt": false,
+  "github_pushed": false
+}

@@ -1,0 +1,935 @@
+{
+  "F:\\WISEYE-Studio": {
+    "bytes": 94258028684,
+    "groups": [
+      {
+        "path": "ue5/WISEYE",
+        "bytes": 56232076484,
+        "files": 47983
+      },
+      {
+        "path": "releases/WISEYE-20261023-Windows-x64.zip",
+        "bytes": 18108112700,
+        "files": 1
+      },
+      {
+        "path": "releases/WISEYE-20261027-City-Windows-x64.zip",
+        "bytes": 18085274917,
+        "files": 1
+      },
+      {
+        "path": "builds/python-env",
+        "bytes": 983619840,
+        "files": 12957
+      },
+      {
+        "path": "releases/WISEYE-Desktop-Update-20261026.zip",
+        "bytes": 330377510,
+        "files": 1
+      },
+      {
+        "path": ".git",
+        "bytes": 202894656,
+        "files": 100
+      },
+      {
+        "path": "builds/desktop",
+        "bytes": 102934007,
+        "files": 100
+      },
+      {
+        "path": "third_party/mediamtx",
+        "bytes": 85649604,
+        "files": 7
+      },
+      {
+        "path": "Models",
+        "bytes": 58769441,
+        "files": 19
+      },
+      {
+        "path": "builds/pyinstaller",
+        "bytes": 26197016,
+        "files": 15
+      },
+      {
+        "path": "docs",
+        "bytes": 24404854,
+        "files": 181
+      },
+      {
+        "path": "papers",
+        "bytes": 8050557,
+        "files": 1
+      },
+      {
+        "path": "builds/dependencies",
+        "bytes": 7434960,
+        "files": 266
+      },
+      {
+        "path": "apps",
+        "bytes": 740567,
+        "files": 62
+      },
+      {
+        "path": "tests",
+        "bytes": 328442,
+        "files": 64
+      },
+      {
+        "path": "builds/logs",
+        "bytes": 261983,
+        "files": 15
+      },
+      {
+        "path": "builds/smoke-data",
+        "bytes": 229497,
+        "files": 13
+      },
+      {
+        "path": "integrations",
+        "bytes": 155884,
+        "files": 12
+      },
+      {
+        "path": "ue5/scripts",
+        "bytes": 129447,
+        "files": 35
+      },
+      {
+        "path": "core",
+        "bytes": 96294,
+        "files": 22
+      },
+      {
+        "path": "WISEYE_ProjectPlan.md",
+        "bytes": 78324,
+        "files": 1
+      },
+      {
+        "path": "LOGO.jpg",
+        "bytes": 75355,
+        "files": 1
+      },
+      {
+        "path": "scripts",
+        "bytes": 49835,
+        "files": 18
+      },
+      {
+        "path": "third_party/patches",
+        "bytes": 25823,
+        "files": 4
+      },
+      {
+        "path": "packaging",
+        "bytes": 16049,
+        "files": 6
+      },
+      {
+        "path": "AGENTS.md",
+        "bytes": 8975,
+        "files": 1
+      },
+      {
+        "path": "README.md",
+        "bytes": 7939,
+        "files": 1
+      },
+      {
+        "path": "ue5/README.md",
+        "bytes": 6310,
+        "files": 1
+      },
+      {
+        "path": "builds/desktop-diagnostic.json",
+        "bytes": 3386,
+        "files": 1
+      },
+      {
+        "path": "builds/storage-io-events.json",
+        "bytes": 2991,
+        "files": 1
+      },
+      {
+        "path": ".gitignore",
+        "bytes": 2379,
+        "files": 1
+      },
+      {
+        "path": "projectairsim_client.log",
+        "bytes": 1294,
+        "files": 1
+      },
+      {
+        "path": "builds/WISEYE.spec",
+        "bytes": 1177,
+        "files": 1
+      },
+      {
+        "path": "third_party/notices",
+        "bytes": 1162,
+        "files": 1
+      },
+      {
+        "path": "builds/python-requirements.lock.txt",
+        "bytes": 1076,
+        "files": 1
+      },
+      {
+        "path": "builds/airsim-development-requirements.txt",
+        "bytes": 920,
+        "files": 1
+      },
+      {
+        "path": "releases/WISEYE-20261027-运行说明.txt",
+        "bytes": 834,
+        "files": 1
+      },
+      {
+        "path": "releases/运行说明.txt",
+        "bytes": 731,
+        "files": 1
+      },
+      {
+        "path": "releases/WISEYE-20261027-City-Windows-x64.zip.delivery-verified.json",
+        "bytes": 656,
+        "files": 1
+      },
+      {
+        "path": "examples",
+        "bytes": 644,
+        "files": 1
+      },
+      {
+        "path": "auto.crt",
+        "bytes": 485,
+        "files": 1
+      },
+      {
+        "path": "builds/zen-projectstore-first-attempt.json",
+        "bytes": 381,
+        "files": 1
+      },
+      {
+        "path": "Start-CitySample.vbs",
+        "bytes": 313,
+        "files": 1
+      },
+      {
+        "path": "Start-ProjectAirSim.vbs",
+        "bytes": 305,
+        "files": 1
+      },
+      {
+        "path": "Start-WISEYE-Studio.vbs",
+        "bytes": 297,
+        "files": 1
+      },
+      {
+        "path": "releases/WISEYE-20261023-Windows-x64.zip.json",
+        "bytes": 292,
+        "files": 1
+      },
+      {
+        "path": "releases/WISEYE-20261027-City-Windows-x64.zip.json",
+        "bytes": 286,
+        "files": 1
+      },
+      {
+        "path": "configs",
+        "bytes": 282,
+        "files": 1
+      },
+      {
+        "path": "releases/delivery-verified.json",
+        "bytes": 263,
+        "files": 1
+      },
+      {
+        "path": ".gitattributes",
+        "bytes": 244,
+        "files": 1
+      },
+      {
+        "path": "auto.key",
+        "bytes": 227,
+        "files": 1
+      },
+      {
+        "path": "Start-ProjectAirSim.cmd",
+        "bytes": 144,
+        "files": 1
+      },
+      {
+        "path": "Start-WISEYE.cmd",
+        "bytes": 122,
+        "files": 1
+      },
+      {
+        "path": "Start-Desktop.cmd",
+        "bytes": 120,
+        "files": 1
+      },
+      {
+        "path": "releases/WISEYE-20261027-City-Windows-x64.zip.sha256",
+        "bytes": 104,
+        "files": 1
+      },
+      {
+        "path": "releases/WISEYE-Desktop-Update-20261026.zip.sha256",
+        "bytes": 102,
+        "files": 1
+      },
+      {
+        "path": "releases/WISEYE-20261023-Windows-x64.zip.sha256",
+        "bytes": 99,
+        "files": 1
+      },
+      {
+        "path": "builds/airsim-commit.txt",
+        "bytes": 41,
+        "files": 1
+      },
+      {
+        "path": "builds/source-commit.txt",
+        "bytes": 41,
+        "files": 1
+      },
+      {
+        "path": "requirements.txt",
+        "bytes": 16,
+        "files": 1
+      }
+    ],
+    "links": [],
+    "unique_protected_paths": [],
+    "errors": [
+      {
+        "path": "F:\\WISEYE-Studio\\builds\\python-env\\Lib\\site-packages\\_pyinstaller_hooks_contrib\\stdhooks\\__pycache__",
+        "error": "[WinError 1392] 文件或目录损坏且无法读取。: 'F:\\\\WISEYE-Studio\\\\builds\\\\python-env\\\\Lib\\\\site-packages\\\\_pyinstaller_hooks_contrib\\\\stdhooks\\\\__pycache__'"
+      },
+      {
+        "path": "F:\\WISEYE-Studio\\builds\\python-env\\Lib\\site-packages\\PyInstaller\\hooks\\__pycache__",
+        "error": "[WinError 1392] 文件或目录损坏且无法读取。: 'F:\\\\WISEYE-Studio\\\\builds\\\\python-env\\\\Lib\\\\site-packages\\\\PyInstaller\\\\hooks\\\\__pycache__'"
+      }
+    ]
+  },
+  "E:\\Projects\\WISEYE-Studio": {
+    "bytes": 69106897421,
+    "groups": [
+      {
+        "path": "ue5/WISEYE",
+        "bytes": 68275194956,
+        "files": 46998
+      },
+      {
+        "path": "runtime",
+        "bytes": 396346135,
+        "files": 1886
+      },
+      {
+        "path": ".git",
+        "bytes": 162346314,
+        "files": 52
+      },
+      {
+        "path": "logs",
+        "bytes": 94318399,
+        "files": 221
+      },
+      {
+        "path": "third_party/mediamtx",
+        "bytes": 85649604,
+        "files": 7
+      },
+      {
+        "path": "Models",
+        "bytes": 58769441,
+        "files": 19
+      },
+      {
+        "path": ".venv",
+        "bytes": 12343884,
+        "files": 874
+      },
+      {
+        "path": "docs",
+        "bytes": 11957764,
+        "files": 123
+      },
+      {
+        "path": "papers",
+        "bytes": 8050557,
+        "files": 1
+      },
+      {
+        "path": "apps",
+        "bytes": 656546,
+        "files": 56
+      },
+      {
+        "path": "tests",
+        "bytes": 558813,
+        "files": 70
+      },
+      {
+        "path": "ue5/scripts",
+        "bytes": 217982,
+        "files": 43
+      },
+      {
+        "path": "integrations",
+        "bytes": 155570,
+        "files": 12
+      },
+      {
+        "path": "core",
+        "bytes": 75978,
+        "files": 18
+      },
+      {
+        "path": "LOGO.jpg",
+        "bytes": 75355,
+        "files": 1
+      },
+      {
+        "path": "WISEYE_ProjectPlan.md",
+        "bytes": 73948,
+        "files": 1
+      },
+      {
+        "path": "scripts",
+        "bytes": 59312,
+        "files": 16
+      },
+      {
+        "path": "third_party/patches",
+        "bytes": 21003,
+        "files": 3
+      },
+      {
+        "path": "README.md",
+        "bytes": 7106,
+        "files": 1
+      },
+      {
+        "path": "ue5/README.md",
+        "bytes": 6310,
+        "files": 1
+      },
+      {
+        "path": "AGENTS.md",
+        "bytes": 5461,
+        "files": 1
+      },
+      {
+        "path": "examples",
+        "bytes": 2118,
+        "files": 2
+      },
+      {
+        "path": ".gitignore",
+        "bytes": 1814,
+        "files": 1
+      },
+      {
+        "path": "projectairsim_client.log",
+        "bytes": 1294,
+        "files": 1
+      },
+      {
+        "path": "Start-CitySample.vbs",
+        "bytes": 313,
+        "files": 1
+      },
+      {
+        "path": "Start-ProjectAirSim.vbs",
+        "bytes": 305,
+        "files": 1
+      },
+      {
+        "path": "Start-WISEYE-Studio.vbs",
+        "bytes": 297,
+        "files": 1
+      },
+      {
+        "path": "configs",
+        "bytes": 282,
+        "files": 1
+      },
+      {
+        "path": ".gitattributes",
+        "bytes": 158,
+        "files": 1
+      },
+      {
+        "path": "Start-ProjectAirSim.cmd",
+        "bytes": 144,
+        "files": 1
+      },
+      {
+        "path": "Start-WISEYE.cmd",
+        "bytes": 122,
+        "files": 1
+      },
+      {
+        "path": "Start-Desktop.cmd",
+        "bytes": 120,
+        "files": 1
+      },
+      {
+        "path": "requirements.txt",
+        "bytes": 16,
+        "files": 1
+      }
+    ],
+    "links": [
+      {
+        "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\ProjectAirSim\\Content",
+        "target": "E:\\Projects\\ProjectAirSim-Evaluation\\unreal\\Blocks\\Plugins\\ProjectAirSim\\Content"
+      },
+      {
+        "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\ProjectAirSim\\Resources",
+        "target": "E:\\Projects\\ProjectAirSim-Evaluation\\unreal\\Blocks\\Plugins\\ProjectAirSim\\Resources"
+      },
+      {
+        "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\ProjectAirSim\\SimLibs",
+        "target": "E:\\Projects\\ProjectAirSim-Evaluation\\unreal\\Blocks\\Plugins\\ProjectAirSim\\SimLibs"
+      },
+      {
+        "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\ProjectAirSim\\Source",
+        "target": "E:\\Projects\\ProjectAirSim-Evaluation\\unreal\\Blocks\\Plugins\\ProjectAirSim\\Source"
+      },
+      {
+        "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\Drone\\Content",
+        "target": "E:\\Projects\\ProjectAirSim-Evaluation\\unreal\\Blocks\\Plugins\\Drone\\Content"
+      },
+      {
+        "path": "E:\\Projects\\WISEYE-Studio\\ue5\\WISEYE\\Plugins\\Drone\\Resources",
+        "target": "E:\\Projects\\ProjectAirSim-Evaluation\\unreal\\Blocks\\Plugins\\Drone\\Resources"
+      }
+    ],
+    "unique_protected_paths": [],
+    "errors": []
+  },
+  "E:\\Projects\\WISEYE-BuildWorkspace": {
+    "bytes": 339904903766,
+    "groups": [
+      {
+        "path": "ue5/WISEYE",
+        "bytes": 131457610349,
+        "files": 76186
+      },
+      {
+        "path": "builds/staged",
+        "bytes": 55137529721,
+        "files": 3743
+      },
+      {
+        "path": "releases/20261022-235803-All-Development",
+        "bytes": 18349359029,
+        "files": 1463
+      },
+      {
+        "path": "builds/distribution",
+        "bytes": 18108113091,
+        "files": 3
+      },
+      {
+        "path": "releases/20261027-170118-All-Shipping",
+        "bytes": 18107865140,
+        "files": 1443
+      },
+      {
+        "path": "releases/20261027-164755-All-Shipping",
+        "bytes": 18107863124,
+        "files": 1443
+      },
+      {
+        "path": "releases/WISEYE 城市版 20261023-000219-All-Shipping",
+        "bytes": 18107847110,
+        "files": 1442
+      },
+      {
+        "path": "releases/WISEYE 城市版 20261023-001704-All-Shipping",
+        "bytes": 18107757190,
+        "files": 1438
+      },
+      {
+        "path": "releases/WISEYE-20261027-City-Windows-x64.zip",
+        "bytes": 18085274917,
+        "files": 1
+      },
+      {
+        "path": "releases/20261027-171140-City-Shipping",
+        "bytes": 18084918983,
+        "files": 1441
+      },
+      {
+        "path": "releases/20261022-234233-Base-Development",
+        "bytes": 1951431209,
+        "files": 1384
+      },
+      {
+        "path": "releases/20261022-233243-Base-Development",
+        "bytes": 1897494127,
+        "files": 1255
+      },
+      {
+        "path": "releases/20261022-233112-Base-Development",
+        "bytes": 1897493307,
+        "files": 1254
+      },
+      {
+        "path": "builds/python-env",
+        "bytes": 984668078,
+        "files": 14039
+      },
+      {
+        "path": "builds/desktop-update-20261026.zip",
+        "bytes": 330377510,
+        "files": 1
+      },
+      {
+        "path": "builds/desktop",
+        "bytes": 330016252,
+        "files": 381
+      },
+      {
+        "path": "dist",
+        "bytes": 330004532,
+        "files": 382
+      },
+      {
+        "path": ".git",
+        "bytes": 162342124,
+        "files": 48
+      },
+      {
+        "path": "third_party/mediamtx",
+        "bytes": 85649604,
+        "files": 7
+      },
+      {
+        "path": "builds/environment-live-data-20261027",
+        "bytes": 59729010,
+        "files": 39
+      },
+      {
+        "path": "Models",
+        "bytes": 58769441,
+        "files": 19
+      },
+      {
+        "path": "builds/pyinstaller",
+        "bytes": 26398030,
+        "files": 16
+      },
+      {
+        "path": "build",
+        "bytes": 26359391,
+        "files": 16
+      },
+      {
+        "path": "docs",
+        "bytes": 24404854,
+        "files": 181
+      },
+      {
+        "path": "builds/live-tests",
+        "bytes": 23852825,
+        "files": 429
+      },
+      {
+        "path": "builds/infrared-preview-data",
+        "bytes": 22881523,
+        "files": 34
+      },
+      {
+        "path": "builds/infrared-live-data",
+        "bytes": 22226696,
+        "files": 27
+      },
+      {
+        "path": "papers",
+        "bytes": 8050557,
+        "files": 1
+      },
+      {
+        "path": "builds/logs",
+        "bytes": 2576016,
+        "files": 63
+      },
+      {
+        "path": "builds/publish-audit-20261027.json",
+        "bytes": 1907090,
+        "files": 1
+      },
+      {
+        "path": "apps",
+        "bytes": 741883,
+        "files": 62
+      },
+      {
+        "path": "builds/f-source-overlay",
+        "bytes": 377271,
+        "files": 31
+      },
+      {
+        "path": "tests",
+        "bytes": 350820,
+        "files": 65
+      },
+      {
+        "path": "builds/release-frozen-20261027",
+        "bytes": 326442,
+        "files": 14
+      },
+      {
+        "path": "builds/frozen-city-1793092417221080300",
+        "bytes": 324425,
+        "files": 15
+      },
+      {
+        "path": "builds/frozen-smoke-data-windows",
+        "bytes": 229497,
+        "files": 13
+      },
+      {
+        "path": "builds/frozen-smoke-data-fixed",
+        "bytes": 229497,
+        "files": 13
+      },
+      {
+        "path": "builds/frozen-smoke-data",
+        "bytes": 229497,
+        "files": 13
+      },
+      {
+        "path": "builds/interface-release-smoke-20261026",
+        "bytes": 226863,
+        "files": 13
+      },
+      {
+        "path": "builds/frozen-final-ui-data",
+        "bytes": 223438,
+        "files": 12
+      },
+      {
+        "path": "integrations",
+        "bytes": 155969,
+        "files": 12
+      },
+      {
+        "path": "ue5/scripts",
+        "bytes": 129447,
+        "files": 35
+      },
+      {
+        "path": "core",
+        "bytes": 96617,
+        "files": 22
+      },
+      {
+        "path": "builds/frozen-workbench-windows.png",
+        "bytes": 93400,
+        "files": 1
+      },
+      {
+        "path": "WISEYE_ProjectPlan.md",
+        "bytes": 78324,
+        "files": 1
+      },
+      {
+        "path": "LOGO.jpg",
+        "bytes": 75355,
+        "files": 1
+      },
+      {
+        "path": "builds/source-sync-20261027.json",
+        "bytes": 58002,
+        "files": 1
+      },
+      {
+        "path": "scripts",
+        "bytes": 49835,
+        "files": 18
+      },
+      {
+        "path": "packaging",
+        "bytes": 31788,
+        "files": 9
+      },
+      {
+        "path": "third_party/patches",
+        "bytes": 25823,
+        "files": 4
+      },
+      {
+        "path": "builds/frozen-workbench-fixed.png",
+        "bytes": 24437,
+        "files": 1
+      },
+      {
+        "path": "AGENTS.md",
+        "bytes": 8975,
+        "files": 1
+      },
+      {
+        "path": "builds/cleanup-inventory-20261026.json",
+        "bytes": 8602,
+        "files": 1
+      },
+      {
+        "path": "README.md",
+        "bytes": 7939,
+        "files": 1
+      },
+      {
+        "path": "ue5/README.md",
+        "bytes": 6310,
+        "files": 1
+      },
+      {
+        "path": "builds/frozen-diagnostic.json",
+        "bytes": 3411,
+        "files": 1
+      },
+      {
+        "path": "builds/verify_frozen_city_20261027.py",
+        "bytes": 2497,
+        "files": 1
+      },
+      {
+        "path": ".gitignore",
+        "bytes": 2379,
+        "files": 1
+      },
+      {
+        "path": "builds/source-sync.json",
+        "bytes": 2258,
+        "files": 1
+      },
+      {
+        "path": "builds/source-sync-final-20261027.json",
+        "bytes": 2149,
+        "files": 1
+      },
+      {
+        "path": "projectairsim_client.log",
+        "bytes": 1954,
+        "files": 1
+      },
+      {
+        "path": "builds/WISEYE.spec",
+        "bytes": 1211,
+        "files": 1
+      },
+      {
+        "path": "third_party/notices",
+        "bytes": 1162,
+        "files": 1
+      },
+      {
+        "path": "builds/python-requirements.lock.txt",
+        "bytes": 1076,
+        "files": 1
+      },
+      {
+        "path": "builds/build-requirements.lock.txt",
+        "bytes": 1000,
+        "files": 1
+      },
+      {
+        "path": "examples",
+        "bytes": 644,
+        "files": 1
+      },
+      {
+        "path": "Start-CitySample.vbs",
+        "bytes": 313,
+        "files": 1
+      },
+      {
+        "path": "Start-ProjectAirSim.vbs",
+        "bytes": 305,
+        "files": 1
+      },
+      {
+        "path": "Start-WISEYE-Studio.vbs",
+        "bytes": 297,
+        "files": 1
+      },
+      {
+        "path": "releases/WISEYE-20261027-City-Windows-x64.zip.json",
+        "bytes": 286,
+        "files": 1
+      },
+      {
+        "path": "configs",
+        "bytes": 282,
+        "files": 1
+      },
+      {
+        "path": "builds/delivery-f-verified.json",
+        "bytes": 263,
+        "files": 1
+      },
+      {
+        "path": ".gitattributes",
+        "bytes": 244,
+        "files": 1
+      },
+      {
+        "path": "Start-ProjectAirSim.cmd",
+        "bytes": 144,
+        "files": 1
+      },
+      {
+        "path": "Start-WISEYE.cmd",
+        "bytes": 122,
+        "files": 1
+      },
+      {
+        "path": "Start-Desktop.cmd",
+        "bytes": 120,
+        "files": 1
+      },
+      {
+        "path": "releases/WISEYE-20261027-City-Windows-x64.zip.sha256",
+        "bytes": 104,
+        "files": 1
+      },
+      {
+        "path": "builds/desktop-update-20261026.zip.sha256",
+        "bytes": 95,
+        "files": 1
+      },
+      {
+        "path": "builds/release-path-20261027.txt",
+        "bytes": 74,
+        "files": 1
+      },
+      {
+        "path": "builds/shipping-release-path.txt",
+        "bytes": 74,
+        "files": 1
+      },
+      {
+        "path": "requirements.txt",
+        "bytes": 16,
+        "files": 1
+      }
+    ],
+    "links": [
+      {
+        "path": "E:\\Projects\\WISEYE-BuildWorkspace\\builds\\infrared-preview-data\\ue5\\WISEYE\\Content",
+        "target": "E:\\Projects\\WISEYE-BuildWorkspace\\ue5\\WISEYE\\Content"
+      }
+    ],
+    "unique_protected_paths": [],
+    "errors": []
+  }
+}

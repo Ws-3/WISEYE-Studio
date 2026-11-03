@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "run_id": "785B6501479A746720D27B9A3612EF75",
+  "phases": {
+    "0": {
+      "received": 13,
+      "displayed": 11,
+      "saved": 4
+    },
+    "1": {
+      "received": 12,
+      "displayed": 3,
+      "saved": 12
+    }
+  },
+  "comparisons": {
+    "raw": {
+      "capture_delta_ms": 0.0,
+      "request_round_trip_ms": 492.390899999009,
+      "baseline_cm": 12.000000000001473,
+      "gt_center_differences": [
+        {
+          "target_id": "uav-01",
+          "dx_px": 104.33333333333331,
+          "dy_px": -12.666666666666686,
+          "distance_px": 105.09942382757808
+        }
+      ]
+    },
+    "rotation": {
+      "capture_delta_ms": 0.0,
+      "request_round_trip_ms": 582.1063999974285,
+      "baseline_cm": 12.000000000001473,
+      "gt_center_differences": [
+        {
+          "target_id": "uav-01",
+          "dx_px": 78.74922254709145,
+          "dy_px": 0.12524902801965254,
+          "distance_px": 78.7493221500373
+        }
+      ]
+    }
+  },
+  "actual_rates_label": "实测显示 0.45 FPS · 保存 1.79 FPS"
+}

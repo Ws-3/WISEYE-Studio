@@ -1,0 +1,40 @@
+{
+  "version": 3,
+  "scene": "city",
+  "device": "ptz-01",
+  "noise_seed": 1337,
+  "output": [
+    640,
+    512
+  ],
+  "conditions": {
+    "time_override": true,
+    "hour": 12,
+    "fog": 0,
+    "rain": 0
+  },
+  "cases": [
+    {
+      "id": "building",
+      "yaw_deg": 0,
+      "pitch_deg": 12,
+      "fov_deg": 50,
+      "clouds": 0
+    },
+    {
+      "id": "cloud",
+      "yaw_deg": -15,
+      "pitch_deg": 65,
+      "fov_deg": 80,
+      "clouds": 0.75
+    },
+    {
+      "id": "landed_small_target",
+      "tracking": true,
+      "fov_deg": 80,
+      "clouds": 0
+    }
+  ],
+  "limits": "Fixed scenario/configuration and seeded detector noise; UE cloud rendering and simulation time are not bitwise deterministic. No real-camera calibration.",
+  "deployment": "city rooftop corner 20261028; layout differs from v2"
+}

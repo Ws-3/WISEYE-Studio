@@ -1,0 +1,1071 @@
+{
+  "passed": true,
+  "scenes": {
+    "city": {
+      "power": [
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        }
+      ],
+      "gain": [
+        {
+          "time": 45123.8606514,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 255
+        },
+        {
+          "time": 45124.0879151,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 257
+        },
+        {
+          "time": 45124.3614843,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 260
+        },
+        {
+          "time": 45124.6224026,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 262
+        },
+        {
+          "time": 45124.8885034,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 265
+        },
+        {
+          "time": 45125.1673272,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 268
+        },
+        {
+          "time": 45125.4212316,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 270
+        },
+        {
+          "time": 45125.7212528,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 273
+        },
+        {
+          "time": 45125.9629511,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 276
+        },
+        {
+          "time": 45126.2256229,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 278
+        },
+        {
+          "time": 45126.4887563,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 281
+        },
+        {
+          "time": 45126.7629546,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 0,
+          "target": 0,
+          "sequence": 284
+        },
+        {
+          "time": 45127.1537181,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 288
+        },
+        {
+          "time": 45127.4215625,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 290
+        },
+        {
+          "time": 45127.6871933,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 293
+        },
+        {
+          "time": 45127.9537665,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 296
+        },
+        {
+          "time": 45128.2231418,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 298
+        },
+        {
+          "time": 45128.4908793,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 301
+        },
+        {
+          "time": 45128.7567749,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 304
+        },
+        {
+          "time": 45129.0212161,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 306
+        },
+        {
+          "time": 45129.2896908,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 309
+        },
+        {
+          "time": 45129.5538735,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 312
+        },
+        {
+          "time": 45129.7885194,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 314
+        },
+        {
+          "time": 45130.022314,
+          "low": 0.10000000149011612,
+          "high": 0.4118627607822418,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 316
+        },
+        {
+          "time": 45130.454063,
+          "low": 0.10000000149011612,
+          "high": 0.40483930706977844,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 321
+        },
+        {
+          "time": 45130.6886116,
+          "low": 0.10000000149011612,
+          "high": 0.4018482565879822,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 323
+        },
+        {
+          "time": 45130.9538983,
+          "low": 0.10000000149011612,
+          "high": 0.398344486951828,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 326
+        },
+        {
+          "time": 45131.2223239,
+          "low": 0.10000000149011612,
+          "high": 0.39680585265159607,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 328
+        },
+        {
+          "time": 45131.4896427,
+          "low": 0.10000000149011612,
+          "high": 0.3946109712123871,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 331
+        },
+        {
+          "time": 45131.755477,
+          "low": 0.10000000149011612,
+          "high": 0.39196333289146423,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 334
+        },
+        {
+          "time": 45132.0112088,
+          "low": 0.10000000149011612,
+          "high": 0.3913063704967499,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 336
+        },
+        {
+          "time": 45132.2545449,
+          "low": 0.10000000149011612,
+          "high": 0.3913063704967499,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 339
+        },
+        {
+          "time": 45132.4902332,
+          "low": 0.10000000149011612,
+          "high": 0.3913063704967499,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 341
+        },
+        {
+          "time": 45132.7552745,
+          "low": 0.10000000149011612,
+          "high": 0.39064955711364746,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 344
+        },
+        {
+          "time": 45133.0221454,
+          "low": 0.10000000149011612,
+          "high": 0.39064955711364746,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 346
+        },
+        {
+          "time": 45133.2884617,
+          "low": 0.10000000149011612,
+          "high": 0.39064955711364746,
+          "sky": 309733,
+          "target": 0,
+          "sequence": 349
+        },
+        {
+          "time": 45133.6880713,
+          "low": 0.10000000149011612,
+          "high": 0.3956287205219269,
+          "sky": 0,
+          "target": 0,
+          "sequence": 353
+        },
+        {
+          "time": 45133.9620996,
+          "low": 0.10000000149011612,
+          "high": 0.400220662355423,
+          "sky": 0,
+          "target": 0,
+          "sequence": 356
+        },
+        {
+          "time": 45134.266347,
+          "low": 0.10000000149011612,
+          "high": 0.4032439887523651,
+          "sky": 0,
+          "target": 0,
+          "sequence": 359
+        },
+        {
+          "time": 45134.4879911,
+          "low": 0.10000000149011612,
+          "high": 0.404563844203949,
+          "sky": 0,
+          "target": 0,
+          "sequence": 361
+        },
+        {
+          "time": 45134.7635644,
+          "low": 0.10000000149011612,
+          "high": 0.40663644671440125,
+          "sky": 0,
+          "target": 0,
+          "sequence": 364
+        },
+        {
+          "time": 45135.0224552,
+          "low": 0.10000000149011612,
+          "high": 0.40743568539619446,
+          "sky": 0,
+          "target": 0,
+          "sequence": 366
+        },
+        {
+          "time": 45135.2874504,
+          "low": 0.10000000149011612,
+          "high": 0.40869128704071045,
+          "sky": 0,
+          "target": 0,
+          "sequence": 369
+        },
+        {
+          "time": 45135.5632369,
+          "low": 0.10000000149011612,
+          "high": 0.40899232029914856,
+          "sky": 0,
+          "target": 0,
+          "sequence": 372
+        },
+        {
+          "time": 45135.8313475,
+          "low": 0.10000000149011612,
+          "high": 0.40899232029914856,
+          "sky": 0,
+          "target": 0,
+          "sequence": 375
+        },
+        {
+          "time": 45136.0923641,
+          "low": 0.10000000149011612,
+          "high": 0.40899232029914856,
+          "sky": 0,
+          "target": 0,
+          "sequence": 377
+        },
+        {
+          "time": 45136.3552754,
+          "low": 0.10000000149011612,
+          "high": 0.40899232029914856,
+          "sky": 0,
+          "target": 0,
+          "sequence": 380
+        },
+        {
+          "time": 45136.6293413,
+          "low": 0.10000000149011612,
+          "high": 0.40899232029914856,
+          "sky": 0,
+          "target": 0,
+          "sequence": 383
+        }
+      ],
+      "initial_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "all_off_control_and_observer_alive": true,
+      "clear_visible": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 421920,
+        "grey_percentiles": [
+          25.0,
+          74.0,
+          144.0
+        ],
+        "frame": 189
+      },
+      "clear_infrared": {
+        "size": [
+          640,
+          512
+        ],
+        "bytes": 71833,
+        "grey_percentiles": [
+          61.0,
+          112.0,
+          184.0
+        ],
+        "frame": 191
+      },
+      "rain": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0.699999988079071,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 2,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "lock_held": true,
+      "final_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "hardware": {
+        "sample_time_s": 16822355.7205261,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99908807665592,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 21215080448,
+        "ue_ram_bytes": 9539391488,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4298432512,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 22.10031347962382,
+        "ue_gpu_engine_peak_pct": 50.2333801033339
+      }
+    },
+    "city_large": {
+      "power": [
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "visible",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": false,
+          "connected": true
+        },
+        {
+          "sensor": "infrared",
+          "enabled": true,
+          "connected": true
+        }
+      ],
+      "gain": [
+        {
+          "time": 45318.337976,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 274
+        },
+        {
+          "time": 45318.6038323,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 276
+        },
+        {
+          "time": 45318.8711215,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 279
+        },
+        {
+          "time": 45319.1372044,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 282
+        },
+        {
+          "time": 45319.4465176,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 285
+        },
+        {
+          "time": 45319.7042402,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 287
+        },
+        {
+          "time": 45319.975889,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 290
+        },
+        {
+          "time": 45320.2371721,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 293
+        },
+        {
+          "time": 45320.5207144,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 296
+        },
+        {
+          "time": 45320.7734954,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 298
+        },
+        {
+          "time": 45321.0760233,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 301
+        },
+        {
+          "time": 45321.3214246,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 0,
+          "target": 0,
+          "sequence": 304
+        },
+        {
+          "time": 45321.740382,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 308
+        },
+        {
+          "time": 45321.9902954,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 310
+        },
+        {
+          "time": 45322.2388512,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 313
+        },
+        {
+          "time": 45322.5103614,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 316
+        },
+        {
+          "time": 45322.7399043,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 318
+        },
+        {
+          "time": 45323.0072402,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 321
+        },
+        {
+          "time": 45323.2728482,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 323
+        },
+        {
+          "time": 45323.5393779,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 326
+        },
+        {
+          "time": 45323.8054872,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 329
+        },
+        {
+          "time": 45324.0388846,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 331
+        },
+        {
+          "time": 45324.3049765,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 334
+        },
+        {
+          "time": 45324.5390481,
+          "low": 0.10000000149011612,
+          "high": 0.4353921711444855,
+          "sky": 327680,
+          "target": 0,
+          "sequence": 336
+        },
+        {
+          "time": 45325.0180517,
+          "low": 0.10000000149011612,
+          "high": 0.42789119482040405,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 341
+        },
+        {
+          "time": 45325.2724904,
+          "low": 0.10000000149011612,
+          "high": 0.4228850305080414,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 343
+        },
+        {
+          "time": 45325.5525931,
+          "low": 0.10000000149011612,
+          "high": 0.4153909981250763,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 346
+        },
+        {
+          "time": 45325.8154856,
+          "low": 0.10000000149011612,
+          "high": 0.4078907370567322,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 349
+        },
+        {
+          "time": 45326.0730469,
+          "low": 0.10000000149011612,
+          "high": 0.40301963686943054,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 351
+        },
+        {
+          "time": 45326.3392753,
+          "low": 0.10000000149011612,
+          "high": 0.3971821069717407,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 354
+        },
+        {
+          "time": 45326.6163635,
+          "low": 0.10000000149011612,
+          "high": 0.3928547203540802,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 357
+        },
+        {
+          "time": 45326.8726397,
+          "low": 0.10000000149011612,
+          "high": 0.39060544967651367,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 359
+        },
+        {
+          "time": 45327.1389016,
+          "low": 0.10000000149011612,
+          "high": 0.3879876434803009,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 362
+        },
+        {
+          "time": 45327.4131967,
+          "low": 0.10000000149011612,
+          "high": 0.3860461115837097,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 365
+        },
+        {
+          "time": 45327.6170016,
+          "low": 0.10000000149011612,
+          "high": 0.385038822889328,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 367
+        },
+        {
+          "time": 45327.8725223,
+          "low": 0.10000000149011612,
+          "high": 0.3842144310474396,
+          "sky": 0,
+          "target": 10624,
+          "sequence": 369
+        },
+        {
+          "time": 45328.3194315,
+          "low": 0.10000000149011612,
+          "high": 0.3910442590713501,
+          "sky": 0,
+          "target": 0,
+          "sequence": 374
+        },
+        {
+          "time": 45328.5417997,
+          "low": 0.10000000149011612,
+          "high": 0.39605027437210083,
+          "sky": 0,
+          "target": 0,
+          "sequence": 376
+        },
+        {
+          "time": 45328.7730364,
+          "low": 0.10000000149011612,
+          "high": 0.40104803442955017,
+          "sky": 0,
+          "target": 0,
+          "sequence": 378
+        },
+        {
+          "time": 45329.0396036,
+          "low": 0.10000000149011612,
+          "high": 0.4085710346698761,
+          "sky": 0,
+          "target": 0,
+          "sequence": 381
+        },
+        {
+          "time": 45329.2772782,
+          "low": 0.10000000149011612,
+          "high": 0.413364976644516,
+          "sky": 0,
+          "target": 0,
+          "sequence": 383
+        },
+        {
+          "time": 45329.5213089,
+          "low": 0.10000000149011612,
+          "high": 0.4190763533115387,
+          "sky": 0,
+          "target": 0,
+          "sequence": 386
+        },
+        {
+          "time": 45329.7733188,
+          "low": 0.10000000149011612,
+          "high": 0.42204195261001587,
+          "sky": 0,
+          "target": 0,
+          "sequence": 388
+        },
+        {
+          "time": 45330.0399402,
+          "low": 0.10000000149011612,
+          "high": 0.4254983365535736,
+          "sky": 0,
+          "target": 0,
+          "sequence": 391
+        },
+        {
+          "time": 45330.3203743,
+          "low": 0.10000000149011612,
+          "high": 0.4280618131160736,
+          "sky": 0,
+          "target": 0,
+          "sequence": 394
+        },
+        {
+          "time": 45330.5767196,
+          "low": 0.10000000149011612,
+          "high": 0.42939698696136475,
+          "sky": 0,
+          "target": 0,
+          "sequence": 396
+        },
+        {
+          "time": 45330.8194274,
+          "low": 0.10000000149011612,
+          "high": 0.4309484362602234,
+          "sky": 0,
+          "target": 0,
+          "sequence": 399
+        },
+        {
+          "time": 45331.0739531,
+          "low": 0.10000000149011612,
+          "high": 0.4317528009414673,
+          "sky": 0,
+          "target": 0,
+          "sequence": 401
+        }
+      ],
+      "initial_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "all_off_control_and_observer_alive": true,
+      "clear_visible": {
+        "size": [
+          1920,
+          1080
+        ],
+        "bytes": 468990,
+        "grey_percentiles": [
+          15.0,
+          83.0,
+          126.0
+        ],
+        "frame": 213
+      },
+      "clear_infrared": {
+        "size": [
+          640,
+          512
+        ],
+        "bytes": 49476,
+        "grey_percentiles": [
+          23.0,
+          31.0,
+          190.0
+        ],
+        "frame": 214
+      },
+      "rain": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0.699999988079071,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 2,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "lock_held": true,
+      "final_environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "hardware": {
+        "sample_time_s": 16822549.60544,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00170530410087,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 25994637312,
+        "ue_ram_bytes": 13105455104,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4439646208,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 24.753227031131363,
+        "ue_gpu_engine_peak_pct": 47.53797343312376
+      }
+    }
+  },
+  "limits": "No flight, no all-city traversal, visual weather only; isolated data",
+  "return_to_small": {
+    "connected": true,
+    "run_id": "A8E9BE154421217EBB07228D117250AB",
+    "rain": {
+      "time_supported": true,
+      "fog_supported": true,
+      "rain_supported": true,
+      "rain_unavailable_reason": "",
+      "time_override": false,
+      "hour": 12,
+      "fog": 0,
+      "rain": 0,
+      "clouds_supported": true,
+      "clouds": 0,
+      "cloud_layer_active": false,
+      "cloud_atmosphere_created": false,
+      "rain_view_volumes": 0,
+      "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+    }
+  },
+  "owned_session_stopped": true
+}

@@ -4,12 +4,21 @@ from core.devices import validate_devices,DeviceStore
 from tests.test_routes import route
 
 def devices():
-    return dict(version=1,scene_id='original',devices=[dict(id='uav-01',kind='drone',name='A',model_id='mavic3',position_cm=[0,0,25],rotation_deg=[0,0,0]),dict(id='ptz-01',kind='gimbal',name='P',model_id='eo80',position_cm=[0,500,0],rotation_deg=[0,0,0],tracking_target='uav-01')])
+    return dict(version=1,scene_id='city',devices=[dict(id='uav-01',kind='drone',name='A',model_id='mavic3',position_cm=[0,0,25],rotation_deg=[0,0,0]),dict(id='ptz-01',kind='gimbal',name='P',model_id='eo80',position_cm=[0,500,0],rotation_deg=[0,0,0],tracking_target='uav-01')])
 
 class DeviceTests(unittest.TestCase):
+    def test_heading_roundtrip_and_tilt_rejected(self):
+        data=devices();data['devices'][0]['rotation_deg']=[0,90,0]
+        with tempfile.TemporaryDirectory() as folder:
+            store=DeviceStore(folder);store.save(data)
+            self.assertEqual(store.load(dict(id='city'))['devices'][0]['rotation_deg'],[0,90,0])
+        for axis in (0,2):
+            tilted=copy.deepcopy(data);tilted['devices'][0]['rotation_deg'][axis]=1
+            with self.subTest(axis=axis),self.assertRaises(ValueError):validate_devices(tilted,'city')
+
     def test_roundtrip_and_reject_duplicate_unknown_target(self):
         with tempfile.TemporaryDirectory() as folder:
-            store=DeviceStore(folder);store.save(devices());self.assertEqual(store.load(dict(id='original')),devices())
+            store=DeviceStore(folder);store.save(devices());self.assertEqual(store.load(dict(id='city')),devices())
         for changed in ('duplicate','target','model','nan','rotation'):
             data=devices()
             if changed=='duplicate':data['devices'].append(copy.deepcopy(data['devices'][0]))
@@ -17,11 +26,11 @@ class DeviceTests(unittest.TestCase):
             if changed=='model':data['devices'][0]['model_id']='eo80'
             if changed=='nan':data['devices'][0]['position_cm'][0]=float('nan')
             if changed=='rotation':data['devices'][0]['rotation_deg'][0]=2
-            with self.subTest(changed=changed),self.assertRaises(ValueError):validate_devices(data,'original')
+            with self.subTest(changed=changed),self.assertRaises(ValueError):validate_devices(data,'city')
 
     def test_different_instance_counts_and_independent_copies(self):
         data=devices();second=copy.deepcopy(data['devices'][0]);second['id']='uav-02';data['devices'].append(second)
-        self.assertIs(validate_devices(data,'original'),data)
+        self.assertIs(validate_devices(data,'city'),data)
         data['devices'][2]['position_cm'][0]=500;self.assertEqual(data['devices'][0]['position_cm'][0],0)
 
 class FleetControllerTests(unittest.IsolatedAsyncioTestCase):

@@ -1,0 +1,136 @@
+[
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\test.Build.cs",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\test.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\test.h",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeBridge.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeBridge.h",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeDemo.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeDemo.h",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeDynamics.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeEnvironment.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeFleet.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeGroundTruth.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeGroundTruth.h",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeGroundTruthTests.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeLidar.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeObserver.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyePlacement.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeRuntimePaths.h",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeRuntimeStatus.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeScenes.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeSensors.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeStreaming.cpp",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeStreaming.h",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Source\\test\\WiseEyeThermalMath.h",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Config\\DefaultEngine.ini",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Config\\DefaultGame.ini",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Config\\WISEYE\\Fleets\\city.json",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Config\\WISEYE\\Layouts\\city.json",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Config\\WISEYE\\Scenes\\city.json",
+    "match": true
+  },
+  {
+    "file": "ue5\\WISEYE\\Content\\WISEYE\\Sensors\\M_IR_Facade.uasset",
+    "match": true,
+    "sha256": "50eee86f75e263bd228db26cc3f7d77b24b4b8b75ae3d5646477495b3051abe9"
+  },
+  {
+    "file": "ue5\\WISEYE\\Content\\WISEYE\\Sensors\\M_PlacementPreview.uasset",
+    "match": true,
+    "sha256": "89e9d65c20e1d005a5e8f061df5d2dc19295cad0bdcdfacc109a9e3e84b6fe3c"
+  },
+  {
+    "file": "isolated_data/Fleets/city.json",
+    "match": true
+  },
+  {
+    "file": "isolated_data/Layouts/city.json",
+    "match": true
+  },
+  {
+    "file": "isolated_data/Scenes/city.json",
+    "match": true
+  }
+]

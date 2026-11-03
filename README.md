@@ -1,26 +1,34 @@
 # WISEYE Studio（智瞳）
 
-> 2026-10-27：已完成城市专用Shipping独立内测版本，包含V3多设备工作台、可编辑RTSP接口、增强红外试验、硬件性能栏和时间/雾/雨控制。按照用户要求，运行包只自带真实City Sample小城市；原始场景和测试场保留在开发源码中。成品、校验和实际验收见[发布说明](docs/RELEASE_BUILD.md)，日常操作见[使用指南](docs/USER_GUIDE.md)。
+**v1.0.0 · 2026-11-03 · 生日纪念版**
 
-GitHub提供代码、配置、自有模型和项目文档，不包含UE编辑器、Python环境、完整城市资产或大型运行ZIP。源码开发需按[安装说明](docs/INSTALLATION.md)配置依赖，城市副本由[本地City Sample接入流程](docs/CITY_SAMPLE_SETUP.md)生成；普通用户使用完整独立包，无需安装开发环境。
+🎂 11 月 3 日是作者生日。今天发布首个功能较完整的阶段版本，纪念 WISEYE 从无人机与光电云台仿真走向独立桌面工作台和数据接口的这一阶段。
 
-无人机光电仿真与智能感知平台。目前已接入 Project AirSim Fast Physics/SimpleFlight 无人机动力学、两轴地面云台真值跟随、云台激光扫描、可见光/红外原尺寸低延迟预览和对外RTSP、起飞/悬停/降落控制与 Mavic 3/Avata 外观切换。完整产品流程见 [docs/SYSTEM_UX_DESIGN.md](docs/SYSTEM_UX_DESIGN.md)，视频通道见 [docs/RTSP.md](docs/RTSP.md)。
+WISEYE 基于 Unreal Engine 与 Project AirSim，提供城市环境、无人机飞行控制、光电云台、多传感器预览和数据采集接口。完整功能、验证范围及限制见 [v1.0.0 发行说明](docs/releases/v1.0.0.md)。
+
+## 当前功能
+
+- 小城市与独立加载的大城市试验场景，设备管理、模型放置预览、航线和手动飞行、真实转速及起降。
+- 云台角度、视场角、距离遥测，自定义仿真地理基准与坐标指向接口。
+- 独立可见光 1920×1080 / 红外 640×512、激光点云、事件相机；各传感器独立启停。
+- 可编辑 RTSP 接口、低延迟预览、双路图像与真值采集、训练/数据采集工作台、天气和夜间灯光。
+- 仿真启动/关闭、连接/断开与退出保护；打开界面不默认启动 UE。
+
+红外和事件传感器仍为近似模型，大城市仍为试验功能，尚未完成全城/长时/多机压力验收。
 
 ## 独立包直接运行
 
-将单独交付的 `WISEYE-20261027-City-Windows-x64.zip` 完整解压到本机SSD，双击 `WISEYE/WISEYE.exe`，点击右上角「启动仿真」，设备就绪后再起飞。无需安装UE、VS、Python或Anaconda。默认用户数据在 `%LOCALAPPDATA%\WISEYE`，退出前先降落；当前尚无在线更新器。
+本机已生成 `WISEYE-20261102-Win64-Portable.zip`（约 23.68 GiB），完整解压后双击 `WISEYE/WISEYE.exe`，再点击“启动仿真”。不需要安装 UE 编辑器、VS 或 Python；仍需兼容 Windows、显卡驱动和系统运行库。便携包将配置、日志与输出写入旁边的 `UserData`，应放在可写目录。
+
+**本次 GitHub 发行只提供源码与发行说明，不附大型运行包。** 自动生成的 Source code ZIP 不能代替独立软件包。校验和及打包验证见 [便携包说明](docs/PORTABLE_RELEASE_20261102.md)，尚无在线更新器。
 
 ## 源码开发入口
 
-城市场景使用 `Start-CitySample.vbs`，等待UE播放与缓存完成，再运行 `Start-Desktop.cmd` 连接。已有UE运行时通过桌面场景编排切换，避免重复启动。
+根目录 `Start-WISEYE-Studio.vbs` 只启动桌面，UE 由界面的“启动仿真”按钮启动；训练端可从工作台启动。新电脑先按 [安装说明](docs/INSTALLATION.md) 准备 UE 5.8（本轮验证 5.8.4）、C++ 工具链、Python、FFmpeg、Project AirSim 和合法获取的 City Sample。
 
-AirSim 模式先双击 `Start-ProjectAirSim.vbs`，脚本会打开 UE、自动播放后在地面待命；再双击 `Start-WISEYE-Studio.vbs`，连接后点击“起飞”。这两个入口隐藏后台命令行；原 `.cmd` 入口保留用于诊断。界面可选择画质优先、均衡或节能档位。
+仓库包含代码、配置、自有资源与文档；完整第三方城市、引擎、环境、用户数据和构建缓存不随 Git 同步。城市资源按 [接入流程](docs/CITY_SAMPLE_SETUP.md) 准备。
 
-新电脑请先按 [完整安装说明](docs/INSTALLATION.md) 配置；日常操作与排查见 [桌面运行说明](docs/DESKTOP.md)，人工上传/下载见 [Git 操作说明](docs/GIT_WORKFLOW.md)。
-
-AirSim 动力学演示先运行 `scripts/Setup-ProjectAirSim.ps1`，之后双击 `Start-ProjectAirSim.cmd`。配置、架构和验证结果见 [Project AirSim 接入说明](docs/PROJECTAIRSIM_INTEGRATION.md)。
-
-已加入多地图功能：在桌面左侧选择“原始沙漠场景”或“通用测试场”，点击“切换到所选场景”。“地图管理 / 导入”支持标准场景包和通过 UE 接入社区地图，详见 [场景管理说明](docs/SCENES.md)。新场景复用标准设备装配；云台和无人机按整体选择和移动，保留内部转轴关系。
+当前开发工作副本为 `E:\Projects\WISEYE-PortableBuild`，`E:\Projects\WISEYE-IR-Work` 用于 UE 构建；F 盘迁移因 USB 故障暂缓，不要同时在 F 修改形成分叉。详见 [交接文档](docs/AI_HANDOFF.md)。
 
 ## 在另一台电脑运行
 
@@ -36,9 +44,9 @@ Set-Content .\scripts\engine-root.local.txt 'C:\Program Files\Epic Games\UE_5.8'
 .\scripts\Setup-ProjectAirSim.ps1 -EngineRoot 'C:\Program Files\Epic Games\UE_5.8'
 ```
 
-完成后双击 `Start-ProjectAirSim.cmd` 启动 UE、实时视频和空气动力学，再双击 `Start-Desktop.cmd`。首次配置的准确参数、ZIP 下载方式、VS 组件和故障排查见 [安装说明](docs/INSTALLATION.md)。模型、纹理、地图和 WISEYE 源码随仓库提供；Project AirSim 与 MediaMTX 由安装脚本按固定版本获取。
+上述配置用于常规源码工程；在 PowerShell 中运行 `scripts/Start-ProjectAirSim.ps1 -Scene city`，再运行 `scripts/Start-Desktop.ps1 -Connect`。本机 E 盘预览用上方唯一入口。首次配置的准确参数、ZIP 下载方式、VS 组件和故障排查见 [安装说明](docs/INSTALLATION.md)。模型、纹理、地图和 WISEYE 源码随仓库提供；Project AirSim 与 MediaMTX 由安装脚本按固定版本获取。
 
-独立 UE 模式可双击 `Start-WISEYE.cmd`，进入编辑器后点击绿色“播放”。
+独立 UE 编辑模式可在 PowerShell 中运行 `scripts/Start-WISEYE.ps1`，进入编辑器后点击绿色“播放”。
 
 | 按键 | 功能 |
 |---|---|
@@ -90,5 +98,7 @@ WISEYE_ProjectPlan.md      长期计划与历史记录
 ```
 
 完整目录职责见 [文件结构说明](docs/FILE_STRUCTURE.md)。让下一位 AI 先读 [AGENTS.md](AGENTS.md)、[AI 交接](docs/AI_HANDOFF.md) 和 [项目计划](WISEYE_ProjectPlan.md)。具体 UE 参数见 [ue5/README.md](ue5/README.md)，迁移检查见 [PORTABILITY](docs/PORTABILITY.md)。
+
+新增无人机请按[模型接入规范与 AI 任务模板](docs/DRONE_MODEL_INTEGRATION.md)准备FBX、贴图、尺寸、朝向和旋翼轴心；目前为FBX静态网格导入。Mavic/Avata已加入[夜间自动红绿闪烁灯](docs/DRONE_NAVIGATION_LIGHTS.md)，在环境面板设夜间时间可查看。
 
 不包含 UE 引擎、VS、编译产物、缓存、自动保存、用户配置、日志和本机备份。第三方模型未附授权资料，本次同步不额外声明其许可证。

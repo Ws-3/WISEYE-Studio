@@ -4,18 +4,18 @@ from pathlib import Path
 from core.routes import validate_route,load_route,save_route
 
 def route():
-    return dict(version=1,scene_id='original',name='测试航线',frame='ue_world_m',speed_mps=2,repeat=False,waypoints=[[10,20,5],[12,20,5]])
+    return dict(version=1,scene_id='city',name='测试航线',frame='ue_world_m',speed_mps=2,repeat=False,waypoints=[[10,20,5],[12,20,5]])
 
 class RouteTests(unittest.TestCase):
     def test_roundtrip_and_scene_binding(self):
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'route.json';save_route(path,route())
-            self.assertEqual(load_route(path,'original'),route())
-            with self.assertRaises(ValueError):load_route(path,'test_range')
+            self.assertEqual(load_route(path,'city'),route())
+            with self.assertRaises(ValueError):load_route(path,'other_scene')
 
     def test_reject_unsafe_or_ambiguous_coordinates(self):
         for changes in [dict(waypoints=[[0,0,float('nan')],[1,0,1]]),dict(waypoints=[[0,0,1],[0,0,1]]),dict(waypoints=[[0,0,1]]),dict(speed_mps=True),dict(speed_mps=16),dict(repeat=1),dict(frame='ned'),dict(version=True)]:
-            with self.subTest(changes=changes),self.assertRaises(ValueError):validate_route(dict(route(),**changes),'original')
+            with self.subTest(changes=changes),self.assertRaises(ValueError):validate_route(dict(route(),**changes),'city')
 
 class ControllerRouteTests(unittest.IsolatedAsyncioTestCase):
     async def test_pause_keeps_next_unfinished_waypoint(self):
@@ -58,7 +58,7 @@ class ControllerRouteTests(unittest.IsolatedAsyncioTestCase):
                 self.assertEqual(state['route']['waypoints'][0][0],10)
                 self.assertEqual(drone.commands,[])
                 with self.assertRaises(ValueError):await controller.execute('route.start',{})
-                with self.assertRaises(ValueError):await controller.execute('route.upload',dict(route(),scene_id='test_range'))
+                with self.assertRaises(ValueError):await controller.execute('route.upload',dict(route(),scene_id='other_scene'))
             finally:await controller.close()
 
     async def test_single_pass_converts_z_and_finishes_once(self):

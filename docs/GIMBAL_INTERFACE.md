@@ -1,5 +1,7 @@
 # 云台外部控制接口
 
+2026-10-30新增：gimbal.point_at按VIS/IR实际光心指向UE世界厘米目标，严格scene_id/run_id与俯仰限位；SDK新增point_at_world、point_at_geodetic、coordinates(ref)。设备面板显示角度、FOV、米制距离和自定义仿真经纬高。详见[GIMBAL_COORDINATES.md](GIMBAL_COORDINATES.md)，旧独立包不支持；不是实机GNSS或真实地图配准。
+
 标准库 SDK：`integrations/gimbal_client.py`；示例：`python -m examples.gimbal_control --device ptz-02`。当前 UE 服务仅监听本机 `127.0.0.1:50051`，传输为 TCP UTF-8 JSON Lines，version=1。每条命令必须带 request_id，payload.device_id 指向云台实例。无需另开端口或安装 Python 依赖。
 
 ```python

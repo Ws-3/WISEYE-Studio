@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "run_id": "5D44BD2C4849FEE678E0A991B6043C5A",
+  "core_tests": 90,
+  "qt_tests": 47,
+  "editor_build": "Succeeded",
+  "source_build_hashes": {
+    "WiseEyeDemo.h": "3f69f92db5bb7dd1f85f4468af85b64f567dd211859de5222e135a28232223bd",
+    "WiseEyePlacement.cpp": "1ecddffbeb19696c0ce14778d69cb0ec64f8588f36cbf205ccf258a7f920bf34",
+    "WiseEyeFleet.cpp": "7e50d762c5af24d494839bcb8a7393bf79d10301f41ae017dcc84e2d32784a4a",
+    "WiseEyeBridge.cpp": "9caaf00f0e8360fe4e30642aa996769d5bf4d1fc66f363b8cb80c97b64176db8"
+  },
+  "final_flight_status": "ready",
+  "motor_rpm": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "same_run_live_update": true
+}

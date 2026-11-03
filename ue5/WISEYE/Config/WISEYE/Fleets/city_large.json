@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "scene_id": "city_large",
+  "devices": [
+    {
+      "id": "uav-01",
+      "kind": "drone",
+      "name": "大城市试验无人机",
+      "model_id": "mavic3",
+      "position_cm": [
+        -70972.26562507449,
+        -38796.578124741725,
+        97.58875274658203
+      ],
+      "rotation_deg": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "ptz-01",
+      "kind": "gimbal",
+      "name": "大城市试验双光云台",
+      "model_id": "eo80",
+      "position_cm": [
+        -72172.26569600642,
+        -39996.57816240975,
+        77.11681270599365
+      ],
+      "rotation_deg": [
+        0,
+        0,
+        0
+      ],
+      "tracking_target": "uav-01"
+    }
+  ]
+}

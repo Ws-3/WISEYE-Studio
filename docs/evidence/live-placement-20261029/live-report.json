@@ -1,0 +1,333 @@
+{
+  "passed": true,
+  "run_id": "5D44BD2C4849FEE678E0A991B6043C5A",
+  "gimbal": {
+    "requested": [
+      -27046.552734375,
+      -2082.68798828125,
+      4059.116816520691
+    ],
+    "actual": [
+      -27046.552734375,
+      -2082.68798828125,
+      4059.116816520691
+    ],
+    "yaw": 60
+  },
+  "drone": {
+    "requested": [
+      -27350,
+      -2570,
+      4074.26806640625
+    ],
+    "actual_after_2s": [
+      -27350,
+      -2570,
+      4074.26806640625
+    ],
+    "physics": {
+      "application": "WISEYE AirSim Control",
+      "run_id": "5D44BD2C4849FEE678E0A991B6043C5A",
+      "connected": true,
+      "drone_id": "uav-01",
+      "flight_status": "ready",
+      "paused": true,
+      "flight_mode": "manual",
+      "position_ned_m": [
+        -273.5,
+        -25.700000762939453,
+        -40.742679595947266
+      ],
+      "route_loops": 0,
+      "route_status": "idle",
+      "route_next_waypoint": null,
+      "route": null,
+      "active_route_name": "",
+      "velocity_mps": 3.0,
+      "command_active": false,
+      "last_error": "",
+      "yaw_deg": 120.00000779005532,
+      "motor_rpm": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "rotor_sample_age_s": 6.300000040937448e-05,
+      "manual_command_count": 0,
+      "last_manual_input": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fleet": [
+        {
+          "application": "WISEYE AirSim Control",
+          "run_id": "5D44BD2C4849FEE678E0A991B6043C5A",
+          "connected": true,
+          "drone_id": "uav-01",
+          "flight_status": "ready",
+          "paused": true,
+          "flight_mode": "manual",
+          "position_ned_m": [
+            -273.5,
+            -25.700000762939453,
+            -40.742679595947266
+          ],
+          "route_loops": 0,
+          "route_status": "idle",
+          "route_next_waypoint": null,
+          "route": null,
+          "active_route_name": "",
+          "velocity_mps": 3.0,
+          "command_active": false,
+          "last_error": "",
+          "yaw_deg": 120.00000779005532,
+          "motor_rpm": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotor_sample_age_s": 0.0001264000002265675,
+          "manual_command_count": 0,
+          "last_manual_input": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  },
+  "takeoff": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "5D44BD2C4849FEE678E0A991B6043C5A",
+    "connected": true,
+    "drone_id": "uav-01",
+    "flight_status": "active",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -273.5,
+      -25.700000762939453,
+      -42.257511138916016
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 120.00000779005545,
+    "motor_rpm": [
+      4940.8033722678765,
+      4940.803955110686,
+      4940.805120796304,
+      4940.805703639114
+    ],
+    "rotor_sample_age_s": 0.013095700000121724,
+    "manual_command_count": 0,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "5D44BD2C4849FEE678E0A991B6043C5A",
+        "connected": true,
+        "drone_id": "uav-01",
+        "flight_status": "active",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -273.5,
+          -25.700000762939453,
+          -42.257511138916016
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 120.00000779005545,
+        "motor_rpm": [
+          4940.8033722678765,
+          4940.803955110686,
+          4940.805120796304,
+          4940.805703639114
+        ],
+        "rotor_sample_age_s": 0.013238800000181072,
+        "manual_command_count": 0,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "landed": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "5D44BD2C4849FEE678E0A991B6043C5A",
+    "connected": true,
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -273.5,
+      -25.69999885559082,
+      -40.742679595947266
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 120.00000779005532,
+    "motor_rpm": [
+      2.193606559455879e-05,
+      2.193606559455879e-05,
+      2.193606559455879e-05,
+      2.193606559455879e-05
+    ],
+    "rotor_sample_age_s": 3.529999958118424e-05,
+    "manual_command_count": 0,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "5D44BD2C4849FEE678E0A991B6043C5A",
+        "connected": true,
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -273.5,
+          -25.69999885559082,
+          -40.742679595947266
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 120.00000779005532,
+        "motor_rpm": [
+          7.2211840018173354e-06,
+          7.2211840018173354e-06,
+          7.2211840018173354e-06,
+          7.2211840018173354e-06
+        ],
+        "rotor_sample_age_s": 9.90999997156905e-05,
+        "manual_command_count": 0,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "restored": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "5D44BD2C4849FEE678E0A991B6043C5A",
+    "connected": true,
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -274.0,
+      -26.0,
+      -40.742679595947266
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 89.99999803884911,
+    "motor_rpm": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_sample_age_s": 8.379999962926377e-05,
+    "manual_command_count": 0,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "5D44BD2C4849FEE678E0A991B6043C5A",
+        "connected": true,
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -274.0,
+          -26.0,
+          -40.742679595947266
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 89.99999803884911,
+        "motor_rpm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotor_sample_age_s": 0.0003527999997459119,
+        "manual_command_count": 0,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  }
+}

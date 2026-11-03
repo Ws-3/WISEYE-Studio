@@ -1,0 +1,11 @@
+{
+  "run_id": "34BC23744E4E20B0C1D72484D66D4F28",
+  "passed": false,
+  "arrangement_single_shared_observer": true,
+  "sensor_ack_is_actual": true,
+  "gt_overlay_only": true,
+  "stop_save_keeps_receiver": true,
+  "saved_pairs": 7,
+  "actual_display_fps": 4.397889493878141,
+  "cleanup_error": "RPCError('invalid_argument: Invalid infrared palette/noise')"
+}

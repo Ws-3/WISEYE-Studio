@@ -48,7 +48,18 @@ TArray<TSharedPtr<FJsonValue>> AWiseEyeDemo::DeviceInventory() const {
             Item->SetStringField(TEXT("dynamics_name"),Rig->DynamicsActorName.ToString());
             Item->SetArrayField(TEXT("initial_position_cm"),{MakeShared<FJsonValueNumber>(Rig->FlightOrigin.X),MakeShared<FJsonValueNumber>(Rig->FlightOrigin.Y),MakeShared<FJsonValueNumber>(Rig->FlightOrigin.Z)});
             Item->SetBoolField(TEXT("rotors_running"),Rig->RotorsRunning);
+            if (Kind==TEXT("drone")) {
+                auto Lights=MakeShared<FJsonObject>();
+                Lights->SetBoolField(TEXT("enabled"),Rig->NavigationLightsEnabled);
+                Lights->SetBoolField(TEXT("night"),Rig->NavigationNight);
+                Lights->SetBoolField(TEXT("red_on"),Rig->NavigationRedOn);
+                Lights->SetBoolField(TEXT("green_on"),Rig->NavigationGreenOn);
+                Lights->SetNumberField(TEXT("lamp_count"),Rig->NavigationLamps.Num());
+                Lights->SetNumberField(TEXT("period_s"),1.6);
+                Item->SetObjectField(TEXT("navigation_lights"),Lights);
+            }
             Item->SetNumberField(TEXT("initial_yaw_deg"),Rig->InitialYawDegrees);
+            Item->SetNumberField(TEXT("placement_yaw_deg"),Kind==TEXT("drone")?Rig->InitialYawDegrees:Rig->GimbalPlacementYaw);
             Result.Add(MakeShared<FJsonValueObject>(Item));
         };
         if (Rig->OwnsDrone && Rig->Drone) Add(Rig->DroneId,TEXT("drone"),Rig->DroneModel,Rig->Drone->GetActorLocation());
@@ -109,6 +120,7 @@ bool AWiseEyeDemo::InitializeFleet(FString& Error) {
             auto Item=Gimbals[Index];Rig->GimbalId=Item->GetStringField(TEXT("id"));Rig->TrackingTargetId=Item->GetStringField(TEXT("tracking_target"));
             Item->TryGetStringField(TEXT("name"),Rig->GimbalName);
             const FVector Position=VectorField(Item,TEXT("position_cm")),R=VectorField(Item,TEXT("rotation_deg"));
+            Rig->GimbalPlacementYaw=R.Y;
             if (Rig==this) Mount->AddActorWorldOffset(Position-GetActorLocation());else Rig->SetActorLocation(Position);
             Rig->SetActorRotation(OriginalTransform.Rotator()+FRotator(R.X,R.Y,R.Z));
         } else Rig->GimbalId.Empty();
@@ -119,7 +131,8 @@ bool AWiseEyeDemo::InitializeFleet(FString& Error) {
         Rig->FleetChild=true;Rig->FleetRoot=this;Rig->SceneId=SceneId;Rig->PlaySessionId=PlaySessionId;Rig->FlightBackend=FlightBackend;Rig->ThermalMaterial=ThermalMaterial;
         Rig->AutoReceiveInput=EAutoReceiveInput::Disabled;
         Rig->MinPitch=MinPitch;Rig->MaxPitch=MaxPitch;Rig->DynamicsVisualRotationOffset=DynamicsVisualRotationOffset;
-        Rig->YawPivot->SetRelativeTransform(YawPivot->GetRelativeTransform());Rig->PitchPivot->SetRelativeTransform(PitchPivot->GetRelativeTransform());Rig->Camera->SetRelativeTransform(Camera->GetRelativeTransform());
+        Rig->YawPivot->SetRelativeTransform(YawPivot->GetRelativeTransform());Rig->PitchPivot->SetRelativeTransform(PitchPivot->GetRelativeTransform());Rig->Camera->SetRelativeTransform(OpticalMount->GetRelativeTransform());
+        Rig->VisibleOffsetCm=VisibleOffsetCm;Rig->InfraredOffsetCm=InfraredOffsetCm;Rig->VisibleBoresight=VisibleBoresight;Rig->InfraredBoresight=InfraredBoresight;
         Rig->LidarMount->SetRelativeTransform(LidarMount->GetRelativeTransform());
         Rig->LidarBody->SetRelativeTransform(LidarBody->GetRelativeTransform());
         if (Index<Drones.Num()) {

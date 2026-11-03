@@ -1,0 +1,548 @@
+{
+  "surfaces_verified": [
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 440,
+      "position_cm": [
+        -33035,
+        -2110,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33035,
+        -2110,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 441,
+      "position_cm": [
+        -33035,
+        -2075,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33035,
+        -2075,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 442,
+      "position_cm": [
+        -33035,
+        -2040,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33035,
+        -2040,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 443,
+      "position_cm": [
+        -33000,
+        -2110,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33000,
+        -2110,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 444,
+      "position_cm": [
+        -33000,
+        -2075,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33000,
+        -2075,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 445,
+      "position_cm": [
+        -33000,
+        -2040,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33000,
+        -2040,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 446,
+      "position_cm": [
+        -32965,
+        -2110,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -32965,
+        -2110,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 447,
+      "position_cm": [
+        -32965,
+        -2075,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -32965,
+        -2075,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 448,
+      "position_cm": [
+        -32965,
+        -2040,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -32965,
+        -2040,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "uav-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 449,
+      "position_cm": [
+        -33840,
+        -2940,
+        4100
+      ],
+      "surface_cm": [
+        -33840,
+        -2940,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "uav-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 450,
+      "position_cm": [
+        -33840,
+        -2900,
+        4100
+      ],
+      "surface_cm": [
+        -33840,
+        -2900,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "uav-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 451,
+      "position_cm": [
+        -33840,
+        -2860,
+        4100
+      ],
+      "surface_cm": [
+        -33840,
+        -2860,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "uav-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 452,
+      "position_cm": [
+        -33800,
+        -2940,
+        4100
+      ],
+      "surface_cm": [
+        -33800,
+        -2940,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "uav-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 453,
+      "position_cm": [
+        -33800,
+        -2900,
+        4100
+      ],
+      "surface_cm": [
+        -33800,
+        -2900,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "uav-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 454,
+      "position_cm": [
+        -33800,
+        -2860,
+        4100
+      ],
+      "surface_cm": [
+        -33800,
+        -2860,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "uav-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 455,
+      "position_cm": [
+        -33760,
+        -2940,
+        4100
+      ],
+      "surface_cm": [
+        -33760,
+        -2940,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "uav-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 456,
+      "position_cm": [
+        -33760,
+        -2900,
+        4100
+      ],
+      "surface_cm": [
+        -33760,
+        -2900,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "uav-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 457,
+      "position_cm": [
+        -33760,
+        -2860,
+        4100
+      ],
+      "surface_cm": [
+        -33760,
+        -2860,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 458,
+      "position_cm": [
+        -33000,
+        -1975,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33000,
+        -1975,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 459,
+      "position_cm": [
+        -32999.999961769,
+        -1962.49999945191,
+        624.156916095667
+      ],
+      "surface_cm": [
+        -32999.999961769,
+        -1962.49999945191,
+        620.0400995749761
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 460,
+      "position_cm": [
+        -33000,
+        -1968.75,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33000,
+        -1968.75,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 461,
+      "position_cm": [
+        -32999.999961769,
+        -1965.6249997648174,
+        624.156916095667
+      ],
+      "surface_cm": [
+        -32999.999961769,
+        -1965.6249997648174,
+        620.0400995749761
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 462,
+      "position_cm": [
+        -32999.999961769,
+        -1967.187499921271,
+        624.156916095667
+      ],
+      "surface_cm": [
+        -32999.999961769,
+        -1967.187499921271,
+        620.0400995749761
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 463,
+      "position_cm": [
+        -32999.999961769,
+        -1967.9687499994977,
+        624.156916095667
+      ],
+      "surface_cm": [
+        -32999.999961769,
+        -1967.9687499994977,
+        620.0400995749761
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 464,
+      "position_cm": [
+        -33000,
+        -1968.359375,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33000,
+        -1968.359375,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 465,
+      "position_cm": [
+        -33000,
+        -1968.1640625,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33000,
+        -1968.1640625,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 466,
+      "position_cm": [
+        -33000,
+        -1968.06640625,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33000,
+        -1968.06640625,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "ptz-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 467,
+      "position_cm": [
+        -33000,
+        -2075,
+        4104.116816520691
+      ],
+      "surface_cm": [
+        -33000,
+        -2075,
+        4100
+      ]
+    },
+    {
+      "active": false,
+      "has_result": true,
+      "device_id": "uav-01",
+      "request_token": "roof-final",
+      "error": "",
+      "sequence": 468,
+      "position_cm": [
+        -33800,
+        -2900,
+        4100
+      ],
+      "surface_cm": [
+        -33800,
+        -2900,
+        4100
+      ]
+    }
+  ],
+  "edge_y_cm": -1968.017578125,
+  "inset_cm": 106.982421875,
+  "gimbal_position_cm": [
+    -33000,
+    -2075,
+    4104.116816520691
+  ],
+  "drone_position_cm": [
+    -33800,
+    -2900,
+    4125
+  ],
+  "overview_location_cm": [
+    -31000,
+    800,
+    6500
+  ],
+  "overview_rotation_deg": [
+    -32,
+    -122,
+    0
+  ]
+}

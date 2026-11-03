@@ -1,6 +1,6 @@
 """Single-scan metric point-cloud viewer; no invented or accumulated points."""
 import math
-from PySide6.QtCore import QPointF, Qt
+from PySide6.QtCore import QPointF, QRectF, Qt
 from PySide6.QtGui import QColor, QPainter, QPen
 from PySide6.QtWidgets import QWidget, QComboBox
 
@@ -28,22 +28,30 @@ def project_point(point, mode, yaw=-35, elevation=25):
     return horizontal, up * math.cos(b) - depth * math.sin(b)
 
 
+def project_sensor_point(point, horizontal_fov=30., vertical_fov=8.):
+    forward, right, up = point
+    if forward <= .01:return None
+    return (right/(forward*math.tan(math.radians(horizontal_fov)/2)),
+            up/(forward*math.tan(math.radians(vertical_fov)/2)))
+
+
 class LidarView(QWidget):
     def __init__(self):
         super().__init__()
         self.points = []
         self.total_count = 0
         self.rays = 0
+        self.horizontal_fov, self.vertical_fov = 30., 8.
         self.unavailable_message = '等待点云'
         self.yaw, self.elevation, self.zoom = -35, 25, 1.
         self.drag = None
         self.setMinimumSize(430, 260)
         self.mode = QComboBox(self)
-        for label, value in [('三维点云', '3d'), ('正视 · Y/Z', 'front'), ('俯视 · Y/X', 'top')]:
+        for label, value in [('云台视角', 'sensor'), ('自由三维', '3d'), ('正视 · Y/Z', 'front'), ('俯视 · Y/X', 'top')]:
             self.mode.addItem(label, value)
         self.mode.move(12, 10)
         self.mode.currentIndexChanged.connect(self.reset_view)
-        self.setToolTip('单帧真实回波 · 米制等比例；三维模式拖动旋转，滚轮缩放，双击复位。颜色表示传感器距离。')
+        self.setToolTip('默认从雷达原点向前观察；自由三维可拖动旋转，滚轮缩放，双击回到云台视角。颜色表示距离。')
 
     def reset_view(self):
         self.yaw, self.elevation, self.zoom = -35, 25, 1.
@@ -53,8 +61,10 @@ class LidarView(QWidget):
         super().resizeEvent(event)
         self.mode.setVisible(self.height()>=140 and self.width()>=200)
 
-    def set_points(self, points, total_count, rays=0):
+    def set_points(self, points, total_count, rays=0, horizontal_fov=30., vertical_fov=8.):
         self.points = clean_points(points)
+        self.horizontal_fov=max(.1,min(179.,float(horizontal_fov)))
+        self.vertical_fov=max(.1,min(179.,float(vertical_fov)))
         self.total_count, self.rays = total_count, rays
         self.unavailable_message = None
         self.update()
@@ -77,7 +87,8 @@ class LidarView(QWidget):
             self.update()
 
     def mouseReleaseEvent(self, event): self.drag = None
-    def mouseDoubleClickEvent(self, event): self.reset_view()
+    def mouseDoubleClickEvent(self, event):
+        self.mode.setCurrentIndex(0);self.reset_view()
     def wheelEvent(self, event):
         self.zoom = max(.2, min(20., self.zoom * 1.15 ** (event.angleDelta().y()/120)))
         self.update()
@@ -98,6 +109,31 @@ class LidarView(QWidget):
             painter.drawText(area, Qt.AlignmentFlag.AlignCenter, text)
             return
         mode = self.mode.currentData()
+        if mode == 'sensor':
+            # Fixed optical centre and angular projection, never auto-centre the
+            # returns: moving the PTZ now moves points in the expected direction.
+            aspect=math.tan(math.radians(self.horizontal_fov)/2)/math.tan(math.radians(self.vertical_fov)/2)
+            width=min(area.width(),area.height()*aspect);height=width/aspect
+            area=QRectF(area.center().x()-width/2,area.center().y()-height/2,width,height)
+            painter.save();painter.setClipRect(area)
+            painter.setPen(QPen(QColor('#424954'),1))
+            painter.drawRect(area)
+            painter.drawLine(QPointF(area.center().x(),area.top()),QPointF(area.center().x(),area.bottom()))
+            painter.drawLine(QPointF(area.left(),area.center().y()),QPointF(area.right(),area.center().y()))
+            ranges=[math.sqrt(sum(v*v for v in p)) for p in self.points]
+            lo,hi=min(ranges),max(ranges)
+            for point,distance in sorted(zip(self.points,ranges),key=lambda item:item[1],reverse=True):
+                projected=project_sensor_point(point,self.horizontal_fov,self.vertical_fov)
+                if projected is None:continue
+                x,y=projected
+                painter.setPen(QPen(QColor.fromHsvF(.52*(1-(distance-lo)/max(.001,hi-lo)),.8,1),3))
+                painter.drawPoint(QPointF(area.center().x()+x*area.width()*.5*self.zoom,area.center().y()-y*area.height()*.5*self.zoom))
+            painter.restore();painter.setPen(QColor('#b3c6dc'))
+            if not compact:
+                painter.drawText(190,32,f'{self.total_count} 回波 / {self.rays} 射线')
+                painter.drawText(12,self.height()-35,f'云台 / 雷达视角 · {self.horizontal_fov:g}° × {self.vertical_fov:g}° · 距离 {lo:.2f}–{hi:.2f} m')
+                painter.drawText(12,self.height()-14,'滚轮缩放 / 自由三维可旋转 / 双击回到云台视角；非相机像素配准')
+            return
         projected = [project_point(p, mode, self.yaw, self.elevation) for p in self.points]
         xs, ys = zip(*projected)
         center = ((min(xs)+max(xs))/2, (min(ys)+max(ys))/2)

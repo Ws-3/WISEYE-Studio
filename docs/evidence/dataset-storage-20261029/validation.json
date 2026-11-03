@@ -1,0 +1,28 @@
+{
+  "run_id": "A0E91D454AF73E94E3DC1CB7311AC7D4",
+  "editor_build_passed": true,
+  "core_tests": 82,
+  "related_qt_tests": 36,
+  "cases": 3,
+  "capture_tick_context": true,
+  "atomic_pair_storage": true,
+  "no_pairs_manifest": true,
+  "legacy_and_paired_training_reader": true,
+  "source_build_sha256": {
+    "WiseEyeGroundTruth.h": "ff3579a0033d23a117febced65a68cf612609535da8e88fe2ed8ed7a30c5d338",
+    "WiseEyeGroundTruth.cpp": "a11ccd70f7c1d7483e0fa9353c865720e15fd172327d44a899350d1b24d80a77"
+  },
+  "flight_status": "ready",
+  "motor_rpm": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "measured_gt_pairs_per_second": 1.764560358022299,
+  "limits": [
+    "weather tags describe configured simulation parameters, not measured meteorology",
+    "2 FPS GT limit unchanged; video poll ceiling 30 is not guaranteed new frames",
+    "local short test, not sustained two-PC validation"
+  ]
+}

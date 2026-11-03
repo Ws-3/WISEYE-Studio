@@ -37,6 +37,7 @@ class ArrangementPage(QWidget):
         self.position_card,positions=self.card('02  /  PLACEMENT','设备初始位置')
         note=window._label('跟随当前场景的设备列表；坐标与表面取点按设备独立编辑。');note.setWordWrap(True);positions.addWidget(note)
         self.coordinates = {}
+        self.yaw_fields = {}
         self.map=PlacementPreview(self);positions.addWidget(self.map)
         grid=QGridLayout();self.position_grid=grid;grid.setHorizontalSpacing(10);grid.setVerticalSpacing(10)
         for col,label in enumerate(['设备','X / m','Y / m','Z / m']):grid.addWidget(window._label(label,'section'),0,col)
@@ -76,7 +77,7 @@ class ArrangementPage(QWidget):
 
     def resizeEvent(self,event):
         super().resizeEvent(event)
-        if hasattr(self,'columns'):
+        if hasattr(self,'columns') and not getattr(self,'_v4_layout',False):
             stacked=self.width()<1150
             self.columns.addWidget(self.tools_card,1 if stacked else 0,0 if stacked else 1)
             self.columns.setColumnStretch(1,0 if stacked else 1)
@@ -85,7 +86,7 @@ class ArrangementPage(QWidget):
         scene = self.window.scenes.currentData()
         if not scene:
             return
-        self.scene_note.setText(f"{scene['name']} · 选择环境后编辑下方布置。保存仅写入配置，加载后才生效。")
+        self.scene_note.setText(f"{scene['name']} · 当前场景可实时调整位置与朝向；保存初始布置用于下次启动。新增/删除设备或切换地图仍需加载场景。")
         try:
             data = self.store.load(scene)
             from core.devices import DeviceStore
@@ -113,6 +114,7 @@ class ArrangementPage(QWidget):
         self.dirty_positions.add(key)
         self.map.update()
         if hasattr(self,'tools'):self.tools.draft_changed()
+        if hasattr(self,'tools'):self.tools.schedule_apply(key)
 
     def sync_devices(self,devices,preserve=True):
         old={key:[v.value()*100 for v in fields] for key,fields in self.coordinates.items()}
@@ -122,19 +124,38 @@ class ArrangementPage(QWidget):
             if item.widget():
                 item.widget().hide()
                 item.widget().deleteLater()
-        self.coordinates={};self.device_specs=list(devices)
+        old_yaw={key:field.value() for key,field in self.yaw_fields.items()}
+        self.coordinates={};self.yaw_fields={};self.device_specs=list(devices)
         self.dirty_positions.intersection_update(self.coordinate_key(d['id']) for d in devices)
-        for col,label in enumerate(['设备','X / m','Y / m','Z / m']):
-            self.position_grid.addWidget(self.window._label(label,'section'),0,col)
+        v4=getattr(self,'_v4_layout',False)
+        self.v4_field_groups={}
+        if not v4:
+            for col,label in enumerate(['设备','X / m','Y / m','Z / m','朝向 / °']):
+                self.position_grid.addWidget(self.window._label(label,'section'),0,col)
         for row,device in enumerate(devices,1):
-            key=self.coordinate_key(device['id'])
+            key=self.coordinate_key(device['id']);group=[];self.v4_field_groups[key]=group
             values=old[key] if preserve and key in self.dirty_positions and key in old else device['position_cm']
-            self.position_grid.addWidget(self.window._label(device['id']),row,0);self.coordinates[key]=[]
+            if not v4:self.position_grid.addWidget(self.window._label(device['id']),row,0)
+            self.coordinates[key]=[]
             for col,value in enumerate(values,1):
-                field=NumberInput(-100000,100000,'',3,.1);field.setMinimumWidth(85);field.setValue(value/100)
+                field=NumberInput(-100000,100000,'m' if v4 else '',3,.1);field.setMinimumWidth(85);field.setValue(value/100)
                 field.valueChanged.connect(lambda _,k=key:self.position_edited(k))
-                self.coordinates[key].append(field);self.position_grid.addWidget(field,row,col)
+                self.coordinates[key].append(field)
+                if v4:
+                    label=self.window._label(('X','Y','Z')[col-1]);r=(row-1)*4+col-1
+                    self.position_grid.addWidget(label,r,0);self.position_grid.addWidget(field,r,1);group.extend([label,field])
+                else:self.position_grid.addWidget(field,row,col)
+            yaw=old_yaw[key] if preserve and key in self.dirty_positions and key in old_yaw else device['rotation_deg'][1]
+            field=NumberInput(-180,180,'°' if v4 else '',1,1);field.setValue(yaw);field.setMinimumWidth(70)
+            field.valueChanged.connect(lambda _,k=key:self.position_edited(k));self.yaw_fields[key]=field
+            if v4:
+                label=self.window._label('Yaw');r=(row-1)*4+3
+                self.position_grid.addWidget(label,r,0);self.position_grid.addWidget(field,r,1);group.extend([label,field])
+            else:self.position_grid.addWidget(field,row,4)
         if hasattr(self,'tools'):self.tools.refresh_devices()
+        if v4:
+            from apps.desktop_app.arrangement_v4 import refresh_devices
+            refresh_devices(self)
         self.map.update()
 
     def refresh_devices(self):
@@ -150,18 +171,21 @@ class ArrangementPage(QWidget):
         data = dict(version=1, scene_id=scene['id'])
         for key, widgets in self.coordinates.items():
             data[key] = [spin.value()*100 for spin in widgets]
+        data['headings_deg']={key:field.value() for key,field in self.yaw_fields.items()}
         try:
             from core.devices import DeviceStore
             fleet_store=DeviceStore(ROOT)
             fleet=fleet_store.load(scene)
             for device in fleet['devices']:
                 key=self.coordinate_key(device['id'])
-                if key in self.dirty_positions and key in data:device['position_cm']=data[key]
+                if key in self.dirty_positions and key in data:
+                    device['position_cm']=data[key]
+                    device['rotation_deg'][1]=self.yaw_fields[key].value()
             fleet_store.save(fleet)
             for device in fleet['devices']:data[self.coordinate_key(device['id'])]=device['position_cm']
             path=self.store.save(data)
             self.dirty_positions.clear()
-            self.message.setText('已保存。加载所选场景后生效；当前仿真没有被移动。')
+            self.message.setText('初始布置已保存，供下次启动使用；当前设备位置以实时应用确认结果为准，无需重载场景。')
             self.window.log(f'初始布置已保存：{path}')
         except (ValueError, OSError, TypeError) as exc:
             self.message.setText(f'保存失败：{exc}')

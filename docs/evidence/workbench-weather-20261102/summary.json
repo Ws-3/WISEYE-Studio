@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "disconnect_reconnect_without_stopping": true,
+  "stop_button_stopped_owned_session": true,
+  "owned_session_stopped": true,
+  "scenes": {
+    "city": {
+      "power_acknowledgements": 8,
+      "all_off_control_and_observer_alive": true,
+      "rain_active_particles": 15872,
+      "rain_volumes": 2,
+      "day_mean": 142.7159090470679,
+      "night_mean": 28.705063175154322,
+      "night_to_day_ratio": 0.2011342909618251,
+      "fog_near_contrast_ratio": 0.9774095567247677,
+      "fog_observer_contrast_ratio": 0.8442194941821898,
+      "ue_fps": 29.99948703629711,
+      "lock_held": true
+    },
+    "city_large": {
+      "power_acknowledgements": 8,
+      "all_off_control_and_observer_alive": true,
+      "rain_active_particles": 15744,
+      "rain_volumes": 2,
+      "day_mean": 81.3215663580247,
+      "night_mean": 33.372522183641976,
+      "night_to_day_ratio": 0.4103772674116578,
+      "fog_near_contrast_ratio": 0.5648381811528423,
+      "fog_observer_contrast_ratio": 0.8671514907234111,
+      "ue_fps": 29.998508989412574,
+      "lock_held": true
+    }
+  }
+}

@@ -36,7 +36,7 @@ class UEPreviewClient(RTSPVideoClient):
 
     def _worker(self, generation, endpoint):
         host, port, channel, device_id = endpoint
-        source = UEFrameClient(host, port, channel, 60, device_id, timeout=1)
+        source = UEFrameClient(host, port, channel, 90, device_id, timeout=1)
         wake = threading.Event()
         with self._lock:
             if generation != self._generation or not self.running:

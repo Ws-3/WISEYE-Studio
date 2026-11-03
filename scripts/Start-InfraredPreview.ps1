@@ -1,15 +1,17 @@
-param(
-    [string]$BuildWorkspace = 'E:\Projects\WISEYE-BuildWorkspace',
-    [string]$EngineRoot = 'E:\Programs\UE_5.8',
-    [ValidateSet('city','original','test_range')][string]$Scene = 'city'
+﻿param(
+    [string]$BuildWorkspace = (Join-Path (Split-Path -Parent $PSScriptRoot) 'ue5\WISEYE'),
+    [string]$EngineRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) 'Tools\UE_5.8'),
+    [ValidateSet('city','city_large')][string]$Scene = 'city',
+    [string]$DataDirectory = $env:WISEYE_DATA_DIR
 )
 $ErrorActionPreference = 'Stop'
 $sourceRoot = Split-Path -Parent $PSScriptRoot
 $project = Join-Path $BuildWorkspace 'ue5\WISEYE\test.uproject'
+if (-not (Test-Path -LiteralPath $project)) { $project=Join-Path $BuildWorkspace 'test.uproject' }
 $editor = Join-Path $EngineRoot 'Engine\Binaries\Win64\UnrealEditor.exe'
-$python = Join-Path $BuildWorkspace 'builds\python-env\Scripts\python.exe'
-$pythonw = Join-Path $BuildWorkspace 'builds\python-env\Scripts\pythonw.exe'
-$material = Join-Path $BuildWorkspace 'ue5\WISEYE\Content\WISEYE\Sensors\M_IR_Experimental.uasset'
+$python = Join-Path $sourceRoot 'Tools\Python\python.exe'
+$pythonw = Join-Path $sourceRoot 'Tools\Python\pythonw.exe'
+$material = Join-Path (Split-Path -Parent $project) 'Content\WISEYE\Sensors\M_IR_Reference.uasset'
 foreach ($file in @($project,$editor,$python,$pythonw,$material)) {
     if (-not (Test-Path -LiteralPath $file)) { throw "Preview dependency missing: $file" }
 }
@@ -19,7 +21,7 @@ foreach ($port in @(50051,50052)) {
     catch [Net.Sockets.SocketException] { }
     finally { $probe.Dispose() }
 }
-$data = Join-Path $BuildWorkspace 'builds\infrared-preview-data'
+$data = if ($DataDirectory) { $DataDirectory } else { Join-Path $sourceRoot 'UserData' }
 $configuration = Join-Path $data 'ue5\WISEYE\Config'
 New-Item -ItemType Directory -Path $configuration,(Join-Path $data 'logs') -Force | Out-Null
 if (-not (Test-Path -LiteralPath (Join-Path $configuration 'WISEYE'))) {
@@ -28,30 +30,14 @@ if (-not (Test-Path -LiteralPath (Join-Path $configuration 'WISEYE'))) {
 if (-not (Test-Path -LiteralPath (Join-Path $data 'configs'))) {
     Copy-Item -LiteralPath (Join-Path $sourceRoot 'configs') -Destination $data -Recurse
 }
-# Source-mode scene discovery checks .umap availability. Reference existing
-# build assets instead of duplicating the city inside disposable user data.
-$content = Join-Path $data 'ue5\WISEYE\Content'
-if (-not (Test-Path -LiteralPath $content)) {
-    New-Item -ItemType Junction -Path $content -Target (Join-Path $BuildWorkspace 'ue5\WISEYE\Content') | Out-Null
-}
+# SceneStore resolves source maps from the canonical project. Do not create
+# absolute junctions in portable user data: those break when the drive changes.
 # Windows PowerShell 5.1 otherwise treats BOM-less UTF-8 as the system ANSI
 # code page, corrupting Chinese strings before ConvertFrom-Json parses them.
 $manifest = Get-Content -LiteralPath (Join-Path $configuration "WISEYE\Scenes\$Scene.json") -Raw -Encoding UTF8 | ConvertFrom-Json
-$oldData = $env:WISEYE_DATA_DIR
-$oldResources = $env:WISEYE_RESOURCES_DIR
+# One supervisor owns every child, including venv Python descendants.
+Push-Location -LiteralPath $sourceRoot
 try {
-    $env:WISEYE_DATA_DIR = $data
-    $env:WISEYE_RESOURCES_DIR = $BuildWorkspace
-    $arguments = @(('"' + $project + '"'),($manifest.map + '?game=/Script/test.WiseEyeGameMode?wiseeye_scene=' + $Scene),'-game','-windowed','-ResX=1280','-ResY=720','-nosplash',('-WiseEyeDataDir="'+$data+'"'),('-UserDir="'+(Join-Path $data 'UE')+'"'),('-simlogdir="'+(Join-Path $data 'logs')+'"'))
-    $game = Start-Process -FilePath $editor -ArgumentList $arguments -WorkingDirectory $BuildWorkspace -WindowStyle Normal -PassThru
-    $flight = Start-Process -FilePath $python -ArgumentList @('-m','integrations.ProjectAirSim.run_wiseye_flight','--scene',$Scene,'--loops','0') -WorkingDirectory $BuildWorkspace -WindowStyle Hidden -RedirectStandardOutput (Join-Path $data 'logs\flight.log') -RedirectStandardError (Join-Path $data 'logs\flight-error.log') -PassThru
-    Start-Process -FilePath $pythonw -ArgumentList @('-m','apps.desktop_app.main') -WorkingDirectory $BuildWorkspace -WindowStyle Normal
-    Write-Host 'Wait for city loading, then connect UE. Infrared properties provide enhanced/legacy modes.'
-    Write-Host "Preview data: $data. Keep this launcher open. Land before closing the game and desktop."
-    $game.WaitForExit()
-} finally {
-    if ($flight -and -not $flight.HasExited) { Stop-Process -Id $flight.Id -ErrorAction SilentlyContinue }
-    $env:WISEYE_DATA_DIR = $oldData
-    $env:WISEYE_RESOURCES_DIR = $oldResources
-}
-Write-Host 'Game closed; the owned preview flight worker has been stopped.'
+& $python -m apps.desktop_app.preview_session --editor $editor --project $project --data $data --scene $Scene
+} finally { Pop-Location }
+if ($LASTEXITCODE -ne 0) { throw "Preview session failed; see $data\logs\session.log" }

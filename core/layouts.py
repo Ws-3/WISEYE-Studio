@@ -17,6 +17,9 @@ def validate_layout(data, scene_id):
         value = data.get(key)
         if not isinstance(value, list) or len(value) != 3 or not all(type(n) in (float, int) and math.isfinite(n) and abs(n) <= 1e7 for n in value):
             raise ValueError(f'{key} 必须是有效的三维坐标')
+    headings=data.get('headings_deg',{})
+    if not isinstance(headings,dict) or any(key not in position_keys or type(value) not in (int,float) or not math.isfinite(value) or abs(value)>180 for key,value in headings.items()):
+        raise ValueError('朝向必须是 -180 到 180 度的有限数值')
     return data
 
 

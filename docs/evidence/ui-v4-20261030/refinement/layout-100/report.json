@@ -1,0 +1,44 @@
+[
+  {
+    "scale": 1.0,
+    "physical": [
+      1920,
+      1080
+    ],
+    "requested": [
+      1896,
+      1020
+    ],
+    "simulation": [
+      1896,
+      1020
+    ],
+    "minimum_clamped": false,
+    "note": "Clamped cases verify the minimum logical window, not fit on the named physical screen.",
+    "training": [
+      1896,
+      1020
+    ]
+  },
+  {
+    "scale": 1.0,
+    "physical": [
+      1440,
+      900
+    ],
+    "requested": [
+      1416,
+      840
+    ],
+    "simulation": [
+      1416,
+      840
+    ],
+    "minimum_clamped": false,
+    "note": "Clamped cases verify the minimum logical window, not fit on the named physical screen.",
+    "training": [
+      1416,
+      840
+    ]
+  }
+]

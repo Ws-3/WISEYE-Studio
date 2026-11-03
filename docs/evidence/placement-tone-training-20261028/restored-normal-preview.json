@@ -1,0 +1,13 @@
+{
+  "run_id": "39E7880E42C02A96541CC69C18D997FA",
+  "flight_status": "ready",
+  "motor_rpm": [
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "placement_active": false,
+  "data_directory": "E:/Projects/WISEYE-IR-Work/preview-data",
+  "note": "Normal source launcher restored for user; leave running. Test jobs/windows exited."
+}

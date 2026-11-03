@@ -80,9 +80,9 @@ class RouteEditor(QDialog):
         self.device_id=window.selected_drone
         self.uploaded_snapshot=None
         self.uploading_snapshot=None
-        self.scene_id=window.state.get('scene_id') or (window.scenes.currentData() or {}).get('id','original')
+        self.scene_id=window.state.get('scene_id') or (window.scenes.currentData() or {}).get('id','city')
         self.setWindowTitle('WISEYE · '+self.device_id+' 航线编辑')
-        self.resize(1000,720)
+        self.resize(1180,780)
         layout=QVBoxLayout(self)
         row=QHBoxLayout()
         self.name=QLineEdit('自定义航线')
@@ -98,18 +98,21 @@ class RouteEditor(QDialog):
         self.table.setHorizontalHeaderLabels(['X / m','Y / m','Z / m'])
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
         self.canvas=RouteCanvas(self)
-        split.addWidget(self.table);split.addWidget(self.canvas);split.setSizes([340,600])
+        split.addWidget(self.canvas);split.addWidget(self.table);split.setSizes([760,330])
+        split.setStretchFactor(0,1);split.setChildrenCollapsible(False)
         layout.addWidget(split,1)
         row=QHBoxLayout()
         for text,callback in [('增加航点',self.add_point),('删除选中点',self.delete_point),('上移',lambda:self.move(-1)),('下移',lambda:self.move(1)),('用无人机当前位置替换',self.use_position)]:
             button=QPushButton(text);button.clicked.connect(callback);row.addWidget(button)
         layout.addLayout(row)
         row=QHBoxLayout()
+        task_row=QHBoxLayout()
         for text,callback in [('打开草稿',self.open_file),('保存草稿',self.save_file),('上传到 '+self.device_id,self.upload),('执行已上传航线',self.start_route),('暂停航线',lambda:self.control('sim.pause')),('继续航线',lambda:self.control('sim.resume')),('停止并悬停',lambda:self.control('route.stop'))]:
-            button=QPushButton(text);button.clicked.connect(callback);row.addWidget(button)
+            button=QPushButton(text);button.clicked.connect(callback)
+            (task_row if text in ('暂停航线','继续航线','停止并悬停') else row).addWidget(button)
             if text.startswith('上传到'):self.upload_button=button
             if text=='执行已上传航线':self.start_button=button;button.setObjectName('primary');button.setEnabled(False)
-        layout.addLayout(row)
+        row.addStretch();task_row.addStretch();layout.addLayout(row);layout.addLayout(task_row)
         self.status=QLabel('编辑的是草稿，上传不会自动起飞或开始飞行。')
         self.status.setWordWrap(True)
         layout.addWidget(self.status)

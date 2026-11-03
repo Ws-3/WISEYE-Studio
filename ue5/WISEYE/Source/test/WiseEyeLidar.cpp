@@ -14,6 +14,7 @@ void AWiseEyeDemo::ScanLidar()
     LidarHitCount=0;
     LidarNearestRangeMeters=0;
     if (!LidarEnabled || !IsValid(LidarMount) || !GetWorld()) return;
+    ++LidarScanSequence;
 
     const int32 H=FMath::Clamp(LidarHorizontalSamples,1,128);
     const int32 V=FMath::Clamp(LidarVerticalSamples,1,64);
@@ -99,7 +100,7 @@ TArray<FVector> AWiseEyeDemo::GetLidarPreviewPoints(int32 MaxPoints) const
 {
     TArray<FVector> Points;
     const int32 Count=LastLidarPointsWorldCm.Num();
-    if (Count<=0 || MaxPoints<=0) return Points;
+    if (!LidarEnabled || Count<=0 || MaxPoints<=0) return Points;
     const int32 Step=FMath::Max(1,FMath::CeilToInt(float(Count)/MaxPoints));
     const FTransform SensorFromWorld=LastLidarPose.Inverse();
     Points.Reserve(FMath::Min(Count,MaxPoints));

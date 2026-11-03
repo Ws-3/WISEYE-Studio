@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "run_id": "A0E91D454AF73E94E3DC1CB7311AC7D4",
+  "cases": [
+    {
+      "weather": "Clear-Day",
+      "sample_group_id": "7962e18bda182bde1dd81288",
+      "images": [
+        "IR_Mavic3_Clear-Day_city_ptz-01_sA0E91D45_7962e18bda182bde1dd81288.jpg",
+        "VIS_Mavic3_Clear-Day_city_ptz-01_sA0E91D45_7962e18bda182bde1dd81288.jpg"
+      ]
+    },
+    {
+      "weather": "Fog-Night",
+      "sample_group_id": "3f2ed921a7769fb2446b6279",
+      "images": [
+        "IR_Mavic3_Fog-Night_city_ptz-01_sA0E91D45_3f2ed921a7769fb2446b6279.jpg",
+        "VIS_Mavic3_Fog-Night_city_ptz-01_sA0E91D45_3f2ed921a7769fb2446b6279.jpg"
+      ]
+    },
+    {
+      "weather": "Clear-Day",
+      "negative_sample": true,
+      "sample_group_id": "3a8e161a12e3d44b567fe737",
+      "images": [
+        "IR_Mavic3_Clear-Day_city_ptz-01_sA0E91D45_3a8e161a12e3d44b567fe737.jpg",
+        "VIS_Mavic3_Clear-Day_city_ptz-01_sA0E91D45_3a8e161a12e3d44b567fe737.jpg"
+      ]
+    }
+  ],
+  "source_new_frames_fps": {
+    "CH1": 9.88630941894379,
+    "CH2": 10.380624889890981
+  },
+  "six_pairs_measured_fps": 1.764560358022299,
+  "limits": {
+    "video_poll_default": 20,
+    "video_poll_max": 30,
+    "gt_display_default": 1,
+    "gt_save_default": 1,
+    "gt_max": 2
+  }
+}

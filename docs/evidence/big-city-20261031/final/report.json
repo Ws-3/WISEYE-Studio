@@ -1,0 +1,3158 @@
+{
+  "passed": true,
+  "scene_id": "city_large",
+  "samples": [
+    {
+      "elapsed_s": 1.0669622000059462,
+      "rpc_ms": 50.77750000054948,
+      "tick_seq": 611,
+      "runtime_hardware": {
+        "sample_time_s": 16811613.7451385,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999780954529825,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24348336128,
+        "ue_ram_bytes": 12220989440,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349587456,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 29.78889757623143,
+        "ue_gpu_engine_peak_pct": 56.086199441012496
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 2.1342714999991586,
+      "rpc_ms": 20.919500006129965,
+      "tick_seq": 643,
+      "runtime_hardware": {
+        "sample_time_s": 16811614.7784445,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.000793601559575,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24345214976,
+        "ue_ram_bytes": 12214153216,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349587456,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.701966717095317,
+        "ue_gpu_engine_peak_pct": 54.77769564105647
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 3.1999226000043564,
+      "rpc_ms": 50.1868999999715,
+      "tick_seq": 675,
+      "runtime_hardware": {
+        "sample_time_s": 16811615.7784691,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999261963643104,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24347942912,
+        "ue_ram_bytes": 12213469184,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349591552,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.225175918686475,
+        "ue_gpu_engine_peak_pct": 55.36193525125793
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 4.266732600000978,
+      "rpc_ms": 23.83239999471698,
+      "tick_seq": 707,
+      "runtime_hardware": {
+        "sample_time_s": 16811616.8118533,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.998523293112235,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24346943488,
+        "ue_ram_bytes": 12212338688,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4344631296,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.978146194423513,
+        "ue_gpu_engine_peak_pct": 55.803955679364535
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 5.3026227000009385,
+      "rpc_ms": 20.641499999328516,
+      "tick_seq": 738,
+      "runtime_hardware": {
+        "sample_time_s": 16811617.8451025,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00244279723531,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24356208640,
+        "ue_ram_bytes": 12215705600,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349730816,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.382753403933435,
+        "ue_gpu_engine_peak_pct": 56.400970365399715
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 6.366725300002145,
+      "rpc_ms": 21.295500002452172,
+      "tick_seq": 770,
+      "runtime_hardware": {
+        "sample_time_s": 16811618.8452654,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.995113811132562,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24358301696,
+        "ue_ram_bytes": 12215918592,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383289344,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.53792025019547,
+        "ue_gpu_engine_peak_pct": 55.07833393809216
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 7.399821400002111,
+      "rpc_ms": 31.46299999934854,
+      "tick_seq": 801,
+      "runtime_hardware": {
+        "sample_time_s": 16811619.8784733,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.003642031126674,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24359739392,
+        "ue_ram_bytes": 12215136256,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349734912,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.85325264750378,
+        "ue_gpu_engine_peak_pct": 53.962019043049345
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 8.466608300004737,
+      "rpc_ms": 36.579100000381004,
+      "tick_seq": 833,
+      "runtime_hardware": {
+        "sample_time_s": 16811620.9118352,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99917065073347,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24383377408,
+        "ue_ram_bytes": 12239532032,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349739008,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.86363636363637,
+        "ue_gpu_engine_peak_pct": 54.54284512054962
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 9.534519000000728,
+      "rpc_ms": 65.25170000531944,
+      "tick_seq": 865,
+      "runtime_hardware": {
+        "sample_time_s": 16811621.9120268,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.994253127176922,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24389197824,
+        "ue_ram_bytes": 12228976640,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383436800,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.159126365054597,
+        "ue_gpu_engine_peak_pct": 55.04184174866482
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 10.599936600003275,
+      "rpc_ms": 32.30180000537075,
+      "tick_seq": 897,
+      "runtime_hardware": {
+        "sample_time_s": 16811622.9451176,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00704294200669,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24374714368,
+        "ue_ram_bytes": 12214956032,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349882368,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.18867924528302,
+        "ue_gpu_engine_peak_pct": 54.84687345220046
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 11.666850699999486,
+      "rpc_ms": 32.82010000111768,
+      "tick_seq": 929,
+      "runtime_hardware": {
+        "sample_time_s": 16811623.9451901,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.997825109689366,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24375586816,
+        "ue_ram_bytes": 12211232768,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383436800,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.137254901960784,
+        "ue_gpu_engine_peak_pct": 53.80826531833179
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 12.733950599998934,
+      "rpc_ms": 15.411000000312924,
+      "tick_seq": 961,
+      "runtime_hardware": {
+        "sample_time_s": 16811624.9784752,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00140049573286,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24377200640,
+        "ue_ram_bytes": 12213628928,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349882368,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 25.49019607843137,
+        "ue_gpu_engine_peak_pct": 55.23168834282336
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 13.801204200004577,
+      "rpc_ms": 54.85629999748198,
+      "tick_seq": 993,
+      "runtime_hardware": {
+        "sample_time_s": 16811627.0118472,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99960091495936,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24412786688,
+        "ue_ram_bytes": 12237131776,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349882368,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.145085803432135,
+        "ue_gpu_engine_peak_pct": 55.155195589756836
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 14.867049600004975,
+      "rpc_ms": 23.591799996211194,
+      "tick_seq": 1025,
+      "runtime_hardware": {
+        "sample_time_s": 16811628.011901,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.998386179302575,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24415203328,
+        "ue_ram_bytes": 12246249472,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349882368,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.447574334898285,
+        "ue_gpu_engine_peak_pct": 54.64315412777031
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 15.934562900001765,
+      "rpc_ms": 44.468799998867325,
+      "tick_seq": 1057,
+      "runtime_hardware": {
+        "sample_time_s": 16811629.0119366,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.998931960043528,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24426426368,
+        "ue_ram_bytes": 12266221568,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383436800,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.883684621389538,
+        "ue_gpu_engine_peak_pct": 54.91874861607313
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 16.999931900005322,
+      "rpc_ms": 8.421499995165505,
+      "tick_seq": 1089,
+      "runtime_hardware": {
+        "sample_time_s": 16811630.0452257,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.001284328382344,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24463794176,
+        "ue_ram_bytes": 12248334336,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4378472448,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 30.93797276853253,
+        "ue_gpu_engine_peak_pct": 54.41584667483427
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 18.067182800004957,
+      "rpc_ms": 49.476700005470775,
+      "tick_seq": 1121,
+      "runtime_hardware": {
+        "sample_time_s": 16811631.0785299,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.000845734438283,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24418680832,
+        "ue_ram_bytes": 12247756800,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349882368,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 30.8390022675737,
+        "ue_gpu_engine_peak_pct": 53.86542018392224
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 19.1359111999991,
+      "rpc_ms": 51.10720000084257,
+      "tick_seq": 1153,
+      "runtime_hardware": {
+        "sample_time_s": 16811632.0785358,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999823087007005,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24379670528,
+        "ue_ram_bytes": 12220772352,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383436800,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.265625000000004,
+        "ue_gpu_engine_peak_pct": 54.72560923779399
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 20.19996760000504,
+      "rpc_ms": 26.455100000021048,
+      "tick_seq": 1185,
+      "runtime_hardware": {
+        "sample_time_s": 16811633.0786269,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.997267189736945,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24360742912,
+        "ue_ram_bytes": 12217946112,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349882368,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 29.508196721311474,
+        "ue_gpu_engine_peak_pct": 54.78646196880632
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 21.266958600004727,
+      "rpc_ms": 53.63280000165105,
+      "tick_seq": 1217,
+      "runtime_hardware": {
+        "sample_time_s": 16811634.1119437,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00048005099278,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24373166080,
+        "ue_ram_bytes": 12235706368,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349882368,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.560663149962316,
+        "ue_gpu_engine_peak_pct": 54.5986620211731
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 22.334133800002746,
+      "rpc_ms": 47.004499996546656,
+      "tick_seq": 1249,
+      "runtime_hardware": {
+        "sample_time_s": 16811635.1451118,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.004797869177768,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24362250240,
+        "ue_ram_bytes": 12220248064,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349882368,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 24.92401215805471,
+        "ue_gpu_engine_peak_pct": 54.136630096819495
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 23.39999760000501,
+      "rpc_ms": 18.32519999879878,
+      "tick_seq": 1281,
+      "runtime_hardware": {
+        "sample_time_s": 16811636.1452085,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99709924793885,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24365441024,
+        "ue_ram_bytes": 12218343424,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349890560,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 25.83657587548638,
+        "ue_gpu_engine_peak_pct": 55.71039213074355
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 24.46678100000281,
+      "rpc_ms": 46.70280000573257,
+      "tick_seq": 1313,
+      "runtime_hardware": {
+        "sample_time_s": 16811637.1452213,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999616001991246,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24365457408,
+        "ue_ram_bytes": 12222332928,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383444992,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.3476898981989,
+        "ue_gpu_engine_peak_pct": 54.81627771355255
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 25.535012200001802,
+      "rpc_ms": 50.59350000374252,
+      "tick_seq": 1345,
+      "runtime_hardware": {
+        "sample_time_s": 16811638.1785597,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999852969521054,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24378462208,
+        "ue_ram_bytes": 12222664704,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4344926208,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.700906344410882,
+        "ue_gpu_engine_peak_pct": 54.17265503593893
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 26.600003400002606,
+      "rpc_ms": 49.45660000521457,
+      "tick_seq": 1377,
+      "runtime_hardware": {
+        "sample_time_s": 16811639.1787039,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.995674555873933,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24378519552,
+        "ue_ram_bytes": 12224262144,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4344930304,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.32967893500392,
+        "ue_gpu_engine_peak_pct": 54.71687950970142
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 27.66735210000479,
+      "rpc_ms": 42.52760000235867,
+      "tick_seq": 1409,
+      "runtime_hardware": {
+        "sample_time_s": 16811640.2118905,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.004260616266773,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24388087808,
+        "ue_ram_bytes": 12223598592,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349894656,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.92749244712991,
+        "ue_gpu_engine_peak_pct": 54.86405069572737
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 28.734527100001287,
+      "rpc_ms": 33.64829999918584,
+      "tick_seq": 1441,
+      "runtime_hardware": {
+        "sample_time_s": 16811641.2119045,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999580016651368,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24425693184,
+        "ue_ram_bytes": 12222005248,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383449088,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 39.96865203761756,
+        "ue_gpu_engine_peak_pct": 53.801490330974154
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 29.800984000001336,
+      "rpc_ms": 59.162599995033816,
+      "tick_seq": 1473,
+      "runtime_hardware": {
+        "sample_time_s": 16811642.2120044,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99700326607903,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24391081984,
+        "ue_ram_bytes": 12221284352,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383453184,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.93774319066148,
+        "ue_gpu_engine_peak_pct": 55.255266477275455
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 30.834237700000813,
+      "rpc_ms": 32.617900003970135,
+      "tick_seq": 1504,
+      "runtime_hardware": {
+        "sample_time_s": 16811643.2452365,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00293931127464,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24391446528,
+        "ue_ram_bytes": 12221607936,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349898752,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.231993934799092,
+        "ue_gpu_engine_peak_pct": 55.19623892697797
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 31.899980700000015,
+      "rpc_ms": 1.0022999995271675,
+      "tick_seq": 1536,
+      "runtime_hardware": {
+        "sample_time_s": 16811644.2452825,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.9986200669386,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24386973696,
+        "ue_ram_bytes": 12218429440,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383453184,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 24.180967238689544,
+        "ue_gpu_engine_peak_pct": 54.74881153885638
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 32.93450000000303,
+      "rpc_ms": 19.127300001855474,
+      "tick_seq": 1567,
+      "runtime_hardware": {
+        "sample_time_s": 16811645.2452902,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999768996527358,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24386469888,
+        "ue_ram_bytes": 12218982400,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383453184,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.249999999999996,
+        "ue_gpu_engine_peak_pct": 53.807505780062506
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 34.00005140000576,
+      "rpc_ms": 27.304600000206847,
+      "tick_seq": 1599,
+      "runtime_hardware": {
+        "sample_time_s": 16811646.2786303,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999803543896647,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24385052672,
+        "ue_ram_bytes": 12219506688,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349898752,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.416918429003022,
+        "ue_gpu_engine_peak_pct": 53.833081413878666
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 35.06821409999975,
+      "rpc_ms": 50.51580000144895,
+      "tick_seq": 1631,
+      "runtime_hardware": {
+        "sample_time_s": 16811647.3120409,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99775701179844,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24409116672,
+        "ue_ram_bytes": 12243570688,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4344938496,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.290468986384266,
+        "ue_gpu_engine_peak_pct": 54.68041423756175
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 36.1342300000033,
+      "rpc_ms": 56.8762000038987,
+      "tick_seq": 1663,
+      "runtime_hardware": {
+        "sample_time_s": 16811649.3453051,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999129983682472,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24444792832,
+        "ue_ram_bytes": 12251062272,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349902848,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 33.229329173166924,
+        "ue_gpu_engine_peak_pct": 53.71368527271348
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 37.2000840000037,
+      "rpc_ms": 37.32369999488583,
+      "tick_seq": 1695,
+      "runtime_hardware": {
+        "sample_time_s": 16811650.3786883,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99855238359189,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24392818688,
+        "ue_ram_bytes": 12217540608,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383457280,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.590909090909086,
+        "ue_gpu_engine_peak_pct": 54.064940529335104
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 38.26720870000281,
+      "rpc_ms": 52.29770000005374,
+      "tick_seq": 1727,
+      "runtime_hardware": {
+        "sample_time_s": 16811651.4120523,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99910965560568,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24443957248,
+        "ue_ram_bytes": 12273655808,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349902848,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 25.774754346182917,
+        "ue_gpu_engine_peak_pct": 54.59795150639645
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 39.33435820000159,
+      "rpc_ms": 32.81020000576973,
+      "tick_seq": 1759,
+      "runtime_hardware": {
+        "sample_time_s": 16811652.4121227,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.997888132594788,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24429187072,
+        "ue_ram_bytes": 12256940032,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349902848,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.146989835809222,
+        "ue_gpu_engine_peak_pct": 54.82126270937619
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 40.36744130000443,
+      "rpc_ms": 25.12179999757791,
+      "tick_seq": 1790,
+      "runtime_hardware": {
+        "sample_time_s": 16811653.4453154,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.004083519594058,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24415588352,
+        "ue_ram_bytes": 12249255936,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383457280,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.32075471698113,
+        "ue_gpu_engine_peak_pct": 54.88086437370586
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 41.43555620000552,
+      "rpc_ms": 37.558600000920705,
+      "tick_seq": 1822,
+      "runtime_hardware": {
+        "sample_time_s": 16811654.4786484,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00000957520083,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24405008384,
+        "ue_ram_bytes": 12249567232,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349902848,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 29.122541603630857,
+        "ue_gpu_engine_peak_pct": 53.92823916783372
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 42.501201400002174,
+      "rpc_ms": 35.2947999999742,
+      "tick_seq": 1854,
+      "runtime_hardware": {
+        "sample_time_s": 16811655.4786824,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.998980124694786,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24410083328,
+        "ue_ram_bytes": 12250451968,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383457280,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.478532396565182,
+        "ue_gpu_engine_peak_pct": 54.94932017875378
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 43.56862440000259,
+      "rpc_ms": 17.550299999129493,
+      "tick_seq": 1886,
+      "runtime_hardware": {
+        "sample_time_s": 16811656.5121546,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99596884992477,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24428457984,
+        "ue_ram_bytes": 12274712576,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383457280,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 29.11296436694466,
+        "ue_gpu_engine_peak_pct": 54.119569106398615
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 44.6349618000022,
+      "rpc_ms": 32.54249999736203,
+      "tick_seq": 1918,
+      "runtime_hardware": {
+        "sample_time_s": 16811657.545319,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.004905408619944,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24410238976,
+        "ue_ram_bytes": 12252065792,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4344938496,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.32075471698113,
+        "ue_gpu_engine_peak_pct": 55.245846490307436
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 45.700640300005034,
+      "rpc_ms": 57.37519999820506,
+      "tick_seq": 1950,
+      "runtime_hardware": {
+        "sample_time_s": 16811658.5453645,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99863504123541,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24382087168,
+        "ue_ram_bytes": 12218822656,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4378492928,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.10304449648712,
+        "ue_gpu_engine_peak_pct": 54.74541706355177
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 46.76761180000176,
+      "rpc_ms": 54.44930000521708,
+      "tick_seq": 1982,
+      "runtime_hardware": {
+        "sample_time_s": 16811659.5453704,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999822975249614,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24380010496,
+        "ue_ram_bytes": 12217577472,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4378492928,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.928850664581706,
+        "ue_gpu_engine_peak_pct": 54.73553274061974
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 47.834698200000275,
+      "rpc_ms": 37.437600003613625,
+      "tick_seq": 2014,
+      "runtime_hardware": {
+        "sample_time_s": 16811660.5786473,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00163845773269,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24391241728,
+        "ue_ram_bytes": 12218122240,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349902848,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.208459214501513,
+        "ue_gpu_engine_peak_pct": 54.808021771903704
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 48.9006806000034,
+      "rpc_ms": 44.59819999465253,
+      "tick_seq": 2046,
+      "runtime_hardware": {
+        "sample_time_s": 16811661.5786853,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.998860104482375,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24381272064,
+        "ue_ram_bytes": 12216233984,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383457280,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 25.839188134270096,
+        "ue_gpu_engine_peak_pct": 54.860624443282546
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 49.96736680000322,
+      "rpc_ms": 50.302299998293165,
+      "tick_seq": 2078,
+      "runtime_hardware": {
+        "sample_time_s": 16811662.6121186,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99709792872027,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24352665600,
+        "ue_ram_bytes": 12221444096,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349902848,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.766086298258898,
+        "ue_gpu_engine_peak_pct": 54.74916482823521
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 51.03738120000344,
+      "rpc_ms": 48.81920000480022,
+      "tick_seq": 2110,
+      "runtime_hardware": {
+        "sample_time_s": 16811663.6453172,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.003912158646152,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24353361920,
+        "ue_ram_bytes": 12218454016,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383457280,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.68178382464097,
+        "ue_gpu_engine_peak_pct": 55.229807904268725
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 52.13425610000559,
+      "rpc_ms": 34.13220000220463,
+      "tick_seq": 2143,
+      "runtime_hardware": {
+        "sample_time_s": 16811664.6453241,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99979302429899,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24355086336,
+        "ue_ram_bytes": 12219019264,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383457280,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.25137039937353,
+        "ue_gpu_engine_peak_pct": 54.87640387387051
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 53.167934299999615,
+      "rpc_ms": 24.235299999418203,
+      "tick_seq": 2174,
+      "runtime_hardware": {
+        "sample_time_s": 16811665.6453413,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999484018915464,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24361828352,
+        "ue_ram_bytes": 12219027456,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4349902848,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.65627435697584,
+        "ue_gpu_engine_peak_pct": 53.6045454677313
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 54.23494960000244,
+      "rpc_ms": 48.60959999496117,
+      "tick_seq": 2206,
+      "runtime_hardware": {
+        "sample_time_s": 16811666.6786943,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999429017597926,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24362676224,
+        "ue_ram_bytes": 12217384960,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4345266176,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.984126984126988,
+        "ue_gpu_engine_peak_pct": 52.77175767819043
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 55.301866400004656,
+      "rpc_ms": 58.55219999648398,
+      "tick_seq": 2238,
+      "runtime_hardware": {
+        "sample_time_s": 16811667.7120757,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.998604616825205,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24349765632,
+        "ue_ram_bytes": 12212297728,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350230528,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.81996974281392,
+        "ue_gpu_engine_peak_pct": 55.195467306949716
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 56.36745019999944,
+      "rpc_ms": 26.581300000543706,
+      "tick_seq": 2270,
+      "runtime_hardware": {
+        "sample_time_s": 16811668.7453237,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.002477628403174,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24346398720,
+        "ue_ram_bytes": 12213809152,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350230528,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 24.943310657596374,
+        "ue_gpu_engine_peak_pct": 55.062211650782245
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 57.43532470000355,
+      "rpc_ms": 35.52249999484047,
+      "tick_seq": 2302,
+      "runtime_hardware": {
+        "sample_time_s": 16811669.7453785,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99835600772787,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24347111424,
+        "ue_ram_bytes": 12213448704,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350230528,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.39313572542902,
+        "ue_gpu_engine_peak_pct": 54.80796529463888
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 58.50066290000541,
+      "rpc_ms": 53.28909999661846,
+      "tick_seq": 2334,
+      "runtime_hardware": {
+        "sample_time_s": 16811670.7454029,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999268110070926,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24351735808,
+        "ue_ram_bytes": 12214317056,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350230528,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.486296006264688,
+        "ue_gpu_engine_peak_pct": 54.77677336652279
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 59.57027600000583,
+      "rpc_ms": 47.217300001648255,
+      "tick_seq": 2366,
+      "runtime_hardware": {
+        "sample_time_s": 16811672.8120739,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.000404449404915,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24391258112,
+        "ue_ram_bytes": 12237516800,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4345266176,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.420256991685566,
+        "ue_gpu_engine_peak_pct": 54.58423623747575
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 60.634772299999895,
+      "rpc_ms": 19.354999996721745,
+      "tick_seq": 2398,
+      "runtime_hardware": {
+        "sample_time_s": 16811673.8121438,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.997903217903982,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24381558784,
+        "ue_ram_bytes": 12238581760,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4345266176,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.739640344018767,
+        "ue_gpu_engine_peak_pct": 54.7328292266594
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 61.700633799999196,
+      "rpc_ms": 50.79960000148276,
+      "tick_seq": 2430,
+      "runtime_hardware": {
+        "sample_time_s": 16811674.845359,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00343000011747,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24357564416,
+        "ue_ram_bytes": 12215648256,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383784960,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.416918429003022,
+        "ue_gpu_engine_peak_pct": 56.028312732708784
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 62.73504790000152,
+      "rpc_ms": 24.587200001406018,
+      "tick_seq": 2461,
+      "runtime_hardware": {
+        "sample_time_s": 16811675.8453782,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99942400667321,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24356265984,
+        "ue_ram_bytes": 12214632448,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350230528,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.821316614420066,
+        "ue_gpu_engine_peak_pct": 54.79618548429502
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 63.76704760000575,
+      "rpc_ms": 14.859900002193172,
+      "tick_seq": 2492,
+      "runtime_hardware": {
+        "sample_time_s": 16811676.8455778,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.994013275067267,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24358359040,
+        "ue_ram_bytes": 12212502528,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4345659392,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.52721617418351,
+        "ue_gpu_engine_peak_pct": 53.84622231894923
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 64.83481230000325,
+      "rpc_ms": 45.2822000006563,
+      "tick_seq": 2524,
+      "runtime_hardware": {
+        "sample_time_s": 16811677.8788031,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00313673155353,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24358547456,
+        "ue_ram_bytes": 12214734848,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350623744,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.40364188163885,
+        "ue_gpu_engine_peak_pct": 54.77547606052916
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 65.90023370000563,
+      "rpc_ms": 19.323599997733254,
+      "tick_seq": 2556,
+      "runtime_hardware": {
+        "sample_time_s": 16811678.9121777,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.998801980063174,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24354414592,
+        "ue_ram_bytes": 12213800960,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350623744,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 23.924528301886795,
+        "ue_gpu_engine_peak_pct": 54.57351467108912
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 66.96699950000038,
+      "rpc_ms": 52.198800003679935,
+      "tick_seq": 2588,
+      "runtime_hardware": {
+        "sample_time_s": 16811679.9454097,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00294223199408,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24356569088,
+        "ue_ram_bytes": 12214632448,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4384178176,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.742424242424246,
+        "ue_gpu_engine_peak_pct": 55.93038849687802
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 68.03489930000069,
+      "rpc_ms": 50.30750000150874,
+      "tick_seq": 2620,
+      "runtime_hardware": {
+        "sample_time_s": 16811680.9787079,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.001020088867563,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24368631808,
+        "ue_ram_bytes": 12215595008,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350623744,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.470588235294112,
+        "ue_gpu_engine_peak_pct": 54.17150608135095
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 69.10015410000051,
+      "rpc_ms": 52.803899998252746,
+      "tick_seq": 2652,
+      "runtime_hardware": {
+        "sample_time_s": 16811681.9787251,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.9994839071606,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24358133760,
+        "ue_ram_bytes": 12215517184,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350623744,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.941176470588236,
+        "ue_gpu_engine_peak_pct": 54.6804931055006
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 70.16853960000299,
+      "rpc_ms": 52.81989999639336,
+      "tick_seq": 2684,
+      "runtime_hardware": {
+        "sample_time_s": 16811682.9787502,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999247100473507,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24362717184,
+        "ue_ram_bytes": 12216164352,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350623744,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.504672897196258,
+        "ue_gpu_engine_peak_pct": 54.82108128626734
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 71.23445350000111,
+      "rpc_ms": 64.90250000206288,
+      "tick_seq": 2716,
+      "runtime_hardware": {
+        "sample_time_s": 16811684.0121456,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99819811081015,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24386678784,
+        "ue_ram_bytes": 12235513856,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350623744,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.030303030303028,
+        "ue_gpu_engine_peak_pct": 54.530100329919094
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 72.30138960000477,
+      "rpc_ms": 38.49120000086259,
+      "tick_seq": 2748,
+      "runtime_hardware": {
+        "sample_time_s": 16811685.0453712,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.003128077459458,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24366301184,
+        "ue_ram_bytes": 12215119872,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4345659392,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 29.078549848942604,
+        "ue_gpu_engine_peak_pct": 55.25009196336954
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 73.36709930000507,
+      "rpc_ms": 18.096599997079466,
+      "tick_seq": 2780,
+      "runtime_hardware": {
+        "sample_time_s": 16811686.0454137,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.998725110828637,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24374464512,
+        "ue_ram_bytes": 12215816192,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4379213824,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 29.062500000000004,
+        "ue_gpu_engine_peak_pct": 53.74461856509405
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 74.43536320000567,
+      "rpc_ms": 48.891899998125155,
+      "tick_seq": 2812,
+      "runtime_hardware": {
+        "sample_time_s": 16811687.0787507,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99989352677433,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24400072704,
+        "ue_ram_bytes": 12249485312,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350623744,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 30.41509433962264,
+        "ue_gpu_engine_peak_pct": 55.61986339555203
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 75.50025440000172,
+      "rpc_ms": 59.13910000526812,
+      "tick_seq": 2844,
+      "runtime_hardware": {
+        "sample_time_s": 16811688.0787819,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.9990640500135,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24414154752,
+        "ue_ram_bytes": 12249362432,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350623744,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 25.87959343236904,
+        "ue_gpu_engine_peak_pct": 54.67777575685643
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 76.56920320000063,
+      "rpc_ms": 62.897700001485646,
+      "tick_seq": 2876,
+      "runtime_hardware": {
+        "sample_time_s": 16811689.0788044,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999324992586093,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24406401024,
+        "ue_ram_bytes": 12250361856,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350623744,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.549141965678626,
+        "ue_gpu_engine_peak_pct": 54.95981247956042
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 77.63475599999947,
+      "rpc_ms": 60.9829000022728,
+      "tick_seq": 2908,
+      "runtime_hardware": {
+        "sample_time_s": 16811690.1121874,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.998558115180035,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24426541056,
+        "ue_ram_bytes": 12268146688,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4384178176,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.68178382464097,
+        "ue_gpu_engine_peak_pct": 54.68740485480231
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 78.70029250000516,
+      "rpc_ms": 42.57549999601906,
+      "tick_seq": 2940,
+      "runtime_hardware": {
+        "sample_time_s": 16811691.1454456,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.002181457884873,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24410542080,
+        "ue_ram_bytes": 12249432064,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350623744,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.257575757575758,
+        "ue_gpu_engine_peak_pct": 55.200353603619526
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 79.767122199999,
+      "rpc_ms": 42.82009999587899,
+      "tick_seq": 2972,
+      "runtime_hardware": {
+        "sample_time_s": 16811692.1454469,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999960996261287,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24423776256,
+        "ue_ram_bytes": 12250157056,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350623744,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 33.87850467289719,
+        "ue_gpu_engine_peak_pct": 53.72636851826713
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 80.8345724000028,
+      "rpc_ms": 64.84610000188695,
+      "tick_seq": 3004,
+      "runtime_hardware": {
+        "sample_time_s": 16811693.178766,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.00041321008442,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24382918656,
+        "ue_ram_bytes": 12216606720,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4345659392,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.583586626139823,
+        "ue_gpu_engine_peak_pct": 54.00226675959245
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 81.90019810000376,
+      "rpc_ms": 49.428600003011525,
+      "tick_seq": 3036,
+      "runtime_hardware": {
+        "sample_time_s": 16811694.2122429,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.995832505517598,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24381648896,
+        "ue_ram_bytes": 12215885824,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4384178176,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.149208741522234,
+        "ue_gpu_engine_peak_pct": 55.18049673043801
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 82.96726889999991,
+      "rpc_ms": 52.126599999610335,
+      "tick_seq": 3068,
+      "runtime_hardware": {
+        "sample_time_s": 16811695.2454641,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.003255834030316,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24380665856,
+        "ue_ram_bytes": 12216561664,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383916032,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.66666666666667,
+        "ue_gpu_engine_peak_pct": 54.197616138482154
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 84.03535230000125,
+      "rpc_ms": 35.274400004709605,
+      "tick_seq": 3100,
+      "runtime_hardware": {
+        "sample_time_s": 16811697.2455714,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.998221130356367,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24392880128,
+        "ue_ram_bytes": 12215988224,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350361600,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 28.79499217527387,
+        "ue_gpu_engine_peak_pct": 55.08223125847399
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 85.10049010000512,
+      "rpc_ms": 43.26079999736976,
+      "tick_seq": 3132,
+      "runtime_hardware": {
+        "sample_time_s": 16811698.2790572,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99557420059831,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24400887808,
+        "ue_ram_bytes": 12217454592,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4383916032,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 26.05740181268882,
+        "ue_gpu_engine_peak_pct": 53.9649231857628
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 86.16862690000562,
+      "rpc_ms": 18.4337000027881,
+      "tick_seq": 3164,
+      "runtime_hardware": {
+        "sample_time_s": 16811699.2793221,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.992055166293813,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24464592896,
+        "ue_ram_bytes": 12217483264,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350361600,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 33.1508991399531,
+        "ue_gpu_engine_peak_pct": 52.906673499721
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 87.23480350000318,
+      "rpc_ms": 47.771799996553455,
+      "tick_seq": 3196,
+      "runtime_hardware": {
+        "sample_time_s": 16811700.3126677,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.999643803987965,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24430829568,
+        "ue_ram_bytes": 12232380416,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4345397248,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 31.27354935945742,
+        "ue_gpu_engine_peak_pct": 55.29327808190712
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 88.30196880000585,
+      "rpc_ms": 48.84730000048876,
+      "tick_seq": 3228,
+      "runtime_hardware": {
+        "sample_time_s": 16811701.3459254,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.002196060750006,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24412016640,
+        "ue_ram_bytes": 12216782848,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350427136,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 27.857683573050718,
+        "ue_gpu_engine_peak_pct": 55.983737758582095
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 89.3674089000051,
+      "rpc_ms": 50.62779999570921,
+      "tick_seq": 3260,
+      "runtime_hardware": {
+        "sample_time_s": 16811702.3790626,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 30.005695208826825,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24421416960,
+        "ue_ram_bytes": 12216721408,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350427136,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 25.81377744133232,
+        "ue_gpu_engine_peak_pct": 54.11791902321688
+      },
+      "world_streaming_ready": true
+    },
+    {
+      "elapsed_s": 90.43476300000475,
+      "rpc_ms": 48.14729999634437,
+      "tick_seq": 3292,
+      "runtime_hardware": {
+        "sample_time_s": 16811703.3793662,
+        "scope": "simulation_host",
+        "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+        "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+        "asset_compile_jobs": 0,
+        "ue_fps": 29.99089476484563,
+        "system_ram_total_bytes": 34191093760,
+        "system_ram_used_bytes": 24434454528,
+        "ue_ram_bytes": 12215865344,
+        "gpu_dedicated_total_bytes": 12706643968,
+        "ue_vram_used_bytes": 4350427136,
+        "ue_vram_budget_bytes": 11901272064,
+        "system_cpu_pct": 32.55451713395638,
+        "ue_gpu_engine_peak_pct": 54.75313816643983
+      },
+      "world_streaming_ready": true
+    }
+  ],
+  "limits": "Short editor-game test with native GUI, not Shipping, full-map traversal or a long-run guarantee",
+  "startup_seconds": 138.2229551000055,
+  "initial_state": {
+    "application": "WISEYE Studio",
+    "scene_id": "city_large",
+    "run_id": "7135EF7442BC02DD057E40A5275AA8D9",
+    "training_samples_supported": true,
+    "paired_training_samples_supported": true,
+    "gt_max_fps_supported": 20,
+    "gt_max_fps": 2,
+    "live_placement_supported": true,
+    "streams": {
+      "CH1": {
+        "frame_seq": 58,
+        "completed_frames": 58,
+        "readback_queued_ue_monotonic_s": 16811599.1786834,
+        "cache_age_ms": 100.08430108428001
+      },
+      "CH2": {
+        "frame_seq": 57,
+        "completed_frames": 57,
+        "readback_queued_ue_monotonic_s": 16811599.1786849,
+        "cache_age_ms": 100.08489713072777
+      }
+    },
+    "initial_drone_position_cm": [
+      -70972.26562507449,
+      -38796.578124741725,
+      97.58875274658203
+    ],
+    "gimbal_position_cm": [
+      -72172.26569600642,
+      -39996.57816240975,
+      77.11681270599365
+    ],
+    "drone_id": "uav-01",
+    "gimbal_id": "ptz-01",
+    "devices": [
+      {
+        "id": "uav-01",
+        "kind": "drone",
+        "model_id": "mavic3",
+        "name": "大城市试验无人机",
+        "tracking_target": "uav-01",
+        "position_cm": [
+          -70972.265625,
+          -38796.57421875,
+          91.85694122314453
+        ],
+        "dynamics_name": "Drone1",
+        "initial_position_cm": [
+          -70972.26562507449,
+          -38796.578124741725,
+          97.58875274658203
+        ],
+        "rotors_running": false,
+        "navigation_lights": {
+          "enabled": true,
+          "night": false,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        "initial_yaw_deg": 0,
+        "placement_yaw_deg": 0
+      },
+      {
+        "id": "ptz-01",
+        "kind": "gimbal",
+        "model_id": "eo80",
+        "name": "大城市试验双光云台",
+        "tracking_target": "uav-01",
+        "position_cm": [
+          -72172.26569600642,
+          -39996.57816240975,
+          77.11681270599365
+        ],
+        "dynamics_name": "Drone1",
+        "initial_position_cm": [
+          -70972.26562507449,
+          -38796.578124741725,
+          97.58875274658203
+        ],
+        "rotors_running": false,
+        "initial_yaw_deg": 0,
+        "placement_yaw_deg": 0
+      }
+    ],
+    "tracking_target": "uav-01",
+    "observer_mode": "overview",
+    "placement": {
+      "active": false,
+      "has_result": false,
+      "preview_supported": true,
+      "nudge_supported": true,
+      "locked": false,
+      "nudge_cm": [
+        0,
+        0,
+        0
+      ],
+      "yaw_deg": 0,
+      "preview_visible": false,
+      "preview_position_cm": [
+        0,
+        0,
+        0
+      ],
+      "device_id": "",
+      "request_token": "",
+      "error": "",
+      "sequence": 0,
+      "position_cm": [
+        0,
+        0,
+        0
+      ],
+      "surface_cm": [
+        0,
+        0,
+        0
+      ]
+    },
+    "placement_applied": {
+      "request_token": "",
+      "device_id": ""
+    },
+    "input_mode": "observer",
+    "pitch_min_deg": -15,
+    "pitch_max_deg": 75,
+    "coordinate_pointing_supported": true,
+    "world_streaming_enabled": true,
+    "world_streaming_ready": true,
+    "device_streaming_sources": 2,
+    "streaming_radius_m": 250,
+    "gimbal_geometry": {
+      "world_unit": "centimeter",
+      "angles_reference": "relative_to_device_base",
+      "base_position_cm": [
+        -72172.26569600642,
+        -39996.57816240975,
+        77.11681270599365
+      ],
+      "pivot_position_cm": [
+        -72176.49070140404,
+        -39998.11029814657,
+        123.50187259361147
+      ],
+      "base_rotation_pitch_yaw_roll_deg": [
+        0,
+        -160.00000000000003,
+        0
+      ],
+      "yaw_rate_deg_s": 30,
+      "pitch_rate_deg_s": 20
+    },
+    "lidar_horizontal_fov_deg": 30,
+    "lidar_vertical_fov_deg": 8,
+    "lidar_scan_rate_hz": 10,
+    "lidar_range_m": 300,
+    "pending_scene": "",
+    "paused": true,
+    "simulation_time_s": 6.64077615737915,
+    "flight_mode": "manual",
+    "flight_backend": "projectairsim",
+    "drone_model": "mavic3",
+    "drone_models_available": [
+      "mavic3",
+      "avata"
+    ],
+    "dynamics_connected": true,
+    "dynamics_actor": "Drone1",
+    "tracking": true,
+    "sensor_power_supported": true,
+    "rotors_running": false,
+    "rotor_rpm": 0,
+    "motor_rpm": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "thermal_target": {
+      "motor_warmth": 0,
+      "battery_warmth": 0,
+      "power_proxy": 0,
+      "body_signal": 0.3799999952316284,
+      "motor_signal": 0.38999998569488525,
+      "units": "normalized engineering proxy, not Celsius"
+    },
+    "rotor_source": "airsim_rad_s",
+    "rotor_telemetry_fresh": true,
+    "tick_seq": 160,
+    "runtime_hardware": {
+      "sample_time_s": 16811598.4450773,
+      "scope": "simulation_host",
+      "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+      "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+      "asset_compile_jobs": 0,
+      "ue_fps": 30.004350625884005,
+      "system_ram_total_bytes": 34191093760,
+      "system_ram_used_bytes": 24167088128,
+      "ue_ram_bytes": 12214173696,
+      "gpu_dedicated_total_bytes": 12706643968,
+      "ue_vram_used_bytes": 4482179072,
+      "ue_vram_budget_bytes": 11901272064,
+      "system_cpu_pct": 23.047763457164518,
+      "ue_gpu_engine_peak_pct": 59.20930097538319
+    },
+    "environment": {
+      "time_supported": true,
+      "fog_supported": true,
+      "rain_supported": true,
+      "time_override": false,
+      "hour": 12,
+      "fog": 0,
+      "rain": 0,
+      "clouds_supported": true,
+      "clouds": 0,
+      "cloud_layer_active": false,
+      "cloud_atmosphere_created": false,
+      "rain_view_volumes": 0,
+      "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+    },
+    "performance_profile": "economy",
+    "visible_capture_hz": 10,
+    "infrared_capture_hz": 10,
+    "observer_capture_hz": 8,
+    "yaw_deg": -154.92127990722656,
+    "pitch_deg": -1.291301131248474,
+    "pointing_error_deg": 9.689484431874007e-05,
+    "sensor_mode": "visible",
+    "active_sensor": "visible",
+    "available_sensors": [
+      "visible",
+      "infrared",
+      "lidar"
+    ],
+    "sensors": {
+      "visible": {
+        "enabled": true,
+        "fov_deg": 25,
+        "vertical_fov_deg": 14.216549329860934,
+        "width_px": 1920,
+        "height_px": 1080,
+        "capture_sequence": 64,
+        "extrinsics_supported": true,
+        "mount_x_cm": 0,
+        "mount_y_cm": -6,
+        "mount_z_cm": 0,
+        "boresight_pitch_deg": 0,
+        "boresight_yaw_deg": 0,
+        "boresight_roll_deg": 0,
+        "camera_position_cm": [
+          -72152.69024825461,
+          -39980.250935376826,
+          129.53873918427644
+        ],
+        "camera_rotation_pitch_yaw_roll_deg": [
+          -1.2913011312484748,
+          45.078720092773466,
+          0
+        ]
+      },
+      "infrared": {
+        "enabled": true,
+        "fov_deg": 25,
+        "vertical_fov_deg": 20.114311152180875,
+        "width_px": 640,
+        "height_px": 512,
+        "capture_sequence": 64,
+        "extrinsics_supported": true,
+        "mount_x_cm": 0,
+        "mount_y_cm": 6,
+        "mount_z_cm": 0,
+        "boresight_pitch_deg": 0.1,
+        "boresight_yaw_deg": 0.2,
+        "boresight_roll_deg": 0,
+        "camera_position_cm": [
+          -72161.18717975506,
+          -39971.7773201462,
+          129.53873918427638
+        ],
+        "camera_rotation_pitch_yaw_roll_deg": [
+          -1.1912932631773856,
+          45.27876302673712,
+          -0.004508074950214822
+        ],
+        "palette": "white_hot",
+        "noise": 0.00800000037997961,
+        "thermal_profile": "facade",
+        "enhanced_available": true,
+        "reference_available": true,
+        "classified_available": true,
+        "facade_available": true,
+        "detector_controls_available": true,
+        "gain_mode": "auto",
+        "stable_agc": true,
+        "manual_low": 0,
+        "manual_high": 1,
+        "brightness": 0,
+        "sky_denoise": 0,
+        "noise_seed": 1337,
+        "agc_enabled": true,
+        "agc_response_s": 1,
+        "sampling_scale": 1,
+        "agc_low": 0.1798883080482483,
+        "agc_high": 0.40690678358078003,
+        "readout_ms": 20.14980125427246,
+        "readout_sequence": 57,
+        "class_pixels": [
+          76961,
+          1179,
+          193961,
+          0,
+          778,
+          54801,
+          0
+        ],
+        "target_pixels": 137,
+        "motor_region_pixels": 50,
+        "sky_pixels": 0,
+        "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+        "blur_px": 0.800000011920929,
+        "contrast": 1.100000023841858,
+        "background_detail": 0.6499999761581421
+      },
+      "lidar": {
+        "enabled": true,
+        "horizontal_fov_deg": 30,
+        "vertical_fov_deg": 8,
+        "range_m": 300,
+        "scan_rate_hz": 10,
+        "scan_sequence": 61
+      }
+    },
+    "palette": "white_hot",
+    "fov_deg": 25,
+    "width": 1920,
+    "height": 1080,
+    "drone_position_cm": [
+      -70972.265625,
+      -38796.57421875,
+      91.85694122314453
+    ],
+    "tracking_source": "UE ground truth",
+    "thermal_model": "synthetic normalized heat",
+    "last_export_path": "",
+    "lidar_enabled": true,
+    "lidar_hits": 576,
+    "lidar_rays": 576,
+    "lidar_nearest_m": 2.0793099403381348,
+    "lidar_last_export_path": ""
+  },
+  "warmup_seconds": 5.299996100002318,
+  "warmup_samples": [
+    {
+      "sample_time_s": 16811599.4784276,
+      "scope": "simulation_host",
+      "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+      "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+      "asset_compile_jobs": 0,
+      "ue_fps": 29.99950742617037,
+      "system_ram_total_bytes": 34191093760,
+      "system_ram_used_bytes": 24222986240,
+      "ue_ram_bytes": 12218331136,
+      "gpu_dedicated_total_bytes": 12706643968,
+      "ue_vram_used_bytes": 4450410496,
+      "ue_vram_budget_bytes": 11901272064,
+      "system_cpu_pct": 23.507180650037796,
+      "ue_gpu_engine_peak_pct": 56.81751434642032
+    },
+    {
+      "sample_time_s": 16811600.4784302,
+      "scope": "simulation_host",
+      "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+      "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+      "asset_compile_jobs": 0,
+      "ue_fps": 29.99992199262399,
+      "system_ram_total_bytes": 34191093760,
+      "system_ram_used_bytes": 24263761920,
+      "ue_ram_bytes": 12222226432,
+      "gpu_dedicated_total_bytes": 12706643968,
+      "ue_vram_used_bytes": 4383346688,
+      "ue_vram_budget_bytes": 11901272064,
+      "system_cpu_pct": 27.98129384255651,
+      "ue_gpu_engine_peak_pct": 57.19660548973528
+    },
+    {
+      "sample_time_s": 16811601.5119086,
+      "scope": "simulation_host",
+      "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+      "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+      "asset_compile_jobs": 0,
+      "ue_fps": 29.995789039916392,
+      "system_ram_total_bytes": 34191093760,
+      "system_ram_used_bytes": 24274206720,
+      "ue_ram_bytes": 12236173312,
+      "gpu_dedicated_total_bytes": 12706643968,
+      "ue_vram_used_bytes": 4349710336,
+      "ue_vram_budget_bytes": 11901272064,
+      "system_cpu_pct": 28.139183055975792,
+      "ue_gpu_engine_peak_pct": 57.63407706088941
+    },
+    {
+      "sample_time_s": 16811602.5450816,
+      "scope": "simulation_host",
+      "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+      "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+      "asset_compile_jobs": 0,
+      "ue_fps": 30.004655494200758,
+      "system_ram_total_bytes": 34191093760,
+      "system_ram_used_bytes": 24265162752,
+      "ue_ram_bytes": 12225875968,
+      "gpu_dedicated_total_bytes": 12706643968,
+      "ue_vram_used_bytes": 4378075136,
+      "ue_vram_budget_bytes": 11901272064,
+      "system_cpu_pct": 28.009084027252086,
+      "ue_gpu_engine_peak_pct": 57.449569578318005
+    },
+    {
+      "sample_time_s": 16811603.5784498,
+      "scope": "simulation_host",
+      "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+      "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+      "asset_compile_jobs": 0,
+      "ue_fps": 29.99898777424049,
+      "system_ram_total_bytes": 34191093760,
+      "system_ram_used_bytes": 24292024320,
+      "ue_ram_bytes": 12227330048,
+      "gpu_dedicated_total_bytes": 12706643968,
+      "ue_vram_used_bytes": 4349538304,
+      "ue_vram_budget_bytes": 11901272064,
+      "system_cpu_pct": 26.984126984126988,
+      "ue_gpu_engine_peak_pct": 57.04865160709811
+    }
+  ],
+  "flight_samples": [
+    {
+      "time_s": 34393.8884119,
+      "flight_status": "active",
+      "command_active": true,
+      "position_ned_m": [
+        -709.72265625,
+        -387.96575927734375,
+        -0.9268932342529297
+      ],
+      "motor_rpm": [
+        5607.678126297829,
+        5607.678126297829,
+        5607.678126297829,
+        5607.678126297829
+      ],
+      "last_error": ""
+    },
+    {
+      "time_s": 34395.1278194,
+      "flight_status": "active",
+      "command_active": true,
+      "position_ned_m": [
+        -709.72265625,
+        -387.96575927734375,
+        -1.4878664016723633
+      ],
+      "motor_rpm": [
+        4934.884020697901,
+        4934.884020697901,
+        4934.884020697901,
+        4934.884020697901
+      ],
+      "last_error": ""
+    },
+    {
+      "time_s": 34396.3580753,
+      "flight_status": "active",
+      "command_active": true,
+      "position_ned_m": [
+        -709.72265625,
+        -387.96575927734375,
+        -2.0896708965301514
+      ],
+      "motor_rpm": [
+        4931.839832705583,
+        4931.839832705583,
+        4931.839832705583,
+        4931.839832705583
+      ],
+      "last_error": ""
+    }
+  ],
+  "takeoff_state": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "7135EF7442BC02DD057E40A5275AA8D9",
+    "connected": true,
+    "telemetry_valid": true,
+    "telemetry_age_s": 0.0040638999998918734,
+    "telemetry_source": "actual_pose_topic",
+    "drone_id": "uav-01",
+    "flight_status": "active",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -709.72265625,
+      -387.96575927734375,
+      -2.4634013175964355
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 0.0,
+    "motor_rpm": [
+      3503.643270211604,
+      3503.643270211604,
+      3503.643270211604,
+      3503.643270211604
+    ],
+    "rotor_sample_age_s": 0.004049999995913822,
+    "manual_command_count": 0,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "7135EF7442BC02DD057E40A5275AA8D9",
+        "connected": true,
+        "telemetry_valid": true,
+        "telemetry_age_s": 0.0040638999998918734,
+        "telemetry_source": "actual_pose_topic",
+        "drone_id": "uav-01",
+        "flight_status": "active",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -709.72265625,
+          -387.96575927734375,
+          -2.4634013175964355
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 0.0,
+        "motor_rpm": [
+          3503.643270211604,
+          3503.643270211604,
+          3503.643270211604,
+          3503.643270211604
+        ],
+        "rotor_sample_age_s": 0.004049999995913822,
+        "manual_command_count": 0,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "tick_hz": 29.99975525991824,
+  "manual_displacement_m": 2.6514033069418406,
+  "final_state": {
+    "application": "WISEYE Studio",
+    "scene_id": "city_large",
+    "run_id": "7135EF7442BC02DD057E40A5275AA8D9",
+    "training_samples_supported": true,
+    "paired_training_samples_supported": true,
+    "gt_max_fps_supported": 20,
+    "gt_max_fps": 2,
+    "live_placement_supported": true,
+    "streams": {
+      "CH1": {
+        "frame_seq": 1265,
+        "completed_frames": 1265,
+        "readback_queued_ue_monotonic_s": 16811719.8803585,
+        "cache_age_ms": 100.0652015209198
+      },
+      "CH2": {
+        "frame_seq": 1264,
+        "completed_frames": 1264,
+        "readback_queued_ue_monotonic_s": 16811719.8803604,
+        "cache_age_ms": 100.0657007098198
+      }
+    },
+    "initial_drone_position_cm": [
+      -70972.26562507449,
+      -38796.578124741725,
+      97.58875274658203
+    ],
+    "gimbal_position_cm": [
+      -72172.26569600642,
+      -39996.57816240975,
+      77.11681270599365
+    ],
+    "drone_id": "uav-01",
+    "gimbal_id": "ptz-01",
+    "devices": [
+      {
+        "id": "uav-01",
+        "kind": "drone",
+        "model_id": "mavic3",
+        "name": "大城市试验无人机",
+        "tracking_target": "uav-01",
+        "position_cm": [
+          -70640.609375,
+          -38796.57421875,
+          94.00186157226562
+        ],
+        "dynamics_name": "Drone1",
+        "initial_position_cm": [
+          -70972.26562507449,
+          -38796.578124741725,
+          97.58875274658203
+        ],
+        "rotors_running": false,
+        "navigation_lights": {
+          "enabled": true,
+          "night": false,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        "initial_yaw_deg": 0,
+        "placement_yaw_deg": 0
+      },
+      {
+        "id": "ptz-01",
+        "kind": "gimbal",
+        "model_id": "eo80",
+        "name": "大城市试验双光云台",
+        "tracking_target": "uav-01",
+        "position_cm": [
+          -72172.26569600642,
+          -39996.57816240975,
+          77.11681270599365
+        ],
+        "dynamics_name": "Drone1",
+        "initial_position_cm": [
+          -70972.26562507449,
+          -38796.578124741725,
+          97.58875274658203
+        ],
+        "rotors_running": false,
+        "initial_yaw_deg": 0,
+        "placement_yaw_deg": 0
+      }
+    ],
+    "tracking_target": "uav-01",
+    "observer_mode": "overview",
+    "placement": {
+      "active": false,
+      "has_result": false,
+      "preview_supported": true,
+      "nudge_supported": true,
+      "locked": false,
+      "nudge_cm": [
+        0,
+        0,
+        0
+      ],
+      "yaw_deg": 0,
+      "preview_visible": false,
+      "preview_position_cm": [
+        0,
+        0,
+        0
+      ],
+      "device_id": "",
+      "request_token": "",
+      "error": "",
+      "sequence": 0,
+      "position_cm": [
+        0,
+        0,
+        0
+      ],
+      "surface_cm": [
+        0,
+        0,
+        0
+      ]
+    },
+    "placement_applied": {
+      "request_token": "",
+      "device_id": ""
+    },
+    "input_mode": "observer",
+    "pitch_min_deg": -15,
+    "pitch_max_deg": 75,
+    "coordinate_pointing_supported": true,
+    "world_streaming_enabled": true,
+    "world_streaming_ready": true,
+    "device_streaming_sources": 2,
+    "streaming_radius_m": 250,
+    "gimbal_geometry": {
+      "world_unit": "centimeter",
+      "angles_reference": "relative_to_device_base",
+      "base_position_cm": [
+        -72172.26569600642,
+        -39996.57816240975,
+        77.11681270599365
+      ],
+      "pivot_position_cm": [
+        -72176.4837973088,
+        -39998.13129907253,
+        123.50187259361147
+      ],
+      "base_rotation_pitch_yaw_roll_deg": [
+        0,
+        -160.00000000000003,
+        0
+      ],
+      "yaw_rate_deg_s": 30,
+      "pitch_rate_deg_s": 20
+    },
+    "lidar_horizontal_fov_deg": 30,
+    "lidar_vertical_fov_deg": 8,
+    "lidar_scan_rate_hz": 10,
+    "lidar_range_m": 300,
+    "pending_scene": "",
+    "paused": true,
+    "simulation_time_s": 7.807443618774414,
+    "flight_mode": "manual",
+    "flight_backend": "projectairsim",
+    "drone_model": "mavic3",
+    "drone_models_available": [
+      "mavic3",
+      "avata"
+    ],
+    "dynamics_connected": true,
+    "dynamics_actor": "Drone1",
+    "tracking": true,
+    "sensor_power_supported": true,
+    "rotors_running": false,
+    "rotor_rpm": 0,
+    "motor_rpm": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "thermal_target": {
+      "motor_warmth": 0.15337613224983215,
+      "battery_warmth": 0.13976037502288818,
+      "power_proxy": 0,
+      "body_signal": 0.3911808133125305,
+      "motor_signal": 0.46668803691864014,
+      "units": "normalized engineering proxy, not Celsius"
+    },
+    "rotor_source": "airsim_rad_s",
+    "rotor_telemetry_fresh": true,
+    "tick_seq": 3781,
+    "runtime_hardware": {
+      "sample_time_s": 16811719.5800741,
+      "scope": "simulation_host",
+      "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+      "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+      "asset_compile_jobs": 0,
+      "ue_fps": 29.99887798452763,
+      "system_ram_total_bytes": 34191093760,
+      "system_ram_used_bytes": 24425271296,
+      "ue_ram_bytes": 12207915008,
+      "gpu_dedicated_total_bytes": 12706643968,
+      "ue_vram_used_bytes": 4350443520,
+      "ue_vram_budget_bytes": 11901272064,
+      "system_cpu_pct": 27.322404371584696,
+      "ue_gpu_engine_peak_pct": 60.42601465263518
+    },
+    "environment": {
+      "time_supported": true,
+      "fog_supported": true,
+      "rain_supported": false,
+      "time_override": false,
+      "hour": 12,
+      "fog": 0,
+      "rain": 0,
+      "clouds_supported": true,
+      "clouds": 0,
+      "cloud_layer_active": false,
+      "cloud_atmosphere_created": false,
+      "rain_view_volumes": 0,
+      "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+    },
+    "performance_profile": "economy",
+    "visible_capture_hz": 10,
+    "infrared_capture_hz": 10,
+    "observer_capture_hz": 8,
+    "yaw_deg": -161.8383331298828,
+    "pitch_deg": -1.0635081529617314,
+    "pointing_error_deg": 1.1643920515780337e-05,
+    "sensor_mode": "visible",
+    "active_sensor": "visible",
+    "available_sensors": [
+      "visible",
+      "infrared",
+      "lidar"
+    ],
+    "sensors": {
+      "visible": {
+        "enabled": true,
+        "fov_deg": 25,
+        "vertical_fov_deg": 14.216549329860934,
+        "width_px": 1920,
+        "height_px": 1080,
+        "capture_sequence": 1271,
+        "extrinsics_supported": true,
+        "mount_x_cm": 0,
+        "mount_y_cm": -6,
+        "mount_z_cm": 0,
+        "boresight_pitch_deg": 0,
+        "boresight_yaw_deg": 0,
+        "boresight_roll_deg": 0,
+        "camera_position_cm": [
+          -72150.72478466154,
+          -39983.28324213766,
+          129.65578513684812
+        ],
+        "camera_rotation_pitch_yaw_roll_deg": [
+          -1.0635081529617307,
+          38.16166687011718,
+          0
+        ]
+      },
+      "infrared": {
+        "enabled": true,
+        "fov_deg": 25,
+        "vertical_fov_deg": 20.114311152180875,
+        "width_px": 640,
+        "height_px": 512,
+        "capture_sequence": 1271,
+        "extrinsics_supported": true,
+        "mount_x_cm": 0,
+        "mount_y_cm": 6,
+        "mount_z_cm": 0,
+        "boresight_pitch_deg": 0.1,
+        "boresight_yaw_deg": 0.2,
+        "boresight_roll_deg": 0,
+        "camera_position_cm": [
+          -72158.13937451543,
+          -39973.84799665603,
+          129.65578513684807
+        ],
+        "camera_rotation_pitch_yaw_roll_deg": [
+          -0.9635016731718541,
+          38.361694847618516,
+          -0.0037126480046064834
+        ],
+        "palette": "white_hot",
+        "noise": 0.00800000037997961,
+        "thermal_profile": "facade",
+        "enhanced_available": true,
+        "reference_available": true,
+        "classified_available": true,
+        "facade_available": true,
+        "detector_controls_available": true,
+        "gain_mode": "auto",
+        "stable_agc": true,
+        "manual_low": 0,
+        "manual_high": 1,
+        "brightness": 0,
+        "sky_denoise": 0,
+        "noise_seed": 1337,
+        "agc_enabled": true,
+        "agc_response_s": 1,
+        "sampling_scale": 1,
+        "agc_low": 0.10155267268419266,
+        "agc_high": 0.40690678358078003,
+        "readout_ms": 24.297300338745117,
+        "readout_sequence": 1264,
+        "class_pixels": [
+          84928,
+          1534,
+          177345,
+          0,
+          0,
+          63873,
+          0
+        ],
+        "target_pixels": 1251,
+        "motor_region_pixels": 39,
+        "sky_pixels": 4647,
+        "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+        "blur_px": 0.800000011920929,
+        "contrast": 1.100000023841858,
+        "background_detail": 0.6499999761581421
+      },
+      "lidar": {
+        "enabled": true,
+        "horizontal_fov_deg": 30,
+        "vertical_fov_deg": 8,
+        "range_m": 300,
+        "scan_rate_hz": 10,
+        "scan_sequence": 1268
+      }
+    },
+    "palette": "white_hot",
+    "fov_deg": 25,
+    "width": 1920,
+    "height": 1080,
+    "drone_position_cm": [
+      -70640.609375,
+      -38796.57421875,
+      94.00186157226562
+    ],
+    "tracking_source": "UE ground truth",
+    "thermal_model": "synthetic normalized heat",
+    "last_export_path": "",
+    "lidar_enabled": true,
+    "lidar_hits": 557,
+    "lidar_rays": 576,
+    "lidar_nearest_m": 2.083545207977295,
+    "lidar_last_export_path": ""
+  },
+  "switch_to_small_seconds": 35.13031090000004,
+  "small_city_after_switch": {
+    "application": "WISEYE Studio",
+    "scene_id": "city",
+    "run_id": "7D8D9AFF4114BBFFAF29C399381BA50A",
+    "training_samples_supported": true,
+    "paired_training_samples_supported": true,
+    "gt_max_fps_supported": 20,
+    "gt_max_fps": 2,
+    "live_placement_supported": true,
+    "streams": {
+      "CH1": {
+        "frame_seq": 164,
+        "completed_frames": 164,
+        "readback_queued_ue_monotonic_s": 16811765.0289363,
+        "cache_age_ms": 100.14449805021286
+      },
+      "CH2": {
+        "frame_seq": 162,
+        "completed_frames": 162,
+        "readback_queued_ue_monotonic_s": 16811765.0289381,
+        "cache_age_ms": 100.1456007361412
+      }
+    },
+    "initial_drone_position_cm": [
+      -27400,
+      -2600,
+      4079.9999999999995
+    ],
+    "gimbal_position_cm": [
+      -26971.300000000003,
+      -1998.1999999999998,
+      4900
+    ],
+    "drone_id": "uav-01",
+    "gimbal_id": "ptz-01",
+    "devices": [
+      {
+        "id": "uav-01",
+        "kind": "drone",
+        "model_id": "mavic3",
+        "name": "无人机 1",
+        "tracking_target": "uav-01",
+        "position_cm": [
+          -27400,
+          -2600,
+          4074.26806640625
+        ],
+        "dynamics_name": "Drone1",
+        "initial_position_cm": [
+          -27400,
+          -2600,
+          4079.9999999999995
+        ],
+        "rotors_running": false,
+        "navigation_lights": {
+          "enabled": true,
+          "night": false,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        "initial_yaw_deg": 90,
+        "placement_yaw_deg": 90
+      },
+      {
+        "id": "ptz-01",
+        "kind": "gimbal",
+        "model_id": "eo80",
+        "name": "双光云台",
+        "tracking_target": "uav-01",
+        "position_cm": [
+          -26971.300000000003,
+          -1998.1999999999998,
+          4900
+        ],
+        "dynamics_name": "Drone1",
+        "initial_position_cm": [
+          -27400,
+          -2600,
+          4079.9999999999995
+        ],
+        "rotors_running": false,
+        "initial_yaw_deg": 90,
+        "placement_yaw_deg": 45
+      }
+    ],
+    "tracking_target": "uav-01",
+    "observer_mode": "overview",
+    "placement": {
+      "active": false,
+      "has_result": false,
+      "preview_supported": true,
+      "nudge_supported": true,
+      "locked": false,
+      "nudge_cm": [
+        0,
+        0,
+        0
+      ],
+      "yaw_deg": 0,
+      "preview_visible": false,
+      "preview_position_cm": [
+        0,
+        0,
+        0
+      ],
+      "device_id": "",
+      "request_token": "",
+      "error": "",
+      "sequence": 0,
+      "position_cm": [
+        0,
+        0,
+        0
+      ],
+      "surface_cm": [
+        0,
+        0,
+        0
+      ]
+    },
+    "placement_applied": {
+      "request_token": "",
+      "device_id": ""
+    },
+    "input_mode": "observer",
+    "pitch_min_deg": -15,
+    "pitch_max_deg": 75,
+    "coordinate_pointing_supported": true,
+    "world_streaming_enabled": true,
+    "world_streaming_ready": true,
+    "device_streaming_sources": 0,
+    "gimbal_geometry": {
+      "world_unit": "centimeter",
+      "angles_reference": "relative_to_device_base",
+      "base_position_cm": [
+        -26971.300000000003,
+        -1998.1999999999998,
+        4900
+      ],
+      "pivot_position_cm": [
+        -26973.433167693867,
+        -2002.5345617332182,
+        4946.385059887618
+      ],
+      "base_rotation_pitch_yaw_roll_deg": [
+        0,
+        -115.00000000000003,
+        0
+      ],
+      "yaw_rate_deg_s": 30,
+      "pitch_rate_deg_s": 20
+    },
+    "lidar_horizontal_fov_deg": 30,
+    "lidar_vertical_fov_deg": 8,
+    "lidar_scan_rate_hz": 10,
+    "lidar_range_m": 300,
+    "pending_scene": "",
+    "paused": true,
+    "simulation_time_s": 8.862604141235352,
+    "flight_mode": "manual",
+    "flight_backend": "projectairsim",
+    "drone_model": "mavic3",
+    "drone_models_available": [
+      "mavic3",
+      "avata"
+    ],
+    "dynamics_connected": true,
+    "dynamics_actor": "Drone1",
+    "tracking": true,
+    "sensor_power_supported": true,
+    "rotors_running": false,
+    "rotor_rpm": 0,
+    "motor_rpm": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "thermal_target": {
+      "motor_warmth": 0,
+      "battery_warmth": 0,
+      "power_proxy": 0,
+      "body_signal": 0.3799999952316284,
+      "motor_signal": 0.38999998569488525,
+      "units": "normalized engineering proxy, not Celsius"
+    },
+    "rotor_source": "airsim_rad_s",
+    "rotor_telemetry_fresh": true,
+    "tick_seq": 480,
+    "runtime_hardware": {
+      "sample_time_s": 16811764.3620732,
+      "scope": "simulation_host",
+      "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+      "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+      "asset_compile_jobs": 0,
+      "ue_fps": 29.99814003942163,
+      "system_ram_total_bytes": 34191093760,
+      "system_ram_used_bytes": 23914270720,
+      "ue_ram_bytes": 12349771776,
+      "gpu_dedicated_total_bytes": 12706643968,
+      "ue_vram_used_bytes": 4399542272,
+      "ue_vram_budget_bytes": 11901272064,
+      "system_cpu_pct": 27.02498107494322,
+      "ue_gpu_engine_peak_pct": 59.17666820330611
+    },
+    "environment": {
+      "time_supported": true,
+      "fog_supported": true,
+      "rain_supported": true,
+      "time_override": false,
+      "hour": 12,
+      "fog": 0,
+      "rain": 0,
+      "clouds_supported": true,
+      "clouds": 0,
+      "cloud_layer_active": false,
+      "cloud_atmosphere_created": false,
+      "rain_view_volumes": 0,
+      "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+    },
+    "performance_profile": "economy",
+    "visible_capture_hz": 10,
+    "infrared_capture_hz": 10,
+    "observer_capture_hz": 8,
+    "yaw_deg": -10.194335937500007,
+    "pitch_deg": -15.000000000000002,
+    "pointing_error_deg": 36.050296783447266,
+    "sensor_mode": "visible",
+    "active_sensor": "visible",
+    "available_sensors": [
+      "visible",
+      "infrared",
+      "lidar"
+    ],
+    "sensors": {
+      "visible": {
+        "enabled": true,
+        "fov_deg": 25,
+        "vertical_fov_deg": 14.216549329860934,
+        "width_px": 1920,
+        "height_px": 1080,
+        "capture_sequence": 171,
+        "extrinsics_supported": true,
+        "mount_x_cm": 0,
+        "mount_y_cm": -6,
+        "mount_z_cm": 0,
+        "boresight_pitch_deg": 0,
+        "boresight_yaw_deg": 0,
+        "boresight_roll_deg": 0,
+        "camera_position_cm": [
+          -26994.215077023102,
+          -2024.6418353279103,
+          4945.270221005619
+        ],
+        "camera_rotation_pitch_yaw_roll_deg": [
+          -14.99999999999998,
+          -125.19433593749996,
+          0
+        ]
+      },
+      "infrared": {
+        "enabled": true,
+        "fov_deg": 25,
+        "vertical_fov_deg": 20.114311152180875,
+        "width_px": 640,
+        "height_px": 512,
+        "capture_sequence": 171,
+        "extrinsics_supported": true,
+        "mount_x_cm": 0,
+        "mount_y_cm": 6,
+        "mount_z_cm": 0,
+        "boresight_pitch_deg": 0.1,
+        "boresight_yaw_deg": 0.2,
+        "boresight_roll_deg": 0,
+        "camera_position_cm": [
+          -26984.408654481747,
+          -2031.5580537267463,
+          4945.270221005619
+        ],
+        "camera_rotation_pitch_yaw_roll_deg": [
+          -14.899906511923176,
+          -124.98737754771233,
+          -0.05356474572791359
+        ],
+        "palette": "white_hot",
+        "noise": 0.00800000037997961,
+        "thermal_profile": "facade",
+        "enhanced_available": true,
+        "reference_available": true,
+        "classified_available": true,
+        "facade_available": true,
+        "detector_controls_available": true,
+        "gain_mode": "auto",
+        "stable_agc": true,
+        "manual_low": 0,
+        "manual_high": 1,
+        "brightness": 0,
+        "sky_denoise": 0,
+        "noise_seed": 1337,
+        "agc_enabled": true,
+        "agc_response_s": 1,
+        "sampling_scale": 1,
+        "agc_low": 0.21829813718795776,
+        "agc_high": 0.4215626120567322,
+        "readout_ms": 26.743803024291992,
+        "readout_sequence": 162,
+        "class_pixels": [
+          157882,
+          0,
+          169798,
+          0,
+          0,
+          0,
+          0
+        ],
+        "target_pixels": 0,
+        "motor_region_pixels": 0,
+        "sky_pixels": 0,
+        "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+        "blur_px": 0.800000011920929,
+        "contrast": 1.100000023841858,
+        "background_detail": 0.6499999761581421
+      },
+      "lidar": {
+        "enabled": true,
+        "horizontal_fov_deg": 30,
+        "vertical_fov_deg": 8,
+        "range_m": 300,
+        "scan_rate_hz": 10,
+        "scan_sequence": 168
+      }
+    },
+    "palette": "white_hot",
+    "fov_deg": 25,
+    "width": 1920,
+    "height": 1080,
+    "drone_position_cm": [
+      -27400,
+      -2600,
+      4074.26806640625
+    ],
+    "tracking_source": "UE ground truth",
+    "thermal_model": "synthetic normalized heat",
+    "last_export_path": "",
+    "lidar_enabled": true,
+    "lidar_hits": 576,
+    "lidar_rays": 576,
+    "lidar_nearest_m": 27.7187557220459,
+    "lidar_last_export_path": ""
+  },
+  "owned_session_stopped": true
+}

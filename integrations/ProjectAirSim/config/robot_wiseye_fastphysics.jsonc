@@ -202,6 +202,7 @@
     "airframe-setup": "quadrotor-x",
     "type": "simple-flight-api",
     "simple-flight-api-settings": {
+      "parameters": { "MPC_LAND_SPEED": 0.8 },
       "actuator-order": [
         {
           "id": "Prop_FR_actuator"

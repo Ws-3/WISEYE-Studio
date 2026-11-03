@@ -1,15 +1,13 @@
-param(
-    [ValidateSet('original','test_range','city')][string]$Scene = 'original',
+﻿param(
+    [ValidateSet('city','city_large')][string]$Scene = 'city',
     [int]$Loops = 0,
     [switch]$SkipBuild
 )
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
-$airSimRoot = Join-Path (Split-Path -Parent $repository) 'ProjectAirSim-Evaluation'
-$python = Join-Path $airSimRoot '.venv\Scripts\python.exe'
-if (-not (Test-Path -LiteralPath $python)) {
-    throw "Project AirSim Python environment not found at $python. Run scripts\Setup-ProjectAirSim.ps1 first."
-}
+$python = Join-Path $repository 'Tools\Python\python.exe'
+if (-not (Test-Path -LiteralPath $python)) { $python=Join-Path $repository '.venv\Scripts\python.exe' }
+if (-not (Test-Path -LiteralPath $python)) { throw 'Project Python environment missing. See scripts/Setup-Desktop.ps1 and Setup-ProjectAirSim.ps1.' }
 $sceneConfig = Get-Content -LiteralPath (Join-Path $repository "ue5\WISEYE\Config\WISEYE\Scenes\$Scene.json") -Raw -Encoding UTF8 | ConvertFrom-Json
 if (-not $sceneConfig.prepared) { throw 'Scene assets are not ready. See docs/CITY_SAMPLE_SETUP.md for City Sample acquisition and integration.' }
 $map = $sceneConfig.map

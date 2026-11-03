@@ -17,7 +17,14 @@ def validate_state(state):
             raise ProtocolError(f'状态字段 {key} 无效')
     if state.get('active_sensor', state.get('sensor_mode')) not in ('visible', 'infrared', 'lidar'):
         raise ProtocolError('光电云台工作传感器无效')
-    if (state.get('width'), state.get('height')) not in ((1920, 1080), (640, 512)):
+    dimensions = (state.get('width'), state.get('height'))
+    selected = state.get('sensor_mode')
+    sensors = state.get('sensors')
+    sensor = sensors.get(selected, {}) if isinstance(sensors, dict) else {}
+    # Older native builds report no render target when the selected camera is
+    # off. This is a valid power state, not a broken control connection.
+    disabled_legacy = dimensions == (0, 0) and isinstance(sensor, dict) and sensor.get('enabled') is False
+    if dimensions not in ((1920, 1080), (640, 512)) and not disabled_legacy:
         raise ProtocolError('相机分辨率无效')
     if state.get('drone_model', 'mavic3') not in ('mavic3', 'avata'):
         raise ProtocolError('无人机型号无效')

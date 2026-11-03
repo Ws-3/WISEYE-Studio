@@ -1,0 +1,8 @@
+{
+  "device_id": "ptz-02",
+  "frame_number": 2733,
+  "width": 640,
+  "height": 512,
+  "encoding": "f32_le",
+  "units": "normalized FP16-derived proxy before detector filtering/PSF/noise/AGC, not temperature"
+}

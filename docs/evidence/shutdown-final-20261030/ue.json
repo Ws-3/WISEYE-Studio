@@ -1,0 +1,21 @@
+{
+  "case": "ue",
+  "run_id": "36A337114440A13E557A16AEF7725E0A",
+  "owned_pids": [
+    1768,
+    6736,
+    6800,
+    8684,
+    9752,
+    12352,
+    14000,
+    14056,
+    15140,
+    15836
+  ],
+  "passed": true,
+  "close_seconds": 3.7863512999999784,
+  "remaining_owned_pids": [],
+  "shutdown_log": "2026-10-30 13:39:35 A session window/critical worker exited; stopping owned resources.\n2026-10-30 13:39:35 Owned job closed; session cleanup complete.\n",
+  "landing_confirmed": false
+}

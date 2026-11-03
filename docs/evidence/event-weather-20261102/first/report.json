@@ -1,0 +1,71 @@
+{
+  "passed": false,
+  "scenes": {
+    "city": {
+      "day": {
+        "mean": 136.77615547839505,
+        "top_mean": 152.20530092592594,
+        "p95": 182.0,
+        "frame": 141
+      },
+      "night": {
+        "mean": 9.533780864197531,
+        "top_mean": 0.0019675925925925924,
+        "p95": 38.0,
+        "frame": 183
+      },
+      "rain": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": true,
+        "hour": 12,
+        "fog": 0.15000000596046448,
+        "rain": 0.699999988079071,
+        "clouds_supported": true,
+        "clouds": 0.75,
+        "cloud_layer_active": true,
+        "cloud_atmosphere_created": true,
+        "rain_view_volumes": 2,
+        "rain_active_particles": 0,
+        "rain_active_streaks": 3150,
+        "rain_model": "world_space_depth_tested_streaks",
+        "night_amount": 0,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / rain particles; no weather physics or thermal calibration"
+      },
+      "events": {
+        "enabled": true,
+        "generation": 1,
+        "events_total": 20041,
+        "buffer_events": 20041,
+        "sample_frames": 93,
+        "actual_sample_hz": 29.999941438550824,
+        "dropped_sample_frames": 0,
+        "truncated_events": 42183,
+        "signal_model": "independent HDR capture, frame-driven log-intensity crossings; interpolated timestamps, not hardware timing",
+        "width_px": 640,
+        "height_px": 480,
+        "capture_active": true,
+        "fov_deg": 25,
+        "sample_hz": 30,
+        "positive_threshold": 0.20000000298023224,
+        "negative_threshold": 0.20000000298023224,
+        "refractory_us": 100,
+        "extrinsics_supported": true,
+        "mount_x_cm": 0,
+        "mount_y_cm": 0,
+        "mount_z_cm": 2,
+        "boresight_pitch_deg": 0,
+        "boresight_yaw_deg": 0,
+        "boresight_roll_deg": 0,
+        "packet_count": 20000,
+        "timebase": "ue_world_time_since_play_us; frame-interpolated",
+        "skipped_events": 41
+      }
+    }
+  },
+  "limits": "No flight; frame-driven event approximation, visual weather",
+  "owned_session_stopped": true
+}
