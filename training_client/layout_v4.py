@@ -2,7 +2,7 @@
 from PySide6.QtCore import Qt, QSettings
 from PySide6.QtWidgets import (QWidget, QFrame, QLabel, QPushButton, QVBoxLayout,
     QHBoxLayout, QFormLayout, QSplitter, QScrollArea, QLineEdit, QSpinBox,
-    QDoubleSpinBox, QCheckBox, QComboBox, QSlider, QDialog, QToolButton)
+    QDoubleSpinBox, QCheckBox, QComboBox, QSlider, QDialog, QToolButton,QTabWidget)
 
 
 def build(w,args):
@@ -11,16 +11,22 @@ def build(w,args):
     header=QHBoxLayout();mark=label('W','brandMark');mark.setFixedSize(34,36);mark.setAlignment(Qt.AlignmentFlag.AlignCenter);header.addWidget(mark)
     brand=QVBoxLayout();brand.setSpacing(0);brand.addWidget(label('WISEYE','brand'));brand.addWidget(label('DATA & TRAINING STUDIO','brandSub'));header.addLayout(brand)
     header.addSpacing(20);header.addWidget(label('采集工作台','value'));header.addStretch()
+    from .localization import language_selector
+    header.addWidget(language_selector(w))
     w.badge=label('未连接','badge');header.addWidget(w.badge)
     settings=QPushButton('连接设置');header.addWidget(settings)
     w.connect=QPushButton('连接数据');w.connect.setObjectName('primary');w.connect.clicked.connect(w.start);header.addWidget(w.connect)
     w.disconnect=QPushButton('断开');w.disconnect.setEnabled(False);w.disconnect.clicked.connect(w.stop);header.addWidget(w.disconnect)
     outer.addLayout(header)
+    w.workspace_tabs=QTabWidget();outer.addWidget(w.workspace_tabs,1)
+    collection=QWidget();w.workspace_tabs.addTab(collection,'采集与预览');outer=QVBoxLayout(collection)
     w.connection_dialog=QDialog(w);w.connection_dialog.setWindowTitle('WISEYE · 数据连接');w.connection_dialog.resize(420,310)
     connection=QVBoxLayout(w.connection_dialog);connection.setSpacing(14)
     connection.addWidget(label('数据与GT策略通道 · 不开放飞控','value'))
     w.host=QLineEdit(args.host);w.port=QSpinBox();w.port.setRange(1024,65535);w.port.setValue(args.port);w.device=QLineEdit(args.device)
-    form=QFormLayout();form.addRow('仿真数据主机',w.host);form.addRow('数据端口',w.port);form.addRow('云台实例 ID',w.device);connection.addLayout(form)
+    form=QFormLayout();form.addRow('仿真数据主机',w.host);form.addRow('数据端口',w.port);form.addRow('设备实例 ID',w.device);connection.addLayout(form)
+    w.discover_button=QPushButton('发现设备');w.discover_button.clicked.connect(w.discover_sources);connection.addWidget(w.discover_button)
+    w.source_picker=QComboBox();w.source_picker.addItem('发现后选择云台或无人机',None);w.source_picker.currentIndexChanged.connect(w.pick_source);connection.addWidget(w.source_picker)
     hint=label('更换主机或实例后点击应用，清除旧组并重新订阅。连接成功不代表已开始保存。','hint');hint.setWordWrap(True);connection.addWidget(hint)
     apply=QPushButton('应用连接设置');apply.setObjectName('primary');apply.clicked.connect(lambda:(w.start(),w.connection_dialog.hide()));connection.addWidget(apply)
     settings.clicked.connect(lambda:(w.connection_dialog.show(),w.connection_dialog.raise_()))
@@ -49,13 +55,16 @@ def build(w,args):
     w.train_split.addWidget(center)
     side=QWidget();side.setObjectName('panel');side.setMinimumWidth(270);right=QVBoxLayout(side);right.setContentsMargins(12,12,12,12);right.setSpacing(10)
     right.addWidget(label('本次采集','value'));w.source_summary=label(w.device.text(),'muted');right.addWidget(w.source_summary)
+    w.source_kind=QComboBox();w.source_kind.addItem('云台 · 同刻双光与自动GT','gimbal');w.source_kind.addItem('航拍 · 双光原图待标注','aerial');w.source_kind.currentIndexChanged.connect(w.source_changed);right.addWidget(w.source_kind)
     modes=QHBoxLayout();w.visible=QCheckBox('可见光 VIS');w.infrared=QCheckBox('红外 IR')
     for item in (w.visible,w.infrared):item.setChecked(True);modes.addWidget(item);item.toggled.connect(w.source_changed)
     right.addLayout(modes)
+    for sensor,control in [('visible',w.visible),('infrared',w.infrared)]:control.setChecked(getattr(args,'sensor','both') in ('both',sensor))
     w.display_fps=QDoubleSpinBox();w.save_fps=QDoubleSpinBox()
     for control in (w.display_fps,w.save_fps):
-        control.setRange(.1,10);control.setDecimals(1);control.setSingleStep(.1);control.setValue(1);control.setSuffix(' 组/s');control.valueChanged.connect(w.change_rates)
+        control.setRange(.1,30);control.setDecimals(1);control.setSingleStep(.1);control.setValue(1);control.setSuffix(' 组/s');control.valueChanged.connect(w.change_rates)
     w.display_fps.setValue(5);form=QFormLayout();form.addRow('预览采样上限',w.display_fps);form.addRow('保存上限',w.save_fps);right.addLayout(form)
+    w.display_fps.setMaximum(10);w.save_fps.setMaximum(10)
     hint=label('设置是上限，实测值见顶部；保存不补帧。','hint');hint.setWordWrap(True);right.addWidget(hint)
     right.addWidget(label('输出目录','section'));w.directory=QLineEdit(str(args.output));w.directory.setToolTip('固定追加到所选根目录的 visible / IR');w.directory.editingFinished.connect(w.change_settings);right.addWidget(w.directory)
     browse=QPushButton('更换样本目录');browse.clicked.connect(w.browse);right.addWidget(browse)
@@ -63,6 +72,7 @@ def build(w,args):
     w.occlusion=QCheckBox('保留部分遮挡');w.outside=QCheckBox('保留部分出画')
     for control in (w.occlusion,w.outside):control.setChecked(True);control.toggled.connect(w.change_settings);policy_box.addWidget(control)
     policy_toggle=QToolButton();policy_toggle.setObjectName('foldHeader');policy_toggle.setText('▸ 标注策略');policy_toggle.setCheckable(True)
+    w.policy_toggle=policy_toggle;w.policy_body=policies
     policy_toggle.toggled.connect(lambda opened:(policies.setVisible(opened),policy_toggle.setText(('▾ ' if opened else '▸ ')+'标注策略')))
     right.addWidget(policy_toggle);right.addWidget(policies);policies.hide()
     w.settings_status=label('采集设置可在线修改','hint');w.settings_status.setWordWrap(True);right.addWidget(w.settings_status)
@@ -77,6 +87,9 @@ def build(w,args):
     if saved:w.train_split.restoreState(saved)
     w.state=label('等待连接 · 双路同组采集','ownershipBar');w.state.setWordWrap(True);outer.addWidget(w.state)
     w.inputs=();w.connect.setToolTip('连接中编辑主机/端口/设备后，点击应用连接设置。')
+    from .dataset_ui import DatasetPanel
+    w.dataset_panel=DatasetPanel(w);w.workspace_tabs.addTab(w.dataset_panel,'数据集与标注')
+    if args.device.startswith('uav-'):w.source_kind.setCurrentIndex(1)
     update_save_state(w)
 
 
@@ -85,7 +98,7 @@ def update_save_state(w,did_save=False):
     w.save_action.setObjectName('danger' if armed else 'primary');w.save_action.style().unpolish(w.save_action);w.save_action.style().polish(w.save_action)
     w.save_action.setEnabled(armed or w.worker is not None)
     if getattr(w,'_stopping',False) and armed:w.saving_state.setText('正在结束当前采集')
-    elif did_save and armed:w.saving_state.setText('正在保存')
+    elif did_save and armed:w.saving_state.setText('正在保存待标注原图' if w.source_kind.currentData()=='aerial' else '正在保存')
     elif not armed:w.saving_state.setText('未开始保存')
     elif w.worker is None or w.latest is None:w.saving_state.setText('已准备 · 等待有效样本')
     w.source_summary.setText(w.device.text().strip()+' · '+('VIS + IR' if w.visible.isChecked() and w.infrared.isChecked() else 'VIS' if w.visible.isChecked() else 'IR'))

@@ -48,6 +48,10 @@ scripts/python-root.local.txt
 /ue5/WISEYE/Content/Building/
 /ue5/WISEYE/Content/Character/
 /ue5/WISEYE/Content/City/
+/ue5/WISEYE/Content/Cinematics/
+/ue5/WISEYE/Content/Localization/
+/ue5/WISEYE/Content/Splash/
+/ue5/WISEYE/Content/WFC/
 /ue5/WISEYE/Content/Crowd/
 /ue5/WISEYE/Content/Effect/
 /ue5/WISEYE/Content/Environment/
@@ -90,3 +94,5 @@ auto.crt
 # Local reference papers and generated engine sample launchers.
 /papers/*.pdf
 /ue5/WISEYE/Samples/
+
+scripts/preview-project.local.txt

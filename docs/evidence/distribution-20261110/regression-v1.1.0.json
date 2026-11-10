@@ -1,0 +1,13 @@
+{
+  "date": "2026-11-10",
+  "command": "Tools/Python/python.exe -X utf8 -m unittest discover -s tests -p test_*.py",
+  "tests_run": 171,
+  "elapsed_seconds": 6.693,
+  "exit_code": 0,
+  "result": "OK",
+  "notes": [
+    "Executed locally before the v1.1.0 release; includes actual JSBSim DLL tests.",
+    "The intentionally missing JSBSim aircraft path message is part of a negative test.",
+    "Does not rerun historical UE live tests; those have separate dated evidence."
+  ]
+}

@@ -229,6 +229,7 @@ void AWiseEyeDemo::UpdateEnvironmentViews()
         PP.bOverride_BloomIntensity=true;PP.BloomIntensity=FMath::Lerp(.08f,.015f,Night)+.075f*DeepNight;
     };
     for (auto Rig:FleetRigs) if (Rig && Rig->Camera && Rig->Capture) {
+        if (Rig->VisibleInstance) Rig->VisibleInstance->SetScalarParameterValue(TEXT("LowLight"),Night);
         Apply(Rig->Capture->PostProcessSettings);
         // Never inject a visible-light exposure response into the IR view.
         if (!Rig->InfraredMode) Apply(Rig->Camera->PostProcessSettings);

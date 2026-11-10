@@ -38,7 +38,7 @@ if (DisplayReadout<.5 && Classified>.5 && Reference>.5)
 #if defined(WISEYE_FACADE)
     if (Facade>.5) {
         WiseEyeFacadeHeat facade;
-        background=facade.background(base,category,Normal.rgb,BaseColor.rgb,Roughness.r,BackgroundDetail,DayWeight);
+        background=facade.background(base,category,Normal.rgb,BaseColor.rgb,Roughness.r,BackgroundDetail,DayWeight,WorldPosition);
     }
 #endif
     background=lerp(background,SkyHeat,isSky);
@@ -51,7 +51,11 @@ if (DisplayReadout<.5 && Classified>.5 && Reference>.5)
         background=lerp(background,SkyHeat+BackgroundDetail*(.018*sqrt(lum)+.12*cloud),isSky);
     }
 #endif
-    float targetVisible=step(32.,code)*depthVisible;
+    float droneVisible=step(32.,code)*depthVisible;
+    float car=(1.-step(.5,abs(code-16.)))*depthVisible;
+    float person=(1.-step(.5,abs(code-17.)))*depthVisible;
+    float population=max(car,person);
+    float targetVisible=max(droneVisible,population);
     float selectedBody=(1.-step(.5,abs(code-BodyCode)))*step(abs(CustomDepth.r-TargetDepth),60.);
     float motors=max(max(regions.spot(UV,MotorSpot0),regions.spot(UV,MotorSpot1)),max(regions.spot(UV,MotorSpot2),regions.spot(UV,MotorSpot3)));
     float battery=regions.spot(UV,BatterySpot);
@@ -59,8 +63,16 @@ if (DisplayReadout<.5 && Classified>.5 && Reference>.5)
 #if defined(WISEYE_FACADE)
     if (Facade>.5) {
         // Visible target pixels only: spots never paint through roofs/occluders.
-        float selectedSurface=targetVisible*step(abs(CustomDepth.r-TargetDepth),60.);
+        float selectedSurface=droneVisible*step(abs(CustomDepth.r-TargetDepth),60.);
         target+=selectedSurface*(battery*(.025+.25*BatteryWarmth)+motors*(.025+.45*MotorWarmth));
+        // Population stencils are separate from drone temperature codes. A
+        // complete car is not a uniform engine-temperature target. Material and
+        // normal cues are bounded proxies, not measured glass/engine heat.
+        float surface=sqrt(saturate(dot(BaseColor.rgb,float3(.2126,.7152,.0722))));
+        float smoothSurface=1.-smoothstep(.18,.65,Roughness.r);
+        float vehicleHeat=.285+.045*surface+.018*Roughness.r+.022*abs(Normal.z)-.045*smoothSurface;
+        float peopleHeat=.34+.020*surface+.012*Normal.z;
+        target=lerp(target,lerp(vehicleHeat,peopleHeat,person),population);
     } else
 #endif
     target+=selectedBody*(battery*(.01+.09*BatteryWarmth)+TargetAvata*motors*(.025+.30*MotorWarmth));
@@ -73,7 +85,7 @@ if (DisplayReadout<.5 && Classified>.5 && Reference>.5)
     // G/B are diagnostic labels before detector PSF; only R feeds the detector.
     float motorRegion=selectedBody*TargetAvata*step(.2,motors);
 #if defined(WISEYE_FACADE)
-    if (Facade>.5) motorRegion=targetVisible*step(abs(CustomDepth.r-TargetDepth),60.)*step(.2,motors);
+    if (Facade>.5) motorRegion=droneVisible*step(abs(CustomDepth.r-TargetDepth),60.)*step(.2,motors);
 #endif
-    return float3(signal,category/8.,targetVisible*(.5+.5*motorRegion)+(1.-targetVisible)*isSky*.125);
+    return float3(signal,category/8.,droneVisible*(.5+.5*motorRegion)+population*.23+(1.-targetVisible)*isSky*.125);
 }

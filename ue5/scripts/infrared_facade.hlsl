@@ -1,8 +1,17 @@
 // Facade appearance proxy: material cues, not measured LWIR emissivity.
 struct WiseEyeFacadeHeat
 {
+    float hash(float2 p) {
+        // Deterministic world-anchored field: independent of screen UV/time.
+        return frac(sin(dot(p,float2(127.1,311.7)))*43758.5453);
+    }
+    float field(float2 p) {
+        float2 i=floor(p),f=frac(p);f=f*f*(3.-2.*f);
+        return lerp(lerp(hash(i),hash(i+float2(1,0)),f.x),
+                    lerp(hash(i+float2(0,1)),hash(i+1.),f.x),f.y);
+    }
     float background(float base, float category, float3 normal, float3 albedo,
-                     float roughness, float detail, float day)
+                     float roughness, float detail, float day, float3 worldPosition)
     {
         // Use geometry/material-space detail, never a screen-space window grid.
         float vertical=1.-smoothstep(.35,.75,abs(normal.z));
@@ -21,6 +30,21 @@ struct WiseEyeFacadeHeat
         // Roofs are slightly brighter than walls, without lifting whole facades.
         float building=wallBase+.060*(1.-vertical)+detail*(surfaceVariation+orientation);
         building=lerp(building,base+detail*surfaceVariation,glass);
-        return lerp(base,building,facade);
+        float result=lerp(base,building,facade);
+        float road=1.-step(.5,abs(category-1.));
+        // Paved roads previously returned a single palette value, losing all
+        // albedo/roughness and thermal structure. These are appearance proxies,
+        // not a solved heat equation or copied visible-light shadow map.
+        float2 metres=worldPosition.xy*.01;
+        float slow=field(metres/11.7),patch=field(metres/2.9);
+        float pavement=.080*(slow-.5)+.036*(patch-.5)
+                      +.050*(grain-.45)+.022*(roughness-.65);
+        float roadSignal=base-lerp(.010,.035,day)
+                         +detail*lerp(.65,1.,day)*pavement;
+        result=lerp(result,roadSignal,road);
+        // Unknown horizontal surfaces receive a small stable surface response;
+        // this does not relabel every roof as asphalt.
+        result+=unknown*(1.-vertical)*detail*(.014*(slow-.5)+.008*(patch-.5));
+        return result;
     }
 };

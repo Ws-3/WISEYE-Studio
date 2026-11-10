@@ -15,6 +15,7 @@ void AWiseEyeDemo::ScanLidar()
     LidarNearestRangeMeters=0;
     if (!LidarEnabled || !IsValid(LidarMount) || !GetWorld()) return;
     ++LidarScanSequence;
+    LastLidarCaptureTime=GetWorld()->GetTimeSeconds();
 
     const int32 H=FMath::Clamp(LidarHorizontalSamples,1,128);
     const int32 V=FMath::Clamp(LidarVerticalSamples,1,64);
@@ -91,7 +92,7 @@ bool AWiseEyeDemo::ExportLidarPointCloud()
         LastLidarExportPath.Empty();
         return false;
     }
-    const FString Meta=FString::Printf(TEXT("{\"device_id\":\"%s\",\"sensor_id\":\"%s/lidar\",\"scene_id\":\"%s\",\"run_id\":\"%s\",\"simulation_time_s\":%.6f,\"frame\":\"sensor_local_x_forward_y_right_z_up\",\"units\":\"meters\"}"),*GimbalId,*GimbalId,*SceneId,*PlaySessionId,SimulationTime);
+    const FString Meta=FString::Printf(TEXT("{\"device_id\":\"%s\",\"sensor_id\":\"%s/lidar\",\"scene_id\":\"%s\",\"run_id\":\"%s\",\"simulation_time_s\":%.6f,\"frame\":\"sensor_local_x_forward_y_right_z_up\",\"units\":\"meters\"}"),*GimbalId,*GimbalId,*SceneId,*PlaySessionId,LastLidarCaptureTime);
     FFileHelper::SaveStringToFile(Meta,*(LastLidarExportPath+TEXT(".json")));
     return true;
 }

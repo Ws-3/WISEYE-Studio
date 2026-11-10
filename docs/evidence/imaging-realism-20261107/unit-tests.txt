@@ -1,0 +1,26 @@
+test_border_crop_removes_white_and_translates_boxes (tests.test_infrared_baseline.InfraredBaselineTests.test_border_crop_removes_white_and_translates_boxes) ... ok
+test_bright_is_distinct_from_clipping (tests.test_infrared_baseline.InfraredBaselineTests.test_bright_is_distinct_from_clipping) ... ok
+test_crop_coordinates_must_be_explicit (tests.test_infrared_baseline.InfraredBaselineTests.test_crop_coordinates_must_be_explicit) ... ok
+test_empty_roi_is_unavailable (tests.test_infrared_baseline.InfraredBaselineTests.test_empty_roi_is_unavailable) ... ok
+test_flat_background_cnr_is_null (tests.test_infrared_baseline.InfraredBaselineTests.test_flat_background_cnr_is_null) ... ok
+test_histogram_distance_known_shift (tests.test_infrared_baseline.InfraredBaselineTests.test_histogram_distance_known_shift) ... ok
+test_image_change_rejected (tests.test_infrared_baseline.InfraredBaselineTests.test_image_change_rejected) ... ok
+test_invalid_geometry_rejected (tests.test_infrared_baseline.InfraredBaselineTests.test_invalid_geometry_rejected) ... ok
+test_label_parser_rejects_bad_labels (tests.test_infrared_baseline.InfraredBaselineTests.test_label_parser_rejects_bad_labels) ... ok
+test_polarity_is_preserved (tests.test_infrared_baseline.InfraredBaselineTests.test_polarity_is_preserved) ... ok
+test_road_roi_excludes_targets (tests.test_infrared_baseline.InfraredBaselineTests.test_road_roi_excludes_targets) ... ok
+test_small_ring_is_unavailable (tests.test_infrared_baseline.InfraredBaselineTests.test_small_ring_is_unavailable) ... ok
+test_config_cannot_use_target_ids_or_invalid_signals (tests.test_thermal_material_rules.ThermalMaterialRulesTests.test_config_cannot_use_target_ids_or_invalid_signals) ... ok
+test_mesh_fallback_does_not_override_conflicting_materials (tests.test_thermal_material_rules.ThermalMaterialRulesTests.test_mesh_fallback_does_not_override_conflicting_materials) ... ok
+test_mixed_glass_and_wall_cannot_label_entire_mesh (tests.test_thermal_material_rules.ThermalMaterialRulesTests.test_mixed_glass_and_wall_cannot_label_entire_mesh) ... ok
+test_tree_parts_share_a_class_but_street_is_not_tree (tests.test_thermal_material_rules.ThermalMaterialRulesTests.test_tree_parts_share_a_class_but_street_is_not_tree) ... ok
+test_enhanced_parameters_are_device_scoped (tests.verify_infrared_settings.InfraredSettingsTests.test_enhanced_parameters_are_device_scoped) ... ok
+test_facade_is_disabled_on_older_materials_and_keeps_device_drafts (tests.verify_infrared_settings.InfraredSettingsTests.test_facade_is_disabled_on_older_materials_and_keeps_device_drafts) ... ok
+test_material_mode_requires_capability_and_reports_pixel_coverage (tests.verify_infrared_settings.InfraredSettingsTests.test_material_mode_requires_capability_and_reports_pixel_coverage) ... ok
+test_old_ue_does_not_receive_unsupported_fields (tests.verify_infrared_settings.InfraredSettingsTests.test_old_ue_does_not_receive_unsupported_fields) ... ok
+test_reference_controls_follow_capability_and_keep_device_drafts (tests.verify_infrared_settings.InfraredSettingsTests.test_reference_controls_follow_capability_and_keep_device_drafts) ... ok
+
+----------------------------------------------------------------------
+Ran 21 tests in 0.208s
+
+OK

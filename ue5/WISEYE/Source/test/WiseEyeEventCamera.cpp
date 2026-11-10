@@ -48,5 +48,7 @@ TSharedPtr<FJsonObject> FWiseEyeEventCamera::Packet(int64 After,int32 Limit,bool
     R->SetNumberField(TEXT("positive_threshold"),Model.On);R->SetNumberField(TEXT("negative_threshold"),Model.Off);
     R->SetNumberField(TEXT("refractory_us"),Model.Refractory);
     R->SetStringField(TEXT("columns"),TEXT("x,y,t_us,p"));R->SetStringField(TEXT("timebase"),TEXT("ue_world_time_since_play_us; frame-interpolated"));
+    R->SetStringField(TEXT("polarity_encoding"),TEXT("-1=OFF,+1=ON"));R->SetStringField(TEXT("pixel_origin"),TEXT("top_left; x right, y down"));
+    R->SetBoolField(TEXT("hardware_timing"),false);R->SetStringField(TEXT("timestamp_unit"),TEXT("microseconds"));
     R->SetNumberField(TEXT("width"),640);R->SetNumberField(TEXT("height"),480);R->SetBoolField(TEXT("enabled"),Enabled);return R;
 }

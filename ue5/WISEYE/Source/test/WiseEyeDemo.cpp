@@ -32,7 +32,7 @@
 #include "Editor/EditorEngine.h"
 #endif
 
-AWiseEyeDemo::~AWiseEyeDemo() { delete Bridge; delete StreamManager; }
+AWiseEyeDemo::~AWiseEyeDemo() { delete Bridge; delete StreamManager; delete AerialStream; delete AerialIRStream; }
 void AWiseEyeDemo::EndPlay(const EEndPlayReason::Type Reason)
 {
     DestroyPlacementPreview();
@@ -40,7 +40,9 @@ void AWiseEyeDemo::EndPlay(const EEndPlayReason::Type Reason)
     Bridge = nullptr;
     delete StreamManager;
     StreamManager = nullptr;
+    ReleaseAerial();
     BridgeReady = false;
+    FixedwingEngine.Reset();
     Super::EndPlay(Reason);
 }
 
@@ -127,6 +129,8 @@ void AWiseEyeDemo::BeginPlay()
     if (DroneView) DroneView->GetCameraComponent()->SetFieldOfView(65.f);
     InitializeSensors();
     StreamManager = new FWiseEyeStreamManager();
+    RefreshSensors();
+    RefreshEventSensor(); // Default-on needs a capture AND an enabled stream worker.
     OutputDirectory = FPaths::Combine(WiseEyePaths::SavedRoot(), TEXT("WISEYE"), FDateTime::Now().ToString(TEXT("%Y%m%d_%H%M%S")));
     IFileManager::Get().MakeDirectory(*OutputDirectory, true);
     FFileHelper::SaveStringToFile(TEXT("time_s,drone_x_cm,drone_y_cm,drone_z_cm,yaw_deg,pitch_deg,pointing_error_deg,fov_deg,auto_flight,tracking,rotors,rotor_phase_deg\n"), *FPaths::Combine(OutputDirectory,TEXT("telemetry.csv")));
@@ -171,6 +175,7 @@ else
     UpdateDroneView();
     FString FleetError;
     if (!InitializeFleet(FleetError)) { UE_LOG(LogTemp,Error,TEXT("WISEYE fleet: %s"),*FleetError); SetActorTickEnabled(false); return; }
+    InitializeObservation();
     if (SceneId==TEXT("city_large"))
     {
         // Pilot: bounded sources follow every physical drone and camera base.
@@ -200,7 +205,7 @@ void AWiseEyeDemo::Tick(float Dt)
 {
     Super::Tick(Dt);
     ++TickSequence;
-    if (!FleetChild) { UpdateRuntimeStatus(); UpdateRainVolumes();UpdateEnvironmentViews(); }
+    if (!FleetChild) { UpdateSimulationWindow();UpdateRuntimeStatus(); UpdateRainVolumes();UpdateEnvironmentViews();UpdatePopulation(); }
     if (FleetChild) { PerformanceProfile=FleetRoot->PerformanceProfile; VisibleCaptureHz=FleetRoot->VisibleCaptureHz; InfraredCaptureHz=FleetRoot->InfraredCaptureHz; ObserverCaptureHz=FleetRoot->ObserverCaptureHz; }
     else if (TickSequence==1) SetPerformanceProfile((SceneId==TEXT("city") || SceneId==TEXT("city_large"))?TEXT("economy"):PerformanceProfile);
     if (!FleetChild) { EnsurePlayerInput(); StepObserver(Dt); PollLocalFlightInput(); }
@@ -284,6 +289,8 @@ void AWiseEyeDemo::Tick(float Dt)
     }
     UpdateDroneView();
 
+    if (VisibleEnabled) ApplyVisibleFocus(Capture,VisibleFocus,TrackingEnabled);
+    if (OwnsDrone) UpdateAerial();
     // Continuous camera publishing performs demand-driven readback. Avoid a second
     // full-resolution GPU readback every Tick, which would halve streaming headroom.
     TelemetryClock += Dt;
@@ -379,6 +386,7 @@ void AWiseEyeDemo::InitializeDroneModels()
         MavicRotorBlurs.Add(MakeBlur(Rotor,Rotor->GetRootComponent(),FVector(0,0,Bounds.GetCenter().Z),FMath::Sqrt(RadiusSquared)));
     }
 
+    InitializeFixedwingVisual();
     UStaticMesh* ReferenceMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/WISEYE/DroneModels/Avata/Avata_black.Avata_black"));
     UStaticMesh* AvataMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/WISEYE/DroneModels/Avata/Animated/AvataBody.AvataBody"));
     TArray<UStaticMesh*> RotorMeshes;
@@ -439,9 +447,9 @@ void AWiseEyeDemo::InitializeDroneModels()
 bool AWiseEyeDemo::SetDroneModel(const FString& ModelId,FString& Error)
 {
     const FString Normalized=ModelId.ToLower();
-    if (Normalized!=TEXT("mavic3") && Normalized!=TEXT("avata"))
+    if (Normalized!=TEXT("mavic3") && Normalized!=TEXT("avata") && Normalized!=TEXT("fixedwing"))
     {
-        Error=TEXT("model must be mavic3 or avata");
+        Error=TEXT("model must be mavic3, avata or fixedwing");
         return false;
     }
     if (Normalized==TEXT("avata") && !IsValid(AlternateDroneMesh))
@@ -449,13 +457,16 @@ bool AWiseEyeDemo::SetDroneModel(const FString& ModelId,FString& Error)
         Error=TEXT("Avata asset is not installed; run the drone model import step");
         return false;
     }
+    if (Normalized==TEXT("fixedwing") && !IsValid(FixedwingMesh)) {Error=TEXT("Import fixed-wing assets first");return false;}
     const bool ShowMavic=Normalized==TEXT("mavic3");
     for (UPrimitiveComponent* Component : MavicVisualComponents)
         if (IsValid(Component)) Component->SetVisibility(ShowMavic,true);
-    if (IsValid(AlternateDroneMesh)) AlternateDroneMesh->SetVisibility(!ShowMavic,true);
+    if (IsValid(AlternateDroneMesh)) AlternateDroneMesh->SetVisibility(Normalized==TEXT("avata"),true);
     for (UStaticMeshComponent* Blur : MavicRotorBlurs)
         if (IsValid(Blur)) Blur->SetVisibility(false);
+    if (IsValid(FixedwingMesh)) FixedwingMesh->SetVisibility(Normalized==TEXT("fixedwing"),true);
     DroneModel=Normalized;
+    if (Normalized==TEXT("fixedwing") && !FixedwingActive) {FixedwingYaw=InitialYawDegrees;Drone->SetActorRotation(FRotator(0,FixedwingYaw,0).Quaternion()*DynamicsVisualRotationOffset.Quaternion());}
     if (FlightBackend==EWiseEyeFlightBackend::ProjectAirSim) SetVisualAssemblyCollision(false);
     ConfigureThermalActors();
     return true;
@@ -535,6 +546,7 @@ void AWiseEyeDemo::StepManualFlight(float Dt)
 void AWiseEyeDemo::StepNavigationLights()
 {
     if (!IsValid(Drone)) return;
+    if (DroneModel==TEXT("fixedwing")) {for (auto Lamp:NavigationLamps) if (IsValid(Lamp)) Lamp->SetVisibility(false);return;}
     const AWiseEyeDemo* Root=FleetRoot?FleetRoot.Get():this;
     // A sun ray pointing up means the sun itself is below the horizon.
     NavigationNight=Root->EnvironmentTimeOverride

@@ -73,6 +73,7 @@ int main()
     assert(ReadNoise(123,1,4)==ReadNoise(123,1,4));assert(ReadNoise(123,1,4)!=ReadNoise(124,1,4));
     PixelLabels Subpixel;Subpixel.Add(.125f);Subpixel.Add(.125f);Subpixel.Add(.5f);Subpixel.Add(.125f);
     assert(Subpixel.Target && !Subpixel.Sky); // one of four samples is sufficient to protect a tiny target
+    PixelLabels Car;Car.Add(.23f);assert(Car.Population && !Car.Target && !Car.Sky && !Car.Motor);
     E.Low=.05f;E.High=.45f;
     assert(E.DisplaySoft(FacadeDisplaySignal(.35f,E.Low,false,false),1.1f,false)<E.DisplaySoft(.35f,1.1f,false));
     assert(FacadeDisplaySignal(.35f,E.Low,false,true)==.35f);
@@ -84,6 +85,19 @@ int main()
     assert(FacadeDisplayValue(.5f,false,false)>FacadeDisplayValue(.3f,false,false));
     assert(FacadeDisplayValue(.70f,false,false)>.5f);
     assert(FacadeDisplayValue(.78f,false,false)-FacadeDisplayValue(.60f,false,false)>.4f);
+    // Aerial calibration must not alter target/sky tones, reverse material
+    // ordering, or crush the night ground into the old PTZ black shoulder.
+    for (float Mid : {.36f,.60f}) {
+        float Last=-1;
+        for (int I=0;I<=100;++I) {
+            float V=I/100.f,Out=FacadeDisplayValue(V,false,false,.3f,Mid,4.f);
+            assert(Out>=Last && Out>=0 && Out<=1);Last=Out;
+            assert(FacadeDisplayValue(V,true,false,.3f,Mid,4.f)==V);
+            assert(FacadeDisplayValue(V,false,true,.4f,Mid,4.f)==FacadeDisplayValue(V,false,true,.4f));
+        }
+    }
+    assert(FacadeDisplayValue(.49f,false,false,.24f,.36f,4.f)>.5f);
+    DetectorSettings AerialD,GroundD;AerialD.BackgroundMid=.36f;assert(!(AerialD==GroundD));
     uint8_t Edge[5]={0,0,255,0,0},Mask[5]={0,0,0,0,0};float Work[5];
     SoftenBackgroundDisplay(Edge,Work,Mask,5,1,1);assert(Edge[2]<255 && Edge[2]>100);
     uint8_t Small[5]={0,0,255,0,0};Mask[2]=1;

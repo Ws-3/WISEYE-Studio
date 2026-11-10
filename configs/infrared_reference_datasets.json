@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "checked_date": "2026-11-07",
+  "datasets": [
+    {
+      "id": "HIT-UAV",
+      "view": "aerial_ground_observation",
+      "source": "https://github.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset",
+      "paper": "https://doi.org/10.1038/s41597-023-02066-6",
+      "license": "CC-BY-4.0; official LICENSE saved with downloads",
+      "native_frames": 2898,
+      "conditions": ["day", "night"],
+      "sampling": "32 official train frames, 16 per condition; no test-set tuning",
+      "status": "downloaded_small_pinned_subset",
+      "revision_tree": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "intended_checks": ["road tone", "paved-surface detail", "person/vehicle box contrast", "day/night"]
+    },
+    {
+      "id": "Halmstad-local",
+      "view": "ground_device_observing_uav",
+      "source": "user-supplied local YOLO conversion",
+      "root_hint": "F:/DATASET_UAV_BICE/YOLO_UAV_BICE/infrared/Halmstad",
+      "license": "not verified; original images stay local",
+      "conditions": ["day_user_report"],
+      "status": "sampled_16_drone_train_sequences_one_frame_each",
+      "class_map_local": {"0": "drone", "1": "bird", "2": "airplane", "3": "helicopter"},
+      "cautions": ["local conversion reports frame/label length mismatches", "empty labels not verified negatives"]
+    },
+    {
+      "id": "CESE-local",
+      "view": "ground_device_observing_uav",
+      "source": "user-supplied BIT_antiUAV0715organized_sequences and BIT_ant0715v2 conversion",
+      "root_hint": "F:/DATASET_UAV_BICE/YOLO_UAV_BICE/infrared/CESE",
+      "license": "not verified; original images stay local",
+      "conditions": ["day_user_report"],
+      "status": "sampled_16_train_sequence_prefixes_one_frame_each",
+      "class_map_local": {"0": "drone", "1": "bird", "2": "airplane", "3": "helicopter"}
+    },
+    {
+      "id": "Anti-UAV410",
+      "view": "ground_device_observing_uav",
+      "source": "https://github.com/HwangBo94/Anti-UAV410",
+      "download": "https://drive.google.com/file/d/1zsdazmKS3mHaEZWS2BnqbYHPEcIaH5WR/view",
+      "videos": 410,
+      "status": "official_download_identified_full_sequences_not_obtained",
+      "license": "check original distribution terms before redistribution",
+      "cautions": ["three official illustrative JPGs downloaded for inspection only, excluded from measurements", "select night sequences only after metadata or visual review, never infer night from dark sky"]
+    },
+    {
+      "id": "DroneVehicle",
+      "view": "aerial_ground_observation",
+      "source": "https://github.com/VisDrone/DroneVehicle",
+      "pairs": 28439,
+      "conditions": ["day", "night"],
+      "status": "official_download_identified_full_images_not_obtained",
+      "license": "check original distribution terms",
+      "preprocessing": "840x712 distributed image: crop 100px per side to 640x512; translate/clip boxes; never measure white frame",
+      "cautions": ["README montage is not a dataset test frame"]
+    }
+  ]
+}

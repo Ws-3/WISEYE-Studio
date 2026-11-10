@@ -190,7 +190,7 @@ void FWiseEyeStreamManager::Queue(const TSharedPtr<FChannel, ESPMode::ThreadSafe
                                 if (Settings.Classified) {
                                     const auto& Label=reinterpret_cast<const FFloat16Color*>(Source)[Y*Scale*RowPitch+X*Scale];
                                     SkyMask[Y*OutWidth+X]=Labels.Sky;
-                                    TargetMask[Y*OutWidth+X]=Labels.Target;SkyPixels+=SkyMask[Y*OutWidth+X];
+                                    TargetMask[Y*OutWidth+X]=Labels.Target?1:Labels.Population?2:0;SkyPixels+=SkyMask[Y*OutWidth+X];
                                     ++ClassPixels[FMath::Clamp(FMath::RoundToInt(Label.G.GetFloat()*8),0,6)];
                                     if (Labels.Target) ++TargetPixels;
                                     if (Labels.Motor) ++MotorRegionPixels;
@@ -232,7 +232,7 @@ void FWiseEyeStreamManager::Queue(const TSharedPtr<FChannel, ESPMode::ThreadSafe
                                     for (int I=0;I<Signal.Num();++I) {
                                         float Value=Settings.Classified?Channel->Exposure.DisplaySoft(Signal[I],Settings.Contrast,Settings.Detector.Facade?false:Settings.Black,Settings.Detector.Brightness):Channel->Exposure.Display(Signal[I],Settings.Contrast,Settings.Black,Settings.Detector.Brightness);
                                         if (Settings.Detector.Facade) {
-                                            Value=WiseEyeThermal::FacadeDisplayValue(Value,SkyMask[I]!=0,TargetMask[I]!=0,Signal[I]);
+                                            Value=WiseEyeThermal::FacadeDisplayValue(Value,SkyMask[I]!=0,TargetMask[I]==1,Signal[I],Settings.Detector.BackgroundMid,Settings.Detector.BackgroundSlope);
                                             if (Settings.Black) Value=1.f-Value;
                                         }
                                         uint8 V=uint8(FMath::RoundToInt(255.f*Value));Pixels[I]=FColor(V,V,V,255);

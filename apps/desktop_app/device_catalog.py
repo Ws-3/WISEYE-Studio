@@ -12,13 +12,15 @@ class DeviceCatalog(QWidget):
         root=QVBoxLayout(self);root.setContentsMargins(0,0,0,0);root.setSpacing(12)
         # Keep the original table as the one draft owner used by collect/save.
         self.actions={b.text():b for b in editor.findChildren(QPushButton)}
+        self.actions['保存设备配置'].setText('保存为初始配置')
+        self.actions['保存并加载场景'].setText('应用到当前场景')
         for b in self.actions.values():b.setParent(self)
         editor.hide()
         header=QFrame();header.setObjectName('sessionBar');bar=QHBoxLayout(header)
         self.summary=QLabel();bar.addWidget(self.summary,1)
         for name in ('新增无人机','新增云台'):bar.addWidget(self.actions[name])
-        root.addWidget(header)
-        self.table=QTableWidget(0,6);self.table.setHorizontalHeaderLabels(['实例 / 稳定 ID','型号','类型','运行状态','初始位置 / m','编辑'])
+        root.addWidget(header);root.addWidget(editor.live_enabled)
+        self.table=QTableWidget(0,6);self.table.setHorizontalHeaderLabels(['实例 / 稳定 ID','型号','类型','运行状态','位置 / m','编辑'])
         self.table.setSelectionBehavior(QAbstractItemView.SelectionBehavior.SelectRows)
         self.table.setSelectionMode(QAbstractItemView.SelectionMode.SingleSelection)
         self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
@@ -38,12 +40,12 @@ class DeviceCatalog(QWidget):
         for axis in 'XYZ':
             label=QLabel(axis);label.setObjectName('muted');coords.addWidget(label)
             field=QDoubleSpinBox();field.setRange(-100000,100000);field.setDecimals(5);field.setSuffix(' m');field.setSingleStep(.1);coords.addWidget(field,1);self.xyz.append(field)
-        form.addRow('初始世界位置',coords)
-        self.yaw=QDoubleSpinBox();self.yaw.setRange(-180,180);self.yaw.setDecimals(2);self.yaw.setSuffix(' °');form.addRow('初始偏航',self.yaw)
+        form.addRow('设备位置',coords)
+        self.yaw=QDoubleSpinBox();self.yaw.setRange(-180,180);self.yaw.setDecimals(2);self.yaw.setSuffix(' °');form.addRow('朝向',self.yaw)
         self.target=QComboBox();form.addRow('默认跟踪目标',self.target)
         box.addLayout(form)
         self.spec=QLabel();self.spec.setObjectName('telemetry');self.spec.setWordWrap(True);box.addWidget(self.spec)
-        note=QLabel('实例 ID 保持稳定；编辑的是初始配置。保存后，新增、删除和型号变更需加载场景生效。定位操作只选择现有设备，不移动设备。')
+        note=QLabel('开启实时应用时，新增、删除和修改直接作用于当前场景，不重载地图。关闭实时应用可只编辑并保存下次启动配置；空中无人机须先停止才能移位或切换飞行类型。')
         note.setObjectName('hint');note.setWordWrap(True);box.addWidget(note)
         row=QHBoxLayout();place=QPushButton('在场景中放置');place.clicked.connect(self.place);row.addWidget(place)
         self.parameters=QPushButton('传感器参数');self.parameters.clicked.connect(self.open_parameters);row.addWidget(self.parameters)
@@ -71,7 +73,7 @@ class DeviceCatalog(QWidget):
         for row in range(self.table.rowCount()):self.update_row(row)
         del blocker
         drones=sum(x['kind']=='drone' for x in self.editor.data['devices'])
-        self.summary.setText(f"初始配置 · {self.editor.scene['name']} · {drones} 架无人机 / {self.table.rowCount()-drones} 套云台")
+        self.summary.setText(f"设备编辑 · {self.editor.scene['name']} · {drones} 架无人机 / {self.table.rowCount()-drones} 套云台")
         self.table.selectRow(max(0,min(selected,self.table.rowCount()-1)))
         self.select(self.table.currentRow())
 
@@ -110,7 +112,7 @@ class DeviceCatalog(QWidget):
         target=table.cellWidget(row,8)
         for i in range(target.count()):self.target.addItem(target.itemText(i),target.itemData(i))
         self.target.setCurrentIndex(target.currentIndex());self.target.setEnabled(item['kind']=='gimbal');self.parameters.setEnabled(item['kind']=='gimbal')
-        self.spec.setText('双光云台 · VIS 1920×1080 / IR 640×512 · 独立光心，安装参数在传感器页编辑。' if item['kind']=='gimbal' else '无人机外观型号独立；Mavic / Avata 当前共用四旋翼动力学。实际旋翼转速来自飞控。')
+        self.spec.setText('双光云台 · VIS 1920×1080 / IR 640×512 · 独立光心，安装参数在传感器页编辑。' if item['kind']=='gimbal' else '固定翼机长80cm；JSBSim六自由度动力学，参考气动参数未标定；从空中初始化。' if self.model.currentData()=='fixedwing' else '无人机外观型号独立；Mavic / Avata 当前共用四旋翼动力学。实际旋翼转速来自飞控。')
         self.loading=False
 
     def write_details(self,*_):
@@ -127,7 +129,7 @@ class DeviceCatalog(QWidget):
             for col,field in enumerate(self.xyz,4):
                 if source is field:table.item(row,col).setText(str(field.value()))
         blocker=QSignalBlocker(self.table);self.update_row(row);del blocker
-        self.status.setText('有未保存编辑');self.editor.message.setText('本地设备草稿已修改；当前场景设备尚未改变。')
+        self.status.setText('已编辑');self.editor.schedule_live()
 
     def selected(self):
         row=self.table.currentRow()
@@ -138,7 +140,7 @@ class DeviceCatalog(QWidget):
         if not item:return
         tools=self.window.arrangement.tools
         index=next((i for i in range(tools.device.count()) if tools.device.itemData(i)[1]==item['id']),-1)
-        if index<0:self.editor.message.setText('新增设备请先保存配置并加载场景，再进行放置。');return
+        if index<0:self.editor.apply_live(force=True);self.editor.message.setText('请等待设备实时加入，然后点击放置；不需要重载地图。');return
         self.window.pages.setCurrentIndex(0);tools.device.setCurrentIndex(index)
 
     def open_parameters(self):

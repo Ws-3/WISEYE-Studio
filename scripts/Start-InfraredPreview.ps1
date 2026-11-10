@@ -6,6 +6,18 @@
 )
 $ErrorActionPreference = 'Stop'
 $sourceRoot = Split-Path -Parent $PSScriptRoot
+$localEngine = Join-Path $PSScriptRoot 'engine-root.local.txt'
+$localProject = Join-Path $PSScriptRoot 'preview-project.local.txt'
+if (-not $PSBoundParameters.ContainsKey('EngineRoot') -and (Test-Path -LiteralPath $localEngine)) {
+    $EngineRoot = (Get-Content -LiteralPath $localEngine -Raw -Encoding UTF8).Trim()
+    if (-not [IO.Path]::IsPathRooted($EngineRoot)) { $EngineRoot = Join-Path $sourceRoot $EngineRoot }
+}
+if (-not $PSBoundParameters.ContainsKey('BuildWorkspace') -and (Test-Path -LiteralPath $localProject)) {
+    $configuredProject = (Get-Content -LiteralPath $localProject -Raw -Encoding UTF8).Trim()
+    if (-not [IO.Path]::IsPathRooted($configuredProject)) { $configuredProject = Join-Path $sourceRoot $configuredProject }
+    $BuildWorkspace = Split-Path -Parent $configuredProject
+}
+
 $project = Join-Path $BuildWorkspace 'ue5\WISEYE\test.uproject'
 if (-not (Test-Path -LiteralPath $project)) { $project=Join-Path $BuildWorkspace 'test.uproject' }
 $editor = Join-Path $EngineRoot 'Engine\Binaries\Win64\UnrealEditor.exe'

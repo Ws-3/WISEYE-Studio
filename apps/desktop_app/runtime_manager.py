@@ -21,6 +21,8 @@ class RuntimeManager(QObject):
     message = Signal(str)
     ready = Signal()
     stopped = Signal()
+    phase = Signal(str,str)
+    failed = Signal(str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -45,10 +47,13 @@ class RuntimeManager(QObject):
         environment = dict(os.environ, WISEYE_DATA_DIR=str(DATA_ROOT),
                            WISEYE_RESOURCES_DIR=str(RESOURCE_ROOT), PYTHONUTF8='1')
         (DATA_ROOT / 'logs').mkdir(parents=True, exist_ok=True)
+        startup=None
+        if os.name=='nt' and name=='ue-launch':
+            startup=subprocess.STARTUPINFO();startup.dwFlags|=subprocess.STARTF_USESHOWWINDOW;startup.wShowWindow=0
         with (DATA_ROOT / 'logs' / f'{name}.log').open('ab') as output:
             process = self.job.spawn(arguments, cwd=(DATA_ROOT / 'logs' if IS_RELEASE else RESOURCE_ROOT), env=environment,
                                        stdin=subprocess.DEVNULL, stdout=output, stderr=output,
-                                       creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
+                                       startupinfo=startup,creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
         self.processes.append(process)
         return process
 
@@ -59,6 +64,8 @@ class RuntimeManager(QObject):
                 raise RuntimeError('后台进程提前退出，请查看用户目录 logs。')
             try:
                 reply = request(port, command)
+                for spawner in reply.get('payload',{}).get('population',{}).get('spawners',[]):
+                    if spawner.get('preload_error'):raise RuntimeError('人车资源预载失败：'+spawner['preload_error'])
                 if reply.get('status') == 'ok' and predicate(reply.get('payload', {})):
                     return reply['payload']
             except (OSError, ValueError):
@@ -82,8 +89,14 @@ class RuntimeManager(QObject):
                 prefix = [str(executable)]
                 flight_command = [str(INSTALL_ROOT / 'WISEYE.exe'), '--worker', 'flight']
             else:
-                project = Path(os.environ.get('WISEYE_PREVIEW_PROJECT', str(RESOURCE_ROOT/'ue5/WISEYE/test.uproject')))
-                executable = Path(os.environ.get('WISEYE_UE_EDITOR', str(RESOURCE_ROOT/'Tools/UE_5.8/Engine/Binaries/Win64/UnrealEditor.exe')))
+                local_project=RESOURCE_ROOT/'scripts/preview-project.local.txt'
+                local_engine=RESOURCE_ROOT/'scripts/engine-root.local.txt'
+                configured_project=local_project.read_text(encoding='utf-8-sig').strip() if local_project.is_file() else str(RESOURCE_ROOT/'ue5/WISEYE/test.uproject')
+                configured_engine=Path(local_engine.read_text(encoding='utf-8-sig').strip()) if local_engine.is_file() else RESOURCE_ROOT/'Tools/UE_5.8'
+                if not configured_engine.is_absolute():configured_engine=RESOURCE_ROOT/configured_engine
+                project = Path(os.environ.get('WISEYE_PREVIEW_PROJECT',configured_project))
+                if not project.is_absolute():project=RESOURCE_ROOT/project
+                executable = Path(os.environ.get('WISEYE_UE_EDITOR', str(configured_engine/'Engine/Binaries/Win64/UnrealEditor.exe')))
                 if not project.is_file():raise RuntimeError('找不到源码预览构建工程；请使用根目录启动入口或设置WISEYE_PREVIEW_PROJECT。')
                 prefix = [str(executable), str(project)]
                 flight_command = [sys.executable, '-m', 'integrations.ProjectAirSim.run_wiseye_flight']
@@ -94,21 +107,27 @@ class RuntimeManager(QObject):
             if not executable.is_file():
                 raise RuntimeError('缺少 UE 独立程序，请修复安装。')
             self.message.emit('正在加载场景…首次运行需要准备着色器缓存。')
+            self.phase.emit('engine','正在启动仿真引擎，准备地图运行环境…')
             self._spawn(prefix + [scene['map'] + '?game=/Script/test.WiseEyeGameMode?wiseeye_scene=' + scene['id'],
-                         '-game', '-windowed', '-ResX=1280', '-ResY=720', '-nosplash',
+                         '-game', '-windowed', '-ResX=1280', '-ResY=720', '-nosplash','-WinX=-32000','-WinY=-32000',
+                         '-ExecCmds=t.IdleWhenNotForeground 0','-WiseEyeHiddenWindow',
                          f'-WiseEyeScene={scene["id"]}', f'-simlogdir={DATA_ROOT / "logs"}',
                          f'-WiseEyeDataDir={DATA_ROOT}', f'-UserDir={DATA_ROOT / "UE"}',
                          f'-abslog={DATA_ROOT / "logs/ue-game.log"}'], 'ue-launch')
+            self.phase.emit('map','正在装载道路、建筑与传感器所在区域…')
             snapshot = self._wait(50051, 'sim.get_state', lambda p: p.get('scene_id') == scene['id'] and p.get('run_id')
                        and p.get('devices') and p.get('initial_drone_position_cm'),
                        timeout=900 if scene['id']=='city_large' else 300)
             self.message.emit('场景已加载，正在初始化飞控…')
+            self.phase.emit('population','地图已加载，正在预载人车资源并初始化飞控…')
             self._spawn(flight_command + ['--scene', scene['id'], '--loops', '0'], 'flight-launch')
             self._wait(50052, 'sim.get_state', lambda p: p.get('flight_status') == 'ready' and p.get('run_id') == snapshot['run_id'])
-            if not IS_RELEASE and scene['id']=='city_large':
-                self.message.emit('大城市已加载，正在准备材质缓存…首次运行可能较久。')
-                self._wait(50051,'sim.get_state',lambda p:p.get('run_id')==snapshot['run_id'] and
-                           p.get('runtime_hardware',{}).get('asset_compile_jobs')==0,timeout=900)
+            self.phase.emit('population','正在预载人车资源、准备材质与场景目标…')
+            self._wait(50051,'sim.get_state',lambda p:p.get('run_id')==snapshot['run_id'] and
+                       p.get('runtime_hardware',{}).get('asset_compile_jobs',0)==0 and
+                       p.get('runtime_hardware',{}).get('shader_compile_jobs',0)==0 and
+                       not p.get('population',{}).get('pending',False) and p.get('world_streaming_ready',True),timeout=900)
+            self.phase.emit('devices','资源已就绪，正在同步飞控和传感器连接…')
             tools = INSTALL_ROOT / 'Tools'
             with socket.socket() as probe:
                 video_available = probe.connect_ex(('127.0.0.1', config.rtsp_port)) != 0
@@ -132,6 +151,7 @@ class RuntimeManager(QObject):
                         self.message.emit('外部 RTSP 服务退出，请查看视频日志；仿真与桌面预览继续运行。')
         except Exception as error:
             self.message.emit(str(error))
+            if not self.cancel.is_set():self.failed.emit(str(error))
         finally:
             if snapshot and self.processes and self.processes[0].poll() is None:
                 from apps.desktop_app.session_shutdown import land_owned_fleet

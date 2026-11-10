@@ -36,8 +36,9 @@ for path in ['configs', 'ue5/WISEYE/Config/WISEYE', 'integrations/ProjectAirSim/
     incoming = root / 'UserData' / path
     if not incoming.is_dir():incoming=root/path
     shutil.copytree(incoming, resources / path, ignore=resource_ignore)
+shutil.copytree(root/'configs/locales',resources/'configs/locales',dirs_exist_ok=True)
 (resources / 'docs').mkdir()
-for name in ['USER_GUIDE.md', 'DESKTOP.md', 'SCENES.md', 'PROTOCOL.md', 'GIMBAL_INTERFACE.md', 'RTSP.md', 'RUNTIME_OPTIMIZATION.md', 'SENSOR_LATENCY_REPORT.md', 'INTERFACE_SETTINGS.md', 'INFRARED_REALISM_PLAN.md', 'INFRARED_EXPERIMENT.md', 'ENVIRONMENT_AND_PERFORMANCE.md', 'CLEANUP_REPORT.md']:
+for name in ['USER_GUIDE.md', 'LANGUAGE_FIXEDWING.md', 'LIVE_DEVICES_20261105.md', 'JSBSIM_CAMERA_20261105.md', 'AERIAL_IR_TRAINING_20261107.md', 'AERIAL_POPULATION_20261105.md', 'AERIAL_AIM_PERFORMANCE_20261105.md', 'MISSION_UI_20261105.md', 'LOADING_POPULATION_20261105.md', 'DESKTOP.md', 'SCENES.md', 'PROTOCOL.md', 'GIMBAL_INTERFACE.md', 'RTSP.md', 'RUNTIME_OPTIMIZATION.md', 'SENSOR_LATENCY_REPORT.md', 'INTERFACE_SETTINGS.md', 'INFRARED_REALISM_PLAN.md', 'INFRARED_EXPERIMENT.md', 'ENVIRONMENT_AND_PERFORMANCE.md', 'CLEANUP_REPORT.md']:
     if (root / 'docs' / name).is_file():
         shutil.copy2(root / 'docs' / name, resources / 'docs' / name)
 shutil.copy2(root / 'LOGO.jpg', resources / 'LOGO.jpg')
@@ -56,6 +57,8 @@ shutil.copy2(root / 'third_party/mediamtx/mediamtx.exe', tools / 'mediamtx.exe')
 shutil.copy2(root / 'third_party/mediamtx/LICENSE', tools / 'MediaMTX-LICENSE')
 licenses = release / 'Licenses'
 licenses.mkdir()
+jsbsim_license=root/'ue5/WISEYE/ThirdParty/JSBSim/JSBSim-LICENSE.txt'
+if jsbsim_license.is_file():shutil.copy2(jsbsim_license,licenses/'JSBSim-LICENSE.txt')
 for distribution in importlib.metadata.distributions():
     for entry in distribution.files or []:
         if '.dist-info/licenses/' in str(entry).replace('\\', '/'):

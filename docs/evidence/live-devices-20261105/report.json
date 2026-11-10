@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "run_id": "600B04EC44F7D4C9AF07B797ECE9A7EC",
+  "hot_add_preserved_hover_and_initial_file": true,
+  "initial_save_separate_from_live_apply": true,
+  "fixedwing_geometry": {
+    "active": true,
+    "paused": false,
+    "mode": "auto",
+    "model": "kinematic_fixedwing",
+    "speed_mps": 12,
+    "yaw_deg": 55.026798248291016,
+    "route_next_index": 0,
+    "route_status": "idle",
+    "last_error": "",
+    "roll_deg": 10.397332191467292,
+    "pitch_deg": -7.951386703658792e-16,
+    "length_cm": 79.99999583007023,
+    "wingspan_cm": 62.05175298807717,
+    "model_forward_world": [
+      0.5731932417446598,
+      0.8194202265127752,
+      -5.203801247225202e-17
+    ],
+    "heading_error_deg": 7.105427357601002e-15
+  },
+  "heading_velocity_dot": 0.9999999999999998,
+  "qt_manual_turn_and_climb": true,
+  "hardware_events_on": {
+    "sample_time_s": 16870252.530422,
+    "scope": "simulation_host",
+    "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+    "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+    "asset_compile_jobs": 0,
+    "ue_fps": 30.126798831014195,
+    "system_ram_total_bytes": 34191093760,
+    "system_ram_used_bytes": 21604200448,
+    "ue_ram_bytes": 9915834368,
+    "gpu_dedicated_total_bytes": 12706643968,
+    "ue_vram_used_bytes": 4540608512,
+    "ue_vram_budget_bytes": 11901272064,
+    "system_cpu_pct": 32.09408194233687,
+    "ue_gpu_engine_peak_pct": 71.03318328526909
+  },
+  "events_on_tick_hz": 29.93955366829042,
+  "events_off_tick_hz": 29.956396511203092,
+  "hot_remove_preserved_hover": true,
+  "hot_quadrotor_takeoff_land": true,
+  "live_airframe_switch": true,
+  "owned_session_stopped": true
+}

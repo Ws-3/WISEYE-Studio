@@ -1,3 +1,4 @@
+from .localization import tr
 """Live image zoom/pan and independent enlarged views."""
 from PySide6.QtCore import Qt, QRectF, QPointF, Signal
 from PySide6.QtGui import QImage, QPainter, QColor
@@ -42,7 +43,7 @@ class Canvas(QWidget):
     def paintEvent(self,event):
         painter=QPainter(self);painter.fillRect(self.rect(),QColor('#0c1016'))
         if self.image.isNull():
-            painter.setPen(QColor('#9ba9bd'));painter.drawText(self.rect(),Qt.AlignmentFlag.AlignCenter,self.message)
+            painter.setPen(QColor('#9ba9bd'));painter.drawText(self.rect(),Qt.AlignmentFlag.AlignCenter,tr(self.message))
         else:
             self._clamp();s=self.scale()*self.zoom;w,h=self.image.width()*s,self.image.height()*s
             painter.drawImage(QRectF((self.width()-w)/2+self.offset.x(),(self.height()-h)/2+self.offset.y(),w,h),self.image)

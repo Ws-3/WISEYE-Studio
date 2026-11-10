@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "python_tests": 21,
+  "native_thermal_invariants": true,
+  "editor_build": true,
+  "actual_flight_and_landing": true,
+  "material_compile_errors": [],
+  "packaged": false,
+  "pushed": false,
+  "source_and_preview_material_hashes": {
+    "M_IR_Facade.uasset": "a1b93d16e95da1b223ce2f0b9e5e23d59f0b29244239ac58827ddd5b232e7c1c",
+    "M_VisibleCamera.uasset": "490d5509d329f3a839b1eb9ae3af7378d1558d42c70578e7a093f33f3889c82e"
+  }
+}

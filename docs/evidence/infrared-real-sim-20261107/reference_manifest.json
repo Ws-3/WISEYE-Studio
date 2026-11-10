@@ -1,0 +1,3954 @@
+{
+  "schema": 1,
+  "purpose": "display-domain unpaired pilot, not algorithm test split",
+  "entries": [
+    {
+      "id": "HIT-0_80_80_0_02246",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 80,
+      "perspective_deg": 80,
+      "group": "0_80_80_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_80_80_0_02246.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_80_80_0_02246.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_80_80_0_02246.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "0c982bb161ba7c470e0978883002fdc3ec4e8091dd8096b66865e88661cd9e86",
+      "label_sha256": "aef1b9422f0068c5804c785ac8b1b48ab1ea0a9d5ee225ae352e0fd930e7533b",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.990625,
+            0.080078125,
+            0.015625,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.77265625,
+            0.38671875,
+            0.0234375,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.7421875,
+            0.46484375,
+            0.021875,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.66015625,
+            0.443359375,
+            0.0171875,
+            0.0390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.5796875,
+            0.3994140625,
+            0.03125,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.61953125,
+            0.4658203125,
+            0.0296875,
+            0.037109375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.5875,
+            0.484375,
+            0.028125,
+            0.0390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.58359375,
+            0.5966796875,
+            0.0203125,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.69765625,
+            0.5546875,
+            0.0296875,
+            0.046875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.7265625,
+            0.603515625,
+            0.0375,
+            0.046875
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_130_70_0_09804",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 130,
+      "perspective_deg": 70,
+      "group": "0_130_70_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_130_70_0_09804.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_130_70_0_09804.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_130_70_0_09804.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "cc1beaa468f3913efa14b547318fb74df2f800b47137e81ef227b8dddf21e771",
+      "label_sha256": "bdb3a505e28f026bda7134b5753c1efb7aac797eb0b6ead4b4e5f4505f4abc0b",
+      "boxes": [
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.79453125,
+            0.5849609375,
+            0.0140625,
+            0.048828125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.77578125,
+            0.580078125,
+            0.0296875,
+            0.0546875
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.68515625,
+            0.3369140625,
+            0.0421875,
+            0.017578125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.696875,
+            0.3798828125,
+            0.04375,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.70078125,
+            0.4130859375,
+            0.0546875,
+            0.048828125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.71328125,
+            0.4443359375,
+            0.0484375,
+            0.037109375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.71796875,
+            0.462890625,
+            0.0546875,
+            0.04296875
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.63828125,
+            0.0107421875,
+            0.0453125,
+            0.021484375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.64140625,
+            0.0810546875,
+            0.0390625,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.68203125,
+            0.3056640625,
+            0.0421875,
+            0.021484375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.6828125,
+            0.2822265625,
+            0.0375,
+            0.017578125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.7890625,
+            0.7666015625,
+            0.0375,
+            0.041015625
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.72734375,
+            0.564453125,
+            0.0421875,
+            0.04296875
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.7890625,
+            0.787109375,
+            0.046875,
+            0.01953125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.7515625,
+            0.57421875,
+            0.0375,
+            0.05078125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.71875,
+            0.482421875,
+            0.046875,
+            0.02734375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.734375,
+            0.51953125,
+            0.0375,
+            0.03125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_60_90_0_06669",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 60,
+      "perspective_deg": 90,
+      "group": "0_60_90_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_60_90_0_06669.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_60_90_0_06669.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_60_90_0_06669.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "de2bef7fcad32419d0017fc4dd09c09e540d03ae0d5df9cdd925c16bbb92ed48",
+      "label_sha256": "5f2ecebe14f89b03f7210314fa3a5748b4c0f9b937109446b1dd9dc8d1ae2bf1",
+      "boxes": [
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.74296875,
+            0.44140625,
+            0.0984375,
+            0.09375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.73828125,
+            0.482421875,
+            0.0765625,
+            0.078125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.79375,
+            0.3388671875,
+            0.10625,
+            0.072265625
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.83046875,
+            0.2265625,
+            0.1046875,
+            0.09765625
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.8515625,
+            0.169921875,
+            0.096875,
+            0.078125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_70_80_0_02023",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 70,
+      "perspective_deg": 80,
+      "group": "0_70_80_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_70_80_0_02023.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_70_80_0_02023.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_70_80_0_02023.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "52f864cb9111ddd9dee53e53bcc2c28c96521f2a467007799ad55f991f367d87",
+      "label_sha256": "42791a46511378f846bf0009c32eae1933dbd2a6b2a9518cec44129bd376690f",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.6796875,
+            0.0498046875,
+            0.03125,
+            0.037109375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.74296875,
+            0.0908203125,
+            0.0265625,
+            0.037109375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.89765625,
+            0.150390625,
+            0.0234375,
+            0.04296875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.80546875,
+            0.212890625,
+            0.0234375,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.7796875,
+            0.251953125,
+            0.03125,
+            0.046875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.29375,
+            0.6005859375,
+            0.01875,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.3296875,
+            0.7060546875,
+            0.021875,
+            0.044921875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.53828125,
+            0.708984375,
+            0.0171875,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.40625,
+            0.736328125,
+            0.028125,
+            0.0390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.53984375,
+            0.79296875,
+            0.0265625,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.63125,
+            0.9541015625,
+            0.025,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.85546875,
+            0.322265625,
+            0.0328125,
+            0.05078125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.87578125,
+            0.2080078125,
+            0.0328125,
+            0.041015625
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_120_90_0_05532",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 120,
+      "perspective_deg": 90,
+      "group": "0_120_90_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_120_90_0_05532.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_120_90_0_05532.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_120_90_0_05532.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "58683522d67fe796ebce1d7a9fcc6f39a3b11de28cb45d3a93c5f1f42564980f",
+      "label_sha256": "2ba4fa83116b10463825d6fe62ef01864b21357d4630463854baec511be6c368",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.1203125,
+            0.328125,
+            0.0625,
+            0.12890625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.26328125,
+            0.697265625,
+            0.0609375,
+            0.12890625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.17890625,
+            0.64453125,
+            0.0578125,
+            0.125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.1171875,
+            0.736328125,
+            0.05625,
+            0.11328125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_100_80_0_08244",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 100,
+      "perspective_deg": 80,
+      "group": "0_100_80_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_100_80_0_08244.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_100_80_0_08244.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_100_80_0_08244.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "326f65874f76744b22c5338ef36289d24d2576faa5be9b0ed49e13d79ee58f7d",
+      "label_sha256": "5ecc9f001e1891028c3c100d92fb6d4477caa81f3a92d3e27c1a21702b41d939",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.2546875,
+            0.7353515625,
+            0.153125,
+            0.181640625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.33359375,
+            0.826171875,
+            0.1328125,
+            0.1953125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.625,
+            0.8466796875,
+            0.146875,
+            0.212890625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.61796875,
+            0.2783203125,
+            0.1328125,
+            0.185546875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.75703125,
+            0.39453125,
+            0.1265625,
+            0.19140625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.934375,
+            0.296875,
+            0.128125,
+            0.1875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.940625,
+            0.5771484375,
+            0.1125,
+            0.173828125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_60_70_0_06590",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 60,
+      "perspective_deg": 70,
+      "group": "0_60_70_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_60_70_0_06590.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_60_70_0_06590.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_60_70_0_06590.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "3a39f293b7931fcd6e31c00c2ad9c60f73eb2bdf5de97a9bd3b860258a835099",
+      "label_sha256": "7f49e957aa097c41f4989c141e8b01a4dcfab142ea065d63901a373a7d780478",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.3140625,
+            0.4404296875,
+            0.165625,
+            0.279296875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.2234375,
+            0.7236328125,
+            0.171875,
+            0.306640625
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_120_30_0_09461",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 120,
+      "perspective_deg": 30,
+      "group": "0_120_30_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_120_30_0_09461.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_120_30_0_09461.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_120_30_0_09461.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "a4499a0d4ff1b337116c699236986aedc29fafdb1b74d6e942fdf85badffafad",
+      "label_sha256": "f30917ec1bb48c35df04b85aef735502277590fda04d4e82b89bca3eceb52e1c",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.21640625,
+            0.6953125,
+            0.0828125,
+            0.05859375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.33046875,
+            0.8828125,
+            0.0765625,
+            0.05859375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.30703125,
+            0.9677734375,
+            0.0734375,
+            0.041015625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.67109375,
+            0.927734375,
+            0.0578125,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.6671875,
+            0.96484375,
+            0.065625,
+            0.03515625
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_70_30_0_01857",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 70,
+      "perspective_deg": 30,
+      "group": "0_70_30_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_70_30_0_01857.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_70_30_0_01857.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_70_30_0_01857.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "1d7c9a97956a3f095a3e9e14a8c2689eea574cede3aa78f747b672d752041061",
+      "label_sha256": "8fb69a5c2f67c0a63cd5323cc6808a343ab4842bb467f0898cebf9c735345dc7",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.13828125,
+            0.291015625,
+            0.0171875,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.9609375,
+            0.15234375,
+            0.015625,
+            0.02734375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.98828125,
+            0.1533203125,
+            0.0109375,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.2796875,
+            0.4580078125,
+            0.01875,
+            0.044921875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.30703125,
+            0.4619140625,
+            0.0203125,
+            0.041015625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.34140625,
+            0.4658203125,
+            0.0171875,
+            0.041015625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.36015625,
+            0.509765625,
+            0.0140625,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.39140625,
+            0.490234375,
+            0.0140625,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.384375,
+            0.5517578125,
+            0.015625,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.53125,
+            0.361328125,
+            0.01875,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.60078125,
+            0.34765625,
+            0.0171875,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.7390625,
+            0.3525390625,
+            0.015625,
+            0.033203125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_110_60_0_03674",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 110,
+      "perspective_deg": 60,
+      "group": "0_110_60_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_110_60_0_03674.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_110_60_0_03674.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_110_60_0_03674.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "4ac65c3eed6ddaf7b368db49f2e7991b6049bf2eeaa12831089f1b5311bd322c",
+      "label_sha256": "d21c96c3396c6e77bb0fb1cd5668f1d9e101de9331c1dbbf9a76bf191f63893f",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.53515625,
+            0.326171875,
+            0.0234375,
+            0.0390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.534375,
+            0.291015625,
+            0.015625,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.55078125,
+            0.2822265625,
+            0.0140625,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.57265625,
+            0.34765625,
+            0.0140625,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.57578125,
+            0.3310546875,
+            0.0171875,
+            0.037109375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.671875,
+            0.787109375,
+            0.015625,
+            0.03515625
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_110_50_0_08400",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 110,
+      "perspective_deg": 50,
+      "group": "0_110_50_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_110_50_0_08400.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_110_50_0_08400.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_110_50_0_08400.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "2a11614f8d16339c261ec63f019ffc598b5f4ac5ecfb5924b3df104896aa86b7",
+      "label_sha256": "54e97ada6126328c7db3c59a337859bb9bca800d1495404622334b99a9651545",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.72109375,
+            0.763671875,
+            0.0703125,
+            0.13671875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.559375,
+            0.103515625,
+            0.078125,
+            0.1171875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.615625,
+            0.2724609375,
+            0.059375,
+            0.103515625
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_120_70_0_05454",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 120,
+      "perspective_deg": 70,
+      "group": "0_120_70_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_120_70_0_05454.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_120_70_0_05454.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_120_70_0_05454.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "38cc422ddc69be7c9ca9d7fa0d5781015c9e26c9748f3d82f32d6c686c64beff",
+      "label_sha256": "cf9f1811793047352bcbf1ac08a5e98adfacbb30e29c9193afedb3e6abb97a7e",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.31875,
+            0.431640625,
+            0.046875,
+            0.1015625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.37734375,
+            0.40625,
+            0.0546875,
+            0.11328125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.45703125,
+            0.4306640625,
+            0.0515625,
+            0.111328125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.5171875,
+            0.408203125,
+            0.059375,
+            0.1171875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.3484375,
+            0.275390625,
+            0.05625,
+            0.12109375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.4671875,
+            0.205078125,
+            0.065625,
+            0.12890625
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_80_90_0_02285",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 80,
+      "perspective_deg": 90,
+      "group": "0_80_90_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_80_90_0_02285.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_80_90_0_02285.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_80_90_0_02285.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "568291c3a360a9e2137ee2c7b9dcec9da5cdbb7523ccdf0c557bf77a873ab53c",
+      "label_sha256": "559b8c2b3dd0d722f58c62cff4fbdd14bccec33892b43651ce69020b744382d9",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.0203125,
+            0.0615234375,
+            0.028125,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.95859375,
+            0.0185546875,
+            0.0265625,
+            0.037109375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.97421875,
+            0.0673828125,
+            0.0359375,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.78046875,
+            0.3583984375,
+            0.0359375,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.5515625,
+            0.4658203125,
+            0.0375,
+            0.037109375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.6546875,
+            0.5078125,
+            0.01875,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.60234375,
+            0.5009765625,
+            0.0234375,
+            0.021484375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.65546875,
+            0.5439453125,
+            0.0203125,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.52421875,
+            0.5615234375,
+            0.0234375,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.54140625,
+            0.6044921875,
+            0.0328125,
+            0.041015625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.7703125,
+            0.6494140625,
+            0.034375,
+            0.044921875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.7640625,
+            0.765625,
+            0.0375,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.7421875,
+            0.7099609375,
+            0.040625,
+            0.048828125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_70_50_0_06760",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 70,
+      "perspective_deg": 50,
+      "group": "0_70_50_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_70_50_0_06760.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_70_50_0_06760.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_70_50_0_06760.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "5da90542588ec5a8f602a3da6d18ef88db9461d1f0ea4125fc0feecd48367386",
+      "label_sha256": "914c7400f177732383144e43ffadc5cc576b0b7f0cfbfacd3b13f359bb9a7166",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.5640625,
+            0.1103515625,
+            0.015625,
+            0.048828125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.425,
+            0.197265625,
+            0.021875,
+            0.05859375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.46953125,
+            0.306640625,
+            0.0265625,
+            0.0625
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.62265625,
+            0.1025390625,
+            0.0609375,
+            0.076171875
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.5765625,
+            0.021484375,
+            0.034375,
+            0.03125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_130_30_0_09677",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 130,
+      "perspective_deg": 30,
+      "group": "0_130_30_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_130_30_0_09677.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_130_30_0_09677.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_130_30_0_09677.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "ff9b3d29cb642994b5bb9ffb457daaea9a3420811515847e0c29b3b3102535d2",
+      "label_sha256": "c93e7328b79bce388f49c548dbaea6e146166b837eff48fd6704b610786a4fb2",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.071875,
+            0.0810546875,
+            0.0125,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.12578125,
+            0.0927734375,
+            0.0078125,
+            0.021484375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.10625,
+            0.0888671875,
+            0.009375,
+            0.021484375
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-0_80_40_0_02126",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "day",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 80,
+      "perspective_deg": 40,
+      "group": "0_80_40_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\0_80_40_0_02126.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\0_80_40_0_02126.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/0_80_40_0_02126.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "cf95ba1b62a76ec201a39fa0031a5ab47b9a28f4c1bdb07f759df14977268f9f",
+      "label_sha256": "ce95bcd4ffc58b97be0b67b9f77b5754e6ae7f2a2c768ad64b639e259cfb4bf7",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.3515625,
+            0.1318359375,
+            0.01875,
+            0.041015625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.71875,
+            0.033203125,
+            0.015625,
+            0.02734375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.809375,
+            0.025390625,
+            0.0125,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.78203125,
+            0.0849609375,
+            0.0171875,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.96875,
+            0.0390625,
+            0.01875,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.49140625,
+            0.2548828125,
+            0.0140625,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.56875,
+            0.244140625,
+            0.015625,
+            0.02734375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.553125,
+            0.244140625,
+            0.01875,
+            0.02734375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.653125,
+            0.2568359375,
+            0.015625,
+            0.021484375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.56328125,
+            0.2802734375,
+            0.0171875,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.7140625,
+            0.3447265625,
+            0.015625,
+            0.029296875
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_110_90_0_02754",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 110,
+      "perspective_deg": 90,
+      "group": "1_110_90_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_110_90_0_02754.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_110_90_0_02754.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_110_90_0_02754.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "6e48caf71aa35c12ec63665c853665544ee0b022512a2edc18ea38108ab98705",
+      "label_sha256": "877ed306635443fe70ef84c5f9b6bad5bcd84789f22593ebf7a8893c24c7a94a",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.4421875,
+            0.046875,
+            0.03125,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.4125,
+            0.064453125,
+            0.01875,
+            0.01953125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.37890625,
+            0.0419921875,
+            0.0171875,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.37109375,
+            0.076171875,
+            0.0203125,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.37109375,
+            0.5947265625,
+            0.0359375,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.475,
+            0.6435546875,
+            0.034375,
+            0.044921875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.5125,
+            0.66796875,
+            0.015625,
+            0.0234375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.38984375,
+            0.6552734375,
+            0.0390625,
+            0.041015625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.3875,
+            0.7236328125,
+            0.021875,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.4140625,
+            0.7578125,
+            0.025,
+            0.0234375
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_90_90_0_05055",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 90,
+      "perspective_deg": 90,
+      "group": "1_90_90_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_90_90_0_05055.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_90_90_0_05055.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_90_90_0_05055.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "63247b98d1a475741344f542450c5ba9f4fa330ed68123923f4627e15b56c32f",
+      "label_sha256": "3f70cee9225e752b2ae879d7fc9734fff455cf9abff95f043b13db2f7cee44c5",
+      "boxes": [
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.02890625,
+            0.7890625,
+            0.0578125,
+            0.05078125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.0421875,
+            0.8642578125,
+            0.0625,
+            0.052734375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.08984375,
+            0.98046875,
+            0.0640625,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.83359375,
+            0.173828125,
+            0.1140625,
+            0.22265625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.67421875,
+            0.9248046875,
+            0.0828125,
+            0.142578125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_130_80_0_04026",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 130,
+      "perspective_deg": 80,
+      "group": "1_130_80_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_130_80_0_04026.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_130_80_0_04026.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_130_80_0_04026.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "6adb92926dbcd1964bc2875edb9cbee9de020369bd173490dd0377dfd9a2aa52",
+      "label_sha256": "eb80640278accea33bff184d5552697020f7678a9546c099a21d7948f7dab316",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.43359375,
+            0.3505859375,
+            0.0265625,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.49765625,
+            0.3583984375,
+            0.0109375,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.50625,
+            0.37890625,
+            0.0125,
+            0.02734375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.46015625,
+            0.3828125,
+            0.0203125,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.43515625,
+            0.412109375,
+            0.0140625,
+            0.0234375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.4125,
+            0.4384765625,
+            0.01875,
+            0.029296875
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_110_80_0_09222",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 110,
+      "perspective_deg": 80,
+      "group": "1_110_80_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_110_80_0_09222.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_110_80_0_09222.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_110_80_0_09222.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "23627f76fc68048b9854b1121bff5e670b14df81f62f09224616537abc75b4cf",
+      "label_sha256": "6193c17ff353143e8d027fbdd97a411ac36a48e82b26de2345475f28028a75f3",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.1453125,
+            0.09765625,
+            0.0625,
+            0.140625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.24375,
+            0.1171875,
+            0.071875,
+            0.16015625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.3484375,
+            0.1357421875,
+            0.10625,
+            0.185546875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.54453125,
+            0.19140625,
+            0.0953125,
+            0.1875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.6359375,
+            0.232421875,
+            0.0875,
+            0.17578125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.03984375,
+            0.2666015625,
+            0.0734375,
+            0.142578125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.1765625,
+            0.296875,
+            0.0875,
+            0.171875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.33359375,
+            0.7939453125,
+            0.0890625,
+            0.185546875
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_60_80_0_00683",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 60,
+      "perspective_deg": 80,
+      "group": "1_60_80_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_60_80_0_00683.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_60_80_0_00683.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_60_80_0_00683.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "a99de5dc8800a38439cfde6e08b8743caa2a57ce0a2b6e9bbf52a7482b3bcba8",
+      "label_sha256": "576efa87450fa904fe8e431f59015d55df517d697408e434ab52a813b3e6bbcc",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.59609375,
+            0.3330078125,
+            0.0421875,
+            0.056640625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.415625,
+            0.3603515625,
+            0.028125,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.97109375,
+            0.1357421875,
+            0.0234375,
+            0.037109375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.9796875,
+            0.0546875,
+            0.0375,
+            0.046875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.99296875,
+            0.17578125,
+            0.0140625,
+            0.0234375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.52265625,
+            0.4775390625,
+            0.0234375,
+            0.048828125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.34921875,
+            0.4208984375,
+            0.0234375,
+            0.041015625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.4265625,
+            0.46875,
+            0.03125,
+            0.05078125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.58125,
+            0.58203125,
+            0.0375,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.3109375,
+            0.419921875,
+            0.028125,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.38515625,
+            0.568359375,
+            0.0171875,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.64765625,
+            0.681640625,
+            0.0265625,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.39375,
+            0.6298828125,
+            0.0375,
+            0.044921875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.503125,
+            0.712890625,
+            0.025,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.3703125,
+            0.8095703125,
+            0.03125,
+            0.048828125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.62734375,
+            0.8330078125,
+            0.0203125,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.4984375,
+            0.8759765625,
+            0.025,
+            0.029296875
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_130_50_0_07207",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 130,
+      "perspective_deg": 50,
+      "group": "1_130_50_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_130_50_0_07207.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_130_50_0_07207.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_130_50_0_07207.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "bca8a93ccad630e5fa04565581489bcfb23b8791dbb506188c33dbd86aec8771",
+      "label_sha256": "1a1d2c6404a8a30d053ff2713d2200c482756493254fffc284acb9aee1bf7b97",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.44453125,
+            0.166015625,
+            0.0859375,
+            0.05859375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.434375,
+            0.2744140625,
+            0.084375,
+            0.052734375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.66328125,
+            0.08984375,
+            0.0890625,
+            0.05078125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.76640625,
+            0.0947265625,
+            0.0828125,
+            0.048828125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.97421875,
+            0.1318359375,
+            0.0515625,
+            0.044921875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.971875,
+            0.208984375,
+            0.05625,
+            0.05078125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.63203125,
+            0.580078125,
+            0.0890625,
+            0.05078125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.909375,
+            0.9521484375,
+            0.15625,
+            0.095703125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_120_30_0_05980",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 120,
+      "perspective_deg": 30,
+      "group": "1_120_30_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_120_30_0_05980.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_120_30_0_05980.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_120_30_0_05980.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "7eeb117ef8e1413d729e435002f57a802fca1b22269bd2c394cb9ebb62cf05ba",
+      "label_sha256": "9db8857db0915e952b3445810eae21326417474b83990cc8293ac64328ba05a1",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.61796875,
+            0.810546875,
+            0.0140625,
+            0.0390625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.70625,
+            0.9736328125,
+            0.065625,
+            0.041015625
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_100_70_0_06368",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 100,
+      "perspective_deg": 70,
+      "group": "1_100_70_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_100_70_0_06368.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_100_70_0_06368.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_100_70_0_06368.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "4de3a4201feec3322a805633f73edd256c88384d8a42b7d70ae47084d26a6c1e",
+      "label_sha256": "8e0c686d8a4182bf62dde1a37aa438c927d5b4106076a2daa8ce770e8b907b5e",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.0578125,
+            0.4423828125,
+            0.06875,
+            0.150390625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.1640625,
+            0.419921875,
+            0.078125,
+            0.16015625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.2671875,
+            0.4501953125,
+            0.065625,
+            0.154296875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.3484375,
+            0.453125,
+            0.0625,
+            0.14453125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.42265625,
+            0.4560546875,
+            0.0609375,
+            0.158203125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.50234375,
+            0.482421875,
+            0.0671875,
+            0.140625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.7296875,
+            0.453125,
+            0.053125,
+            0.1171875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.796875,
+            0.4560546875,
+            0.046875,
+            0.115234375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.834375,
+            0.306640625,
+            0.025,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.97421875,
+            0.478515625,
+            0.0484375,
+            0.140625
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_130_60_0_07248",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 130,
+      "perspective_deg": 60,
+      "group": "1_130_60_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_130_60_0_07248.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_130_60_0_07248.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_130_60_0_07248.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "c022d5a069db8169b57f24f11aeae84d4a80230e8dacf8cc4d8667ee046724d4",
+      "label_sha256": "66fefa04047366ffee59ac3dbf228c1c33a3bff6b15c2c39672970efe20171f0",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.08046875,
+            0.7548828125,
+            0.1140625,
+            0.072265625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.4,
+            0.3095703125,
+            0.10625,
+            0.068359375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.37578125,
+            0.4736328125,
+            0.1078125,
+            0.064453125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.4984375,
+            0.4833984375,
+            0.103125,
+            0.052734375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.75390625,
+            0.3203125,
+            0.0984375,
+            0.05078125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.7578125,
+            0.5458984375,
+            0.078125,
+            0.048828125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.76015625,
+            0.6533203125,
+            0.0953125,
+            0.052734375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.8765625,
+            0.4423828125,
+            0.1,
+            0.052734375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.87578125,
+            0.5283203125,
+            0.0890625,
+            0.060546875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.87421875,
+            0.697265625,
+            0.0921875,
+            0.06640625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.8765625,
+            0.78125,
+            0.08125,
+            0.05859375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.8734375,
+            0.8701171875,
+            0.0875,
+            0.048828125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.87578125,
+            0.958984375,
+            0.1015625,
+            0.0625
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_130_40_0_09978",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 130,
+      "perspective_deg": 40,
+      "group": "1_130_40_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_130_40_0_09978.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_130_40_0_09978.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_130_40_0_09978.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "e63a297f0a3373c9f590965f564b7371c61682ffdd552a63c60cafa6e16b5c59",
+      "label_sha256": "94df816628681613fdf04cf84a8a71ddbd343ade2480270b4fafefd6d446a226",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.38046875,
+            0.64453125,
+            0.0140625,
+            0.04296875
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_120_80_0_02970",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 120,
+      "perspective_deg": 80,
+      "group": "1_120_80_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_120_80_0_02970.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_120_80_0_02970.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_120_80_0_02970.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "8d537da29feb94baf9a3d8b2c366c2f0bbb22a550465878d95845c80991cd69a",
+      "label_sha256": "620ca6cee9b838c870973877d34c42016929bf4b76a0334704e6f65e1804b23f",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.37890625,
+            0.0615234375,
+            0.0140625,
+            0.037109375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.3421875,
+            0.103515625,
+            0.015625,
+            0.02734375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.33359375,
+            0.1650390625,
+            0.0203125,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.4375,
+            0.1611328125,
+            0.01875,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.32578125,
+            0.197265625,
+            0.0140625,
+            0.02734375
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.29765625,
+            0.2255859375,
+            0.0171875,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.346875,
+            0.228515625,
+            0.015625,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.42734375,
+            0.275390625,
+            0.0171875,
+            0.02734375
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_90_70_0_08950",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 90,
+      "perspective_deg": 70,
+      "group": "1_90_70_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_90_70_0_08950.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_90_70_0_08950.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_90_70_0_08950.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "349ef1e9085e2f3f32314de48c86616d944c7460d2601c1cd352f9114afc7e26",
+      "label_sha256": "68e4cd53a81f79c23de898a2bee2ffe7c158fed7b16813fde739d093a8992cbb",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.40625,
+            0.890625,
+            0.08125,
+            0.1953125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.4921875,
+            0.263671875,
+            0.075,
+            0.17578125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.509375,
+            0.056640625,
+            0.053125,
+            0.11328125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_70_30_0_07598",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 70,
+      "perspective_deg": 30,
+      "group": "1_70_30_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_70_30_0_07598.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_70_30_0_07598.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_70_30_0_07598.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "818e4cd442a4c88d5c2429ea60d38a5f219bcf057732d5247778795a6073cd29",
+      "label_sha256": "ff698f233f2e4ef93f6013a665ff75b1b0383d60be55d4d451b9f3c8e9b02a50",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.24609375,
+            0.4541015625,
+            0.1109375,
+            0.056640625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.01484375,
+            0.560546875,
+            0.0296875,
+            0.0625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.24140625,
+            0.587890625,
+            0.0890625,
+            0.0625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.2375,
+            0.662109375,
+            0.11875,
+            0.0703125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.35703125,
+            0.5224609375,
+            0.0796875,
+            0.052734375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.3546875,
+            0.5771484375,
+            0.0875,
+            0.060546875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.3546875,
+            0.673828125,
+            0.090625,
+            0.0546875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.36015625,
+            0.7333984375,
+            0.0859375,
+            0.048828125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.35078125,
+            0.7900390625,
+            0.0984375,
+            0.056640625
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.34921875,
+            0.8515625,
+            0.1078125,
+            0.05859375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.67109375,
+            0.43359375,
+            0.0234375,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.69296875,
+            0.462890625,
+            0.0328125,
+            0.02734375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.6921875,
+            0.4384765625,
+            0.028125,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.71015625,
+            0.4150390625,
+            0.0390625,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.82109375,
+            0.7138671875,
+            0.0296875,
+            0.056640625
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.77109375,
+            0.7412109375,
+            0.0453125,
+            0.044921875
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.72109375,
+            0.6044921875,
+            0.0140625,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.70078125,
+            0.6337890625,
+            0.0203125,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.6640625,
+            0.732421875,
+            0.015625,
+            0.02734375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.73203125,
+            0.6708984375,
+            0.0171875,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.8234375,
+            0.78125,
+            0.01875,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.63359375,
+            0.8505859375,
+            0.0203125,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.63359375,
+            0.8896484375,
+            0.0234375,
+            0.037109375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.703125,
+            0.7236328125,
+            0.015625,
+            0.021484375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.63125,
+            0.8125,
+            0.040625,
+            0.04296875
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.62265625,
+            0.916015625,
+            0.0265625,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.63359375,
+            0.9443359375,
+            0.0234375,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.6671875,
+            0.7568359375,
+            0.028125,
+            0.017578125
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.72421875,
+            0.451171875,
+            0.0171875,
+            0.02734375
+          ]
+        },
+        {
+          "class_id": 2,
+          "xywh_normalized": [
+            0.8453125,
+            0.775390625,
+            0.01875,
+            0.0390625
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_110_70_0_02695",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 110,
+      "perspective_deg": 70,
+      "group": "1_110_70_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_110_70_0_02695.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_110_70_0_02695.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_110_70_0_02695.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "6f5cceba9b4c62c52b310bfdb442acdbe77a13cc3837b3ad0dd7a9f62b7a4ccb",
+      "label_sha256": "10dc2ed6845d8a686e76b74de6d512f25d4ceb5a6e25f570f71b195eb7102ee3",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.3484375,
+            0.4580078125,
+            0.021875,
+            0.048828125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.29765625,
+            0.3759765625,
+            0.0171875,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.328125,
+            0.3857421875,
+            0.01875,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.32734375,
+            0.4189453125,
+            0.0203125,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.39375,
+            0.861328125,
+            0.021875,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.3625,
+            0.7783203125,
+            0.01875,
+            0.025390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.2796875,
+            0.7646484375,
+            0.01875,
+            0.029296875
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.3046875,
+            0.84765625,
+            0.025,
+            0.0390625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.26484375,
+            0.8115234375,
+            0.0203125,
+            0.033203125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.259375,
+            0.853515625,
+            0.01875,
+            0.03125
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.29921875,
+            0.880859375,
+            0.0265625,
+            0.03515625
+          ]
+        },
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.265625,
+            0.9365234375,
+            0.01875,
+            0.029296875
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_90_50_0_08866",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 90,
+      "perspective_deg": 50,
+      "group": "1_90_50_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_90_50_0_08866.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_90_50_0_08866.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_90_50_0_08866.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "e6089d3da26a86902850885176f536f335ba5d5d2020ffb956e64cb64b46ee84",
+      "label_sha256": "3bb32c92b7e471970c24623c0a31bcef12386b12d59a8288f363e694e798bdaa",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.36171875,
+            0.5947265625,
+            0.0734375,
+            0.130859375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.325,
+            0.7099609375,
+            0.06875,
+            0.130859375
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.2890625,
+            0.8935546875,
+            0.0875,
+            0.150390625
+          ]
+        }
+      ]
+    },
+    {
+      "id": "HIT-1_120_40_0_09301",
+      "domain": "real",
+      "view": "aerial",
+      "dataset": "HIT-UAV",
+      "condition": "night",
+      "polarity": "white_hot",
+      "polarity_basis": "visual review of sampled frames; verify per scene before calibration",
+      "altitude_m": 120,
+      "perspective_deg": 40,
+      "group": "1_120_40_0",
+      "split": "official_train_reference_only",
+      "path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\images\\1_120_40_0_09301.jpg",
+      "label_path": "E:\\Projects\\WISEYE\\builds\\research-data\\HIT-UAV\\labels\\1_120_40_0_09301.txt",
+      "source_url": "https://raw.githubusercontent.com/suojiashun/HIT-UAV-Infrared-Thermal-Dataset/669259659b21a2737ca9f5e4bc81892acbe6ecd8/normal_json/train/1_120_40_0_09301.jpg",
+      "source_revision": "669259659b21a2737ca9f5e4bc81892acbe6ecd8",
+      "annotation_status": "official_yolo",
+      "sha256": "994555e4f531f23d8475a0f80a400e0c77763c30275f19a59b1cf42c68a9ad59",
+      "label_sha256": "983de994f6e6fd74723b9b1868dd806d9cb7afa7eeff327f87a064186e6245e8",
+      "boxes": [
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.7828125,
+            0.6875,
+            0.078125,
+            0.04296875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.79765625,
+            0.73828125,
+            0.0890625,
+            0.05078125
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.8265625,
+            0.8623046875,
+            0.096875,
+            0.060546875
+          ]
+        },
+        {
+          "class_id": 1,
+          "xywh_normalized": [
+            0.334375,
+            0.2509765625,
+            0.028125,
+            0.064453125
+          ]
+        }
+      ]
+    },
+    {
+      "id": "Halmstad-ir_drone_088_f000161",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_088",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_088_f000161.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_088_f000161.txt",
+      "sha256": "bc50dde04d749e952845a680353a147eacc43b95ae4613b8bb9c0eda6a47fecc",
+      "label_sha256": "3cb03aad82f6be3ad8b3160e753ce7f7cf3017562b04de106db8b919debf08d6",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.36073031,
+            0.18140441,
+            0.05032916,
+            0.03385761
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_112_f000157",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_112",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_112_f000157.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_112_f000157.txt",
+      "sha256": "a9ad890e08dbc3b4a68f3aae50e1da96ebe729d4a0c05349a71289fccd15073e",
+      "label_sha256": "2c89b368b44cbe337be664eb773cc5482ebee9cba2e57ab12f8272cd4fada32d",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.93478079,
+            0.47168501,
+            0.04949017,
+            0.05793867
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_072_f000161",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_072",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_072_f000161.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_072_f000161.txt",
+      "sha256": "b02bff1d27022f10ce2c067d1ce8622ed579e1112bb6d152c62d5c8638b1059a",
+      "label_sha256": "a46658a4bdcf2e4820881334760b5d36a7ba9aefa52c42dceb43150619700555",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.63127573,
+            0.47078137,
+            0.05277801,
+            0.03805813
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_089_f000152",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_089",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_089_f000152.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_089_f000152.txt",
+      "sha256": "1c3ad7af189b1d607c64bc6ce0f3dcfd96ac38cbea1b6086aaeb585824232daf",
+      "label_sha256": "6f3c991ced93bdca424a2801ce9695ebc460d80a11bdc42876a8f732be0f7ecb",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.32312509,
+            0.44818695,
+            0.04396632,
+            0.03016987
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_138_f000151",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_138",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_138_f000151.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_138_f000151.txt",
+      "sha256": "1a26a3a2711cb8b341708d9eb47e07b5dcdf6bbb265df66d8e85a0cebb0851e2",
+      "label_sha256": "c6d87aa04f3cb71f18c1ff0c79cafcddda242e37d6a36553d511d8637c9136e4",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.62593646,
+            0.50279143,
+            0.0375453,
+            0.0431872
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_050_f000163",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_050",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_050_f000163.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_050_f000163.txt",
+      "sha256": "304a702e7fafb5158e83a843d684639c9c1d798c9e09afdfeb44932b56f4fcb3",
+      "label_sha256": "ac92f5224b2d38772de99bb24b3038e3c737aeef686d4c6bc4f3d05b540d6c02",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.74968579,
+            0.34769034,
+            0.04777236,
+            0.04829544
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_056_f000154",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_056",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_056_f000154.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_056_f000154.txt",
+      "sha256": "6a98bc5e339f8f8920bae39d66317b3875403dcfced6a8970bc11c439103ead1",
+      "label_sha256": "6efcf5885c71162c48abefe62da4a499ab4e7c1ac9c8601c64209730f11ff707",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.57739832,
+            0.17829137,
+            0.10668569,
+            0.0665946
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_001_f000151",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_001",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_001_f000151.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_001_f000151.txt",
+      "sha256": "a9ebc33d27b6c6c3ba235883e723b3fe5239715dfbef73c527333c4522371cb5",
+      "label_sha256": "54916cb4b8dfe89eebdaee936b5896cf97484f4352c75d48a1e4c85a0b25a249",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.32029612,
+            0.37413239,
+            0.08445382,
+            0.05603832
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_028_f000156",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_028",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_028_f000156.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_028_f000156.txt",
+      "sha256": "a3fa2f74fd55b0fb10caa5dacaa8243e7f61e610f87a07cde07717cccc7c48a7",
+      "label_sha256": "8eec6949ff26a26e56947d6074b311f97196a4668456fb81ec61508f9fc4adc2",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.71898246,
+            0.49385373,
+            0.05727701,
+            0.04890314
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_002_f000151",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_002",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_002_f000151.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_002_f000151.txt",
+      "sha256": "40cc06674dfd7a92a73cba0e84d5380d333c5cdf2cc8fe26ed5c9eb0c8831260",
+      "label_sha256": "2d785a7b71eae2d766033f897e42adc35991fcbe0afb35c69ec02373f4bd136f",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.82726412,
+            0.48945966,
+            0.09133205,
+            0.05144244
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_135_f000161",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_135",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_135_f000161.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_135_f000161.txt",
+      "sha256": "1babe6444b1282ca537c62eda71acb22a18e0540389e68402c71d027cf9fd452",
+      "label_sha256": "9416a31d1664c6137e0c128cad6566a6476501a73e8148505715264ce1129b20",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.84665999,
+            0.45760959,
+            0.03226538,
+            0.03368038
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_074_f000161",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_074",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_074_f000161.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_074_f000161.txt",
+      "sha256": "5350d5ce00e525aba1d69704d46ccb0157f8ef4a168aaca5c9324d9fa0859ad8",
+      "label_sha256": "175b5183982819f26b79e020ecb2995829bc749ec0ae9fcd64ec74b4ed6d31c4",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.25063604,
+            0.66017717,
+            0.09676712,
+            0.07303143
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_146_f000157",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_146",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_146_f000157.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_146_f000157.txt",
+      "sha256": "949ac78a2b4176f79ba04b674ae03621219d4552231a41d43c2b9c06acd0b98e",
+      "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "boxes": [],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_046_f000152",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_046",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_046_f000152.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_046_f000152.txt",
+      "sha256": "109705fd39ca21921d5e2ffc44da2cb3effd3f4fa58c403c8bd8e5a5c66e760e",
+      "label_sha256": "5d61dc9874fe47c211a68fc0d53aa91a980b4f7741887afa88b1227727feae0b",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.68050754,
+            0.34867103,
+            0.06628585,
+            0.06714711
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_077_f000152",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_077",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_077_f000152.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_077_f000152.txt",
+      "sha256": "86b19cc3796754be64f22f5eee29f5856f1b446c1418737d1e1567f2576784ac",
+      "label_sha256": "b2a234970914a54c8d5cddb6d3aaa5b71e0cedc1c43302eb8f925d11640544ad",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.45491464,
+            0.58782452,
+            0.04948545,
+            0.03792167
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "Halmstad-ir_drone_042_f000152",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "Halmstad",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "ir_drone_042",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\images\\train\\ir_drone_042_f000152.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\labels\\train\\ir_drone_042_f000152.txt",
+      "sha256": "862ea770b623383899936fca1c8a2f8c60af2d968af833d705b4ec77110bb9ea",
+      "label_sha256": "2a1cdbb588c7e68c45129fadff362ae8f01fbebbf8189d650b357f0fb00ad340",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.52882283,
+            0.49686258,
+            0.04851127,
+            0.04106715
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\Halmstad\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0035_seq_20260711_134533_048_20260711_134539_104",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0035_seq_20260711_134533",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0035_seq_20260711_134533_048_20260711_134539_104.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0035_seq_20260711_134533_048_20260711_134539_104.txt",
+      "sha256": "492381fbfb987e964b010a7d67df8183d258dd17494ca140f02385198625252d",
+      "label_sha256": "5f3374be1149e47dd2c81569b5c837a2f333f17fb8e50508ebb7d1697115cc0c",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.494444,
+            0.318576,
+            0.186111,
+            0.126736
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0032_seq_20260711_134428_209_20260711_134438_161",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0032_seq_20260711_134428",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0032_seq_20260711_134428_209_20260711_134438_161.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0032_seq_20260711_134428_209_20260711_134438_161.txt",
+      "sha256": "8eacf4e77eb477888c493fb7c3a422289cd9486f3f449fa69d5baa9a3f07defa",
+      "label_sha256": "29dddbf4bba434684afe1f4e08b1711d8653308c5da930a021c06b1c356f9461",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.773611,
+            0.342882,
+            0.055556,
+            0.036458
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0015_seq_20260711_133848_389_20260711_133900_008",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0015_seq_20260711_133848",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0015_seq_20260711_133848_389_20260711_133900_008.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0015_seq_20260711_133848_389_20260711_133900_008.txt",
+      "sha256": "f51ee8ff94cbd6418eea39bcf35e07c01455dfecff631f1082473dc48d980c66",
+      "label_sha256": "2591531d53452f4d01c892c1255f236c4c001aae1cd652cfb76b2194f649a725",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.522917,
+            0.586806,
+            0.018056,
+            0.017361
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0048_seq_20260711_134950_993_20260711_135000_781",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0048_seq_20260711_134950",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0048_seq_20260711_134950_993_20260711_135000_781.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0048_seq_20260711_134950_993_20260711_135000_781.txt",
+      "sha256": "cac6dbed156493805dae54dfe1de9c6cab8a57e9b3d8bed3a6d459fe7d1b8afa",
+      "label_sha256": "34c5e5a4802907206d13151a5f6ad98db1ded2c30e1b4683ff5be240934b5410",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.405556,
+            0.524306,
+            0.038889,
+            0.034722
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0026_seq_20260711_134228_047_20260711_134238_174",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0026_seq_20260711_134228",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0026_seq_20260711_134228_047_20260711_134238_174.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0026_seq_20260711_134228_047_20260711_134238_174.txt",
+      "sha256": "6d3239054b231ed26cc6b286ae42c62754339eeff4f99512ba008452ddb6fad4",
+      "label_sha256": "5990b46f46a02fc224cab68db625821e28c8cadf9b3d0e1dfa16538778b345b0",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.486111,
+            0.450521,
+            0.047222,
+            0.032986
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0006_seq_20260711_133547_369_20260711_133556_618",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0006_seq_20260711_133547",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0006_seq_20260711_133547_369_20260711_133556_618.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0006_seq_20260711_133547_369_20260711_133556_618.txt",
+      "sha256": "c2d0eaf163088e988b3f14ab5b36b550adaad1aef52ec59c420cf99ef2bdd08c",
+      "label_sha256": "8bb9d574497a449a7dacbca2624ee558f4bd0de6bcb90955f32852a38af6e4cd",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.0625,
+            0.580729,
+            0.058333,
+            0.029514
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0002_seq_20260711_133427_243_20260711_133437_256",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0002_seq_20260711_133427",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0002_seq_20260711_133427_243_20260711_133437_256.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0002_seq_20260711_133427_243_20260711_133437_256.txt",
+      "sha256": "69f1fc13b22ac636b2446b75f1f21e64f7bf95680ef286d78a3c5efc50e5a64a",
+      "label_sha256": "36079c1a0d07341236804cbdb59502df0193a21d3d7b6bc3d12549f36c06495f",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.183333,
+            0.550347,
+            0.047222,
+            0.024306
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0054_seq_20260711_135150_557_20260711_135200_287",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0054_seq_20260711_135150",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0054_seq_20260711_135150_557_20260711_135200_287.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0054_seq_20260711_135150_557_20260711_135200_287.txt",
+      "sha256": "0d009191065bf8512c22761705b8fc36d98b2a70628c3778c5061df5de0d3b78",
+      "label_sha256": "2f9267a770476116999bcc326c61d64ceba3066be0f6073b1370b7e39bc5083e",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.829861,
+            0.447917,
+            0.0375,
+            0.024306
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0051_seq_20260711_135050_919_20260711_135100_939",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0051_seq_20260711_135050",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0051_seq_20260711_135050_919_20260711_135100_939.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0051_seq_20260711_135050_919_20260711_135100_939.txt",
+      "sha256": "bdd4e12b8d33520200777315f39928bddc0de887830c0b9e79687fa33176271c",
+      "label_sha256": "291ee388fe41e1810c586dd8d25fae86fc8fd2fee5da343d160d5b41c83c146e",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.592361,
+            0.513021,
+            0.026389,
+            0.022569
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0025_seq_20260711_134207_983_20260711_134218_313",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0025_seq_20260711_134207",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0025_seq_20260711_134207_983_20260711_134218_313.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0025_seq_20260711_134207_983_20260711_134218_313.txt",
+      "sha256": "9ae2427724d2d5d99f68ffee8df5c56dabd550844ccf6ae7d6f9042fcba48161",
+      "label_sha256": "9a383288ae70fd17a1bbaf17b37cf5a7ff8f73a6d7234e4a9da247758bd6128e",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.427778,
+            0.522569,
+            0.052778,
+            0.027778
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0030_seq_20260711_134348_137_20260711_134357_098",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0030_seq_20260711_134348",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0030_seq_20260711_134348_137_20260711_134357_098.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0030_seq_20260711_134348_137_20260711_134357_098.txt",
+      "sha256": "73d1b33686123f3fa468b88082d7b18a0cbf5d52f424dee48aafdfaf47699a36",
+      "label_sha256": "dee764b3ce5b81a45f20f2e08c1851f7e28e0ec29b60d3f104e33b1f92d6e252",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.691667,
+            0.401042,
+            0.038889,
+            0.024306
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0008_seq_20260711_133627_432_20260711_133637_616",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0008_seq_20260711_133627",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0008_seq_20260711_133627_432_20260711_133637_616.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0008_seq_20260711_133627_432_20260711_133637_616.txt",
+      "sha256": "bedc65ccfd9783cb96f13f07450871dda770755d9fa3c64c5d119c815db23035",
+      "label_sha256": "d47d32a849b9cb3922218cb080542db860dc12b55427ad67d5354f215ee1c788",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.3625,
+            0.515625,
+            0.038889,
+            0.024306
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0023_seq_20260711_134130_816_20260711_134135_955",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0023_seq_20260711_134130",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0023_seq_20260711_134130_816_20260711_134135_955.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0023_seq_20260711_134130_816_20260711_134135_955.txt",
+      "sha256": "9dc6263ed1a00c9dc147f6f10992d8787dcaf7046f5956786f5bf80c4c1b03b5",
+      "label_sha256": "29f841bd6d5fc3ddec3be8ae8dfbaba47ed3ca83af7c1b7dd0e9ad355911ffda",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.509722,
+            0.454861,
+            0.138889,
+            0.086806
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0044_seq_20260711_134831_863_20260711_134841_696",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0044_seq_20260711_134831",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0044_seq_20260711_134831_863_20260711_134841_696.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0044_seq_20260711_134831_863_20260711_134841_696.txt",
+      "sha256": "f635bd051f7cebbd03392d6104fa0cca134da7c349d64c809cc30768e43e828f",
+      "label_sha256": "da307865dd46e8cd274a3ea96d627b06cc3452282bfa9198b32349a5464fb1bc",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.267361,
+            0.5,
+            0.043056,
+            0.03125
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0016_seq_20260711_133907_687_20260711_133916_643",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0016_seq_20260711_133907",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0016_seq_20260711_133907_687_20260711_133916_643.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0016_seq_20260711_133907_687_20260711_133916_643.txt",
+      "sha256": "e02e583a73dc2a02962d5400bc8461aaeea36428356cd1fbc3ef634405fe6933",
+      "label_sha256": "120af163537d67b38eb1b13f6a40d2b03665a9ecc20f31543a618fe1991612c3",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.60625,
+            0.473958,
+            0.026389,
+            0.013889
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    },
+    {
+      "id": "CESE-v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0018_seq_20260711_133947_750_20260711_133956_646",
+      "domain": "real",
+      "view": "gimbal",
+      "dataset": "CESE",
+      "condition": "day_user_report",
+      "polarity": "white_hot",
+      "polarity_basis": "sample visual review; no radiometric metadata",
+      "group": "v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0018_seq_20260711_133947",
+      "split": "local_train_reference_only",
+      "path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\images\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0018_seq_20260711_133947_750_20260711_133956_646.jpg",
+      "label_path": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\labels\\train\\v2_0711_20fps_bit_ant0715v2_20fps_organized_sequences_0018_seq_20260711_133947_750_20260711_133956_646.txt",
+      "sha256": "f13fb5828e0202178da03adfa97ad212504ce251d560bc5faba1b0f58d0849b1",
+      "label_sha256": "47e6809edbcad9ad09de8686bbc3ef8ea4c8544f89495bbe782585fd48863184",
+      "boxes": [
+        {
+          "class_id": 0,
+          "xywh_normalized": [
+            0.839583,
+            0.378472,
+            0.070833,
+            0.038194
+          ]
+        }
+      ],
+      "annotation_status": "local_yolo_unverified_conversion",
+      "source_url": "F:\\DATASET_UAV_BICE\\YOLO_UAV_BICE\\infrared\\CESE\\dataset_stats.json"
+    }
+  ]
+}

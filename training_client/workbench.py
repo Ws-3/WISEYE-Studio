@@ -55,13 +55,17 @@ class Window(QWidget):
         self.setObjectName('appRoot');self.setStyleSheet(STYLE+'\nQCheckBox { background: transparent; }\nQSlider { background: transparent; }')
         self.setWindowTitle('WISEYE Training · 多源数据与融合工作台');self.resize(1450,960)
         self._closing=False;self.decoded={}
+        self.discovery=None
         self.worker=None;self.last_frame_at=0;self.latest=None;self.received=0
         self._restart_requested=False;self._stopping=False
         self.source_timer=QTimer(self);self.source_timer.setSingleShot(True);self.source_timer.setInterval(250)
         self.source_timer.timeout.connect(self.restart_sources)
         self.rate_events=deque()
         from .layout_v4 import build
+        from .localization import manager
+        manager()
         build(self,args)
+        manager().register(self)
         self.freshness=QTimer(self);self.freshness.timeout.connect(self.check_freshness);self.freshness.start(500)
         self.frame_timer=QTimer(self);self.frame_timer.timeout.connect(self.poll_frame);self.frame_timer.start(33)
 
@@ -80,9 +84,39 @@ class Window(QWidget):
         if revision==getattr(self,'_settings_revision',0):self.settings_status.setText('当前采集设置已应用')
 
     def source_changed(self,*_):
+        if hasattr(self,'display_fps'):self.display_fps.setMaximum(30 if self.source_kind.currentData()=='aerial' else 10)
+        if hasattr(self,'policy_toggle'):
+            aerial=self.source_kind.currentData()=='aerial'
+            for control in (self.show_gt,self.fusion_mode,self.alpha):control.setEnabled(not aerial)
+            self.policy_toggle.setVisible(not aerial)
+            if aerial:self.policy_body.hide()
+            else:self.policy_body.setVisible(self.policy_toggle.isChecked())
         if not self.visible.isChecked() and not self.infrared.isChecked():
             sender=self.sender();sender.blockSignals(True);sender.setChecked(True);sender.blockSignals(False)
             self.state.setText('至少保留一路数据源');return
+        if self.worker:
+            self.record.setChecked(False);self.source_timer.start()
+
+    def discover_sources(self):
+        if self.discovery:return
+        from .sources import SourceDiscovery
+        self.discovery=SourceDiscovery(self.host.text().strip(),self.port.value());self.discover_button.setEnabled(False)
+        self.discovery.result.connect(self.sources_loaded);self.discovery.failed.connect(lambda error:self.state.setText('发现设备失败：'+error));self.discovery.finished.connect(self.discovery_finished);self.discovery.start()
+
+    def sources_loaded(self,devices):
+        from PySide6.QtCore import QSignalBlocker
+        blocker=QSignalBlocker(self.source_picker);self.source_picker.clear();self.source_picker.addItem('选择采集来源',None)
+        for d in devices:self.source_picker.addItem(('航拍' if d['kind']=='drone' else '云台')+' · '+d['id']+' · '+d['name'],d)
+        del blocker
+
+    def discovery_finished(self):
+        self.discovery.deleteLater();self.discovery=None;self.discover_button.setEnabled(True)
+        if self._closing:QTimer.singleShot(0,self.close)
+
+    def pick_source(self,*_):
+        item=self.source_picker.currentData()
+        if not item:return
+        self.device.setText(item['id']);self.source_kind.setCurrentIndex(1 if item['kind']=='drone' else 0)
         if self.worker:self.source_timer.start()
 
     def restart_sources(self):
@@ -101,6 +135,7 @@ class Window(QWidget):
         if not sensors:self.state.setText('请选择至少一路数据源');return
         self.latest=None;self.last_frame_at=0;self.received=0;self.rate_events.clear();self.clear_tiles('连接中…')
         client=Client(self.host.text().strip(),self.port.value(),self.device.text().strip())
+        client.source_kind=self.source_kind.currentData()
         policy=dict(keep_partial_occlusion=self.occlusion.isChecked(),keep_partial_outside=self.outside.isChecked(),max_fps=10)
         self.worker=Receiver(client,policy,self.directory.text(),sensors,self.display_fps.value(),self.save_fps.value(),self.record.isChecked())
         self.worker.latest_only=True
@@ -124,7 +159,7 @@ class Window(QWidget):
         from .layout_v4 import update_save_state
         if hasattr(self,'save_action'):update_save_state(self)
         if self.worker:
-            self.worker.rates.configure(self.display_fps.value(),self.save_fps.value(),self.record.isChecked())
+            self.worker.rates.configure(min(self.display_fps.value(),self.worker.rates.max_display),self.save_fps.value(),self.record.isChecked())
 
     def poll_frame(self):
         if self.worker and not self._stopping:
@@ -147,18 +182,21 @@ class Window(QWidget):
         from .preview import draw_gt
         self.alpha_label.setText(f'红外占比 {self.alpha.value()}%')
         if not self.latest:return
-        self.badge.setText('同步样本已连接')
+        self.badge.setText('航拍原图已连接' if self.latest.get('raw') else '同步样本已连接')
         samples=self.latest['samples']
         try:
             for sensor in ('visible','infrared'):
                 tile=self.tiles[sensor]
                 if sensor not in samples:tile.clear('未订阅此数据源');continue
                 packet=samples[sensor];image=self.decoded[sensor]
-                tile.canvas.image=draw_gt(image,packet) if self.show_gt.isChecked() else image;tile.canvas.update()
-                tile.badge.setText('负样本' if packet['negative_sample'] else '有效标注' if packet['training_eligible'] else '策略忽略')
-                tile.meta.setText(f"{packet['width']}×{packet['height']}  ·  GT {len(packet['objects'])}  ·  帧 {packet['frame_number']}")
+                tile.canvas.image=draw_gt(image,packet) if self.show_gt.isChecked() and not self.latest.get('raw') else image;tile.canvas.update()
+                tile.badge.setText('待人工标注' if self.latest.get('raw') else '负样本' if packet['negative_sample'] else '有效标注' if packet['training_eligible'] else '策略忽略')
+                tile.meta.setText(f"{packet['width']}×{packet['height']}  ·  "+('待标注' if self.latest.get('raw') else f"GT {len(packet['objects'])}")+f"  ·  帧 {packet['frame_number']}")
             fusion=self.tiles['fusion']
-            if len(samples)==2:
+            if self.latest.get('raw'):
+                fusion.clear('航拍双路独立曝光，未提供同刻GT；请在数据集页面标注')
+                self.comparison.setText('航拍原图保留独立光心与时间戳；采集后需人工标注，不能直接作为负样本训练。')
+            elif len(samples)==2:
                 try:
                     mode=self.fusion_mode.currentData()
                     image=blend_pair(self.latest,self.alpha.value()/100,mode,images=self.decoded)
@@ -174,7 +212,7 @@ class Window(QWidget):
             else:fusion.clear('同时订阅可见光与红外后显示融合')
             first=next(iter(samples.values()))
             identity=self.latest.get('pair_id',first.get('sample_token','—'))
-            self.state.setText(f"同组身份：{first['run_id'][:8]} / {first['device_id']} / {str(identity)[:12]}  ·  仿真时间 {first['simulation_time_s']:.3f}s  ·  {'双路同刻样本' if len(samples)==2 else '单路样本'}")
+            self.state.setText(f"来源：{first['run_id'][:8]} / {first['device_id']} / {str(identity)[:12]}  ·  仿真时间 {first['simulation_time_s']:.3f}s  ·  {'航拍原图待标注（非同步）' if self.latest.get('raw') else '双路同刻样本' if len(samples)==2 else '单路样本'}")
         except (ValueError,KeyError) as error:self.show_error(str(error))
 
     def clear_tiles(self,message):
@@ -211,6 +249,10 @@ class Window(QWidget):
         from PySide6.QtCore import QSettings
         QSettings('WISEYE','Training').setValue('v4/split',self.train_split.saveState())
         self.connection_dialog.close()
+        dataset_ready=self.dataset_panel.stop()
+        if dataset_ready is None:self._closing=False;event.ignore();return
+        if self.discovery or not dataset_ready:
+            self._closing=True;self.stop();event.ignore();QTimer.singleShot(200,self.close);return
         if self.worker:
             self._closing=True;self.stop();event.ignore()
             self.setEnabled(False)

@@ -1,0 +1,307 @@
+{
+  "passed": true,
+  "scene": "custom",
+  "phases": [
+    [
+      "engine",
+      "\u6b63\u5728\u542f\u52a8\u4eff\u771f\u5f15\u64ce\uff0c\u51c6\u5907\u5730\u56fe\u8fd0\u884c\u73af\u5883\u2026"
+    ],
+    [
+      "map",
+      "\u6b63\u5728\u88c5\u8f7d\u9053\u8def\u3001\u5efa\u7b51\u4e0e\u4f20\u611f\u5668\u6240\u5728\u533a\u57df\u2026"
+    ],
+    [
+      "population",
+      "\u5730\u56fe\u5df2\u52a0\u8f7d\uff0c\u6b63\u5728\u9884\u8f7d\u4eba\u8f66\u8d44\u6e90\u5e76\u521d\u59cb\u5316\u98de\u63a7\u2026"
+    ],
+    [
+      "population",
+      "\u6b63\u5728\u9884\u8f7d\u4eba\u8f66\u8d44\u6e90\u3001\u51c6\u5907\u6750\u8d28\u4e0e\u573a\u666f\u76ee\u6807\u2026"
+    ],
+    [
+      "devices",
+      "\u8d44\u6e90\u5df2\u5c31\u7eea\uff0c\u6b63\u5728\u540c\u6b65\u98de\u63a7\u548c\u4f20\u611f\u5668\u8fde\u63a5\u2026"
+    ]
+  ],
+  "captures": {
+    "CH1": {
+      "device_id": "ptz-01",
+      "sensor_id": "ptz-01/visible",
+      "channel": "CH1",
+      "modality": "visible",
+      "run_id": "2F31B0DE46B258F1C635609E94186C48",
+      "scene_id": "custom",
+      "frame_number": 114,
+      "simulation_time_s": 4.281125068664551,
+      "width": 1920,
+      "height": 1080,
+      "encoding": "jpeg",
+      "quality": 90
+    },
+    "CH2": {
+      "device_id": "ptz-01",
+      "sensor_id": "ptz-01/infrared",
+      "channel": "CH2",
+      "modality": "infrared",
+      "run_id": "2F31B0DE46B258F1C635609E94186C48",
+      "scene_id": "custom",
+      "frame_number": 87,
+      "simulation_time_s": 4.281125068664551,
+      "width": 640,
+      "height": 512,
+      "encoding": "jpeg",
+      "quality": 90
+    }
+  },
+  "run_id": "2F31B0DE46B258F1C635609E94186C48",
+  "flight_status": "ready",
+  "flight_test": {
+    "hover": {
+      "application": "WISEYE AirSim Control",
+      "run_id": "2F31B0DE46B258F1C635609E94186C48",
+      "connected": true,
+      "telemetry_valid": true,
+      "telemetry_age_s": 0.002994200011016801,
+      "telemetry_source": "actual_pose_topic",
+      "drone_id": "uav-01",
+      "flight_status": "active",
+      "paused": false,
+      "flight_mode": "manual",
+      "position_ned_m": [
+        12.0,
+        0.0,
+        -1.6966900825500488
+      ],
+      "route_loops": 0,
+      "route_status": "idle",
+      "route_next_waypoint": null,
+      "route": null,
+      "active_route_name": "",
+      "velocity_mps": 3.0,
+      "command_active": false,
+      "last_error": "",
+      "yaw_deg": 0.0,
+      "motor_rpm": [
+        4851.217226862318,
+        4851.217226862318,
+        4851.217226862318,
+        4851.217226862318
+      ],
+      "rotor_sample_age_s": 0.0029594999796245247,
+      "manual_command_count": 0,
+      "last_manual_input": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fleet": [
+        {
+          "application": "WISEYE AirSim Control",
+          "run_id": "2F31B0DE46B258F1C635609E94186C48",
+          "connected": true,
+          "telemetry_valid": true,
+          "telemetry_age_s": 0.002994200011016801,
+          "telemetry_source": "actual_pose_topic",
+          "drone_id": "uav-01",
+          "flight_status": "active",
+          "paused": false,
+          "flight_mode": "manual",
+          "position_ned_m": [
+            12.0,
+            0.0,
+            -1.6966900825500488
+          ],
+          "route_loops": 0,
+          "route_status": "idle",
+          "route_next_waypoint": null,
+          "route": null,
+          "active_route_name": "",
+          "velocity_mps": 3.0,
+          "command_active": false,
+          "last_error": "",
+          "yaw_deg": 0.0,
+          "motor_rpm": [
+            4851.217226862318,
+            4851.217226862318,
+            4851.217226862318,
+            4851.217226862318
+          ],
+          "rotor_sample_age_s": 0.0029594999796245247,
+          "manual_command_count": 0,
+          "last_manual_input": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "moved": {
+      "application": "WISEYE AirSim Control",
+      "run_id": "2F31B0DE46B258F1C635609E94186C48",
+      "connected": true,
+      "telemetry_valid": true,
+      "telemetry_age_s": 0.0020252999966032803,
+      "telemetry_source": "actual_pose_topic",
+      "drone_id": "uav-01",
+      "flight_status": "active",
+      "paused": true,
+      "flight_mode": "manual",
+      "position_ned_m": [
+        12.0,
+        0.0,
+        -2.4505045413970947
+      ],
+      "route_loops": 0,
+      "route_status": "idle",
+      "route_next_waypoint": null,
+      "route": null,
+      "active_route_name": "",
+      "velocity_mps": 3.0,
+      "command_active": false,
+      "last_error": "",
+      "yaw_deg": 0.0,
+      "motor_rpm": [
+        4924.049555718158,
+        4924.049555718158,
+        4924.049555718158,
+        4924.049555718158
+      ],
+      "rotor_sample_age_s": 0.002005700021982193,
+      "manual_command_count": 9,
+      "last_manual_input": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fleet": [
+        {
+          "application": "WISEYE AirSim Control",
+          "run_id": "2F31B0DE46B258F1C635609E94186C48",
+          "connected": true,
+          "telemetry_valid": true,
+          "telemetry_age_s": 0.0020252999966032803,
+          "telemetry_source": "actual_pose_topic",
+          "drone_id": "uav-01",
+          "flight_status": "active",
+          "paused": true,
+          "flight_mode": "manual",
+          "position_ned_m": [
+            12.0,
+            0.0,
+            -2.4505045413970947
+          ],
+          "route_loops": 0,
+          "route_status": "idle",
+          "route_next_waypoint": null,
+          "route": null,
+          "active_route_name": "",
+          "velocity_mps": 3.0,
+          "command_active": false,
+          "last_error": "",
+          "yaw_deg": 0.0,
+          "motor_rpm": [
+            4924.049555718158,
+            4924.049555718158,
+            4924.049555718158,
+            4924.049555718158
+          ],
+          "rotor_sample_age_s": 0.002005700021982193,
+          "manual_command_count": 9,
+          "last_manual_input": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    },
+    "landed": {
+      "application": "WISEYE AirSim Control",
+      "run_id": "2F31B0DE46B258F1C635609E94186C48",
+      "connected": true,
+      "telemetry_valid": true,
+      "telemetry_age_s": 0.002260200009914115,
+      "telemetry_source": "actual_pose_topic",
+      "drone_id": "uav-01",
+      "flight_status": "ready",
+      "paused": true,
+      "flight_mode": "manual",
+      "position_ned_m": [
+        12.0,
+        0.0,
+        -0.19268186390399933
+      ],
+      "route_loops": 0,
+      "route_status": "idle",
+      "route_next_waypoint": null,
+      "route": null,
+      "active_route_name": "",
+      "velocity_mps": 3.0,
+      "command_active": false,
+      "last_error": "",
+      "yaw_deg": 0.0,
+      "motor_rpm": [
+        6.663367458703768e-05,
+        6.663367458703768e-05,
+        6.663367458703768e-05,
+        6.663367458703768e-05
+      ],
+      "rotor_sample_age_s": 0.0022219000093173236,
+      "manual_command_count": 9,
+      "last_manual_input": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "fleet": [
+        {
+          "application": "WISEYE AirSim Control",
+          "run_id": "2F31B0DE46B258F1C635609E94186C48",
+          "connected": true,
+          "telemetry_valid": true,
+          "telemetry_age_s": 0.002260200009914115,
+          "telemetry_source": "actual_pose_topic",
+          "drone_id": "uav-01",
+          "flight_status": "ready",
+          "paused": true,
+          "flight_mode": "manual",
+          "position_ned_m": [
+            12.0,
+            0.0,
+            -0.19268186390399933
+          ],
+          "route_loops": 0,
+          "route_status": "idle",
+          "route_next_waypoint": null,
+          "route": null,
+          "active_route_name": "",
+          "velocity_mps": 3.0,
+          "command_active": false,
+          "last_error": "",
+          "yaw_deg": 0.0,
+          "motor_rpm": [
+            6.663367458703768e-05,
+            6.663367458703768e-05,
+            6.663367458703768e-05,
+            6.663367458703768e-05
+          ],
+          "rotor_sample_age_s": 0.0022219000093173236,
+          "manual_command_count": 9,
+          "last_manual_input": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ]
+        }
+      ]
+    }
+  },
+  "owned_processes_stopped": true
+}

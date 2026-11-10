@@ -10,6 +10,10 @@ foreach($plugin in @('ProjectAirSim','Drone')) {
     $link=Join-Path $workspace "Plugins\$plugin\Content"
     $local=Join-Path $repository "ue5\WISEYE\Plugins\$plugin\Content"
     $item=Get-Item -LiteralPath $link -Force
+    if([IO.Path]::GetFullPath($link) -eq [IO.Path]::GetFullPath($local) -and -not ($item.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+        Write-Output "$plugin Content is already project-local physical content."
+        continue
+    }
     if($item.LinkType -ne 'Junction'){throw "Expected an existing junction: $link"}
     $old=[string]$item.Target
     if($old.TrimEnd('\') -eq $local.TrimEnd('\')){continue}

@@ -146,7 +146,7 @@ class AirSimClient(QObject):
                 return
             self._input_finished(message['request_id'],True)
             if payload.get('drone_id',self.device_id)!=self.device_id:
-                if command=='placement.apply':self.completed.emit(command,payload)
+                if command in ('placement.apply','fleet.apply'):self.completed.emit(command,payload)
                 continue
             if command == 'sim.ping':
                 self.ready = True

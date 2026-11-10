@@ -1,60 +1,30 @@
-# UE 工程
+# WISEYE UE 工程与源码插件 · v1.1.0
 
-打开 `WISEYE/test.uproject`，运行 `/Game/WISEYE-test`。模块仍叫 `test`，构建目标 `testEditor`；不要为改名破坏 `/Script/test` 资源引用。唯一源码在 `WISEYE/Source/test/WiseEyeDemo.h/.cpp`。
+本目录的 `WISEYE/test.uproject` 是默认城市工程；唯一原生源码在 `WISEYE/Source/test`，按桥接、设备、云台、成像、飞行、人车和窗口等职责拆分。模块名 `test` 与 `/Script/test` 是现有资产兼容路径，不要直接改名。
 
-已经配置好的地图不需要运行 setup/恢复脚本。构建与按键见根 [README](../README.md)。
+## 两种开发方式
 
-```text
-PTZ_Camera（固定安装根）
-├─ bottom（固定）
-└─ WISEYE_Demo
-   └─ YawPivot
-      ├─ bottom2（仅水平转动）
-      └─ PitchPivot
-         ├─ camera
-         ├─ ptz
-         └─ EO_Camera → EO_Capture → /Game/WISEYE/RT_EO
+- 使用本仓库城市：先按[安装说明](../docs/INSTALLATION.md)准备 UE 5.8.4、VS、Project AirSim、JSBSim 和合法获取的 City Sample。小城市地图 `/Game/WISEYE/Scenes/city/CitySample`，大城市 `/Game/WISEYE/Scenes/city_large/BigCity`。源码仓库不含完整城市及其生成副本。
+- 使用自己的场景：下载 [v1.1.0 插件包](https://github.com/Ws-3/WISEYE-Studio/releases/tag/v1.1.0)，按[插件指南](../docs/PLUGIN_DISTRIBUTION.md)预检、安装、编译并初始化；不要求 City Sample。无 Traffic 插件时城市人车适配不可用，核心设备与双光仍可运行。
+
+生成 SDK 的 `Source/test` 是构建产物，不作为第二套开发源码。普通运行包用户无需打开此工程。
+
+## 设备和传感器
+
+云台高 80 cm；固定底座 bottom、水平 YawPivot/bottom2、俯仰 PitchPivot/camera/ptz。实际设备尺寸由 `WISEYE/Config/WISEYE/device_dimensions.json` 管理；固定翼机长 80 cm、参考气动参数未标定。Mavic/Avata 旋翼跟随模拟电机 RPM，不能用固定动画速度替代起降。
+
+可见光 1920×1080 和红外 640×512 使用独立光心及可配置安装偏差；不再描述为共用相机或单纯 RGB 灰度化。云台支持同 Tick 双光采集，但不等于像素已配准；机载双光独立采样。可见光包含光学模糊/景深近似，红外为热外观而非温度定标。事件为帧驱动近似，LiDAR 为理想射线扫描，详[传感器边界](../docs/SENSOR_UPGRADE_20261109.md)。
+
+多旋翼采用 Project AirSim，固定翼采用项目原生 JSBSim 适配。设备 ID、驾驶对象、云台对象与画面来源独立；当前运行修改与保存初始配置分开。不要运行历史 setup_scene/configure_controls/restore_ptz 等脚本覆盖现有装配。
+
+## 操作和构建
+
+推荐从桌面启动仿真；仅需编辑时运行 `scripts/Start-WISEYE.ps1`。键盘驾驶 WASD、R 上升/F 下降、Q/E 转向；自由观察采用右键导航，与驾驶归属分开。云台通过右侧遥杆或已分配的键盘模式控制。完整按键与起降操作见[使用指南](../docs/USER_GUIDE.md)，不沿用历史 M/F/R 旋翼动画快捷键。
+
+```powershell
+# 在仓库根目录，依赖准备完毕后
+.\scripts\Build-Distribution.ps1 -Kind Plugin
+.\scripts\Build-Distribution.ps1 -Kind Full -Configuration Shipping -IncludeBigCity
 ```
 
-云台资产在 `/Game/WISEYE/PTZRecovered`，不要重新指向有导入名称冲突的 `/Game/Mesh*`。原始模型在仓库 Models。
-网格前方为局部 +Y、控制光轴 +X，已通过安装旋转对齐。网格欧拉角显示 Roll 不代表控制轴错误。独立 pivot 是机械旋转中心；各网格原点不一定是机械轴。
-
-停止播放，选中 WISEYE_Demo 调整 Flight Origin、Flight Radius、Period、Vertical Amplitude、Manual Speed、Rotor RPM、Yaw/Pitch Rate、Min/Max Pitch、Field Of View。当前保存场景为 24 秒一圈、半径 600 cm、垂向幅度 150 cm；手动速度 300 cm/s、转向 90°/s，Shift 加速；旋翼 600 RPM。云台水平 45°/s、俯仰 30°/s，俯仰 -15°～75°；可见光 1920×1080、红外 640×512，水平 FOV 25°。
-
-I 切换可见光/红外，B 切换红外白热/黑热，P 导出当前模式。两套 SceneCapture 共用光心/姿态和水平 FOV，垂直 FOV 随 16:9 / 5:4 比例变化。RT_EO 保存可见光，Sensors/RT_IR 保存红外；Synthetic IR 材质为 Sensors/M_IR_Minimal。红外采用 Custom Stencil 标记模拟热强度，比较 Custom Depth 与 Scene Depth 保证遮挡；机身、电机和桨叶强度不同，天空/背景独立生成，有弱固定图案噪声。Heat/Noise 参数在 WISEYE_Demo 的 Sensors 分类，运行中调整后调用 RefreshSensors；这些值不是摄氏温度。实现源文件 WiseEyeSensors.cpp。
-
-无人机驾驶模式中，系统与UE均为WASD平移、R上升/F下降、Q/E转向；C切输入对象、Tab切观察视角、Home复位。T切换真值跟踪；O为旋翼开关请求，AirSim模式不伪造电机启停，实际RPM以物理遥测为准。自由观察仍为右键+WASD/QE，云台箭头键控制保持。完整操作见 [USER_GUIDE.md](../docs/USER_GUIDE.md)。
-
-Mavic 3 机身（不含桨叶）34.75×28.3×10.77 cm，Avata 18×18×8 cm，云台高度 80 cm，底座落地；尺寸按官方外形参数缩放，尚非厂商图纸级计量标定。原网格不变，通过装配根节点统一缩放，轴心和相机跟随缩放。无人机根已移到几何中心；本模型局部 +Y 为机头，Model Heading Offset 为 -90°。四组 WISEYE_Rotor_* 包含原始桨毂及两片桨叶，对角同向、相邻反向。
-
-轴心和镜头位置参考 `Config/WISEYE/calibration.json`；这是几何近似，不是实物计量标定。
-
-## 可选编辑器脚本
-
-在 UE 控制台执行 `py "当前仓库路径/ue5/scripts/脚本名.py"`，不能用普通 conda Python 运行。
-
-- play_demo / stop_demo：播放/停止。
-- inspect_runtime：PIE 中读取状态并导出图像。
-- verify_demo：PIE 中运行 40 秒测试，报告在 Saved/WISEYE/verification.json；更改布局后要更新标定。
-- verify_controls：verify_demo 完成后在 PIE 验证手动/自动切换、旋翼启停和轴心稳定、云台保持/恢复、升降与高度限位、暂停/复位和三种视角，报告在 Saved/WISEYE/controls_verification.json。
-- configure_controls：首次配置尺寸和旋翼轴心的维护工具，会调整并保存关卡；已配置好的场景不需要重跑。
-- restore_ptz：历史原尺度恢复工具，当前 80 cm 云台不能直接运行；恢复须以当前 calibration.json 和已保存关卡为准。
-- setup_scene：历史初始化工具，会重配场景；正常启动不要运行。
-- validate_portable：命令行检查关键资源和 C++ 类加载。
-- validate_controls_scene：重新打开可视编辑器后检查保存的尺寸、四组旋翼及控制参数；World Partition Actor 必须加载，不作为地图 commandlet 运行。
-- configure_sensors：首次创建/保存材质、两套 Render Target 和关卡引用；正常启动不需要重跑。
-- prepare_sensor_test：停止 PIE 后创建临时遮挡测试物体，不保存；随后播放并运行 verify_sensors，检查分辨率、切换、姿态、变焦并导出白热/黑热/热强度/遮挡样本。停止 PIE 后用 `py "仓库路径/ue5/scripts/prepare_sensor_test.py" --cleanup` 清理测试物体再保存。
-
-PNG 不含界面叠加；元数据时间是导出请求时间，图像为上一完成渲染帧，尚未严格同步。模型比例已按本次演示需求调整，少量分离零件仍可能存在。
-
-## 桌面控制
-
-先构建并在 UE 点击播放，再运行仓库 Start-Desktop.cmd 连接 127.0.0.1:50051。控制桥仅在 PIE/游戏运行期间存在，详见 ../docs/DESKTOP.md 与 PROTOCOL.md。窗口当前获取 PNG 快照，实时流待实现。
-
-## 2026-10-19 输入与实物尺寸修正
-
-UE 进入 Play 并点击游戏画面后，M 切换自动/手动，WASD、↑↓、Q/E 控制飞行，T 云台跟踪，Tab 切换视角，空格悬停暂停/继续，R 物理复位。AirSim 模式的键盘命令通过 runner 单一控制面执行；WISEYE 输入组件显式设置优先级，避免上游 T/Tab 动作消费按键。停止/重新播放后 runner 自动重建会话。
-
-尺寸基准见 Config/WISEYE/device_dimensions.json。calibrate_device_dimensions.py 用于已有地图按当前标准校准；在原始地图重新 export_rig 后，新地图也沿用该装配。旧 configure_controls.py 是历史 60/40 cm 初始化工具，不得覆盖当前场景。两张预置地图均已保存并重开验证尺寸。
-
-Avata 显示时递归隐藏 Mavic 所有子网格，避免旧桨叶叠加；Avata 动态组件归属于无人机 Actor，避免云台被错误算作无人机附属 Actor。Avata 原始一体网格的桨叶目前保持静态，不复用 Mavic 的旋翼动画。外形校准不代表质量、惯量或光学内参完成实物标定。
+插件安装器会布置宿主资源并保留 `/Game` 路径；第三方依赖和 JSBSim 运行资源包含在 SDK。完整城市 Shipping 采用 DX12/SM6。自定义宿主已通过 Editor 实跑与 Shipping 编译，完整宿主 Cook 尚未验收。已知城市人物头部材质回退及完整构建证据见[实施记录](../docs/DISTRIBUTION_IMPLEMENTATION_20261110.md)。

@@ -11,6 +11,36 @@
 #include "WiseEyeEventCamera.h"
 #include "Dom/JsonObject.h"
 
+void AWiseEyeDemo::ApplyVisibleFocus(USceneCaptureComponent2D* Lens,FWiseEyeFocus& Focus,bool TrackTarget) {
+    if (!Lens) return;
+    const double Now=GetWorld()->GetTimeSeconds();
+    if (Focus.Mode==TEXT("manual")) Focus.ActualM=Focus.DistanceM;
+    else if (Focus.Mode==TEXT("infinity")) Focus.ActualM=10000;
+    else if (Focus.Mode==TEXT("auto") && Now>=Focus.NextTrace) {
+        Focus.NextTrace=Now+.15;
+        const FVector Origin=Lens->GetComponentLocation(),Forward=Lens->GetForwardVector();
+        FCollisionQueryParams Query(SCENE_QUERY_STAT(WiseEyeAutoFocus),true,this);
+        if (Lens==AerialCapture) {if (Drone) Query.AddIgnoredActor(Drone);if (DynamicsSource) Query.AddIgnoredActor(DynamicsSource);}
+        for (auto Actor:Lens->HiddenActors) if (Actor) Query.AddIgnoredActor(Actor);
+        FHitResult Hit;double Desired=Focus.ActualM;
+        if (TrackTarget && TrackingDrone) Desired=FMath::Max(20.,FVector::DotProduct(TrackingDrone->GetActorLocation()-Origin,Forward))/100.;
+        else if (GetWorld()->LineTraceSingleByChannel(Hit,Origin,Origin+Forward*1000000.,ECC_Visibility,Query)) Desired=Hit.Distance/100.;
+        else Desired=10000;
+        // No exposure-history averaging of images: only the lens actuator eases.
+        Focus.ActualM=FMath::Lerp(Focus.ActualM,FMath::Clamp(Desired,.2,10000.),.65);
+    }
+    auto& PP=Lens->PostProcessSettings;
+    PP.bOverride_DepthOfFieldFstop=true;PP.DepthOfFieldFstop=Focus.Mode==TEXT("off")?22:Focus.Aperture;
+    PP.bOverride_DepthOfFieldSensorWidth=true;PP.DepthOfFieldSensorWidth=Focus.SensorWidthMM;
+    PP.bOverride_DepthOfFieldFocalDistance=true;PP.DepthOfFieldFocalDistance=Focus.ActualM*100.;
+    Lens->ShowFlags.SetDepthOfField(Focus.Mode!=TEXT("off"));
+    if (Lens==Capture && !InfraredMode) {
+        Camera->PostProcessSettings.bOverride_DepthOfFieldFstop=true;Camera->PostProcessSettings.DepthOfFieldFstop=PP.DepthOfFieldFstop;
+        Camera->PostProcessSettings.bOverride_DepthOfFieldSensorWidth=true;Camera->PostProcessSettings.DepthOfFieldSensorWidth=Focus.SensorWidthMM;
+        Camera->PostProcessSettings.bOverride_DepthOfFieldFocalDistance=true;Camera->PostProcessSettings.DepthOfFieldFocalDistance=PP.DepthOfFieldFocalDistance;
+    }
+}
+
 void AWiseEyeDemo::InitializeSensors()
 {
     // Preserve the calibrated lens-head anchor from existing maps, then give
@@ -35,17 +65,20 @@ void AWiseEyeDemo::InitializeSensors()
     InfraredTarget->InitAutoFormat(640,512);
     Capture->TextureTarget = RenderTarget;
     InfraredCapture->TextureTarget = InfraredTarget;
-    // Conservative surveillance-camera response inspired by daylight reference
-    // photographs. No crop/warp or spatial blur: tiny targets retain their GT.
+    // Mild source-image camera response; independent of thermal and event lenses.
     // Weather remains world-controlled, rather than baking haze into every day.
     auto& VisiblePP=Capture->PostProcessSettings;
     Capture->PostProcessBlendWeight=1.f;
-    VisiblePP.bOverride_ColorSaturation=true;VisiblePP.ColorSaturation=FVector4(1,1,1,.88f);
-    VisiblePP.bOverride_ColorContrast=true;VisiblePP.ColorContrast=FVector4(1,1,1,.96f);
-    VisiblePP.bOverride_ColorGamma=true;VisiblePP.ColorGamma=FVector4(1,1,1,1.03f);
+    VisiblePP.bOverride_ColorSaturation=false;
+    VisiblePP.bOverride_ColorContrast=false;
+    VisiblePP.bOverride_ColorGamma=false;
     VisiblePP.bOverride_BloomIntensity=true;VisiblePP.BloomIntensity=.08f;
     VisiblePP.bOverride_VignetteIntensity=true;VisiblePP.VignetteIntensity=.08f;
-    VisiblePP.bOverride_FilmGrainIntensity=true;VisiblePP.FilmGrainIntensity=.04f;
+    VisiblePP.bOverride_FilmGrainIntensity=true;VisiblePP.FilmGrainIntensity=0;
+    if (auto* Material=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/WISEYE/Sensors/M_VisibleCamera.M_VisibleCamera"))) {
+        VisibleInstance=UMaterialInstanceDynamic::Create(Material,this);
+        VisiblePP.AddBlendable(VisibleInstance.Get(),1.f);
+    }
     // Independent asset keeps the original material available for rollback.
     if (auto* Facade = LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/WISEYE/Sensors/M_IR_Facade.M_IR_Facade"))) {
         ThermalMaterial=Facade;ThermalProfile=TEXT("facade");ThermalDetector.Stable=true;ThermalContrast=1.1f;
@@ -115,6 +148,13 @@ void AWiseEyeDemo::ConfigureThermalActors()
 
 void AWiseEyeDemo::RefreshSensors()
 {
+    if (VisibleInstance) {
+        VisibleInstance->SetScalarParameterValue(TEXT("BlurPixels"),VisibleBlur);
+        VisibleInstance->SetScalarParameterValue(TEXT("Noise"),VisibleNoise);
+        VisibleInstance->SetScalarParameterValue(TEXT("Contrast"),VisibleContrast);
+        VisibleInstance->SetScalarParameterValue(TEXT("Saturation"),VisibleSaturation);
+        Camera->PostProcessSettings.AddBlendable(VisibleInstance.Get(),!InfraredMode && VisibleEnabled?1.f:0.f);
+    }
     UpdateSensorTransforms();
     ConfigureThermalActors();
     FieldOfView=InfraredMode?InfraredFOV:VisibleFOV;

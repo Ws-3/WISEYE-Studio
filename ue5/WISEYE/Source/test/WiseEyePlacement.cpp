@@ -138,6 +138,7 @@ bool AWiseEyeDemo::BeginPlacement(const FString& DeviceId,const FString& Token,f
     if (!BuildPlacementPreview(Error)) return false;
     PlacementHasResult=false; PlacementError.Empty(); ++PlacementSequence;
     PlacementActive=true; PlacementStarted=FPlatformTime::Seconds();
+    SetSimulationWindowVisible(true);
     if (APlayerController* PC=GetWorld()->GetFirstPlayerController())
     {
         FInputModeGameAndUI Mode;
@@ -200,8 +201,9 @@ bool AWiseEyeDemo::ApplyDevicePlacement(const FString& DeviceId,const FVector& P
         Target->GimbalPlacementYaw=Yaw;Target->UpdateSensorTransforms();
         return true;
     }
+    if (Target->FixedwingActive) {Error=TEXT("Stop cruise before changing placement");return false;}
     if (Target->RotorsRunning) {Error=TEXT("Land and disarm before changing placement");return false;}
-    if (Target->FlightBackend==EWiseEyeFlightBackend::ProjectAirSim) {
+    if (Target->FlightBackend==EWiseEyeFlightBackend::ProjectAirSim && Target->DroneModel!=TEXT("fixedwing")) {
         // The physics authority must have moved first. Never move only the
         // visual assembly, which would snap back on the following tick.
         if (!IsValid(Target->DynamicsSource) || !Target->DynamicsSource->GetActorLocation().Equals(Position,5.f) ||
@@ -209,6 +211,8 @@ bool AWiseEyeDemo::ApplyDevicePlacement(const FString& DeviceId,const FVector& P
             Error=TEXT("Apply drone placement through the flight controller first");return false;
         }
         Target->Drone->SetActorLocationAndRotation(Position,Target->DynamicsSource->GetActorQuat()*Target->DynamicsVisualRotationOffset.Quaternion(),false,nullptr,ETeleportType::TeleportPhysics);
+    } else if (Target->DroneModel==TEXT("fixedwing")) {
+        Target->FixedwingYaw=Yaw;Target->Drone->SetActorLocationAndRotation(Position,FRotator(0,Yaw,0).Quaternion()*Target->DynamicsVisualRotationOffset.Quaternion(),false,nullptr,ETeleportType::TeleportPhysics);
     } else {
         const FQuat Rotation=FRotator(0,Yaw-Target->InitialYawDegrees,0).Quaternion()*Target->Drone->GetActorQuat();
         Target->Drone->SetActorLocationAndRotation(Position,Rotation,false,nullptr,ETeleportType::TeleportPhysics);

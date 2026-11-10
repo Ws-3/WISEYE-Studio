@@ -1,0 +1,141 @@
+{
+  "city": [
+    {
+      "actor": "/Game/WISEYE/Scenes/city/CitySample.CitySample:PersistentLevel.BP_MassTrafficIntersectionSpawner_C_UAID_E04F43E62770F8F100_1773671968",
+      "class": "BP_MassTrafficIntersectionSpawner_C",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city/CitySample/21/TS/TGKIID26PU4RM01GWZX5B",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "False",
+        "data_layer_assets": "[]"
+      },
+      "generator_count": 1
+    },
+    {
+      "actor": "/Game/WISEYE/Scenes/city/CitySample.CitySample:PersistentLevel.BP_MassTrafficVehicleSpawner_C_UAID_E04F43E62770F8F100_1773643967",
+      "class": "BP_MassTrafficVehicleSpawner_C",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city/CitySample/5R/1G/FDTEU29KQB0D4GSWPWG52",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "False",
+        "data_layer_assets": "[]",
+        "auto_spawn_on_begin_play": "False"
+      },
+      "generator_count": 1
+    },
+    {
+      "actor": "/Game/WISEYE/Scenes/city/CitySample.CitySample:PersistentLevel.BP_MassTrafficTrailerSpawner_C_UAID_E04F43E62770F8F100_1773717970",
+      "class": "BP_MassTrafficTrailerSpawner_C",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city/CitySample/7K/JH/IQ7RNZICOVXKF48UG0KQU",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "True",
+        "data_layer_assets": "[]"
+      },
+      "generator_count": 1
+    },
+    {
+      "actor": "/Game/WISEYE/Scenes/city/CitySample.CitySample:PersistentLevel.MassTrafficZoneGraphDataModifier_UAID_5C879C879000ECEA00_1226936465",
+      "class": "MassTrafficZoneGraphDataModifier",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city/CitySample/2J/09/L2QK92LWX8091W4SIFKX3",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "False",
+        "data_layer_assets": "[]"
+      }
+    },
+    {
+      "actor": "/Game/WISEYE/Scenes/city/CitySample.CitySample:PersistentLevel.ZoneGraphData_UAID_5C879C879000EEEA00_1280800823",
+      "class": "ZoneGraphData",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city/CitySample/3H/DE/LX1GS1KVYNU2SGLER19K6",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "False",
+        "data_layer_assets": "[]"
+      }
+    },
+    {
+      "actor": "/Game/WISEYE/Scenes/city/CitySample.CitySample:PersistentLevel.BP_MassTrafficParkedVehicleSpawner_C_UAID_E04F43E62770F8F100_1773694969",
+      "class": "BP_MassTrafficParkedVehicleSpawner_C",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city/CitySample/2M/5P/CLHQUHY5CP8GRA6GDGQAX",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "False",
+        "data_layer_assets": "[]",
+        "auto_spawn_on_begin_play": "False"
+      },
+      "generator_count": 1
+    },
+    {
+      "actor": "/Game/WISEYE/Scenes/city/CitySample.CitySample:PersistentLevel.BP_MassCrowdSpawner_C_UAID_E04F43E62770CCF200_1841388280",
+      "class": "BP_MassCrowdSpawner_C",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city/CitySample/7P/TV/8VGT7AWPLLO1KL6T0UUPM",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "False",
+        "data_layer_assets": "[]",
+        "auto_spawn_on_begin_play": "False"
+      },
+      "generator_count": 4
+    }
+  ],
+  "city_large": [
+    {
+      "actor": "/Game/WISEYE/Scenes/city_large/BigCity.BigCity:PersistentLevel.ZoneGraphData_UAID_5C879C87900008CB00_1751424601",
+      "class": "ZoneGraphData",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city_large/BigCity/93/5O/U5PGMSEU6044P92YAW3YT",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "False",
+        "data_layer_assets": "[]"
+      }
+    },
+    {
+      "actor": "/Game/WISEYE/Scenes/city_large/BigCity.BigCity:PersistentLevel.BP_MassTrafficParkedVehicleSpawner_C_UAID_345A605B02880F1203_1531575482",
+      "class": "BP_MassTrafficParkedVehicleSpawner_C",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city_large/BigCity/99/0Q/4S3DEZ2E7DKMUGFFA1QY1",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "False",
+        "data_layer_assets": "[]",
+        "auto_spawn_on_begin_play": "False"
+      },
+      "generator_count": 1
+    },
+    {
+      "actor": "/Game/WISEYE/Scenes/city_large/BigCity.BigCity:PersistentLevel.BP_MassCrowdSpawner_C_UAID_345A605B02880F1203_1531578483",
+      "class": "BP_MassCrowdSpawner_C",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city_large/BigCity/9H/AT/UH0QJT9K6C8Z8H5GNO9YT",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "False",
+        "data_layer_assets": "[]",
+        "auto_spawn_on_begin_play": "False"
+      },
+      "generator_count": 4
+    },
+    {
+      "actor": "/Game/WISEYE/Scenes/city_large/BigCity.BigCity:PersistentLevel.BP_MassTrafficVehicleSpawner_C_UAID_345A605B02880F1203_1531572481",
+      "class": "BP_MassTrafficVehicleSpawner_C",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city_large/BigCity/BI/D3/VTZQW58XJ1CY3BG2KHZ4K",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "False",
+        "data_layer_assets": "[]",
+        "auto_spawn_on_begin_play": "False"
+      },
+      "generator_count": 1
+    },
+    {
+      "actor": "/Game/WISEYE/Scenes/city_large/BigCity.BigCity:PersistentLevel.BP_MassTrafficIntersectionSpawner_C_UAID_345A605B02880F1203_1531561480",
+      "class": "BP_MassTrafficIntersectionSpawner_C",
+      "package": "/Game/__ExternalActors__/WISEYE/Scenes/city_large/BigCity/C2/78/959G172HHVNI1UG56TFU9",
+      "before": {
+        "is_spatially_loaded": "False",
+        "is_editor_only_actor": "False",
+        "data_layer_assets": "[]"
+      },
+      "generator_count": 1
+    }
+  ]
+}

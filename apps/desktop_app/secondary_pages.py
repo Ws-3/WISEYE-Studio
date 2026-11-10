@@ -82,6 +82,10 @@ def build_secondary_pages(w,config,copy_sources):
     city_status='已接入 · Small City' if city.get('installed') else '接入中，尚未就绪' if city.get('source_map') else '待接入'
     r.addWidget(w._label('City Sample  ·  '+city_status,'section'));s.addWidget(resources)
     workspace,l=card(w,'03  /  本机工作区','窗口布局保存在本机；场景设备配置通过 Git 同步。')
+    from apps.desktop_app.language import language_selector
+    language_form=QFormLayout();language_form.addRow('界面语言',language_selector(w))
+    l.addLayout(language_form)
+    l.addWidget(w._label('界面语言即时生效，并在下次启动时保留。'))
     l.addWidget(w._button('恢复默认场景主导画面布局',w.gallery.reset_layout,control=False))
     l.addWidget(w._button('查看运行说明',lambda:document('docs/DESKTOP.md'),control=False));s.addWidget(workspace);s.addStretch()
     quality,q=card(w,'性能与画质','修改当前仿真的质量档位；显示上限不等于实际帧率。')
@@ -106,7 +110,7 @@ def build_secondary_pages(w,config,copy_sources):
     from PySide6.QtWidgets import QListWidget,QStackedWidget
     for item in (connection,resources,workspace):s.removeWidget(item)
     sections=QWidget();shell=QHBoxLayout(sections);shell.setContentsMargins(8,10,8,8)
-    navigation=QListWidget();navigation.addItems(['连接与会话','性能与画质','存储工作区','窗口布局','场景与版本']);navigation.setFixedWidth(170)
+    navigation=QListWidget();navigation.addItems(['连接与会话','性能与画质','存储工作区','窗口与语言','场景与版本']);navigation.setFixedWidth(170)
     stack=QStackedWidget()
     for item in (connection,quality,storage,workspace,resources):
         page=QWidget();box=QVBoxLayout(page);box.setContentsMargins(0,0,0,0);box.addWidget(item);box.addStretch();stack.addWidget(scroll(page))

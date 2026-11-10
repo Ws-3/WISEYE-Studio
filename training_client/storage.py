@@ -31,7 +31,7 @@ def model_name(packets):
     if not models:
         for packet in packets:
             models.update(o['model_id'] for o in packet['objects']+packet['ignored_objects'] if o.get('model_id'))
-    names={'mavic3':'Mavic3','avata':'Avata'}
+    names={'mavic3':'Mavic3','avata':'Avata','fixedwing':'Fixedwing'}
     return '-'.join(names.get(m,_slug(m,16)) for m in sorted(models)) if models else 'ModelUnknown'
 
 
@@ -53,7 +53,7 @@ def _files(packet,name,extra):
     lines=[]
     for obj in packet['objects']:
         x1,y1,x2,y2=obj['bbox_xyxy'];width,height=packet['width'],packet['height']
-        lines.append(f"0 {(x1+x2)/2/width:.8f} {(y1+y2)/2/height:.8f} {(x2-x1)/width:.8f} {(y2-y1)/height:.8f}\n")
+        lines.append(f"{obj['class_id']} {(x1+x2)/2/width:.8f} {(y1+y2)/2/height:.8f} {(x2-x1)/width:.8f} {(y2-y1)/height:.8f}\n")
     return {f'images/{name}.jpg':image,f'labels/{name}.txt':''.join(lines).encode(),
             f'annotations/{name}.json':json.dumps(metadata,ensure_ascii=False,indent=2).encode('utf8')}
 

@@ -1,109 +1,52 @@
-# WISEYE Studio 安装说明
+# 安装与首次运行 · v1.1.0
 
-2026-10-28：本机日常统一双击根目录 **`Start-WISEYE-Studio.vbs`**，一次启动当前城市预览、飞控和桌面。下方保留的分步 PowerShell 命令面向开发；在仓库 PowerShell 执行，遇执行策略限制加 `powershell.exe -NoProfile -ExecutionPolicy Bypass -File`。已启动UE时仅重开桌面用 `scripts/Start-Desktop.ps1 -Connect`。详见[当前使用指南](USER_GUIDE.md)。
+当前支持完整运行包、源码插件接入和完整源码开发三种入口。GitHub Source code ZIP 不是可执行软件包。
 
-本文用于在一台新的 Windows 电脑上复现当前完整功能：UE 场景、Project AirSim 无人机动力学、CH1/CH2 实时视频、LIDAR 点云和桌面控制台。日常操作见 [DESKTOP.md](DESKTOP.md)，视频链路细节见 [RTSP.md](RTSP.md)。
+## 完整运行包
 
-> 本文面向源码开发环境。普通用户可使用包含UE运行时和Python依赖的独立运行包，无需安装UE/VS/开发Python；最新包的功能、校验及限制见[RELEASE_BUILD.md](RELEASE_BUILD.md)。GitHub源码ZIP不等同于该运行包。
+本地最新 `WISEYE-Full-20261110.zip` 约 27.3 GiB，内置大小城市。当前 v1.1.0 GitHub Release 只提供插件包；完整包尚无公开下载链接。
 
-## 当前工程的城市依赖（2026-10-22）
+将整个运行包解压到可写目录，保留文件结构，运行 `WISEYE/WISEYE.exe`；训练端在 `WISEYE/Training/WISEYE-Training.exe`。桌面打开后不会自动启动 UE，选择场景并手动启动仿真。配置和输出保存在便携 UserData；关闭前先停止飞行。
 
-当前test.uproject启用了CitySampleSupport；新电脑只拉Git还没有该插件的本地源码，不能直接构建。先通过Epic/Fab获取UE5.8版CitySample，在执行下方会构建UE的Setup-ProjectAirSim之前，运行：
+普通用户不需要 UE 编辑器、VS、Git 或 Python；需要 Windows x64、支持 DX12/SM6 的显卡驱动和 VC++ x64 运行库。包内带运行库安装程序。压缩包和展开目录同时保留至少预留 60 GiB，缓存、采集和录像另计。首次加载可能编译缓存或流送大量城市资源，不要重复启动。
 
-```powershell
-.\scripts\Setup-CitySample.ps1 -SourceProject "E:\Projects\Scene\CitySample\CitySample.uproject" -EngineRoot "E:\Programs\UE_5.8" -Stage Dependencies -SkipBuild
-```
+## 插件接入自己的地图
 
-随后按下方步骤安装AirSim并构建。首次运行城市还需按[CITY_SAMPLE_SETUP.md](CITY_SAMPLE_SETUP.md)完成Assets、Duplicate、Assemble阶段；公开仓库不带生成的城市地图及整套城市外部Actor。本机已有完整副本时不重复复制地图/安装装配。路径按各电脑实际修改。每日操作见[USER_GUIDE.md](USER_GUIDE.md)。
+从 [v1.1.0 Release](https://github.com/Ws-3/WISEYE-Studio/releases/tag/v1.1.0) 下载 `WISEYE-Plugin-v1.1.0-UE5.8-Win64.zip` 与 SHA256，校验、解压后按[插件接入指南](PLUGIN_DISTRIBUTION.md)执行。需要 UE 5.8 C++ 宿主、VS 2022 C++ 工具链和支持安装器的 Python；不要求下载 City Sample。当前插件版本已验证 UE 5.8.4/Windows x64，其他平台未验收。
 
-## 1. 安装基础软件
+## 完整源码开发
 
-- Unreal Engine 5.8；当前实测版本为 5.8.4，5.8.3为历史验证版本。
-- Visual Studio 2022，勾选“使用 C++ 的游戏开发”，并安装 MSVC v143、Windows 10/11 SDK 和 UE 工具。
-- Git、Python 3.12 或更新版本。
-- FFmpeg，并确保 PowerShell 执行 `ffmpeg -version` 成功。
-
-其他 UE 大版本没有经过验证。工程包含 C++ 模块，首次运行必须具备 VS 编译工具链。
-
-## 2. 获取工程
-
-推荐克隆仓库：
+基础软件：Git、UE 5.8（当前验证 5.8.4）、VS 2022“使用 C++ 的游戏开发”及 Windows SDK、CMake、Python 3.12 或更新版本、FFmpeg。包中已有编译原生依赖不代表可省略宿主 C++ 编译工具链。
 
 ```powershell
-cd D:\Projects
 git clone https://github.com/Ws-3/WISEYE-Studio.git
 cd WISEYE-Studio
+Set-Content .\scripts\engine-root.local.txt 'C:\Program Files\Epic Games\UE_5.8'
 ```
 
-GitHub 的 Download ZIP 也能运行，但 ZIP 没有 Git 历史，之后不能直接 `git pull`。模型、纹理、地图和 WISEYE 源码都在仓库内，不使用 Git LFS。
-
-## 3. 配置桌面环境与 UE 路径
+默认 UE 工程启用了 City Sample 兼容模块。构建城市示例前先通过 Epic/Fab 合法取得同版 City Sample，再依次准备依赖；所有路径换为本机实际路径：
 
 ```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install --upgrade pip
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-Set-Content -Path .\scripts\engine-root.local.txt -Value 'C:\Program Files\Epic Games\UE_5.8'
-```
-
-把最后一行替换为本机真实的 UE 安装目录。`.venv` 和 `engine-root.local.txt` 只属于本机，不会上传。当前桌面入口固定使用仓库内 `.venv`，只在 conda 的 WISEYE 环境安装 PySide6 并不能替代这一步。
-
-## 4. 安装实时视频和 Project AirSim
-
-先安装 MediaMTX：
-
-```powershell
+.\scripts\Setup-CitySample.ps1 -SourceProject 'D:\Scenes\CitySample\CitySample.uproject' -EngineRoot 'C:\Program Files\Epic Games\UE_5.8' -Stage Dependencies -SkipBuild
+.\scripts\Setup-ProjectAirSim.ps1 -EngineRoot 'C:\Program Files\Epic Games\UE_5.8'
+.\scripts\Build-JSBSim.ps1
+.\scripts\Setup-DeveloperEnvironment.ps1 -Python python
 .\scripts\Setup-RTSP.ps1
 ```
 
-再获取固定提交的 Project AirSim、应用仓库补丁并构建插件：
+Project AirSim 固定源码和补丁位于仓库 `builds/dependencies/ProjectAirSimSource`，不再默认创建外部 Evaluation 工程。开发 Python 环境为 `.venv`；脚本也支持已有 Tools/Python 或 builds/python-env。新环境助手已做语法检查，本机不是干净安装验收，不承诺全新电脑零配置。
 
-2026-10-22 起安装脚本还会应用独立的 `projectairsim-wall-contact.patch`，修复建筑连续接触时丢弃新控制响应导致粘墙的问题。已有环境更新此补丁也要关闭 UE 并重建 SimLibs，之后正常启动重建 UE 插件；只更新 Python 不生效。见 [COLLISION_RECOVERY.md](COLLISION_RECOVERY.md)。
+然后按[城市接入指南](CITY_SAMPLE_SETUP.md)准备 Assets、Duplicate、Assemble；必须保留 World Partition 外部 Actor，不能只复制 umap。已有完整本地城市不重复装配。自己的地图走插件路线，不需要先构建城市示例。
 
-```powershell
-.\scripts\Setup-ProjectAirSim.ps1 -EngineRoot 'C:\Program Files\Epic Games\UE_5.8'
-```
+## 日常启动与更新
 
-脚本默认把 Project AirSim 放在 WISEYE 同级目录 `D:\Projects\ProjectAirSim-Evaluation`，并把所需插件目录联接到 UE 工程。若 VS 无法自动识别，可追加：
+双击根目录 `Start-WISEYE-Studio.vbs` 或执行 `scripts/Start-Desktop.ps1`，再从界面启动仿真。已有实例可显式连接；打开界面本身不启动 UE。自定义宿主使用 `scripts/Start-CustomEnvironment.ps1 -ProjectPath 'D:\MyScene\MyScene.uproject' -Scene custom`。
 
 ```powershell
-.\scripts\Setup-ProjectAirSim.ps1 `
-  -EngineRoot 'C:\Program Files\Epic Games\UE_5.8' `
-  -VisualStudioRoot 'C:\Program Files\Microsoft Visual Studio\2022\Community'
+# 若 PowerShell 执行策略拦截，仅本次进程绕过
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\Start-Desktop.ps1
 ```
 
-Project AirSim 源码、构建产物和 MediaMTX 二进制可由脚本重建，因此不存入 WISEYE 仓库。适配补丁保存在 `third_party/patches/`。
+源码更新前保存并关闭 UE、提交或保存本地改动，再 `git pull --ff-only`；原生/资源变化需重建相应模块，依赖变化按发行说明处理。插件安装器当前拒绝覆盖不同内容的已有文件，升级请先备份宿主并使用清洁副本重新接入，不能假定支持原地自动升级。完整包手动解压到新目录并保留用户数据，尚无在线更新器。
 
-## 5. 启动完整系统
-
-1. 在 PowerShell 中运行 `scripts/Start-ProjectAirSim.ps1`。它会启动 MediaMTX、编译并打开 UE、进入 Play，然后启动 AirSim 飞控服务。
-2. 等待 UE 场景和无人机出现后，在 PowerShell 中运行 `scripts/Start-Desktop.ps1`。
-3. 在桌面窗口点击“连接 UE”。选择手动飞行后，可用界面按钮或 W/S、A/D、R/F、Q/E 控制无人机。
-4. CH1 为可见光，目标输出 30 FPS；CH2 为红外，目标输出 25 FPS；LIDAR 页显示云台点云。
-
-首次构建、着色器编译和纹理准备耗时较长。后续启动会复用本机生成的缓存。
-
-## 6. 只运行基础 UE 演示
-
-不使用 Project AirSim 时可在 PowerShell 中运行 `scripts/Start-WISEYE.ps1`，然后在 UE 中点击绿色“播放”。该入口仍可用于场景编辑和运动学回退演示；完整动力学和桌面手动飞控请使用 `scripts/Start-ProjectAirSim.ps1`。
-
-## 7. 更新与迁移
-
-开始工作前先保存并关闭 UE，再执行：
-
-```powershell
-git pull --ff-only
-```
-
-更新源码后重新运行启动脚本，它会编译 UE 模块。若 `requirements.txt`、Project AirSim 固定提交或补丁发生变化，重新执行相应安装步骤。不要复制另一台电脑的 `.venv`、`Binaries`、`Intermediate` 或 UE 缓存。
-
-当前完整限制：Mavic 3/Avata 切换只改变显示模型；红外为热强度近似；两路视频在当前完整场景约产生 20 FPS 的独立新渲染帧，RTSP 按 30/25 FPS 输出并重复最新帧。达到独立 1080p30 需要后续接入 GPU H.264 编码。
-
-## 8. 常见问题
-
-- `Desktop environment missing`：在仓库根目录重新执行第 3 节的 `.venv` 创建和依赖安装。
-- 找不到 UE：修正 `scripts/engine-root.local.txt`，路径下必须存在 `Engine` 文件夹。
-- 缺少 ProjectAirSim 插件或模块：先完成第 4 节，保存并关闭正在运行的 UE 后再构建。
-- RTSP 无画面：确认 `ffmpeg -version` 可用，并重新运行 `Setup-RTSP.ps1`。
-- 连接 50051 失败：确认 UE 已进入 Play；只打开编辑器不会启动 WISEYE 控制桥。
-- 连接 50052 失败：从 `scripts/Start-ProjectAirSim.ps1` 启动，并等待 AirSim 场景初始化完成。
+详[用户指南](USER_GUIDE.md)、[插件指南](PLUGIN_DISTRIBUTION.md)、[打包指南](RELEASE_BUILD.md)及[目录依赖](PROJECT_DEPENDENCIES.md)。

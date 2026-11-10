@@ -61,6 +61,7 @@ void AWiseEyeDemo::SetVisualAssemblyCollision(bool Enabled)
 
 void AWiseEyeDemo::StepProjectAirSim(float Dt)
 {
+    if (DroneModel==TEXT("fixedwing")) {StepFixedwing(Dt);return;}
     if (!TryBindDynamicsSource())
     {
         StepGimbal(Dt,false);

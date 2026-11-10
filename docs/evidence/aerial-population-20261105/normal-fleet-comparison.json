@@ -1,0 +1,12 @@
+[
+  {
+    "path": "UserData\\ue5\\WISEYE\\Config\\WISEYE\\Fleets\\city.json",
+    "matches_initial_test_copy": true,
+    "sha256": "da210ead6da7362488a2456c92f360b500b2ea3dc7b4eadd645e1fcaa2f5fc16"
+  },
+  {
+    "path": "UserData\\ue5\\WISEYE\\Config\\WISEYE\\Fleets\\city_large.json",
+    "matches_initial_test_copy": true,
+    "sha256": "508bcfff16f2ed8a0d9375d31b2f0e0ed35711f8264457e1840a120b427afb39"
+  }
+]

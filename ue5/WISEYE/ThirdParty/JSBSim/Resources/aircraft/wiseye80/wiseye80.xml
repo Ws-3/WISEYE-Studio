@@ -1,0 +1,226 @@
+<?xml version='1.0' encoding='utf-8'?>
+<fdm_config name="WISEYE 80 cm reference UAV - UNCALIBRATED" version="2.0" release="BETA">
+  <fileheader>
+    <author>WISEYE</author>
+    <description>Generic engineering reference; all mass, inertia, aero and thrust estimates are uncalibrated. Not an identified aircraft.</description>
+  </fileheader>
+  <metrics>
+    <wingarea unit="M2">0.15</wingarea>
+    <wingspan unit="M">0.62052</wingspan>
+    <chord unit="M">0.242</chord>
+    <htailarea unit="M2">0.035</htailarea>
+    <htailarm unit="M">0.3</htailarm>
+    <vtailarea unit="M2">0.025</vtailarea>
+    <vtailarm unit="M">0.3</vtailarm>
+    <location name="AERORP" unit="M">
+      <x>0</x>
+      <y>0</y>
+      <z>0</z>
+    </location>
+    <location name="EYEPOINT" unit="M">
+      <x>0</x>
+      <y>0</y>
+      <z>0</z>
+    </location>
+    <location name="VRP" unit="M">
+      <x>0</x>
+      <y>0</y>
+      <z>0</z>
+    </location>
+  </metrics>
+  <mass_balance>
+    <ixx unit="KG*M2">0.006</ixx>
+    <iyy unit="KG*M2">0.025</iyy>
+    <izz unit="KG*M2">0.03</izz>
+    <ixy unit="KG*M2">0</ixy>
+    <ixz unit="KG*M2">0</ixz>
+    <iyz unit="KG*M2">0</iyz>
+    <emptywt unit="KG">0.65</emptywt>
+    <location name="CG" unit="M">
+      <x>0</x>
+      <y>0</y>
+      <z>0</z>
+    </location>
+  </mass_balance>
+  <ground_reactions />
+  <external_reactions>
+    <property value=".2">fcs/throttle-cmd-norm</property>
+    <force name="electric_thrust" frame="BODY">
+      <function>
+        <product>
+          <property>fcs/throttle-cmd-norm</property>
+          <value>0.899235772398842</value>
+        </product>
+      </function>
+      <location name="thrust" unit="M">
+        <x>0</x>
+        <y>0</y>
+        <z>0</z>
+      </location>
+      <direction>
+        <x>1</x>
+        <y>0</y>
+        <z>0</z>
+      </direction>
+    </force>
+  </external_reactions>
+  <aerodynamics>
+    <axis name="LIFT">
+      <function name="aero/lift">
+        <product>
+          <property>aero/qbar-psf</property>
+          <property>metrics/Sw-sqft</property>
+          <sum>
+            <table>
+              <independentVar lookup="row">aero/alpha-rad</independentVar>
+              <tableData>
+-1.57 0
+-.8 -.4
+-.4 -.8
+-.2 -.7
+0 .2
+.245 1.3
+.4 .8
+.8 .4
+1.57 0
+</tableData>
+            </table>
+            <product>
+              <value>3.5</value>
+              <property>aero/ci2vel</property>
+              <property>velocities/q-aero-rad_sec</property>
+            </product>
+            <product>
+              <value>0.4</value>
+              <property>fcs/elevator-cmd-norm</property>
+            </product>
+          </sum>
+        </product>
+      </function>
+    </axis>
+    <axis name="DRAG">
+      <function name="aero/drag">
+        <product>
+          <property>aero/qbar-psf</property>
+          <property>metrics/Sw-sqft</property>
+          <sum>
+            <value>0.035</value>
+            <product>
+              <value>0.07</value>
+              <pow>
+                <sum>
+                  <value>0.2</value>
+                  <product>
+                    <value>4.5</value>
+                    <property>aero/alpha-rad</property>
+                  </product>
+                </sum>
+                <value>2</value>
+              </pow>
+            </product>
+            <product>
+              <value>0.25</value>
+              <property>aero/beta-rad</property>
+              <property>aero/beta-rad</property>
+            </product>
+          </sum>
+        </product>
+      </function>
+    </axis>
+    <axis name="SIDE">
+      <function name="aero/side">
+        <product>
+          <property>aero/qbar-psf</property>
+          <property>metrics/Sw-sqft</property>
+          <sum>
+            <product>
+              <value>-0.7</value>
+              <property>aero/beta-rad</property>
+            </product>
+            <product>
+              <value>0.15</value>
+              <property>fcs/rudder-cmd-norm</property>
+            </product>
+          </sum>
+        </product>
+      </function>
+    </axis>
+    <axis name="ROLL">
+      <function name="aero/roll">
+        <product>
+          <property>aero/qbar-psf</property>
+          <property>metrics/Sw-sqft</property>
+          <property>metrics/bw-ft</property>
+          <sum>
+            <product>
+              <value>-0.08</value>
+              <property>aero/beta-rad</property>
+            </product>
+            <product>
+              <value>-0.5</value>
+              <property>aero/bi2vel</property>
+              <property>velocities/p-aero-rad_sec</property>
+            </product>
+            <product>
+              <value>0.17</value>
+              <property>fcs/aileron-cmd-norm</property>
+            </product>
+            <product>
+              <value>0.04</value>
+              <property>fcs/rudder-cmd-norm</property>
+            </product>
+          </sum>
+        </product>
+      </function>
+    </axis>
+    <axis name="PITCH">
+      <function name="aero/pitch">
+        <product>
+          <property>aero/qbar-psf</property>
+          <property>metrics/Sw-sqft</property>
+          <property>metrics/cbarw-ft</property>
+          <sum>
+            <value>-0.04</value>
+            <product>
+              <value>-0.8</value>
+              <property>aero/alpha-rad</property>
+            </product>
+            <product>
+              <value>-8</value>
+              <property>aero/ci2vel</property>
+              <property>velocities/q-aero-rad_sec</property>
+            </product>
+            <product>
+              <value>-1</value>
+              <property>fcs/elevator-cmd-norm</property>
+            </product>
+          </sum>
+        </product>
+      </function>
+    </axis>
+    <axis name="YAW">
+      <function name="aero/yaw">
+        <product>
+          <property>aero/qbar-psf</property>
+          <property>metrics/Sw-sqft</property>
+          <property>metrics/bw-ft</property>
+          <sum>
+            <product>
+              <value>0.12</value>
+              <property>aero/beta-rad</property>
+            </product>
+            <product>
+              <value>-0.16</value>
+              <property>aero/bi2vel</property>
+              <property>velocities/r-aero-rad_sec</property>
+            </product>
+            <product>
+              <value>0.06</value>
+              <property>fcs/rudder-cmd-norm</property>
+            </product>
+          </sum>
+        </product>
+      </function>
+    </axis>
+  </aerodynamics>
+</fdm_config>

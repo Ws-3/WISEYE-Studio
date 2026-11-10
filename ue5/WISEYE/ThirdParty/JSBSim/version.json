@@ -1,0 +1,7 @@
+{
+  "adapter": "third_party/jsbsim_adapter",
+  "source": "https://github.com/JSBSim-Team/jsbsim",
+  "license": "LGPL-2.1-or-later",
+  "version": "1.2.4",
+  "commit": "e07a7d810d4f1048039d42545d008b8a998636fa"
+}

@@ -3,6 +3,11 @@ from unittest.mock import patch
 from integrations.ProjectAirSim.run_wiseye_flight import resolved_ue_state_ready,wait_for_ue_snapshot,ue_listener_open,restore_observer
 VALID=dict(status='ok',payload=dict(scene_id='city',run_id='current-city-run',initial_drone_position_cm=[-29298.7,-100.7,25],devices=[dict(id='uav-01',kind='drone',dynamics_name='Drone1',initial_position_cm=[-29298.7,-100.7,25])]))
 class SceneStartupTests(unittest.IsolatedAsyncioTestCase):
+ def test_custom_scene_is_accepted_without_weakening_pose_checks(self):
+  state=copy.deepcopy(VALID);state['payload']['scene_id']='laboratory_01'
+  self.assertTrue(resolved_ue_state_ready(state))
+  for value in ['../city','/Game/Map','CITY','',None,True]:
+   state['payload']['scene_id']=value;self.assertFalse(resolved_ue_state_ready(state))
  async def test_observer_restore_requires_acknowledgement(self):
   with patch('integrations.ProjectAirSim.run_wiseye_flight.wiseeye_request',side_effect=[None,{'status':'error'},{'status':'ok'}]) as send:
    self.assertTrue(await restore_observer('overview',3))

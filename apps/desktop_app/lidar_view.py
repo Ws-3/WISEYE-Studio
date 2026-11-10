@@ -1,3 +1,4 @@
+from core.localization import tr
 """Single-scan metric point-cloud viewer; no invented or accumulated points."""
 import math
 from PySide6.QtCore import QPointF, QRectF, Qt
@@ -106,7 +107,7 @@ class LidarView(QWidget):
         if not self.points:
             painter.setPen(QColor('#9db2c8'))
             text=self.unavailable_message or ('本帧无回波' if compact else '本帧无回波\n朝向天空或目标在扫描间隙时可能没有命中')
-            painter.drawText(area, Qt.AlignmentFlag.AlignCenter, text)
+            painter.drawText(area, Qt.AlignmentFlag.AlignCenter, tr(text))
             return
         mode = self.mode.currentData()
         if mode == 'sensor':
@@ -130,9 +131,9 @@ class LidarView(QWidget):
                 painter.drawPoint(QPointF(area.center().x()+x*area.width()*.5*self.zoom,area.center().y()-y*area.height()*.5*self.zoom))
             painter.restore();painter.setPen(QColor('#b3c6dc'))
             if not compact:
-                painter.drawText(190,32,f'{self.total_count} 回波 / {self.rays} 射线')
-                painter.drawText(12,self.height()-35,f'云台 / 雷达视角 · {self.horizontal_fov:g}° × {self.vertical_fov:g}° · 距离 {lo:.2f}–{hi:.2f} m')
-                painter.drawText(12,self.height()-14,'滚轮缩放 / 自由三维可旋转 / 双击回到云台视角；非相机像素配准')
+                painter.drawText(190,32,tr(f'{self.total_count} 回波 / {self.rays} 射线'))
+                painter.drawText(12,self.height()-35,tr(f'云台 / 雷达视角 · {self.horizontal_fov:g}° × {self.vertical_fov:g}° · 距离 {lo:.2f}–{hi:.2f} m'))
+                painter.drawText(12,self.height()-14,tr('滚轮缩放 / 自由三维可旋转 / 双击回到云台视角；非相机像素配准'))
             return
         projected = [project_point(p, mode, self.yaw, self.elevation) for p in self.points]
         xs, ys = zip(*projected)
@@ -157,20 +158,20 @@ class LidarView(QWidget):
         painter.restore()
         if compact:
             painter.setPen(QColor('#b4bcc8'))
-            painter.drawText(area.adjusted(6,2,-6,-2),Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop,f'{self.total_count} 回波')
+            painter.drawText(area.adjusted(6,2,-6,-2),Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTop,tr(f'{self.total_count} 回波'))
             return
         origin = QPointF(area.left()+42, area.bottom()-40)
         for label, p, color in [('X 前',(1,0,0),'#f87171'),('Y 右',(0,1,0),'#4ade80'),('Z 上',(0,0,1),'#60a5fa')]:
             x,y=project_point(p,mode,self.yaw,self.elevation)
             end=origin+QPointF(x*27,-y*27)
             painter.setPen(QPen(QColor(color),1.5));painter.drawLine(origin,end)
-            painter.drawText(end+QPointF(3,-3),label)
+            painter.drawText(end+QPointF(3,-3),tr(label))
         painter.setPen(QColor('#b3c6dc'))
         rays = f' / {self.rays} 射线' if self.rays else ''
-        painter.drawText(190,32,f'{self.total_count} 回波{rays}')
-        painter.drawText(12,self.height()-35,f'单帧 · 等比例 · 距离 {lo:.2f}–{hi:.2f} m · 近青 → 远红')
-        painter.drawText(12,self.height()-14,'拖动旋转 / 滚轮缩放 / 双击复位' if mode=='3d' else '局部坐标投影；细线/平面也可能是真实回波')
+        painter.drawText(190,32,tr(f'{self.total_count} 回波{rays}'))
+        painter.drawText(12,self.height()-35,tr(f'单帧 · 等比例 · 距离 {lo:.2f}–{hi:.2f} m · 近青 → 远红'))
+        painter.drawText(12,self.height()-14,tr('拖动旋转 / 滚轮缩放 / 双击复位' if mode=='3d' else '局部坐标投影；细线/平面也可能是真实回波'))
         unit=10**math.floor(math.log10(max(.001,80/scale)))
         x,y=area.right()-95,area.bottom()-14
         painter.drawLine(QPointF(x,y),QPointF(x+unit*scale,y))
-        painter.drawText(QPointF(x,y-5),f'{unit:g} m')
+        painter.drawText(QPointF(x,y-5),tr(f'{unit:g} m'))

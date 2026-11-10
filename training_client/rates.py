@@ -4,13 +4,14 @@ import threading
 
 
 class Rates:
-    def __init__(self,display_fps=1,save_fps=1,recording=False):
+    def __init__(self,display_fps=1,save_fps=1,recording=False,max_display=10):
         self.lock=threading.Lock();self.next_display=0;self.next_save=0
+        self.max_display=max_display
         self.configure(display_fps,save_fps,recording)
 
     def configure(self,display_fps,save_fps,recording):
-        if any(type(v) not in (int,float) or not math.isfinite(v) or not .1<=v<=10 for v in (display_fps,save_fps)):
-            raise ValueError('Display/save rates must be 0.1..10 FPS')
+        if any(type(v) not in (int,float) or not math.isfinite(v) or not .1<=v<=limit for v,limit in ((display_fps,self.max_display),(save_fps,10))):
+            raise ValueError(f'Display must be 0.1..{self.max_display}, saving 0.1..10 FPS')
         with self.lock:
             if getattr(self,'display',None)!=display_fps:self.next_display=0
             if getattr(self,'save',None)!=save_fps or getattr(self,'recording',None)!=recording:self.next_save=0

@@ -1,0 +1,18 @@
+{
+  "asset": "/Game/WISEYE/DroneModels/Fixedwing/FixedwingUAV_gray",
+  "source": "E:\\Projects\\WISEYE\\Models\\FixedwingUAV_gray.fbx",
+  "raw_size_cm": [
+    155.11837768554688,
+    199.98580169677734,
+    33.38213348388672
+  ],
+  "raw_center_cm": [
+    -27.385711669921875,
+    -64.5761604309082,
+    -108.12983322143555
+  ],
+  "user_length_cm": 80,
+  "materials": [
+    "e3fa6f48-e9df-436d-aa07-10b5f3494486"
+  ]
+}

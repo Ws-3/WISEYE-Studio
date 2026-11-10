@@ -1,0 +1,18 @@
+Real loading finished
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "E:\Projects\WISEYE\tests\verify_population_loading_live.py", line 61, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "E:\Projects\WISEYE\tests\verify_population_loading_live.py", line 50, in main
+    d.nudge('yaw_deg',5);settle(.5);s=state();hw=s['runtime_hardware']
+                                      ~~~~~^^
+  File "E:\Projects\WISEYE\tests\verify_population_loading_live.py", line 32, in state
+    def state():return rpc('sim.get_state')
+                       ~~~^^^^^^^^^^^^^^^^^
+  File "E:\Projects\WISEYE\tests\verify_population_loading_live.py", line 30, in rpc
+    r=request(50051,command,args,timeout=4);assert r['status']=='ok',r
+  File "E:\Projects\WISEYE\core\local_rpc.py", line 18, in request
+    part = peer.recv(65536)
+TimeoutError: timed out

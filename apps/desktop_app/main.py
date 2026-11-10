@@ -39,7 +39,7 @@ def main():
     except (ValueError, OSError) as exc:
         QMessageBox.critical(None, 'WISEYE 配置错误', str(exc))
         return 1
-    window.show()
+    window.showMaximized()
     if args.connect:
         from PySide6.QtCore import QTimer
         QTimer.singleShot(200, window.connect_ue)

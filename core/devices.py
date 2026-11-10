@@ -6,6 +6,7 @@ from core.layouts import LayoutStore
 DEVICE_ID=re.compile(r'^(uav|ptz)-[0-9]{2}$')
 MODELS={'mavic3':dict(kind='drone',name='Mavic 3',physics='shared_quadrotor'),
         'avata':dict(kind='drone',name='Avata',physics='shared_quadrotor'),
+        'fixedwing':dict(kind='drone',name='固定翼（80 cm）',physics='jsbsim_6dof'),
         'eo80':dict(kind='gimbal',name='80 cm 光电云台',sensors=['visible','infrared','lidar','event'])}
 
 def validate_devices(data,scene_id):

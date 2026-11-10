@@ -40,8 +40,9 @@ class RuntimePanel(QWidget):
         self.hardware.setText(f"{data.get('gpu_name','显卡未提供')}  ·  显卡专用显存 {gib(total)}  ·  UE 使用 {gib(used)} / 驱动预算 {gib(budget)}")
         self.details.setText(f"运行主机 CPU {percent(number(data,'system_cpu_pct'))}  ·  UE GPU 引擎峰值 {percent(number(data,'ue_gpu_engine_peak_pct'))}  ·  系统内存 {gib(number(data,'system_ram_used_bytes'))} / {gib(number(data,'system_ram_total_bytes'))}  ·  UE {'未提供' if fps is None else f'{fps:.1f} FPS'}")
         self.hardware.setToolTip(f"仿真运行主机：{data.get('cpu_name','未知 CPU')}\nUE 进程内存：{gib(number(data,'ue_ram_bytes'))}\n显存使用与预算来自 UE RHI；预算不是显卡物理容量。\nGPU 百分比为此 UE 进程最忙引擎的 Windows 计数器读数，不是整卡总占用。")
-        self.warning.setText(self.advice.update(data))
-        self.rating_model.update(data,state.get('performance_profile','economy'));self.refresh_rating()
+        preparing=state.get('world_streaming_ready') is False or state.get('population',{}).get('pending',False)
+        self.warning.setText(self.advice.update(data,preparing=preparing))
+        self.rating_model.update(data,state.get('performance_profile','economy'),preparing=preparing);self.refresh_rating()
 
     def refresh_rating(self):
         grade,reason=self.rating_model.current()

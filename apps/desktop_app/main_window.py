@@ -24,6 +24,10 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle('WISEYE Studio · 智瞳控制台')
         self.resize(1600, 1000)
+        from PySide6.QtGui import QAction,QKeySequence
+        self.fullscreen_action=QAction('全屏显示',self);self.fullscreen_action.setCheckable(True)
+        self.fullscreen_action.setShortcut(QKeySequence('F11'));self.addAction(self.fullscreen_action)
+        self.fullscreen_action.toggled.connect(lambda full:self.showFullScreen() if full else self.showMaximized())
         self.setMinimumSize(960, 640)
         self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
         self.setStyleSheet(STYLE)
@@ -64,7 +68,12 @@ class MainWindow(QMainWindow):
         self.manual_input = (0.0, 0.0, 0.0, 0.0)
         self.manual_keys = set()
         QApplication.instance().installEventFilter(self)
+        from apps.desktop_app.language import manager
+        manager()
         self._build(config)
+        from apps.desktop_app.loading_screen import LoadingScreen
+        self.loading_screen=LoadingScreen(self)
+        manager().register(self)
         self.health_timer=QTimer(self);self.health_timer.setInterval(500)
         self.health_timer.timeout.connect(self.check_health);self.health_timer.start()
         self.client.connection_changed.connect(self.connection_changed)
@@ -89,7 +98,8 @@ class MainWindow(QMainWindow):
         if hasattr(self,'tree_panel'):
             narrow=self.width()<1440
             if getattr(self,'_narrow',None)!=narrow:
-                self.tree_panel.setVisible(not narrow)
+                aerial=getattr(getattr(self,'mission_workspace',None),'mode',None)=='aerial'
+                self.tree_panel.setVisible(not narrow and not aerial)
                 self._narrow=narrow
 
     def _button(self, text, callback, primary=False, control=True):
@@ -193,6 +203,10 @@ class MainWindow(QMainWindow):
             self.runtime_manager.message.connect(self.log)
             self.runtime_manager.ready.connect(self.runtime_ready)
             self.runtime_manager.stopped.connect(self.runtime_stopped)
+            self.runtime_manager.phase.connect(self.loading_screen.phase)
+            self.runtime_manager.failed.connect(self.loading_screen.fail)
+            self.runtime_manager.stopped.connect(self.loading_screen.stopped)
+        if not self.runtime_manager.running:self.loading_screen.begin(self.scenes.currentData() or {'id':'city'})
         self.runtime_manager.launch(self.scenes.currentData() or {'id':'city'})
         self.sync_session_buttons()
 
@@ -406,6 +420,7 @@ class MainWindow(QMainWindow):
         physics=state.get('flight_backend')=='projectairsim'
         rpm=next((d.get('motor_rpm') for d in self.air_state.get('fleet',[]) if d.get('drone_id')==self.selected_drone),None) or self.air_state.get('motor_rpm',[])
         self.motor_label.setText(('电机 RPM：'+' / '.join(f'{v:.0f}' for v in rpm)) if physics and rpm else '电机转速：等待遥测' if physics else '运动学旋翼动画')
+        if self.air_state.get('airframe')=='fixedwing':self.motor_label.setText(f"JSBSim 巡航 · {self.air_state.get('velocity_mps',0):.1f} m/s · 未模拟电机转速")
         self.rotors_button.setText('停止旋翼动画' if state['rotors_running'] else '启动旋翼动画')
         self.rotors_button.setVisible(not physics)
         self.rotors_button.setEnabled(not physics)
@@ -465,8 +480,25 @@ class MainWindow(QMainWindow):
                     widget.setEnabled(widget.isEnabled() and status!='ready')
         names={'ready':'地面待命','active':'已离地','taking_off':'起飞中','hovering':'悬停','manual':'手动飞行','landing':'降落中','flying':'飞行中','unknown':'状态待确认'}
         self.flight_status_label.setText(names.get(status,status)+(' · 动作执行中' if active else ''))
+        collision_stop=self.air_state.get('airframe')=='fixedwing' and 'obstacle' in self.air_state.get('last_error','').lower()
+        if collision_stop:
+            self.flight_status_label.setText('固定翼碰撞保护停止 · 返回起点后重新巡航')
+            self.resume_button.setEnabled(False)
+        self.reset_button.setText('碰撞后返回起点' if collision_stop else '返回起点')
         self.manual_takeover.setEnabled(available and (not is_airsim or status!='ready') and (not active or mode=='auto'))
         self.takeoff_button.setToolTip('仅地面待命、飞控就绪且仿真推进正常时可起飞。')
+        fixed=self.air_state.get('airframe')=='fixedwing'
+        mapping={'前进':'加速 W','后退':'减速 S','向左':'左转 A','向右':'右转 D','左转':'左转 Q','右转':'右转 E','悬停':'平飞'}
+        for button,title in getattr(self,'manual_axis_buttons',[]):button.setText(mapping.get(title,title) if fixed else title)
+        if hasattr(self,'manual_move_hint'):self.manual_move_hint.setText('固定翼：W/S渐变调速，A/D或Q/E转弯，R/F升降；松手自动回平并保持速度。' if fixed else '按住按钮移动 · 松开停止')
+        self.takeoff_button.setText('开始巡航' if fixed else '起飞')
+        self.hover_button.setText('盘旋等待' if fixed else '悬停')
+        self.land_button.setText('停止巡航' if fixed else '降落')
+        if fixed:
+            self.takeoff_button.setToolTip('空中初始化：从初始位置上方 30 m 开始巡航；这不是物理起飞。')
+            self.land_button.setToolTip('停止运动预览并保持当前位置；这不是物理降落。')
+            self.flight_status_label.setText('待开始巡航' if status=='ready' else 'JSBSim 六自由度 · 参数未标定')
+
 
     def poll_lidar(self):
         if (self.client.ready and self.state.get('lidar_enabled', False)
@@ -537,6 +569,13 @@ class MainWindow(QMainWindow):
         self.send_gimbal_input()
 
     def eventFilter(self, watched, event):
+        cover=getattr(self,'loading_screen',None)
+        if (cover and event.type() in (QEvent.Type.KeyPress,QEvent.Type.KeyRelease,QEvent.Type.ShortcutOverride) and cover.isVisible()
+                and isinstance(watched,QWidget) and (watched is self or self.isAncestorOf(watched))
+                and event.key() in (Qt.Key.Key_W,Qt.Key.Key_S,Qt.Key.Key_A,Qt.Key.Key_D,Qt.Key.Key_Q,Qt.Key.Key_E,Qt.Key.Key_R,Qt.Key.Key_F,Qt.Key.Key_Up,Qt.Key.Key_Down,Qt.Key.Key_Left,Qt.Key.Key_Right)):
+            event.accept();return True
+        mission=getattr(self,'mission_workspace',None)
+        if mission and event.type() in (QEvent.Type.WindowDeactivate,QEvent.Type.FocusOut):mission.stop_keys()
         if (event.type()==QEvent.Type.KeyPress and isinstance(watched,QWidget)
                 and (watched is self or self.isAncestorOf(watched)) and event.key()==Qt.Key.Key_Escape):
             self.clear_gimbal_input();self.manual_keys.clear();self.stop_manual_input()
@@ -546,13 +585,15 @@ class MainWindow(QMainWindow):
         if isinstance(watched,QWidget):
             ancestor=watched
             while ancestor is not None:
-                if ancestor.property('observerInput'):return super().eventFilter(watched,event)
+                if ancestor.property('observerInput') and not (mission and mission.mode=='aerial'):return super().eventFilter(watched,event)
                 ancestor=ancestor.parentWidget()
         if (event.type() in (QEvent.Type.KeyPress,QEvent.Type.KeyRelease,QEvent.Type.ShortcutOverride) and isinstance(watched,QWidget)
                 and (watched is self or self.isAncestorOf(watched)) and event.key() in (Qt.Key.Key_Left,Qt.Key.Key_Right,Qt.Key.Key_Up,Qt.Key.Key_Down)):
             focus=QApplication.focusWidget()
             editing=isinstance(focus,(QLineEdit,QAbstractSpinBox,QComboBox,QAbstractItemView)) or (isinstance(focus,QPlainTextEdit) and not focus.isReadOnly())
             release=event.type()==QEvent.Type.KeyRelease and event.key() in self.gimbal_keys
+            if mission and mission.mode=='aerial' and (event.key() in mission.aim_keys or (self.client.ready and not editing and not QApplication.activePopupWidget())):
+                return mission.handle_key(event)
             if release or (self.client.ready and self.state.get('input_mode')=='gimbal' and not editing and not QApplication.activePopupWidget()):
                 if not event.isAutoRepeat() and event.type()!=QEvent.Type.ShortcutOverride:self.gimbal_key(event.key(),event.type()==QEvent.Type.KeyPress)
                 event.accept();return True
@@ -617,6 +658,7 @@ class MainWindow(QMainWindow):
             if not self.switch_target:
                 self.log('UE 未返回切换目标，请检查引擎版本。')
                 return
+            self.loading_screen.begin({'id':self.switch_target,'name':self.switch_target},switch=True)
             self.switch_timeout_seconds = 900 if self.switch_target == 'city_large' else 90
             self.switch_deadline = time.monotonic() + self.switch_timeout_seconds
             self.reconnect_timer.start()
@@ -778,5 +820,6 @@ class MainWindow(QMainWindow):
             self.switch_target = None
             self.switch_button.setEnabled(self.client.ready)
             self.log(f'场景切换未在 {self.switch_timeout_seconds} 秒内确认；请检查 UE 地图加载结果，再手动连接。')
+            self.loading_screen.fail('场景切换超时，请检查运行日志和UE状态。')
         elif not self.client.ready and self.client.connect_deadline is None:
             self.client.connect_to(self.host.text().strip(), self.port.value())

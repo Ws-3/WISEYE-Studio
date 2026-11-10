@@ -24,6 +24,21 @@ def build_workbench(w, config, image_type):
     w.badge = w._button('未连接 · 连接',w.toggle_connection,control=False); header.addWidget(w.badge)
     from core.runtime_paths import IS_RELEASE
     w.quick_connect=w._button('启动仿真', w.toggle_simulation, True, False);header.addWidget(w.quick_connect)
+    w.engine_window_button=QPushButton('UE 窗口');w.engine_window_button.setCheckable(True)
+    w.engine_window_button.setToolTip('显示／收起本系统启动的 UE 窗口；收起后继续仿真与传感器渲染。')
+    def engine_window(shown):
+        if w.client.ready:w.client.request('sim.window.set_visible',{'visible':shown})
+        else:
+            w.engine_window_button.setChecked(False)
+            if shown:w.log('请先启动内置仿真；不会控制其他程序的窗口。')
+    w.engine_window_button.toggled.connect(engine_window);header.addWidget(w.engine_window_button)
+    def window_state(state):
+        blocker=QSignalBlocker(w.engine_window_button)
+        w.engine_window_button.setEnabled(w.client.ready and bool(state.get('ue_window_control_supported')))
+        w.engine_window_button.setChecked(bool(state.get('ue_window_visible')));del blocker
+    w.client.state_received.connect(window_state)
+    w.client.connection_changed.connect(lambda ready,*_:None if ready else window_state({}))
+    w.engine_window_button.setEnabled(False)
     outer.addLayout(header)
     w.pages = QTabWidget(); w.pages.setObjectName('mainPages'); outer.addWidget(w.pages,1)
     run = QWidget(); run_layout=QVBoxLayout(run);run_layout.setContentsMargins(0,8,0,0);run_layout.setSpacing(8)
@@ -87,13 +102,14 @@ def build_workbench(w, config, image_type):
     for b in (w.pause_button,w.resume_button,w.reset_button):pause.addWidget(b);w.flight_widgets.append(b)
     dl.addLayout(pause)
     dl.addWidget(w._label('MANUAL CONTROL  /  手动操控','section'))
-    hint=w._label('按住按钮移动 · 松开停止')
+    hint=w._label('按住按钮移动 · 松开停止');w.manual_move_hint=hint
     hint.setToolTip('W/S 前后 · A/D 左右 · R/F 升降 · Q/E 转向；仅在驾驶输入模式生效。');hint.setWordWrap(True);dl.addWidget(hint)
     from apps.desktop_app.workbench_polish import advanced_control
     manual_body=QWidget();grid=QGridLayout(manual_body);grid.setContentsMargins(0,0,0,0)
+    w.manual_axis_buttons=[]
     for label,vec,row,col in [('上升',(0,0,1,0),0,0),('前进',(1,0,0,0),0,1),('下降',(0,0,-1,0),0,2),('向左',(0,-1,0,0),1,0),('悬停',(0,0,0,0),1,1),('向右',(0,1,0,0),1,2),('左转',(0,0,0,-1),2,0),('后退',(-1,0,0,0),2,1),('右转',(0,0,0,1),2,2)]:
         b=QPushButton(label);b.setObjectName('direction');b.setToolTip('按住移动，松开停止');b.pressed.connect(lambda v=vec:w.start_manual_input(v));b.released.connect(w.stop_manual_input)
-        grid.addWidget(b,row,col);w.control_widgets.append(b);w.flight_widgets.append(b)
+        w.manual_axis_buttons.append((b,label));grid.addWidget(b,row,col);w.control_widgets.append(b);w.flight_widgets.append(b)
     dl.addWidget(advanced_control(manual_body,'屏幕手动操控 · WASD / RF / QE'))
     dl.addWidget(w._label('TELEMETRY  /  实时遥测','section'))
     w.position_label=w._label('位置：—','telemetry');w.position_label.setWordWrap(True);dl.addWidget(w.position_label)
@@ -155,7 +171,7 @@ def build_workbench(w, config, image_type):
     w.video_channel.setCurrentIndex(4);w.view_tabs=QTabWidget()
     w.image,w.dual_visible,w.dual_infrared=image_type(),image_type(),image_type();w.lidar=LidarView()
     w.dual_ir_caption,w.image_caption,w.input_hint=QLabel(),QLabel(),QLabel();w.capture_button=QPushButton()
-    w.drone_model=QComboBox();w.drone_model.addItem('Mavic 3','mavic3');w.drone_model.addItem('Avata','avata')
+    w.drone_model=QComboBox();w.drone_model.addItem('Mavic 3','mavic3');w.drone_model.addItem('Avata','avata');w.drone_model.addItem('固定翼（80 cm）','fixedwing')
     w.observer_mode=ChoiceInput()
     for label,mode in [('全景','overview'),('自由观察','free'),('云台视角','gimbal'),('无人机跟随','follow')]:w.observer_mode.addItem(label,mode)
     w.gallery.layout().itemAt(0).layout().insertWidget(2,w.observer_mode)
@@ -176,11 +192,18 @@ def change_input(w):
 
 
 def take_manual(w):
-    w.flight.setCurrentIndex(w.flight.findData('manual'))
-    w.set_flight_mode()
+    w.manual_keys.clear();w.stop_manual_input()
+    w.command('input.set_mode',{'mode':'drone'})
+    w.command('flight.set_mode',{'mode':'manual'})
+    w.setFocus(Qt.FocusReason.OtherFocusReason)
 
 
 def show_properties(w,kind,ident,open_editor=True):
+    if kind=='sensor' and ident.endswith('/aerial'):
+        if open_editor:
+            from apps.desktop_app.observation_panel import open_aerial
+            open_aerial(w,ident.split('/')[0])
+        return
     w.inspected_kind,w.inspected_id=kind,ident
     if kind=='sensor':
         device,sensor=ident.split('/',1);w.sensor_settings.select_device(device)
@@ -194,6 +217,7 @@ def show_properties(w,kind,ident,open_editor=True):
 
 
 def select_inspector_tab(w,index):
+    if index==3:return
     kind=('drone','gimbal','sensor')[index]
     if kind=='sensor':
         device=w.inspected_id.split('/')[0] if w.inspected_kind in ('gimbal','sensor') else w.selected_gimbal
@@ -212,6 +236,11 @@ def sensor_tab_changed(w,index):
 
 def refresh_inspector(w):
     if not hasattr(w,'inspected_id'):return
+    if w.inspectors.currentIndex()==3 and hasattr(w,'mission_workspace'):
+        camera=w.mission_workspace.panel.device.currentData() or '—'
+        w.inspector_title.setText('航拍相机 · '+camera);w.inspector_takeover.hide()
+        w.ownership.setText(f'驾驶：{w.selected_drone}    相机：{camera}')
+        return
     kind,ident=w.inspected_kind,w.inspected_id
     w.inspector_title.setText({'drone':'无人机','gimbal':'光电云台','sensor':'传感器'}[kind]+' · '+ident)
     mismatch=(kind=='drone' and ident!=w.selected_drone) or (kind=='gimbal' and ident!=w.selected_gimbal)

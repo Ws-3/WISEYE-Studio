@@ -2,6 +2,7 @@
 import hashlib
 import json
 import math
+import os
 from pathlib import Path, PurePosixPath
 import re
 import shutil
@@ -74,9 +75,20 @@ class SceneStore:
             raise ValueError('无效地图路径')
         candidate = self.project / 'Content' / (package[6:] + '.umap')
         from core.runtime_paths import DATA_ROOT,RESOURCE_ROOT,IS_RELEASE
+        override=os.environ.get('WISEYE_PREVIEW_PROJECT')
+        if not IS_RELEASE and self.root==DATA_ROOT and override:
+            host=Path(override)
+            if not host.is_absolute():host=RESOURCE_ROOT/host
+            return host.parent/'Content'/(package[6:]+'.umap')
         if not IS_RELEASE and self.root==DATA_ROOT and not candidate.is_file():
             shared=RESOURCE_ROOT/'ue5/WISEYE/Content'/(package[6:]+'.umap')
             if shared.is_file():return shared
+            local=RESOURCE_ROOT/'scripts/preview-project.local.txt'
+            if local.is_file():
+                project=Path(local.read_text(encoding='utf-8-sig').strip())
+                if not project.is_absolute():project=RESOURCE_ROOT/project
+                external=project.parent/'Content'/(package[6:]+'.umap')
+                if external.is_file():return external
         return candidate
 
     def register(self, scene, require_map=True):

@@ -158,11 +158,15 @@ class ArrangementPage(QWidget):
             refresh_devices(self)
         self.map.update()
 
-    def refresh_devices(self):
+    def refresh_devices(self,state=None):
         scene=self.window.scenes.currentData()
         if scene:
             from core.devices import DeviceStore
-            self.sync_devices(DeviceStore(ROOT).load(scene)['devices'])
+            current=state or self.window.state
+            if self.window.client.ready and current.get('scene_id')==scene['id']:
+                from core.live_devices import from_state
+                self.sync_devices(from_state(current)['devices'])
+            else:self.sync_devices(DeviceStore(ROOT).load(scene)['devices'])
 
     def save(self):
         scene = self.window.scenes.currentData()
@@ -175,7 +179,10 @@ class ArrangementPage(QWidget):
         try:
             from core.devices import DeviceStore
             fleet_store=DeviceStore(ROOT)
-            fleet=fleet_store.load(scene)
+            if self.window.client.ready and self.window.state.get('scene_id')==scene['id']:
+                from core.live_devices import from_state
+                fleet=from_state(self.window.state)
+            else:fleet=fleet_store.load(scene)
             for device in fleet['devices']:
                 key=self.coordinate_key(device['id'])
                 if key in self.dirty_positions and key in data:

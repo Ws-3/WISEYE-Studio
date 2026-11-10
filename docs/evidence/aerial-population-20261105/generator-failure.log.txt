@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 203, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "E:\Projects\WISEYE\tests\verify_aerial_population_live.py", line 123, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "E:\Projects\WISEYE\tests\verify_aerial_population_live.py", line 108, in main
+    wait(lambda:not state()['population']['pending'],300)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Projects\WISEYE\tests\verify_aerial_population_live.py", line 30, in wait
+    raise TimeoutError('Aerial/population acceptance timeout')
+TimeoutError: Aerial/population acceptance timeout

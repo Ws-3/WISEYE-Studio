@@ -1,0 +1,67 @@
+{
+  "ir_packet": {
+    "device_id": "uav-01",
+    "sensor_id": "uav-01/aerial_infrared",
+    "channel": "AERIAL_IR",
+    "modality": "infrared",
+    "run_id": "2B5DDC9F4D3DF6853398958C0F7CDE49",
+    "scene_id": "city",
+    "annotation_status": "unavailable",
+    "training_eligible": false,
+    "annotation_error": "Aerial ground-truth labels are not available; raw image requires annotation",
+    "camera_position_cm": [
+      -27406,
+      -2599.9999992010507,
+      6061.6162109375
+    ],
+    "camera_rotation_pitch_yaw_roll_deg": [
+      -35.22488552089635,
+      164.91457632005452,
+      -0.14121533232168113
+    ],
+    "horizontal_fov_deg": 15,
+    "pose_timing": "capture_tick",
+    "environment": {
+      "time_supported": true,
+      "fog_supported": true,
+      "rain_supported": true,
+      "rain_unavailable_reason": "",
+      "time_override": true,
+      "hour": 12,
+      "fog": 0,
+      "rain": 0,
+      "clouds_supported": true,
+      "clouds": 0,
+      "cloud_layer_active": false,
+      "cloud_atmosphere_created": false,
+      "rain_view_volumes": 0,
+      "rain_active_particles": 0,
+      "rain_active_streaks": 0,
+      "rain_model": "world_space_depth_tested_streaks",
+      "night_amount": 0,
+      "day_sky_meshes": 1,
+      "model": "visual daylight / exponential fog / bounded world rain; no weather physics or thermal calibration"
+    },
+    "carrier_model_id": "mavic3",
+    "frame_number": 57,
+    "simulation_time_s": 45.435491128766444,
+    "width": 640,
+    "height": 512,
+    "encoding": "jpeg",
+    "quality": 90
+  },
+  "target_position_not_gt": {
+    "entity_index": 1418,
+    "entity_serial": 3,
+    "target_id": "2B5DDC9F4D3DF6853398958C0F7CDE49/parked_vehicle/1418/3",
+    "class_name": "vehicle",
+    "position_cm": [
+      -35458.98828125,
+      -390.73663330078125,
+      59.00055694580078
+    ],
+    "los_clear": true,
+    "los_model": "collision ray to position+1m, 3m end tolerance; not pixel visibility or GT"
+  },
+  "note": "IR-only inspected frame: car visible; not paired GT. Do not use earlier visible MID output as final VIS validation."
+}

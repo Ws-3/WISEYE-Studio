@@ -19,7 +19,7 @@ def forward(request, host, port):
         raise ValueError('This gateway only accepts data and GT policy commands')
     if request['command'] == 'camera.stream_frame':
         payload = request['payload']
-        if payload.get('channel') not in ('CH1','CH2') or not isinstance(payload.get('device_id'), str) or not payload['device_id']:
+        if payload.get('channel') not in ('CH1','CH2','AERIAL','AERIAL_IR') or not isinstance(payload.get('device_id'), str) or not payload['device_id']:
             raise ValueError('Preview requires an explicit device and CH1/CH2')
         if set(payload) - {'channel','device_id','quality'}:
             raise ValueError('Unexpected preview parameters')

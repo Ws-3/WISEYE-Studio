@@ -13,7 +13,7 @@ def number(data,key):
 class PerformanceAdvice:
     def __init__(self):self.reset()
     def reset(self):self.last_sample=None;self.counts={};self.message=''
-    def update(self,data):
+    def update(self,data,preparing=False):
         sample=number(data,'sample_time_s')
         if sample is None:self.reset();return ''
         if sample==self.last_sample:return self.message
@@ -21,12 +21,15 @@ class PerformanceAdvice:
         used,budget=number(data,'ue_vram_used_bytes'),number(data,'ue_vram_budget_bytes')
         ram,total=number(data,'system_ram_used_bytes'),number(data,'system_ram_total_bytes')
         fps=number(data,'ue_fps')
+        preparing=preparing or number(data,'asset_compile_jobs') not in (None,0) or number(data,'shader_compile_jobs') not in (None,0)
         conditions={
             '显存接近驱动预算，建议切换节能档或减少同时采集的画面':budget is not None and budget>0 and used is not None and used/budget>=.9,
             '系统内存占用较高，建议关闭其他大型程序':total is not None and total>0 and ram is not None and ram/total>=.9,
-            'UE 帧率持续偏低，加载完成后可切换节能档或减少传感器采集':fps is not None and fps<20}
+            'UE 帧率持续偏低，可降低人车密度或减少传感器采集，并检查性能档位':not preparing and fps is not None and fps<20}
         for key,condition in conditions.items():self.counts[key]=self.counts.get(key,0)+1 if condition else 0
         self.message='；'.join(key for key in conditions if self.counts[key]>=3)
+        if preparing:
+            self.message='场景资源正在准备，完成后再评估帧率'+('；'+self.message if self.message else '')
         return self.message
 
 
@@ -39,13 +42,13 @@ class PerformanceRating:
         if self.fresh is not None and (time.monotonic() if now is None else now)-self.fresh>5:
             return '数据过期','硬件统计超过5秒未更新，请检查仿真推进'
         return self.label,self.reason
-    def update(self,data,profile='economy'):
+    def update(self,data,profile='economy',preparing=False):
         stamp=number(data,'sample_time_s')
         if stamp is None:self.reset();return self.label,self.reason
         if stamp==self.last:return self.current()
         self.last=stamp;self.fresh=time.monotonic()
-        if number(data,'asset_compile_jobs') not in (None,0):
-            self.samples.clear();self.label='准备中';self.reason='正在编译场景资源，加载结束后再评估';return self.label,self.reason
+        if preparing or number(data,'asset_compile_jobs') not in (None,0) or number(data,'shader_compile_jobs') not in (None,0):
+            self.samples.clear();self.label='准备中';self.reason='正在加载、编译场景或生成人车，完成后再评估';return self.label,self.reason
         fps=number(data,'ue_fps')
         if fps is None:self.label='未评估';self.reason='未提供实测帧率';return self.label,self.reason
         def ratio(used,total):

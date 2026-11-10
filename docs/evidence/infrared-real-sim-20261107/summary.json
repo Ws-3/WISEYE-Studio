@@ -1,0 +1,23 @@
+{
+  "baseline_id": "ir-real-sim-pilot-20261107",
+  "frames_measured": 66,
+  "unpaired_day_road_comparisons": 6,
+  "tests_passed": 12,
+  "ue_started_this_task": false,
+  "rendering_changed": false,
+  "full_night_gimbal_sequences_obtained": false,
+  "local_dataset_read_only": true,
+  "config_sha256": "c93dc64ed822257ec5eff1dc67231ea08217a7c0f6d0c412b17b1d1ce74fd3ae",
+  "reference_manifest_sha256": "433a74afa225653a64087d2e5c4a0da9f8e1ff38517bcad4db9f0a131847a734",
+  "limitations": [
+    "这是小样本显示域基准，不是完整数据集评测、辐射定标或论文最终实验。",
+    "真实/仿真场景、路面材料、天气与相机不同；路面包含道路及停车场铺装，手工ROI并非完美语义分割。",
+    "HIT按官方文件名解释日夜、高度和俯视角；原图为官方训练子集，不使用官方测试集调参。",
+    "HIT极性按样本外观假定白热，缺少辐射原始值；Halmstad/CESE日间依据用户说明，尚无逐序列时间元数据。",
+    "地面设备用本机Halmstad/CESE红外训练子集；转换框未逐帧人工复核，空标签不作为已确认无目标。",
+    "云台仿真图是2026-10-31历史快照，只有背景且无真值框，不宣称已完成当前版本无人机目标对照。",
+    "当前只有一张航拍仿真路面样本，不能代表所有高度、地图、材质和昼夜。未测夜间仿真。",
+    "目标对比为整框与周边环带的灰度代理，不是掩模目标、物理SNR、NETD或检测性能；不跨视角/极性/昼夜计算分布距离。",
+    "参考原图、含本地原图的联系表留在忽略的builds目录；不得把来源不明或未核对许可的本地数据直接发布。"
+  ]
+}

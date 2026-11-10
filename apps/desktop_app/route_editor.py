@@ -88,11 +88,12 @@ class RouteEditor(QDialog):
         self.name=QLineEdit('自定义航线')
         self.name.setMaxLength(80)
         from apps.desktop_app.ui.components import NumberInput
-        self.speed=NumberInput(.2,15,'m/s',2,.1);self.speed.setValue(3)
+        self.fixedwing=window.air_state.get('airframe')=='fixedwing'
+        self.speed=NumberInput(5 if self.fixedwing else .2,15,'m/s',2,.1);self.speed.setValue(12 if self.fixedwing else 3)
         self.repeat=QCheckBox('循环执行')
         row.addWidget(QLabel('名称'));row.addWidget(self.name,1);row.addWidget(self.speed);row.addWidget(self.repeat)
         layout.addLayout(row)
-        layout.addWidget(QLabel(f'场景 {self.scene_id} · UE 世界坐标（米，Z 向上）· 先起飞；逐点执行，拐点减速；不自动避障'))
+        layout.addWidget(QLabel('固定翼：先开始空中巡航；速度5–15 m/s，转弯和爬升受限，航点应留足间距；碰到障碍会停止预览。' if self.fixedwing else f'场景 {self.scene_id} · UE 世界坐标（米，Z 向上）· 先起飞；逐点执行，拐点减速；不自动避障'))
         split=QSplitter()
         self.table=QTableWidget(0,3)
         self.table.setHorizontalHeaderLabels(['X / m','Y / m','Z / m'])
@@ -129,8 +130,9 @@ class RouteEditor(QDialog):
         if data and data.get('scene_id')==self.scene_id:self.set_data(data);self.uploaded_snapshot=copy.deepcopy(self.data());self.refresh_start()
         else:
             x,y,z=self.current_position()
-            z+=3 if window.air_state.get('flight_status')=='ready' else 0
-            for p in [[x,y,z],[x+5,y,z],[x+5,y+5,z],[x,y+5,z],[x,y,z]]:self.add_point(p)
+            z+=(30 if self.fixedwing else 3) if window.air_state.get('flight_status')=='ready' else 0
+            span=200 if self.fixedwing else 5
+            for p in [[x,y,z],[x+span,y,z],[x+span,y+span,z],[x,y+span,z],[x,y,z]]:self.add_point(p)
 
     def current_position(self):
         ned=self.window.air_state.get('position_ned_m')

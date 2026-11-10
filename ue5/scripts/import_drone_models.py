@@ -41,3 +41,7 @@ if any(not unreal.EditorAssetLibrary.does_asset_exist(animated + name)
 print(f'WISEYE_DRONE_IMPORT_OK {asset_path}')
 lamp_builder = project.parent / 'scripts' / 'build_navigation_lights.py'
 exec(compile(lamp_builder.read_text(encoding='utf-8-sig'), str(lamp_builder), 'exec'))
+
+fixedwing_builder=project.parent / "scripts" / "import_fixedwing.py"
+if fixedwing_builder.is_file():
+    exec(compile(fixedwing_builder.read_text(encoding="utf-8-sig"),str(fixedwing_builder),"exec"))

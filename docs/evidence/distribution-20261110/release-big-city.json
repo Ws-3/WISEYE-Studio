@@ -1,0 +1,919 @@
+{
+  "passed": true,
+  "release": "E:\\Projects\\WISEYE\\releases\\20261110-164135-City-Shipping",
+  "scene": "city_large",
+  "checks": [
+    "Game and frozen flight worker ready with matching run ID",
+    "Native resolution visible, infrared and observer previews",
+    "Gimbal velocity control changes actual angle",
+    "Nonempty LIDAR points",
+    "Real takeoff, rotor telemetry, manual ascent, landing and stopped motors"
+  ],
+  "test_root": "E:\\Projects\\WISEYE\\builds\\live-tests\\city_large-1794300651869214400\\用户数据 测试",
+  "available_scenes": [
+    "city",
+    "city_large"
+  ],
+  "initial": {
+    "application": "WISEYE Studio",
+    "population": {
+      "vehicles_enabled": true,
+      "vehicle_density": 0.25,
+      "pedestrians_enabled": true,
+      "pedestrian_density": 0.25,
+      "thermal_body_proxy_components": 9,
+      "thermal_people_components": 8,
+      "thermal_vehicle_components": 1,
+      "spawners": [
+        {
+          "kind": "vehicle",
+          "requested_count": 150,
+          "pending": false,
+          "preloading": false,
+          "preload_error": "",
+          "applied_count": 150,
+          "spawner": "BP_MassTrafficVehicleSpawner_C_UAID_345A605B02880F1203_1531572481",
+          "base_count": 2500
+        },
+        {
+          "kind": "pedestrian",
+          "requested_count": 300,
+          "pending": false,
+          "preloading": false,
+          "preload_error": "",
+          "applied_count": 300,
+          "spawner": "BP_MassCrowdSpawner_C_UAID_345A605B02880F1203_1531578483",
+          "base_count": 35000
+        },
+        {
+          "kind": "parked_vehicle",
+          "requested_count": 150,
+          "pending": false,
+          "preloading": false,
+          "preload_error": "",
+          "applied_count": 150,
+          "spawner": "BP_MassTrafficParkedVehicleSpawner_C_UAID_345A605B02880F1203_1531575482",
+          "base_count": 2500
+        }
+      ],
+      "vehicles_supported": true,
+      "pedestrians_supported": true,
+      "engine_density_scale": 1,
+      "pending": false,
+      "count_semantics": "requested/applied spawn budget, not observed agent count; density is relative to bounded map capacity"
+    },
+    "aerial": {
+      "enabled": true,
+      "stabilized": true,
+      "pitch_deg": -60,
+      "yaw_deg": 0,
+      "fov_deg": 65,
+      "sample_hz": 15,
+      "focus_supported": true,
+      "focus_mode": "auto",
+      "focus_distance_m": 100,
+      "aperture_f": 2.8,
+      "actual_focus_distance_m": 100,
+      "sensor_width_mm": 13.2,
+      "dof_near_m": 2.7222130186869613,
+      "dof_far_m": -1,
+      "dof_far_infinite": true,
+      "dof_estimate": "thin-lens, 2 output-pixel circle of confusion; not measured calibration",
+      "vis_blur_px": 0.949999988079071,
+      "width": 1920,
+      "height": 1080,
+      "channel": "AERIAL",
+      "sensor_id": "aerial",
+      "active": false,
+      "capture_allocated": false,
+      "mount": "body underside, 12 cm below model origin; own airframe hidden",
+      "ir_sample_hz": 15,
+      "infrared": {
+        "enabled": true,
+        "active": false,
+        "capture_allocated": false,
+        "width": 640,
+        "height": 512,
+        "channel": "AERIAL_IR",
+        "fov_deg": 65,
+        "sample_hz": 15,
+        "blur_px": 0.800000011920929,
+        "noise": 0.00800000037997961,
+        "black_hot": false,
+        "model": "independent HDR synthetic thermal; not radiometric",
+        "mount": "6 cm right of visible, yaw boresight +0.2 deg"
+      },
+      "ir_enabled": true,
+      "ir_black_hot": false,
+      "ir_fov_deg": 65,
+      "ir_blur_px": 0.800000011920929,
+      "ir_noise": 0.00800000037997961
+    },
+    "scene_id": "city_large",
+    "run_id": "27BD229348D73E0275F33FA01625847A",
+    "ue_window_control_supported": true,
+    "ue_window_visible": false,
+    "training_samples_supported": true,
+    "paired_training_samples_supported": true,
+    "gt_max_fps_supported": 20,
+    "gt_max_fps": 2,
+    "live_placement_supported": true,
+    "streams": {
+      "CH1": {
+        "frame_seq": 68,
+        "completed_frames": 68,
+        "readback_queued_ue_monotonic_s": 16943523.6279136,
+        "cache_age_ms": 67.81679764389992
+      },
+      "CH2": {
+        "frame_seq": 67,
+        "completed_frames": 67,
+        "readback_queued_ue_monotonic_s": 16943523.5276005,
+        "cache_age_ms": 168.1338995695114
+      }
+    },
+    "initial_drone_position_cm": [
+      -70972.26562507449,
+      -38796.578124741725,
+      97.58875274658203
+    ],
+    "gimbal_position_cm": [
+      -72172.26569600642,
+      -39996.57816240975,
+      5077.117
+    ],
+    "drone_id": "uav-01",
+    "gimbal_id": "ptz-01",
+    "devices": [
+      {
+        "id": "uav-01",
+        "kind": "drone",
+        "model_id": "mavic3",
+        "name": "大城市试验无人机",
+        "tracking_target": "uav-01",
+        "position_cm": [
+          -70972.265625,
+          -38796.57421875,
+          91.85694122314453
+        ],
+        "dynamics_name": "Drone1",
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "initial_position_cm": [
+          -70972.26562507449,
+          -38796.578124741725,
+          97.58875274658203
+        ],
+        "rotors_running": false,
+        "aerial": {
+          "enabled": true,
+          "stabilized": true,
+          "pitch_deg": -60,
+          "yaw_deg": 0,
+          "fov_deg": 65,
+          "sample_hz": 15,
+          "focus_supported": true,
+          "focus_mode": "auto",
+          "focus_distance_m": 100,
+          "aperture_f": 2.8,
+          "actual_focus_distance_m": 100,
+          "sensor_width_mm": 13.2,
+          "dof_near_m": 2.7222130186869613,
+          "dof_far_m": -1,
+          "dof_far_infinite": true,
+          "dof_estimate": "thin-lens, 2 output-pixel circle of confusion; not measured calibration",
+          "vis_blur_px": 0.949999988079071,
+          "width": 1920,
+          "height": 1080,
+          "channel": "AERIAL",
+          "sensor_id": "aerial",
+          "active": false,
+          "capture_allocated": false,
+          "mount": "body underside, 12 cm below model origin; own airframe hidden",
+          "ir_sample_hz": 15,
+          "infrared": {
+            "enabled": true,
+            "active": false,
+            "capture_allocated": false,
+            "width": 640,
+            "height": 512,
+            "channel": "AERIAL_IR",
+            "fov_deg": 65,
+            "sample_hz": 15,
+            "blur_px": 0.800000011920929,
+            "noise": 0.00800000037997961,
+            "black_hot": false,
+            "model": "independent HDR synthetic thermal; not radiometric",
+            "mount": "6 cm right of visible, yaw boresight +0.2 deg"
+          },
+          "ir_enabled": true,
+          "ir_black_hot": false,
+          "ir_fov_deg": 65,
+          "ir_blur_px": 0.800000011920929,
+          "ir_noise": 0.00800000037997961
+        },
+        "navigation_lights": {
+          "enabled": true,
+          "night": false,
+          "red_on": false,
+          "green_on": false,
+          "lamp_count": 4,
+          "period_s": 1.6
+        },
+        "initial_yaw_deg": 0,
+        "placement_yaw_deg": 0
+      },
+      {
+        "id": "ptz-01",
+        "kind": "gimbal",
+        "model_id": "eo80",
+        "name": "大城市试验双光云台",
+        "tracking_target": "uav-01",
+        "position_cm": [
+          -72172.26569600642,
+          -39996.57816240975,
+          5077.117
+        ],
+        "dynamics_name": "Drone1",
+        "rotation_deg": [
+          0,
+          0,
+          0
+        ],
+        "initial_position_cm": [
+          -70972.26562507449,
+          -38796.578124741725,
+          97.58875274658203
+        ],
+        "rotors_running": false,
+        "initial_yaw_deg": 0,
+        "placement_yaw_deg": 0
+      }
+    ],
+    "tracking_target": "uav-01",
+    "observer_mode": "overview",
+    "placement": {
+      "active": false,
+      "has_result": false,
+      "preview_supported": true,
+      "nudge_supported": true,
+      "locked": false,
+      "nudge_cm": [
+        0,
+        0,
+        0
+      ],
+      "yaw_deg": 0,
+      "preview_visible": false,
+      "preview_position_cm": [
+        0,
+        0,
+        0
+      ],
+      "device_id": "",
+      "request_token": "",
+      "error": "",
+      "sequence": 0,
+      "position_cm": [
+        0,
+        0,
+        0
+      ],
+      "surface_cm": [
+        0,
+        0,
+        0
+      ]
+    },
+    "placement_applied": {
+      "request_token": "",
+      "device_id": ""
+    },
+    "input_mode": "observer",
+    "pitch_min_deg": -15,
+    "pitch_max_deg": 75,
+    "coordinate_pointing_supported": true,
+    "world_streaming_enabled": true,
+    "world_streaming_ready": true,
+    "device_streaming_sources": 2,
+    "streaming_radius_m": 250,
+    "gimbal_geometry": {
+      "world_unit": "centimeter",
+      "angles_reference": "relative_to_device_base",
+      "base_position_cm": [
+        -72172.26569600642,
+        -39996.57816240975,
+        5077.117
+      ],
+      "pivot_position_cm": [
+        -72176.49070140404,
+        -39998.11029814657,
+        5123.502059887618
+      ],
+      "base_rotation_pitch_yaw_roll_deg": [
+        0,
+        -160.00000000000003,
+        0
+      ],
+      "yaw_rate_deg_s": 30,
+      "pitch_rate_deg_s": 20
+    },
+    "lidar_horizontal_fov_deg": 30,
+    "lidar_vertical_fov_deg": 8,
+    "lidar_scan_rate_hz": 10,
+    "lidar_range_m": 300,
+    "pending_scene": "",
+    "paused": true,
+    "simulation_time_s": 4.2894392013549805,
+    "flight_mode": "manual",
+    "fleet_live_edit_supported": true,
+    "fleet_revision": 0,
+    "flight_backend": "projectairsim",
+    "drone_model": "mavic3",
+    "drone_models_available": [
+      "mavic3",
+      "avata"
+    ],
+    "dynamics_connected": true,
+    "dynamics_actor": "Drone1",
+    "tracking": true,
+    "sensor_power_supported": true,
+    "rotors_running": false,
+    "rotor_rpm": 0,
+    "motor_rpm": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "thermal_target": {
+      "motor_warmth": 0,
+      "battery_warmth": 0,
+      "power_proxy": 0,
+      "body_signal": 0.3799999952316284,
+      "motor_signal": 0.38999998569488525,
+      "units": "normalized engineering proxy, not Celsius"
+    },
+    "rotor_source": "airsim_rad_s",
+    "rotor_telemetry_fresh": true,
+    "tick_seq": 189,
+    "runtime_hardware": {
+      "sample_time_s": 16943523.4942194,
+      "scope": "simulation_host",
+      "cpu_name": "Intel(R) Core(TM) i5-14600KF",
+      "gpu_name": "Intel(R) Arc(TM) B580 Graphics",
+      "ue_fps": 30.00034355741591,
+      "system_ram_total_bytes": 34191093760,
+      "system_ram_used_bytes": 13478445056,
+      "ue_ram_bytes": 3181363200,
+      "gpu_dedicated_total_bytes": 12706643968,
+      "ue_vram_used_bytes": 4558970880,
+      "ue_vram_budget_bytes": 11901272064,
+      "system_cpu_pct": 30.559757942511347,
+      "ue_gpu_engine_peak_pct": 58.45019759654914
+    },
+    "environment": {
+      "time_supported": true,
+      "fog_supported": true,
+      "rain_supported": true,
+      "rain_unavailable_reason": "",
+      "time_override": false,
+      "hour": 12,
+      "fog": 0,
+      "rain": 0,
+      "clouds_supported": true,
+      "clouds": 0,
+      "cloud_layer_active": false,
+      "cloud_atmosphere_created": false,
+      "rain_view_volumes": 0,
+      "rain_active_particles": 0,
+      "rain_active_streaks": 0,
+      "rain_model": "world_space_depth_tested_streaks",
+      "night_amount": 0,
+      "day_sky_meshes": 1,
+      "model": "visual daylight / exponential fog / bounded world rain; no weather physics or thermal calibration"
+    },
+    "performance_profile": "economy",
+    "visible_capture_hz": 10,
+    "infrared_capture_hz": 10,
+    "observer_capture_hz": 8,
+    "yaw_deg": -154.92127990722656,
+    "pitch_deg": -15.000000000000002,
+    "pointing_error_deg": 56.62413024902344,
+    "sensor_mode": "visible",
+    "active_sensor": "visible",
+    "available_sensors": [
+      "visible",
+      "infrared",
+      "lidar",
+      "event"
+    ],
+    "sensors": {
+      "visible": {
+        "enabled": true,
+        "fov_deg": 25,
+        "vertical_fov_deg": 14.216549329860934,
+        "width_px": 1920,
+        "height_px": 1080,
+        "capture_sequence": 74,
+        "extrinsics_supported": true,
+        "mount_x_cm": 0,
+        "mount_y_cm": -6,
+        "mount_z_cm": 0,
+        "boresight_pitch_deg": 0,
+        "boresight_yaw_deg": 0,
+        "boresight_roll_deg": 0,
+        "camera_position_cm": [
+          -72152.2724622239,
+          -39979.83199975275,
+          5122.387221005618
+        ],
+        "camera_rotation_pitch_yaw_roll_deg": [
+          -14.999999999999998,
+          45.078720092773445,
+          0
+        ],
+        "appearance_available": true,
+        "blur_px": 0.949999988079071,
+        "noise": 0.006000000052154064,
+        "focus_supported": true,
+        "focus_mode": "auto",
+        "focus_distance_m": 100,
+        "aperture_f": 2.8,
+        "actual_focus_distance_m": 29.16138322784036,
+        "sensor_width_mm": 13.2,
+        "dof_near_m": 12.881471253240974,
+        "dof_far_m": -1,
+        "dof_far_infinite": true,
+        "dof_estimate": "thin-lens, 2 output-pixel circle of confusion; not measured calibration",
+        "contrast": 0.9599999785423279,
+        "saturation": 0.8799999952316284
+      },
+      "infrared": {
+        "enabled": true,
+        "fov_deg": 25,
+        "vertical_fov_deg": 20.114311152180875,
+        "width_px": 640,
+        "height_px": 512,
+        "capture_sequence": 74,
+        "extrinsics_supported": true,
+        "mount_x_cm": 0,
+        "mount_y_cm": 6,
+        "mount_z_cm": 0,
+        "boresight_pitch_deg": 0.1,
+        "boresight_yaw_deg": 0.2,
+        "boresight_roll_deg": 0,
+        "camera_position_cm": [
+          -72160.76939372435,
+          -39971.35838452212,
+          5122.387221005618
+        ],
+        "camera_rotation_pitch_yaw_roll_deg": [
+          -14.899906511923195,
+          45.28567848256109,
+          -0.053564745727914406
+        ],
+        "palette": "white_hot",
+        "noise": 0.00800000037997961,
+        "thermal_profile": "facade",
+        "enhanced_available": true,
+        "reference_available": true,
+        "classified_available": true,
+        "facade_available": true,
+        "detector_controls_available": true,
+        "gain_mode": "auto",
+        "stable_agc": true,
+        "manual_low": 0,
+        "manual_high": 1,
+        "brightness": 0,
+        "sky_denoise": 0,
+        "noise_seed": 1337,
+        "agc_enabled": true,
+        "agc_response_s": 1,
+        "sampling_scale": 1,
+        "agc_low": 0.10000000149011612,
+        "agc_high": 0.4050354063510895,
+        "readout_ms": 21.078601837158203,
+        "readout_sequence": 68,
+        "class_pixels": [
+          66200,
+          36655,
+          223412,
+          0,
+          0,
+          1413,
+          0
+        ],
+        "target_pixels": 0,
+        "motor_region_pixels": 0,
+        "sky_pixels": 0,
+        "signal_model": "normalized thermal proxy, FP16 pre-AGC; not radiometric",
+        "blur_px": 0.800000011920929,
+        "contrast": 1.100000023841858,
+        "background_detail": 0.6499999761581421
+      },
+      "lidar": {
+        "enabled": true,
+        "horizontal_fov_deg": 30,
+        "vertical_fov_deg": 8,
+        "range_m": 300,
+        "scan_rate_hz": 10,
+        "scan_sequence": 69
+      },
+      "event": {
+        "enabled": true,
+        "generation": 1,
+        "events_total": 323100,
+        "buffer_events": 65536,
+        "sample_frames": 98,
+        "actual_sample_hz": 14.999969881088413,
+        "dropped_sample_frames": 0,
+        "truncated_events": 2575353,
+        "signal_model": "independent HDR capture, frame-driven log-intensity crossings; interpolated timestamps, not hardware timing",
+        "width_px": 640,
+        "height_px": 480,
+        "capture_active": true,
+        "fov_deg": 25,
+        "sample_hz": 15,
+        "positive_threshold": 0.20000000298023224,
+        "negative_threshold": 0.20000000298023224,
+        "refractory_us": 100,
+        "extrinsics_supported": true,
+        "mount_x_cm": 0,
+        "mount_y_cm": 0,
+        "mount_z_cm": 2,
+        "boresight_pitch_deg": 0,
+        "boresight_yaw_deg": 0,
+        "boresight_roll_deg": 0
+      }
+    },
+    "palette": "white_hot",
+    "fov_deg": 25,
+    "width": 1920,
+    "height": 1080,
+    "drone_position_cm": [
+      -70972.265625,
+      -38796.57421875,
+      91.85694122314453
+    ],
+    "tracking_source": "UE ground truth",
+    "thermal_model": "synthetic normalized heat",
+    "last_export_path": "",
+    "lidar_enabled": true,
+    "lidar_hits": 576,
+    "lidar_rays": 576,
+    "lidar_nearest_m": 72.62372589111328,
+    "lidar_last_export_path": ""
+  },
+  "ground": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "27BD229348D73E0275F33FA01625847A",
+    "connected": true,
+    "telemetry_valid": true,
+    "telemetry_age_s": 0.02099549997365102,
+    "telemetry_source": "actual_pose_topic",
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -709.72265625,
+      -387.96575927734375,
+      -0.9185694456100464
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 0.0,
+    "motor_rpm": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "rotor_sample_age_s": 0.02098109998041764,
+    "manual_command_count": 0,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "27BD229348D73E0275F33FA01625847A",
+        "connected": true,
+        "telemetry_valid": true,
+        "telemetry_age_s": 0.02099549997365102,
+        "telemetry_source": "actual_pose_topic",
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -709.72265625,
+          -387.96575927734375,
+          -0.9185694456100464
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 0.0,
+        "motor_rpm": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotor_sample_age_s": 0.02098109998041764,
+        "manual_command_count": 0,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "frames": {
+    "ptz-01/visible": [
+      1920,
+      1080
+    ],
+    "ptz-01/infrared": [
+      640,
+      512
+    ],
+    "scene/observer": [
+      960,
+      540
+    ]
+  },
+  "lidar_count": 408,
+  "hover": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "27BD229348D73E0275F33FA01625847A",
+    "connected": true,
+    "telemetry_valid": true,
+    "telemetry_age_s": 0.010633800004143268,
+    "telemetry_source": "actual_pose_topic",
+    "drone_id": "uav-01",
+    "flight_status": "active",
+    "paused": false,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -709.72265625,
+      -387.96575927734375,
+      -2.395890951156616
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 0.0,
+    "motor_rpm": [
+      4934.209088724878,
+      4934.209088724878,
+      4934.209088724878,
+      4934.209088724878
+    ],
+    "rotor_sample_age_s": 0.010639200016157702,
+    "manual_command_count": 0,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "27BD229348D73E0275F33FA01625847A",
+        "connected": true,
+        "telemetry_valid": true,
+        "telemetry_age_s": 0.010633800004143268,
+        "telemetry_source": "actual_pose_topic",
+        "drone_id": "uav-01",
+        "flight_status": "active",
+        "paused": false,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -709.72265625,
+          -387.96575927734375,
+          -2.395890951156616
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 0.0,
+        "motor_rpm": [
+          4934.209088724878,
+          4934.209088724878,
+          4934.209088724878,
+          4934.209088724878
+        ],
+        "rotor_sample_age_s": 0.010639200016157702,
+        "manual_command_count": 0,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "moved": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "27BD229348D73E0275F33FA01625847A",
+    "connected": true,
+    "telemetry_valid": true,
+    "telemetry_age_s": 0.021230600017588586,
+    "telemetry_source": "actual_pose_topic",
+    "drone_id": "uav-01",
+    "flight_status": "active",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -709.72265625,
+      -387.96575927734375,
+      -3.133175849914551
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 0.0,
+    "motor_rpm": [
+      4934.382193039202,
+      4934.382193039202,
+      4934.382193039202,
+      4934.382193039202
+    ],
+    "rotor_sample_age_s": 0.021222199982730672,
+    "manual_command_count": 7,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "27BD229348D73E0275F33FA01625847A",
+        "connected": true,
+        "telemetry_valid": true,
+        "telemetry_age_s": 0.021230600017588586,
+        "telemetry_source": "actual_pose_topic",
+        "drone_id": "uav-01",
+        "flight_status": "active",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -709.72265625,
+          -387.96575927734375,
+          -3.133175849914551
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 0.0,
+        "motor_rpm": [
+          4934.382193039202,
+          4934.382193039202,
+          4934.382193039202,
+          4934.382193039202
+        ],
+        "rotor_sample_age_s": 0.021222199982730672,
+        "manual_command_count": 7,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "landed": {
+    "application": "WISEYE AirSim Control",
+    "run_id": "27BD229348D73E0275F33FA01625847A",
+    "connected": true,
+    "telemetry_valid": true,
+    "telemetry_age_s": 0.04095870000310242,
+    "telemetry_source": "actual_pose_topic",
+    "drone_id": "uav-01",
+    "flight_status": "ready",
+    "paused": true,
+    "flight_mode": "manual",
+    "position_ned_m": [
+      -709.72265625,
+      -387.9657287597656,
+      -0.9185694456100464
+    ],
+    "route_loops": 0,
+    "route_status": "idle",
+    "route_next_waypoint": null,
+    "route": null,
+    "active_route_name": "",
+    "velocity_mps": 3.0,
+    "command_active": false,
+    "last_error": "",
+    "yaw_deg": 0.0,
+    "motor_rpm": [
+      0.010972498798427145,
+      0.010972498798427145,
+      0.010972498798427145,
+      0.010972498798427145
+    ],
+    "rotor_sample_age_s": 0.040934699994977564,
+    "manual_command_count": 7,
+    "last_manual_input": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "fleet": [
+      {
+        "application": "WISEYE AirSim Control",
+        "run_id": "27BD229348D73E0275F33FA01625847A",
+        "connected": true,
+        "telemetry_valid": true,
+        "telemetry_age_s": 0.04095870000310242,
+        "telemetry_source": "actual_pose_topic",
+        "drone_id": "uav-01",
+        "flight_status": "ready",
+        "paused": true,
+        "flight_mode": "manual",
+        "position_ned_m": [
+          -709.72265625,
+          -387.9657287597656,
+          -0.9185694456100464
+        ],
+        "route_loops": 0,
+        "route_status": "idle",
+        "route_next_waypoint": null,
+        "route": null,
+        "active_route_name": "",
+        "velocity_mps": 3.0,
+        "command_active": false,
+        "last_error": "",
+        "yaw_deg": 0.0,
+        "motor_rpm": [
+          0.010972498798427145,
+          0.010972498798427145,
+          0.010972498798427145,
+          0.010972498798427145
+        ],
+        "rotor_sample_age_s": 0.040934699994977564,
+        "manual_command_count": 7,
+        "last_manual_input": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "tick_progress": [
+    534,
+    781
+  ],
+  "restore_error": "{'code': 'invalid_argument', 'message': 'Angles exceed gimbal limits'}"
+}

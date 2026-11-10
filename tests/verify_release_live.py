@@ -12,7 +12,7 @@ import time
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--release', type=Path, required=True)
-parser.add_argument('--scene', choices=['city'], default='city')
+parser.add_argument('--scene', choices=['city', 'city_large'], default='city')
 parser.add_argument('--allow-flight', action='store_true')
 parser.add_argument('--unicode-paths', action='store_true')
 parser.add_argument('--check-features', action='store_true', help='Exercise enhanced IR and environment against the packaged Game')
@@ -49,7 +49,7 @@ import apps.desktop_app.workbench_v3 as workbench_module
 PySide6.QtCore.QSettings = workspace_module.QSettings = workbench_module.QSettings = IsolatedSettings
 config = AppConfig.load()
 if args.check_features:
-    config = replace(config, rtsp_port=19554, rtsp_paths={'ptz-02/infrared': 'acceptance/thermal'})
+    config = replace(config, rtsp_port=19554, rtsp_paths={'ptz-01/infrared': 'acceptance/thermal'})
     config.save()
 window = MainWindow(config)
 window.resize(1600, 950)
@@ -104,7 +104,7 @@ try:
     assert listed == set(json.loads((release / 'release.json').read_text(encoding='utf-8'))['scenes'])
     report['available_scenes'] = sorted(listed)
     window.launch_ue()
-    wait(lambda: window.client.ready and window.air_client.ready, 300)
+    wait(lambda: window.client.ready and window.air_client.ready, 600 if args.scene=='city_large' else 300)
     state = rpc()
     ground = air()
     assert state['scene_id'] == args.scene and state['run_id'] == ground['run_id']
@@ -155,7 +155,7 @@ try:
         with (test_root / 'rtsp.log').open('w', encoding='utf-8') as log:
             target = test_root / 'custom-rtsp.png'
             process = subprocess.Popen([str(release / 'Tools/ffmpeg.exe'), '-nostdin', '-y',
-                                        '-rtsp_transport', 'tcp', '-i', config.stream_url('ptz-02', 'infrared'),
+                                        '-rtsp_transport', 'tcp', '-i', config.stream_url('ptz-01', 'infrared'),
                                         '-frames:v', '1', str(target)], stdout=log, stderr=subprocess.STDOUT,
                                        creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
             deadline = time.monotonic() + 45
@@ -169,7 +169,7 @@ try:
         from PySide6.QtGui import QImage
         decoded = QImage(str(target))
         assert (decoded.width(), decoded.height()) == (640, 512)
-        report['custom_rtsp_url'] = config.stream_url('ptz-02', 'infrared')
+        report['custom_rtsp_url'] = config.stream_url('ptz-01', 'infrared')
         report['checks'].append('Frozen RTSP publisher and bundled FFmpeg decode custom port/path at 640x512')
     if args.allow_flight:
         airborne = True

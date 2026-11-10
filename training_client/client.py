@@ -24,7 +24,7 @@ class Client:
     def rpc(self, command, **payload):
         token = uuid.uuid4().hex
         request = dict(version=1, request_id=token, command=command,
-                       payload=dict(device_id=self.device, **payload))
+                       payload=dict(({'device_id':self.device} if self.device else {}), **payload))
         with socket.create_connection((self.host, self.port), timeout=self.connect_timeout) as sock:
             sock.settimeout(self.response_timeout)
             sock.sendall((json.dumps(request) + '\n').encode('utf8'))
@@ -120,7 +120,7 @@ def validate_packet(packet, device=None, sensor=None):
         if len(box) != 4 or not all(type(v) in (int, float) and math.isfinite(v) for v in box):
             raise ValueError('Invalid box')
         x1, y1, x2, y2 = box
-        if not (0 <= x1 < x2 <= width and 0 <= y1 < y2 <= height) or obj['class_id'] != 0:
+        if not (0 <= x1 < x2 <= width and 0 <= y1 < y2 <= height) or type(obj['class_id']) is not int or obj['class_id'] not in (0,1,2):
             raise ValueError('Box or class out of range')
     eligible = not ignored
     if packet.get('training_eligible') is not eligible or packet.get('negative_sample') is not (eligible and not objects):

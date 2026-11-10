@@ -1,0 +1,17 @@
+{
+  "baseline": {
+    "wall_s": 2.0088560999993206,
+    "cpu_s": 0.078125,
+    "animation_ticks": 0
+  },
+  "visible": {
+    "wall_s": 3.0027814999994007,
+    "cpu_s": 0.109375,
+    "animation_ticks": 32
+  },
+  "hidden": {
+    "wall_s": 2.000089300001491,
+    "cpu_s": 0.09375,
+    "animation_ticks": 0
+  }
+}

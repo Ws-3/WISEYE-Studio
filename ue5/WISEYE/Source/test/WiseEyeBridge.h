@@ -1,9 +1,21 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "Engine/EngineTypes.h"
 
 class AWiseEyeDemo;
 class FSocket;
 class FJsonObject;
+class UPrimitiveComponent;
+
+struct FWiseEyeSlotLease {
+    TWeakObjectPtr<AActor> Actor;
+    bool ActorCollision=true;
+    FString Token;
+    double Expires=0;
+    TArray<TWeakObjectPtr<UPrimitiveComponent>> Components;
+    TArray<ECollisionEnabled::Type> Modes;
+    void Restore();
+};
 
 struct FWiseEyeClient
 {
@@ -26,6 +38,7 @@ private:
     AWiseEyeDemo& Demo;
     FSocket* Listener = nullptr;
     TArray<FWiseEyeClient> Clients;
+    TMap<FString,FWiseEyeSlotLease> SlotLeases;
     double LastManualInput = 0;
     int64 VisibleFrameNumber = 0;
     int64 InfraredFrameNumber = 0;

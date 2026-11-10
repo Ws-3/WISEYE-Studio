@@ -1,24 +1,32 @@
 """Scene device drafts and independent runtime selection."""
 import copy
-from PySide6.QtCore import Qt,QSignalBlocker
-from PySide6.QtWidgets import QWidget,QDialog,QVBoxLayout,QHBoxLayout,QFormLayout,QLabel,QComboBox,QPushButton,QTableWidget,QTableWidgetItem,QHeaderView,QTreeWidgetItem
+from PySide6.QtCore import Qt,QSignalBlocker,QTimer
+from PySide6.QtWidgets import QWidget,QDialog,QVBoxLayout,QHBoxLayout,QFormLayout,QLabel,QComboBox,QPushButton,QTableWidget,QTableWidgetItem,QHeaderView,QTreeWidgetItem,QCheckBox
 from core.config import ROOT
 from core.devices import DeviceStore,MODELS
 
 class DeviceManager(QDialog):
     def __init__(self,window):
         super().__init__(window);self.window=window;self.store=DeviceStore(ROOT);self.scene=window.scenes.currentData();self.data=self.store.load(self.scene)
-        self.setWindowTitle('场景设备 · 型号与实例');self.resize(1120,650)
+        from core.live_devices import from_state
+        if window.client.ready and window.state.get('scene_id')==self.scene['id']:self.data=from_state(window.state)
+        self.live_snapshot=copy.deepcopy(self.data);self.live_revision=window.state.get('fleet_revision',0);self.pending_live=None
+        self.live_timer=QTimer(self);self.live_timer.setSingleShot(True);self.live_timer.setInterval(450);self.live_timer.timeout.connect(self.apply_live)
+        self.live_enabled=QCheckBox('实时应用到当前场景');self.live_enabled.setChecked(window.client.ready and window.air_client.ready and window.state.get('fleet_live_edit_supported',False))
+        self.live_enabled.toggled.connect(lambda enabled:self.schedule_live() if enabled else self.live_timer.stop())
+        window.air_client.completed.connect(self.live_completed);window.air_client.failed.connect(self.live_failed)
+        self.setWindowTitle('场景设备 · 实时编辑与初始配置');self.resize(1120,650)
         box=QVBoxLayout(self);box.setContentsMargins(20,18,20,18);box.setSpacing(14)
         heading=QLabel('场景设备库');heading.setObjectName('title');box.addWidget(heading)
-        text=QLabel('编辑初始设备草稿：保存后重新加载场景生效。每类最多 4 个；默认实例保留。Mavic/Avata 目前共用四旋翼动力学。');text.setWordWrap(True);box.addWidget(text)
-        self.table=QTableWidget(0,10);self.table.setHorizontalHeaderLabels(['实例 ID','类型','型号','名称','X / m','Y / m','Z / m','初始偏航 / °','跟踪目标',''])
+        text=QLabel('开启实时应用可直接增删与修改设备；保存为初始配置只影响下次加载。每类最多4个，默认ID保留。');text.setWordWrap(True);box.addWidget(text)
+        self.table=QTableWidget(0,10);self.table.setHorizontalHeaderLabels(['实例 ID','类型','型号','名称','X / m','Y / m','Z / m','朝向 / °','跟踪目标',''])
         self.table.setAlternatingRowColors(True);self.table.setShowGrid(False);self.table.verticalHeader().hide();self.table.verticalHeader().setDefaultSectionSize(42)
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.ResizeToContents);self.table.horizontalHeader().setStretchLastSection(True);box.addWidget(self.table,1)
         row=QHBoxLayout()
         for text,callback in [('新增无人机',lambda:self.add('drone')),('新增云台',lambda:self.add('gimbal')),('复制选中实例',self.duplicate),('删除选中实例',self.remove),('保存设备配置',self.save),('保存并加载场景',self.reload)]:
             button=QPushButton(text);button.setObjectName('primary' if text=='保存并加载场景' else 'danger' if text=='删除选中实例' else '');button.clicked.connect(callback);row.addWidget(button)
-        box.addLayout(row);self.message=QLabel('位置为 UE 世界坐标，Z 向上；初始俯仰/横滚当前固定 0。热新增暂采用保存并重载。');self.message.setWordWrap(True);box.addWidget(self.message);self.render()
+        box.addLayout(row);self.message=QLabel('位置为UE世界坐标，Z向上。当前场景可实时修改，初始配置单独保存。');self.message.setWordWrap(True);box.addWidget(self.message);self.render()
+        self.table.itemChanged.connect(lambda *_:self.schedule_live())
 
         self.saved_snapshot=copy.deepcopy(self.collect())
 
@@ -33,11 +41,11 @@ class DeviceManager(QDialog):
             model=QComboBox()
             for ident,template in MODELS.items():
                 if template['kind']==item['kind']:model.addItem(template['name'],ident)
-            model.setCurrentIndex(model.findData(item['model_id']));self.table.setCellWidget(row,2,model)
+            model.setCurrentIndex(model.findData(item['model_id']));self.table.setCellWidget(row,2,model);model.currentIndexChanged.connect(lambda *_:self.schedule_live())
             target=QComboBox()
             for drone in self.data['devices']:
                 if drone['kind']=='drone':target.addItem(drone['id'],drone['id'])
-            target.setCurrentIndex(max(0,target.findData(item.get('tracking_target'))));target.setEnabled(item['kind']=='gimbal');self.table.setCellWidget(row,8,target)
+            target.setCurrentIndex(max(0,target.findData(item.get('tracking_target'))));target.setEnabled(item['kind']=='gimbal');self.table.setCellWidget(row,8,target);target.currentIndexChanged.connect(lambda *_:self.schedule_live())
 
     def collect(self):
         data=copy.deepcopy(self.data)
@@ -58,7 +66,7 @@ class DeviceManager(QDialog):
         if len(group)>=4:self.message.setText('每类最多 4 个实例');return
         prefix='uav' if kind=='drone' else 'ptz';ids={i['id'] for i in self.data['devices']};ident=next(f'{prefix}-{n:02}' for n in range(2,100) if f'{prefix}-{n:02}' not in ids)
         item=copy.deepcopy(source or group[-1]);item['id']=ident;item['name']=ident;item['position_cm'][0 if kind=='drone' else 1]+=500
-        self.data['devices'].append(item);self.render();self.table.selectRow(self.table.rowCount()-1)
+        self.data['devices'].append(item);self.render();self.table.selectRow(self.table.rowCount()-1);self.schedule_live()
 
     def duplicate(self):
         try:data=self.collect();row=self.table.currentRow()
@@ -75,21 +83,52 @@ class DeviceManager(QDialog):
         self.data['devices'].pop(row)
         for other in self.data['devices']:
             if other.get('tracking_target')==item['id']:other['tracking_target']='uav-01'
-        self.render();self.message.setText('实例已从草稿删除；引用它的跟踪目标已改为 uav-01。保存并加载后生效。')
+        self.render();self.message.setText('实例已从编辑列表删除；引用它的跟踪目标已改为 uav-01。');self.schedule_live()
 
     def save(self):
         try:
             self.data=self.collect();self.store.save(self.data)
             self.saved_snapshot=copy.deepcopy(self.data)
             self.window.arrangement.refresh_devices()
-            self.message.setText('设备配置已保存，当前仿真未移动；重新加载场景后生效。');return True
+            self.message.setText('已保存为下次启动的初始配置；保存本身不改变当前场景。');return True
         except (ValueError,OSError) as exc:self.message.setText('保存失败：'+str(exc));return False
 
     def reload(self):
-        if self.window.state.get('flight_backend')=='projectairsim':
-            states=self.window.air_state.get('fleet',[self.window.air_state])
-            if not self.window.air_client.ready or any(s.get('flight_status')!='ready' for s in states):self.message.setText('请先让所有无人机降落待命，再重新加载场景。');return
-        if self.save():self.window.switch_scene();self.accept()
+        self.apply_live(force=True)
+
+    def schedule_live(self):
+        if self.live_enabled.isChecked():self.live_timer.start()
+
+    def apply_live(self,force=False):
+        if self.pending_live is not None:return
+        w=self.window
+        if not w.client.ready or not w.air_client.ready or w.state.get('scene_id')!=self.scene['id']:
+            self.message.setText('未连接当前场景；编辑保留在草稿，可保存为初始配置。');return
+        try:
+            from core.live_devices import changes
+            data=self.collect();patch=changes(self.live_snapshot,data)
+            if not patch:self.message.setText('当前场景已是所编辑的设备配置。');return
+            self.pending_live=copy.deepcopy(data);self.pending_patch=patch
+            w.air_client.request('fleet.apply',dict(scene_id=self.scene['id'],run_id=w.state['run_id'],expected_revision=self.live_revision,changes=patch))
+            self.message.setText('正在应用到当前场景，不重载地图…')
+        except (ValueError,OSError) as error:self.pending_live=None;self.message.setText(str(error))
+
+    def live_completed(self,command,state):
+        if command!='fleet.apply' or self.pending_live is None:return
+        self.live_snapshot=self.pending_live;self.pending_live=None;self.live_revision=state['fleet_revision']
+        self.message.setText('已实时应用；如需下次启动保留，请保存为初始配置。')
+        self.window.client.request('sim.get_state')
+        page=self.window.arrangement
+        for item in getattr(self,'pending_patch',[]):
+            if item['action']=='remove' or 'position_cm' in item or 'rotation_deg' in item:page.dirty_positions.discard(page.coordinate_key(item['id']))
+        page.refresh_devices(dict(self.window.state,devices=state['live_devices']))
+        try:
+            if self.collect()!=self.live_snapshot:self.schedule_live()
+        except ValueError:pass
+
+    def live_failed(self,command,message):
+        if command!='fleet.apply' or self.pending_live is None:return
+        self.pending_live=None;self.live_timer.stop();self.message.setText('实时应用失败：'+message)
 
 class FleetSelection(QWidget):
     def __init__(self,window):
@@ -112,7 +151,7 @@ class FleetSelection(QWidget):
         if signature==self.signature:return
         self.signature=signature;w=self.window
         if hasattr(w,'arrangement') and state.get('scene_id')==(w.scenes.currentData() or {}).get('id'):
-            w.arrangement.refresh_devices()
+            w.arrangement.refresh_devices(state)
         for kind,combo,selected in [('drone',self.drone,w.selected_drone),('gimbal',self.gimbal,w.selected_gimbal)]:
             blocker=QSignalBlocker(combo);combo.clear()
             for d in devices:
@@ -126,6 +165,9 @@ class FleetSelection(QWidget):
             if d['kind']=='gimbal':
                 for sensor,title in [('visible','可见光'),('infrared','红外'),('lidar','激光雷达'),('event','事件相机')]:
                     child=QTreeWidgetItem(node,[title]);child.setData(0,Qt.ItemDataRole.UserRole,('sensor',d['id']+'/'+sensor))
+            elif d['kind']=='drone' and 'aerial' in d:
+                child=QTreeWidgetItem(node,['机载可见光']);child.setData(0,Qt.ItemDataRole.UserRole,('sensor',d['id']+'/aerial'))
+                ir=QTreeWidgetItem(node,['机载红外']);ir.setData(0,Qt.ItemDataRole.UserRole,('sensor',d['id']+'/aerial_infrared'))
             node.setExpanded(True)
         root.setExpanded(True);del blocker
         blocker=QSignalBlocker(w.tracking_target);w.tracking_target.clear()

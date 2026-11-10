@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0,str(ROOT))
 from core.routes import validate_route
+from core.scenes import ID as SCENE_ID
 
 from core.runtime_paths import RESOURCE_ROOT
 CONFIG = RESOURCE_ROOT / "integrations" / "ProjectAirSim" / "config"
@@ -77,7 +78,7 @@ def resolved_ue_state_ready(reply):
     if not isinstance(reply,dict) or reply.get('status')!='ok':return False
     state=reply.get('payload',{})
     if not isinstance(state,dict):return False
-    if not state.get('run_id') or state.get('scene_id') not in ('original','test_range','city','city_large'):return False
+    if not state.get('run_id') or not isinstance(state.get('scene_id'),str) or not SCENE_ID.fullmatch(state['scene_id']):return False
     if state['scene_id']=='city_large' and (state.get('world_streaming_ready') is not True or state.get('world_streaming_enabled') is not True):return False
     def pose(value):
         return isinstance(value,list) and len(value)==3 and all(type(n) in (int,float) and math.isfinite(n) for n in value)
@@ -110,7 +111,8 @@ async def restore_observer(mode, timeout):
 
 class ConfiguredWorld(World):
     """Apply UE's resolved initial pose before AirSim creates its physics robot."""
-    def __init__(self, *args, initial_position_cm=None, initial_devices=None, **kwargs):
+    def __init__(self, *args, initial_position_cm=None, initial_devices=None, reserve_slots=False, **kwargs):
+        self.reserve_slots=reserve_slots
         self.initial_devices=initial_devices
         self.initial_position_cm = initial_position_cm
         super().__init__(*args, **kwargs)
@@ -126,11 +128,18 @@ class ConfiguredWorld(World):
             template=config['actors'][0]
             robots=[]
             for device in self.initial_devices:
-                if device['kind']!='drone':continue
+                if device['kind']!='drone' or device.get('model_id')=='fixedwing':continue
                 actor=json.loads(json.dumps(template));actor['name']=device['dynamics_name']
                 x,y,z=device['initial_position_cm'];actor['origin']['xyz']=f'{x/100} {y/100} {-z/100}'
                 actor['origin']['rpy-deg']=f"0 0 {device.get('initial_yaw_deg',0)}"
                 robots.append(actor)
+            if getattr(self,'reserve_slots',False):
+                occupied={a['name'] for a in robots}
+                for i in range(1,5):
+                    if f'Drone{i}' in occupied:continue
+                    actor=json.loads(json.dumps(template));actor.update(name=f'Drone{i}')
+                    actor['origin']['xyz']=f'{5000+i*5} 5000 -50';actor['origin']['rpy-deg']='0 0 0';actor['start-landed']=True
+                    robots.append(actor)
             config['actors']=robots
         return super().load_scene(config, delay_after_load_sec=delay_after_load_sec)
 
@@ -580,6 +589,7 @@ class FlightController:
         """Run independently of local-key polling and interactive / --loops mode."""
         while not self.closed:
             for ctl in self.fleet_controllers.values():
+                if getattr(ctl,'airframe',None)=='fixedwing':continue
                 sampled,_,rpms=ctl.rotor_sample
                 fresh=sampled>0 and time.monotonic()-sampled<1
                 await asyncio.to_thread(ctl.ue_request,'rotors.sync_state',dict(rpm=list(rpms) if fresh else [0]*4,fresh=fresh))
@@ -639,8 +649,89 @@ class FlightController:
                 await self.route_task
 
 
-class FleetController:
-    def __init__(self,controllers):
+class FixedwingController(FlightController):
+    """Control adapter for the native JSBSim fixed-wing runtime."""
+    def __init__(self, world, device, snapshot):
+        super().__init__(world,None,0,12.,ready_on_ground=True,device_id=device['id'])
+        self.airframe='fixedwing';self.snapshot=snapshot;self.updated_at=time.monotonic()
+        self.initial_position=tuple(v/100 for v in device['initial_position_cm'])
+
+    def initialize_route(self):
+        pass
+
+    def start(self):
+        async def poll():
+            while not self.closed:
+                reply=await asyncio.to_thread(self.ue_request,'sim.get_state')
+                if reply and reply.get('status')=='ok' and reply['payload'].get('run_id')==self.play_session_id:
+                    self.snapshot=reply['payload'];self.updated_at=time.monotonic()
+                    item=next((x for x in self.snapshot.get('devices',[]) if x['id']==self.device_id),{})
+                    status=item.get('fixedwing',{})
+                    self.mode=status.get('mode','auto');self.paused=status.get('paused',True)
+                await asyncio.sleep(.15)
+        self.route_task=asyncio.create_task(poll())
+
+    def state(self):
+        item=next((x for x in self.snapshot.get('devices',[]) if x['id']==self.device_id),{})
+        fw=item.get('fixedwing',{});pos=item.get('position_cm',[0,0,0])
+        fresh=time.monotonic()-self.updated_at<2
+        return dict(application='WISEYE AirSim Control',run_id=self.play_session_id,drone_id=self.device_id,
+            connected=fresh,telemetry_valid=fresh,telemetry_age_s=time.monotonic()-self.updated_at,
+            telemetry_source='ue_jsbsim_fixedwing',airframe='fixedwing',physics=fw.get('model','jsbsim_6dof'),
+            dynamics_calibration=fw.get('calibration','uncalibrated_reference_wiseye80'),
+            throttle=fw.get('throttle',0),alpha_deg=fw.get('alpha_deg',0),stall_warning=fw.get('stall_warning',False),
+            flight_status='active' if fw.get('active') else 'ready',paused=fw.get('paused',True),
+            flight_mode=fw.get('mode','auto'),position_ned_m=[pos[0]/100,pos[1]/100,-pos[2]/100],
+            yaw_deg=fw.get('yaw_deg',0),route_loops=0,route_status=fw.get('route_status','idle'),
+            roll_deg=fw.get('roll_deg',0),pitch_deg=fw.get('pitch_deg',0),
+            route_next_waypoint=fw.get('route_next_index',0)+1,route=self.uploaded_route,
+            active_route_name=self.uploaded_route['name'] if self.active_route else '',
+            velocity_mps=fw.get('speed_mps',0),command_active=False,last_error=fw.get('last_error',''),
+            motor_rpm=[],manual_command_count=self.manual_command_count,last_manual_input=self.last_manual_input)
+
+    async def execute(self,command,payload):
+        if payload.get('run_id',self.play_session_id)!=self.play_session_id:raise ValueError('Stale fixed-wing session')
+        if command in ('sim.get_state','sim.ping'):return self.state()
+        if command=='route.upload':
+            route=validate_route(payload,self.scene_id)
+            if route['speed_mps']<5:raise ValueError('Fixed-wing route speed must be 5-15 m/s')
+            self.uploaded_route=json.loads(json.dumps(route));return self.state()
+        if command=='placement.apply':
+            if self.state()['flight_status']!='ready':raise ValueError('Stop cruise before placement')
+            reply=await asyncio.to_thread(self.ue_request,command,payload)
+        else:
+            actions={'flight.takeoff':'start','flight.land':'stop','flight.hover':'loiter',
+                     'flight.set_mode':'mode','flight.set_input':'input','sim.pause':'pause',
+                     'sim.resume':'resume','sim.reset':'reset','route.start':'route','route.execute':'route','route.stop':'loiter'}
+            if command not in actions:raise KeyError('Unsupported fixed-wing command')
+            args=dict(payload,action=actions[command],run_id=self.play_session_id)
+            if command in ('route.start','route.execute'):
+                if not self.uploaded_route:raise ValueError('Upload a route first')
+                args.update({k:self.uploaded_route[k] for k in ('waypoints','speed_mps','repeat')});self.active_route=self.uploaded_route
+            if command=='flight.set_input':
+                self.last_manual_input=[payload.get(k,0) for k in ('forward','right','up','yaw')]
+                self.manual_command_count+=1
+            reply=await asyncio.to_thread(self.ue_request,'flight.fixedwing',args)
+        if not reply or reply.get('status')!='ok':raise ValueError((reply or {}).get('error',{}).get('message','UE did not acknowledge fixed-wing control'))
+        self.snapshot=reply['payload'];self.updated_at=time.monotonic()
+        fw=next((x.get('fixedwing',{}) for x in self.snapshot.get('devices',[]) if x['id']==self.device_id),{})
+        self.mode=fw.get('mode','auto');self.paused=fw.get('paused',True)
+        state=self.state()
+        if command=='placement.apply':state['placement_applied']=dict(request_token=payload['request_token'],device_id=self.device_id)
+        return state
+
+    async def close(self,*,skip_remote=False):
+        await super().close(skip_remote=True)
+
+
+from integrations.ProjectAirSim.live_fleet import LiveFleetMixin
+
+
+class FleetController(LiveFleetMixin):
+    def __init__(self,controllers,world=None,client=None,pool=None,initial=None):
+        self.controller_type=FlightController;self.fixedwing_type=FixedwingController;self.rpc=wiseeye_request;self.session_changed=SessionChanged;self.listener_open=ue_listener_open
+        self.world=world;self.client=client;self.pool=pool or {};self.run_id=(initial or {}).get('run_id');self.scene_id=(initial or {}).get('scene_id');self.edit_lock=asyncio.Lock()
+        self.slots={d['id']:d['dynamics_name'] for d in (initial or {}).get('devices',[]) if d['kind']=='drone'}
         self.controllers={c.device_id:c for c in controllers}
         self.control_writers=set();self.closed=False
         for c in controllers:c.fleet_controllers=self.controllers
@@ -650,6 +741,7 @@ class FleetController:
         state['fleet']=[c.state() for c in self.controllers.values()]
         return state
     async def execute(self,command,payload):
+        if command=='fleet.apply':return await self.edit_devices(payload)
         ident=payload.get('device_id','uav-01')
         if ident not in self.controllers:raise ValueError('Unknown drone device_id')
         result=await self.controllers[ident].execute(command,payload)
@@ -660,7 +752,8 @@ class FleetController:
     async def close(self,*,skip_remote=False):
         self.closed=True
         for writer in list(self.control_writers):writer.close()
-        for c in self.controllers.values():await c.close(skip_remote=skip_remote)
+        async with self.edit_lock:
+            for c in list(self.controllers.values()):await c.close(skip_remote=skip_remote)
 
 
 def response(request_id: str, payload: dict, error: tuple[str, str] | None = None) -> dict:
@@ -745,25 +838,32 @@ async def fly(scene: str, loops: int, velocity: float, connection_timeout: float
         ue_state = await wait_for_ue_snapshot(connection_timeout)
         print('UE confirmed initial poses: '+json.dumps({d['id']:d['initial_position_cm'] for d in ue_state['payload']['devices'] if d['kind']=='drone'}),flush=True)
         active_scene = (ue_state or {}).get('payload', {}).get('scene_id')
-        if active_scene in ('original', 'test_range', 'city', 'city_large'):
+        if isinstance(active_scene,str) and SCENE_ID.fullmatch(active_scene):
             scene = active_scene
         # UE can accept the service socket a moment before a full scene reload is
         # ready. Allow the real reload/actor creation operation to complete.
         client.socket_services.recv_timeout = 60000
         config_name = f"scene_wiseye_{scene}.jsonc"
+        if not (CONFIG / config_name).is_file():config_name='scene_wiseye_generic.jsonc'
         origin = (ue_state or {}).get('payload', {}).get('initial_drone_position_cm')
-        world = ConfiguredWorld(client, config_name, delay_after_load_sec=2, sim_config_path=str(CONFIG), initial_position_cm=origin,initial_devices=(ue_state or {}).get("payload",{}).get("devices"))
+        world = ConfiguredWorld(client, config_name, delay_after_load_sec=2, sim_config_path=str(CONFIG), initial_position_cm=origin,initial_devices=(ue_state or {}).get("payload",{}).get("devices"),reserve_slots=True)
         devices=[d for d in (ue_state or {}).get('payload',{}).get('devices',[]) if d['kind']=='drone']
         if not devices:devices=[dict(id='uav-01',dynamics_name='Drone1')]
+        pool={}
+        for i in range(1,5):
+            robot=Drone(client,world,f'Drone{i}');robot.enable_api_control();pool[robot.name]=robot;drones.append(robot)
+        await asyncio.to_thread(wiseeye_request,'flight.hide_reserves')
         for device in devices:
-            robot=Drone(client,world,device['dynamics_name']);robot.enable_api_control();drones.append(robot)
+            if device.get('model_id')=='fixedwing':
+                ctl=FixedwingController(world,device,ue_state['payload']);ctl.scene_id=scene;ctl.play_session_id=ue_state['payload']['run_id'];controllers.append(ctl);continue
+            robot=pool[device['dynamics_name']]
             ctl=FlightController(world,robot,loops,velocity,ready_on_ground=loops==0,device_id=device['id'])
             ctl.scene_id=scene;ctl.play_session_id=(ue_state or {}).get('payload',{}).get('run_id');ctl.initialize_route();controllers.append(ctl)
             client.subscribe(robot.robot_info["rotor_info"],ctl.on_rotors)
             client.subscribe(robot.robot_info["actual_pose"],ctl.on_pose)
-        controller=controllers[0];drone=drones[0];fleet=FleetController(controllers)
-        rotor_publisher=asyncio.create_task(controller.publish_rotors())
-        if loops>0:
+        controller=controllers[0];drone=next((c.drone for c in controllers if getattr(c,'airframe',None)!='fixedwing'),None);fleet=FleetController(controllers,world=world,client=client,pool=pool,initial=ue_state['payload'])
+        rotor_publisher=asyncio.create_task(fleet.publish_rotors())
+        if loops>0 and drone is not None:
             drone.arm();takeoff=await drone.takeoff_async();await takeoff
         server = await asyncio.start_server(
             lambda reader, writer: handle_control(reader, writer, fleet),
@@ -775,9 +875,10 @@ async def fly(scene: str, loops: int, velocity: float, connection_timeout: float
         await restore_observer(ue_state['payload'].get('observer_mode','overview'),connection_timeout)
         for ctl in controllers:
             ctl.start()
-            await asyncio.to_thread(ctl.ue_request,'flight.sync_state',dict(mode=ctl.mode,paused=ctl.paused))
+            if getattr(ctl,'airframe',None)!='fixedwing':
+                await asyncio.to_thread(ctl.ue_request,'flight.sync_state',dict(mode=ctl.mode,paused=ctl.paused))
         print(
-            f"Project AirSim owns the drone pose. Desktop flight control: {CONTROL_HOST}:{CONTROL_PORT}",
+            f"Per-device flight backends ready. Desktop flight control: {CONTROL_HOST}:{CONTROL_PORT}",
             flush=True,
         )
         if loops > 0:
@@ -788,7 +889,7 @@ async def fly(scene: str, loops: int, velocity: float, connection_timeout: float
         else:
             # Cleanup must close persistent clients before waiting for the
             # server. An async-with exit waits too early on Python 3.14.
-            await controller.watch_ue_controls()
+            await fleet.watch_ue_controls()
     except SessionChanged:
         stale_session = True
         raise
@@ -818,11 +919,12 @@ async def fly(scene: str, loops: int, velocity: float, connection_timeout: float
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--scene", choices=("city", "city_large"), default="city")
+    parser.add_argument("--scene", default="city")
     parser.add_argument("--loops", type=int, default=0, help="0 repeats until Ctrl+C")
     parser.add_argument("--velocity", type=float, default=3.0)
     parser.add_argument("--connection-timeout", type=float, default=180.0)
     args = parser.parse_args()
+    if not SCENE_ID.fullmatch(args.scene):parser.error('--scene must be a valid lowercase scene ID')
     async def supervise():
         while True:
             try:

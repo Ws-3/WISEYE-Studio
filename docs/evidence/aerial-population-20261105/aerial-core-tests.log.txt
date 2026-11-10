@@ -1,0 +1,63 @@
+
+
+     JSBSim Flight Dynamics Model v1.2.4 Nov  5 2026 17:04:02
+            [JSBSim-ML v2.0]
+
+JSBSim startup beginning ...
+
+
+
+     JSBSim Flight Dynamics Model v1.2.4 Nov  5 2026 17:04:02
+            [JSBSim-ML v2.0]
+
+JSBSim startup beginning ...
+
+
+
+     JSBSim Flight Dynamics Model v1.2.4 Nov  5 2026 17:04:02
+            [JSBSim-ML v2.0]
+
+JSBSim startup beginning ...
+
+
+
+     JSBSim Flight Dynamics Model v1.2.4 Nov  5 2026 17:04:02
+            [JSBSim-ML v2.0]
+
+JSBSim startup beginning ...
+
+
+
+     JSBSim Flight Dynamics Model v1.2.4 Nov  5 2026 17:04:02
+            [JSBSim-ML v2.0]
+
+JSBSim startup beginning ...
+
+..........................................Could not open file: Path "E:/Projects/WISEYE/builds/not-a-jsbsim-model/aircraft/wiseye80/wiseye80.xml"
+  JSBSim failed to open the configuration file: Path "E:/Projects/WISEYE/builds/not-a-jsbsim-model/aircraft/wiseye80/wiseye80.xml"
+
+
+     JSBSim Flight Dynamics Model v1.2.4 Nov  5 2026 17:04:02
+            [JSBSim-ML v2.0]
+
+JSBSim startup beginning ...
+
+
+
+     JSBSim Flight Dynamics Model v1.2.4 Nov  5 2026 17:04:02
+            [JSBSim-ML v2.0]
+
+JSBSim startup beginning ...
+
+
+
+     JSBSim Flight Dynamics Model v1.2.4 Nov  5 2026 17:04:02
+.......................................................................................
+----------------------------------------------------------------------
+Ran 129 tests in 3.999s
+
+OK
+            [JSBSim-ML v2.0]
+
+JSBSim startup beginning ...
+

@@ -21,5 +21,6 @@ exec(compile(generator.read_text(encoding='utf8'),str(generator),'exec'),dict(
     WISEYE_IR_EXTRA_SCALARS=extras,
     WISEYE_IR_EXTRA_TEXTURES=globals().get('WISEYE_CLASS_EXTRA_TEXTURES',{}),
     WISEYE_IR_EXTRA_VECTORS=vectors,WISEYE_IR_STENCIL_MIN=32,
+    WISEYE_IR_WORLD_POSITION=globals().get('WISEYE_CLASS_WORLD_POSITION',False),
     WISEYE_IR_CODE_PREFIX=globals().get('WISEYE_CLASS_PREFIX','')+(folder/'infrared_classified.hlsl').read_text(encoding='utf8')+'\n'))
 unreal.log('WISEYE_IR_CLASSIFIED_SAVED')

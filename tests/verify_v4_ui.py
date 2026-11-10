@@ -123,16 +123,18 @@ class V4Tests(unittest.TestCase):
         w=MainWindow(AppConfig.load());w.show();w.pages.setCurrentIndex(4);self.app.processEvents()
         try:
             catalog=w.device_page.catalog;editor=w.device_page.editor
+            original_ids={d['id'] for d in editor.collect()['devices']}
+            original_count=catalog.table.rowCount()
             before=editor.collect()['devices'][0]['position_cm'][:]
             catalog.name.selectAll();QTest.keyClicks(catalog.name,'Roof test unit')
             self.assertEqual(editor.collect()['devices'][0]['name'],'Roof test unit')
             self.assertEqual(editor.collect()['devices'][0]['position_cm'],before)
             catalog.actions['新增无人机'].click()
-            self.assertEqual(catalog.table.rowCount(),3)
-            self.assertEqual(catalog.selected()['id'],'uav-02')
+            self.assertEqual(catalog.table.rowCount(),original_count+1)
+            self.assertNotIn(catalog.selected()['id'],original_ids)
             catalog.actions['删除选中实例'].click()
-            self.assertEqual(catalog.table.rowCount(),2)
-            self.assertEqual([d['id'] for d in editor.collect()['devices']],['uav-01','ptz-01'])
+            self.assertEqual(catalog.table.rowCount(),original_count)
+            self.assertEqual({d['id'] for d in editor.collect()['devices']},original_ids)
         finally:
             with patch.object(QMessageBox,'question',return_value=QMessageBox.StandardButton.Yes):w.close()
 

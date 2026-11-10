@@ -72,6 +72,9 @@ def install(w):
     w.scene_tools.setPopupMode(QToolButton.ToolButtonPopupMode.InstantPopup)
     w.scene_tools_menu=QMenu(w.scene_tools)
     w.environment_action=w.scene_tools_menu.addAction('环境与天气…');w.environment_action.triggered.connect(w.runtime_panel.open_environment)
+    from apps.desktop_app.observation_panel import open_aerial,open_population
+    w.aerial_action=w.scene_tools_menu.addAction('无人机航拍…');w.aerial_action.triggered.connect(lambda:open_aerial(w))
+    w.population_action=w.scene_tools_menu.addAction('车辆与行人…');w.population_action.triggered.connect(lambda:open_population(w))
     quality=w.scene_tools_menu.addAction('性能与画质…')
     quality.triggered.connect(lambda:(w.pages.setCurrentIndex(3),w.settings_navigation.setCurrentRow(1)))
     w.scene_tools.setMenu(w.scene_tools_menu);w.gallery.layout().itemAt(0).layout().insertWidget(3,w.scene_tools)
@@ -89,7 +92,7 @@ def install(w):
     for button in (w.takeoff_button,w.hover_button,w.land_button):actions.addWidget(button)
     safe.addLayout(actions);rl.insertWidget(rl.indexOf(w.inspectors),safety)
     w.drone_safety=safety
-    w.inspectors.currentChanged.connect(lambda index:safety.setVisible(index==0));safety.setVisible(w.inspectors.currentIndex()==0)
+    w.inspectors.currentChanged.connect(lambda index:safety.setVisible(index in (0,3)));safety.setVisible(w.inspectors.currentIndex()==0)
     w.drone_control_label.hide()
     w.gimbal_stick.setMaximumHeight(150)
     from apps.desktop_app.gimbal_device import open_device
@@ -100,9 +103,11 @@ def install(w):
     update(w)
     w.client.state_received.connect(lambda _:update(w));w.air_client.state_received.connect(lambda _:update(w))
     w.client.connection_changed.connect(lambda *_:update(w));w.input_mode.currentIndexChanged.connect(lambda _:update(w))
+    from apps.desktop_app.mission_workspace import MissionWorkspace
+    w.mission_workspace=MissionWorkspace(w)
 
 
 def update(w):
     w.ownership.setText(f'驾驶：{w.selected_drone}    云台控制：{w.selected_gimbal}')
     w.ownership.setToolTip('使用接管按钮改变键盘归属。点击预览不会打开参数；输入框内编辑不会驾驶。')
-    if hasattr(w,'drone_safety'):w.drone_safety.setVisible(w.inspectors.currentIndex()==0)
+    if hasattr(w,'drone_safety'):w.drone_safety.setVisible(w.inspectors.currentIndex() in (0,3))

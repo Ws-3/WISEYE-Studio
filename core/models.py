@@ -26,7 +26,7 @@ def validate_state(state):
     disabled_legacy = dimensions == (0, 0) and isinstance(sensor, dict) and sensor.get('enabled') is False
     if dimensions not in ((1920, 1080), (640, 512)) and not disabled_legacy:
         raise ProtocolError('相机分辨率无效')
-    if state.get('drone_model', 'mavic3') not in ('mavic3', 'avata'):
+    if state.get('drone_model', 'mavic3') not in ('mavic3', 'avata', 'fixedwing'):
         raise ProtocolError('无人机型号无效')
     position = state.get('drone_position_cm')
     if not isinstance(position, list) or len(position) != 3 or not all(type(v) in (int, float) and math.isfinite(v) for v in position):

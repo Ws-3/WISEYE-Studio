@@ -1,0 +1,10 @@
+{
+  "release_version": "1.1.0",
+  "archive": "WISEYE-Plugin-v1.1.0-UE5.8-Win64.zip",
+  "bytes": 554789718,
+  "sha256": "4986152b3ac632db6f18352b4b09eff72a73abf9eb578505b181e2798ce6d1a5",
+  "payload_files_verified": 3701,
+  "zip_crc_verified": true,
+  "native_source_matches_canonical": true,
+  "installer_dry_run_passed": true
+}

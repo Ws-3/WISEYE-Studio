@@ -1,0 +1,15 @@
+test_arrangement_reuses_observer_frame_without_a_second_client (tests.verify_v4_ui.V4Tests.test_arrangement_reuses_observer_frame_without_a_second_client) ... ok
+test_desktop_opens_without_launching_unreal_until_user_clicks (tests.verify_v4_ui.V4Tests.test_desktop_opens_without_launching_unreal_until_user_clicks) ... ok
+test_device_details_edit_original_draft_and_keep_precise_position (tests.verify_v4_ui.V4Tests.test_device_details_edit_original_draft_and_keep_precise_position) ... ok
+test_device_reload_and_exit_do_not_silently_discard_drafts (tests.verify_v4_ui.V4Tests.test_device_reload_and_exit_do_not_silently_discard_drafts) ... ok
+test_large_city_does_not_replace_small_city_default (tests.verify_v4_ui.V4Tests.test_large_city_does_not_replace_small_city_default) ... ok
+test_large_city_switch_allows_cold_load_without_changing_small_timeout (tests.verify_v4_ui.V4Tests.test_large_city_switch_allows_cold_load_without_changing_small_timeout) ... ok
+test_navigation_preserves_indices_and_control_identity (tests.verify_v4_ui.V4Tests.test_navigation_preserves_indices_and_control_identity) ... ok
+test_safety_actions_are_pinned_and_diagnostics_closes_with_main (tests.verify_v4_ui.V4Tests.test_safety_actions_are_pinned_and_diagnostics_closes_with_main) ... ok
+test_selected_placement_fields_match_each_device_and_remain_editable (tests.verify_v4_ui.V4Tests.test_selected_placement_fields_match_each_device_and_remain_editable) ... ok
+test_training_pair_and_overlay_survive_relayout (tests.verify_v4_ui.V4Tests.test_training_pair_and_overlay_survive_relayout) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 6.223s
+
+OK

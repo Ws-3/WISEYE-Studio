@@ -1,0 +1,87 @@
+{
+  "date": "2026-11-10",
+  "scope": "Only Python files directly in E:/Projects; no recursive deletion",
+  "status": "deleted_verified",
+  "files": [
+    {
+      "path": "E:\\Projects\\finish_dataset_storage.py",
+      "bytes": 2044,
+      "sha256": "cc15d8d0fb83c222ff493dc677436ec8061ce06c64b1539903a24bba4ff1b8a7",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\finish_fusion_evidence.py",
+      "bytes": 2251,
+      "sha256": "7b11365628b0125a0f258c551c5152892042432996f89b765142647e950a66a9",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\finish_gt_evidence.py",
+      "bytes": 2161,
+      "sha256": "2bd68c6934035b1f3addec4ba69c9f803691f1035b537c3e3412a6785c5d1163",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\finish_gt_rate.py",
+      "bytes": 2247,
+      "sha256": "24fcc632102b943f89bebaa1be9562a88f0e83f1c68071dbb7e9da271dcb2dc6",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\finish_input_online.py",
+      "bytes": 1844,
+      "sha256": "2bed4c143bf803f8e53a8ef9b1df937a0f7ee445b3a98538bfc2c60ad9885cf6",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\finish_live_placement.py",
+      "bytes": 1958,
+      "sha256": "7e91d49ad30e80d530855a370fe4b873eaf96e8e78aec96b51d926cc23fc2dc4",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\finish_training_inspection.py",
+      "bytes": 1890,
+      "sha256": "1d3a178ce23ba2143b41bea5a471ddc96f32c675c114296e1b2f6628ad23c9db",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\patch_gt_stream.py",
+      "bytes": 5189,
+      "sha256": "bb2594b6ba1024d6bb09baf4467b2b2d8376bb360d096810f4ca486fbeca80f1",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\replace_training_canvas.py",
+      "bytes": 286,
+      "sha256": "f95b4a316b5e3d883afc3e80c2baec7c042bf6190b93f475ab880f26dbe8225a",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\switch_dataset_storage.py",
+      "bytes": 610,
+      "sha256": "8cd6d4d0e6d1559c2b630a9c9c32deaf38e9bfea7e1e6cdb5a83e9f64133f109",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\test_training_launcher.py",
+      "bytes": 1600,
+      "sha256": "44d4f0d20f4e4dbe16bee6cc8e66f2aaed576de896d1e27da0e0da8025bb4b15",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\update_training_preview.py",
+      "bytes": 1991,
+      "sha256": "99a3f6d02a9407aa76d9037b70a469ac7c46491df5a701caf877a8308f329a32",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    },
+    {
+      "path": "E:\\Projects\\verify_dataset_layout_20261029.py",
+      "bytes": 2291,
+      "sha256": "3e6f293a1114ef6656e5c925604fa46c952dfeeccc1e39c9694f158faf4beadf",
+      "reason": "Obsolete one-off development/evidence script targeting the previous F:/WISEYE-Studio checkout; no current project filename references found."
+    }
+  ],
+  "total_bytes": 26362,
+  "verification": "All 13 reviewed paths absent; no Python files remain directly in E:/Projects. Application, test, UE tool, dependency, and paper directories preserved."
+}

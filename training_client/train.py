@@ -5,17 +5,20 @@ import json
 from pathlib import Path
 
 
-def collect(root,sensor=None):
+def collect(root,sensor=None,stop=None):
     root = Path(root).resolve()
     images, sessions, hashes = [], set(), set()
     modalities=set()
     for annotation in sorted(root.rglob('*.json')):
+        if stop and stop():raise InterruptedError('Dataset preparation cancelled')
         if annotation.parent.name!='annotations' or '.pending' in annotation.relative_to(root).parts:continue
         item = json.loads(annotation.read_text(encoding='utf8'))
         modality=item.get('sensor_id','').split('/')[-1]
         if sensor and modality!=sensor:continue
         if item.get('annotation_status') != 'complete' or not item.get('training_eligible'):
             continue
+        from .dataset import inspect_annotation
+        inspect_annotation(annotation)
         sample_root=annotation.parent.parent
         image = sample_root/'images'/(annotation.stem+'.jpg')
         label = sample_root/'labels'/(annotation.stem+'.txt')
@@ -49,16 +52,23 @@ def collect(root,sensor=None):
     return images, sessions, hashes
 
 
-def prepare(train_root, val_root, output,sensor=None):
-    train, train_sessions, train_hashes = collect(train_root,sensor)
-    val, val_sessions, val_hashes = collect(val_root,sensor)
+def prepare(train_root, val_root, output,sensor=None,stop=None):
+    if not str(train_root).strip() or not str(val_root).strip():raise ValueError('Select both training and validation directories')
+    train, train_sessions, train_hashes = collect(train_root,sensor,stop)
+    val, val_sessions, val_hashes = collect(val_root,sensor,stop)
+    if stop and stop():raise InterruptedError('Dataset preparation cancelled')
     if train_sessions & val_sessions or train_hashes & val_hashes:
         raise ValueError('Training and validation must use separate simulator sessions and different images')
     output = Path(output).resolve(); output.mkdir(parents=True, exist_ok=True)
     for name, paths in [('train', train), ('val', val)]:
         (output/f'{name}.txt').write_text('\n'.join(paths)+'\n', encoding='utf8')
     # JSON is also valid YAML; no additional dependency for dataset preparation.
-    spec = dict(path=str(output), train=str(output/'train.txt'), val=str(output/'val.txt'), names={0:'drone'})
+    classes={0:'drone'}
+    for filename in train+val:
+        annotation=Path(filename).parent.parent/'annotations'/(Path(filename).stem+'.json')
+        item=json.loads(annotation.read_text(encoding='utf-8'))
+        if item.get('dataset_schema')==4:classes={0:'drone',1:'person',2:'vehicle'}
+    spec = dict(path=str(output), train=str(output/'train.txt'), val=str(output/'val.txt'), names=classes)
     target = output/'dataset.yaml'
     target.write_text(json.dumps(spec, indent=2), encoding='utf8')
     return target

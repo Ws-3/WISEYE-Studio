@@ -1,8 +1,8 @@
 """Stable sensor identity, independent of property or control selection."""
 from dataclasses import dataclass
 
-SENSOR_NAMES = {'visible': '可见光', 'infrared': '红外', 'lidar': '激光点云', 'event':'事件相机', 'observer': 'UE 观察'}
-SIZES = {'visible': (1920, 1080), 'infrared': (640, 512), 'event':(640,480), 'observer': (960, 540)}
+SENSOR_NAMES = {'visible': '可见光', 'infrared': '红外', 'lidar': '激光点云', 'event':'事件相机', 'observer': 'UE 观察','aerial':'机载可见光','aerial_infrared':'机载红外'}
+SIZES = {'visible': (1920, 1080), 'infrared': (640, 512), 'event':(640,480), 'observer': (960, 540),'aerial':(1920,1080),'aerial_infrared':(640,512)}
 
 
 @dataclass(frozen=True)
@@ -20,7 +20,7 @@ class Source:
                 else self.device_id + ' · ' + SENSOR_NAMES[self.sensor_id])
 
     def url(self, host, config):
-        if self.sensor_id in ('lidar','event'):
+        if self.sensor_id in ('lidar','event','aerial','aerial_infrared'):
             return ''
         return config.stream_url(self.device_id, self.sensor_id)
 
@@ -34,4 +34,4 @@ class Source:
         return cls(device, sensor)
 
 
-DEFAULT_SOURCES = ['scene/observer', 'ptz-01/visible', 'ptz-01/infrared', 'ptz-01/lidar']
+DEFAULT_SOURCES = ['scene/observer', 'ptz-01/visible', 'ptz-01/infrared', 'ptz-01/lidar', 'ptz-01/event']

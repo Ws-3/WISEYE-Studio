@@ -28,7 +28,8 @@ textures.update(globals().get('WISEYE_IR_EXTRA_TEXTURES',{}))
 defaults.update(globals().get('WISEYE_IR_EXTRA_SCALARS',{}))
 vectors=globals().get('WISEYE_IR_EXTRA_VECTORS',{})
 inputs=[]
-for key in [*textures,'UV',*defaults,'BatterySpot','DisplayColor',*vectors]:
+world_position=globals().get('WISEYE_IR_WORLD_POSITION',False)
+for key in [*textures,'UV',*(['WorldPosition'] if world_position else []),*defaults,'BatterySpot','DisplayColor',*vectors]:
     item=unreal.CustomInput();item.set_editor_property('input_name',key);inputs.append(item)
 custom.set_editor_property('inputs',inputs)
 folder=Path(__file__).parent
@@ -41,6 +42,9 @@ for i,(key,kind) in enumerate(textures.items()):
     assert edit.connect_material_expressions(tex,'Color',custom,key)
 uv=node(unreal.MaterialExpressionTextureCoordinate,-650,850)
 assert edit.connect_material_expressions(uv,'',custom,'UV')
+if world_position:
+    position=node(unreal.MaterialExpressionWorldPosition,-650,1050)
+    assert edit.connect_material_expressions(position,'',custom,'WorldPosition')
 for i,(key,value) in enumerate(defaults.items()):
     parameter=node(unreal.MaterialExpressionScalarParameter,-100,i*150)
     parameter.set_editor_property('parameter_name',key);parameter.set_editor_property('default_value',value)

@@ -149,7 +149,11 @@ class SensorWorkspace(QWidget):
             pass
 
     def save_layout(self):
-        self.settings.setValue('workspace/v3', json.dumps(dict(sources=self.sources, mode=self.mode,scene_sizes=self.scene_sizes)))
+        mission=getattr(self.window,'mission_workspace',None)
+        sources,mode=self.sources,self.mode
+        if mission and mission.mode=='aerial' and mission.previous:
+            sources,mode,_=mission.previous
+        self.settings.setValue('workspace/v3', json.dumps(dict(sources=sources, mode=mode,scene_sizes=self.scene_sizes)))
 
     def split_moved(self,*_):
         sizes=self.scene_split.sizes()
@@ -241,11 +245,15 @@ class SensorWorkspace(QWidget):
         box.setContentsMargins(10, 8, 10, 6)
         box.setSpacing(4)
         top = QHBoxLayout()
-        channel=QLabel({'observer':'SCENE','visible':'EO','infrared':'IR','lidar':'LIDAR','event':'EVT'}[source.sensor_id]);channel.setObjectName('channel');top.addWidget(channel)
+        channel=QLabel({'observer':'SCENE','visible':'EO','infrared':'IR','lidar':'LIDAR','event':'EVT','aerial':'AIR','aerial_infrared':'AIR IR'}[source.sensor_id]);channel.setObjectName('channel');top.addWidget(channel)
         title = DragLabel(source.title);title.setObjectName('tileTitle')
         title.setProperty('sourceKey', key)
         title.setToolTip(key + ' · 拖动可交换位置；参数请使用画面菜单或右侧参数按钮')
         top.addWidget(title, 1)
+        if source.sensor_id in ('aerial','aerial_infrared'):
+            aerial=QPushButton('航拍');aerial.setToolTip('前视、斜视、下视与机载相机参数')
+            from apps.desktop_app.observation_panel import open_aerial
+            aerial.clicked.connect(lambda _,d=source.device_id:open_aerial(self.window,d));top.addWidget(aerial)
         from apps.desktop_app.ui.icons import icon
         zoom = QPushButton();zoom.setIcon(icon('expand'));zoom.setFixedWidth(32);zoom.setAccessibleName('放大画面')
         zoom.setObjectName('iconButton')
@@ -281,6 +289,11 @@ class SensorWorkspace(QWidget):
         source = self.registry[key]
         if source.sensor_id == 'observer':
             menu.addAction('接管自由观察', self.activate_observer)
+        elif source.sensor_id in ('aerial','aerial_infrared'):
+            from apps.desktop_app.observation_panel import open_aerial,save_aerial_frame
+            menu.addAction('航拍视角与参数…',lambda:open_aerial(self.window,source.device_id))
+            action=menu.addAction('保存原始单帧',lambda:save_aerial_frame(self.window,source.device_id,source.sensor_id))
+            action.setEnabled(key in self.frames and key not in self.messages and self.source_enabled(key))
         else:
             action = menu.addAction('保存最近事件窗口' if source.sensor_id=='event' else '保存原始单帧', lambda: self.window.capture_source(source.device_id, source.sensor_id))
             action.setEnabled(self.window.client.ready and self.source_enabled(key) and key not in self.messages)
@@ -317,7 +330,9 @@ class SensorWorkspace(QWidget):
             self.grid.setRowStretch(index, 0)
             self.grid.setColumnStretch(index, 0)
         active = [self.expanded] if self.expanded in self.sources else self.sources
-        scene_mode=self.mode in ('scene','custom') and not self.expanded and len(active)>1
+        mission=getattr(self.window,'mission_workspace',None)
+        aerial_pair=mission and mission.mode=='aerial'
+        scene_mode=self.mode in ('scene','custom') and not self.expanded and len(active)>1 and not aerial_pair
         self.body.setVisible(not scene_mode)
         self.scene_split.setVisible(scene_mode)
         for key in active:
@@ -372,6 +387,8 @@ class SensorWorkspace(QWidget):
 
     def source_enabled(self, key):
         source = self.registry[key]
+        if source.sensor_id in ('aerial','aerial_infrared'):
+            return source.device_id not in self.missing and getattr(self,'aerial_settings',{}).get(source.device_id,{}).get('ir_enabled' if source.sensor_id=='aerial_infrared' else 'enabled',True)
         return (source.device_id not in self.missing and
                 self.states.get(source.device_id, {}).get('sensors', {}).get(source.sensor_id, {}).get('enabled', True))
 
@@ -392,10 +409,10 @@ class SensorWorkspace(QWidget):
                     from apps.desktop_app.event_preview_client import EventPreviewClient
                     client=EventPreviewClient(self,size=SIZES['event'])
                 else:client = UEPreviewClient(self, size=SIZES[source.sensor_id])
-                client.frame_received.connect(lambda image, fps, k=key: self.frame(k, image))
+                client.frame_received.connect(lambda image, fps, k=key: self.frame(k, image, fps))
                 client.state_changed.connect(lambda connected, msg, k=key: self.stream_state(k, connected, msg))
                 self.clients[key] = client
-            channel = {'visible': 'CH1', 'infrared': 'CH2', 'observer': 'OBS','event':'EVT'}[source.sensor_id]
+            channel = {'visible': 'CH1', 'infrared': 'CH2', 'observer': 'OBS','event':'EVT','aerial':'AERIAL','aerial_infrared':'AERIAL_IR'}[source.sensor_id]
             self.clients[key].start_source(host, self.window.config.port, channel,
                                            None if channel == 'OBS' else source.device_id)
 
@@ -403,9 +420,11 @@ class SensorWorkspace(QWidget):
         if not connected:
             self.unavailable(key, message)
 
-    def frame(self, key, image):
+    def frame(self, key, image, fps=None):
         if not self.source_enabled(key):
             return
+        if self.registry[key].sensor_id=='aerial' and fps is not None:
+            self.fps[key]=fps
         self.messages.pop(key, None)
         self.frames[key] = image
         self.received[key] = time.monotonic()
@@ -449,9 +468,13 @@ class SensorWorkspace(QWidget):
         device = state.get('gimbal_id', 'ptz-01')
         self.states[device] = state
         devices = state.get('devices', [])
+        if devices:self.aerial_settings={d['id']:d['aerial'] for d in devices if d['kind']=='drone' and 'aerial' in d}
         ids = {d['id'] for d in devices}
         self.missing = {s.device_id for s in self.registry.values() if s.sensor_id != 'observer' and s.device_id not in ids} if devices else set()
         for item in devices:
+            if item['kind']=='drone' and 'aerial' in item:
+                source=Source(item['id'],'aerial');self.registry[source.key]=source
+                infrared=Source(item['id'],'aerial_infrared');self.registry[infrared.key]=infrared
             if item['kind'] == 'gimbal':
                 for sensor in ('visible', 'infrared', 'lidar','event'):
                     if sensor not in state.get('sensors',{}) and sensor=='event':continue
@@ -473,7 +496,7 @@ class SensorWorkspace(QWidget):
             source = self.registry[key]
             if source.device_id in self.missing:
                 self.unavailable(key, '来源不存在 · 请移除或替换')
-            elif source.device_id == device and not self.source_enabled(key):
+            elif (source.device_id == device or source.sensor_id in ('aerial','aerial_infrared')) and not self.source_enabled(key):
                 self.unavailable(key, '传感器已停用')
         self.sync_clients()
 

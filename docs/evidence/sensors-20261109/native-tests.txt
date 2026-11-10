@@ -1,0 +1,5 @@
+test_thermal_math.cpp
+thermal math invariants: passed
+test_event_math.cpp
+event threshold, accumulation, polarity, timestamps, refractory, caps, invalid signal PASS
+

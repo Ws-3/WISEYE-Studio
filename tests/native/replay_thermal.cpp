@@ -21,6 +21,7 @@ int main(int Argc,char** Argv) {
         const uint32_t Seed=Argc>7?uint32_t(std::stoul(Argv[7])):1337;
         const uint64_t Frame=Argc>8?std::stoull(Argv[8]):1;
         const int FacadeTone=Argc>9?std::stoi(Argv[9]):0; // 1 historical; 2 balanced
+        const float BackgroundMid=Argc>10?std::stof(Argv[10]):.68f,BackgroundSlope=Argc>11?std::stof(Argv[11]):8.f;
         WiseEyeThermal::Exposure Exposure;Exposure.Low=.05f;Exposure.High=.45f;
         std::vector<uint8_t> Bytes(N);
         for (int I=0;I<N;++I) {
@@ -28,7 +29,7 @@ int main(int Argc,char** Argv) {
             if (FacadeTone==1) V=WiseEyeThermal::FacadeDisplaySignal(V,Exposure.Low,Sky[I]!=0,Target[I]!=0);
             const float DetectorSignal=V;
             V=Exposure.DisplaySoft(V,1.1f,false);
-            if (FacadeTone==2) V=WiseEyeThermal::FacadeDisplayValue(V,Sky[I]!=0,Target[I]!=0,DetectorSignal);
+            if (FacadeTone==2) V=WiseEyeThermal::FacadeDisplayValue(V,Sky[I]!=0,Target[I]==1,DetectorSignal,BackgroundMid,BackgroundSlope);
             Bytes[I]=uint8_t(std::round(255*V));
         }
         if (FacadeTone==2) WiseEyeThermal::SoftenBackgroundDisplay(Bytes.data(),Scratch.data(),Target.data(),W,H,1);

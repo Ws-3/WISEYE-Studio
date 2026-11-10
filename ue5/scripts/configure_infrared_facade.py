@@ -8,6 +8,7 @@ source=(folder/'configure_infrared_classified.py').read_text(encoding='utf8')
 exec(compile(source,str(folder/'configure_infrared_classified.py'),'exec'),dict(
     __file__=str(folder/'configure_infrared_classified.py'),__name__='__main__',
     WISEYE_CLASS_ASSET='M_IR_Facade',WISEYE_CLASS_EXTRA_SCALARS=dict(Facade=0),
+    WISEYE_CLASS_WORLD_POSITION=True,
     WISEYE_CLASS_EXTRA_TEXTURES=dict(BaseColor=unreal.SceneTextureId.PPI_BASE_COLOR,Roughness=unreal.SceneTextureId.PPI_ROUGHNESS),
     WISEYE_CLASS_PREFIX='#define WISEYE_FACADE 1\n'+(folder/'infrared_facade.hlsl').read_text(encoding='utf8')+'\n'))
 unreal.log('WISEYE_IR_FACADE_SAVED')

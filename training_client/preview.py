@@ -63,7 +63,7 @@ class Receiver(QThread):
         self.sensors=tuple(sensors)
         self.stop_event = threading.Event()
         self.capture_gate = None
-        self.rates=Rates(display_fps,save_fps,bool(output) if recording is None else recording)
+        self.rates=Rates(display_fps,save_fps,bool(output) if recording is None else recording,max_display=30 if getattr(client,'source_kind','gimbal')=='aerial' else 10)
         self.settings_lock=threading.Lock();self.settings_revision=0
         self.latest_only=False;self.latest_lock=threading.Lock();self.latest_bundle=None
 
@@ -84,7 +84,7 @@ class Receiver(QThread):
 
     def run(self):
         configured = False;configured_revision=-1
-        received=saved=0
+        received=saved=0;previous_identity=None;last_new=time.monotonic()
         while not self.stop_event.is_set():
             if self.capture_gate is not None and not self.capture_gate.is_set():
                 self.stop_event.wait(.1); continue
@@ -92,21 +92,37 @@ class Receiver(QThread):
             try:
                 revision,policy,output=self.settings()
                 if not configured or revision!=configured_revision:
-                    self.client.configure(**policy)
+                    if getattr(self.client,'source_kind','gimbal')!='aerial':self.client.configure(**policy)
                     configured = True;configured_revision=revision;self.settings_applied.emit(revision)
                 started=time.monotonic()
-                if len(self.sensors)==2:
+                aerial=getattr(self.client,'source_kind','gimbal')=='aerial'
+                if aerial:
+                    from .aerial import acquire
+                    bundle=acquire(self.client,self.sensors,self.stop_event)
+                    identity=tuple((sensor,p['run_id'],p['frame_number'],p['simulation_time_s']) for sensor,p in sorted(bundle['samples'].items()))
+                    if identity==previous_identity:
+                        if time.monotonic()-last_new>3:raise ValueError('Aerial source is stale; waiting for a new captured frame')
+                        self.stop_event.wait(.02);continue
+                    previous_identity=identity;last_new=time.monotonic()
+                elif len(self.sensors)==2:
                     bundle=self.client.sample_pair(self.stop_event)
                 else:
                     self.client.sensor=self.sensors[0]
                     packet=self.client.sample(self.stop_event)
                     bundle=dict(samples={self.sensors[0]:packet})
                 from .fusion import decode
-                images={sensor:decode(packet) for sensor,packet in bundle['samples'].items()}
+                if aerial:
+                    from .aerial import validate_raw
+                    images={sensor:QImage.fromData(validate_raw(packet),'JPEG') for sensor,packet in bundle['samples'].items()}
+                    if any(image.isNull() or (image.width(),image.height())!=(bundle['samples'][sensor]['width'],bundle['samples'][sensor]['height']) for sensor,image in images.items()):raise ValueError('Aerial JPEG dimensions mismatch')
+                else:images={sensor:decode(packet) for sensor,packet in bundle['samples'].items()}
                 if self.settings()[0]!=revision:continue  # Never save an old-policy frame to a new directory.
                 received+=1;now=time.monotonic();display,save=self.rates.due(now,source_driven=self.latest_only);did_save=False
                 if save and output:
-                    if len(self.sensors)==2:
+                    if aerial:
+                        from .aerial import save_raw
+                        did_save=any([save_raw(p,output) for p in bundle['samples'].values()])
+                    elif len(self.sensors)==2:
                         save_pair(bundle,output);did_save=all(p['training_eligible'] for p in bundle['samples'].values())
                     else:did_save=save_sample(packet,Path(output)/('IR' if self.sensors[0]=='infrared' else 'visible')) is not None
                     saved+=int(did_save)
@@ -138,7 +154,10 @@ def main():
     parser.add_argument('--port', type=int, default=50100)
     parser.add_argument('--device', default='ptz-01')
     parser.add_argument('--sensor', choices=['both', 'infrared', 'visible'], default='both')
-    from core.runtime_paths import DATA_ROOT,PORTABLE
+    try:
+        from core.runtime_paths import DATA_ROOT,PORTABLE
+    except ModuleNotFoundError:
+        DATA_ROOT,PORTABLE=Path.home()/'WISEYE-Training',False
     parser.add_argument('--output', type=Path, default=DATA_ROOT/'Training' if PORTABLE else Path.home() / 'WISEYE-Training')
     parser.add_argument('--count', type=int, default=0, help='Headless sample count; saves original, labels and GT preview')
     parser.add_argument('--connect', action='store_true', help='Connect immediately on opening the window')

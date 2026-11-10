@@ -4,7 +4,9 @@ param(
     [ValidateSet('City')][string]$Content = 'City',
     [string]$EngineRoot = (Join-Path (Split-Path -Parent $PSScriptRoot) 'Tools\UE_5.8'),
     [string]$ProjectPath = (Join-Path (Split-Path -Parent $PSScriptRoot) 'ue5\WISEYE\test.uproject'),
-    [switch]$IncludeBigCity
+    [string]$Python,
+    [switch]$IncludeBigCity,
+    [switch]$IterativeCook
 )
 $ErrorActionPreference = 'Stop'
 $repository = Split-Path -Parent $PSScriptRoot
@@ -12,7 +14,13 @@ $project = $ProjectPath
 $buildRoot = Join-Path $repository 'builds'
 $logRoot = Join-Path $buildRoot 'logs'
 New-Item -ItemType Directory -Path $logRoot -Force | Out-Null
-$python = Join-Path $repository 'Tools\Python\python.exe'
+if(-not $Python) {
+    foreach($candidate in @('Tools\Python\python.exe','.venv\Scripts\python.exe','builds\python-env\Scripts\python.exe')) {
+        $resolvedPython=Join-Path $repository $candidate
+        if(Test-Path -LiteralPath $resolvedPython){$Python=$resolvedPython;break}
+    }
+}
+if(-not $Python){$Python=(Get-Command python -ErrorAction Stop).Source}
 if ($Stage -eq 'Game') {
     # UE 5.8 reserves the positional word test; infer the existing target by type.
     & "$EngineRoot\Engine\Build\BatchFiles\Build.bat" Win64 $Configuration "-Project=$project" -TargetType=Game -WaitMutex -NoHotReloadFromIDE
@@ -29,7 +37,9 @@ if ($Stage -in @('Cook','Stage')) {
     if ($IncludeBigCity) { $maps += '+/Game/WISEYE/Scenes/city_large/BigCity' }
     $archive = Join-Path $buildRoot "staged\$Content-$Configuration"
     $cookOption = if ($Stage -eq 'Cook') { '-cook' } else { '-skipcook' }
-    & "$EngineRoot\Engine\Build\BatchFiles\RunUAT.bat" BuildCookRun "-project=$project" -nop4 -utf8output -platform=Win64 "-clientconfig=$Configuration" -skipbuild $cookOption -stage -pak -iostore -SkipZenStore '-AdditionalCookerOptions=-SkipZenStore' -compressed -archive "-archivedirectory=$archive" "-map=$maps" -unattended -prereqs -nodebuginfo
+    $cookArguments=@($cookOption)
+    if($IterativeCook -and $Stage -eq 'Cook'){$cookArguments+='-iterativecooking'}
+    & "$EngineRoot\Engine\Build\BatchFiles\RunUAT.bat" BuildCookRun "-project=$project" -nop4 -utf8output -platform=Win64 "-clientconfig=$Configuration" -skipbuild @cookArguments -stage -pak -iostore -SkipZenStore '-AdditionalCookerOptions=-SkipZenStore' -compressed -archive "-archivedirectory=$archive" "-map=$maps" -unattended -prereqs -nodebuginfo
     if ($LASTEXITCODE -ne 0) { throw "Cook/Stage failed: $LASTEXITCODE" }
 }
 if ($Stage -eq 'Desktop') {

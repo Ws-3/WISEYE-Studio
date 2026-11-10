@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "landed": true,
+  "owned_session_stopped": true,
+  "window_control": {
+    "started_hidden": true,
+    "shown": true,
+    "hidden_again": true
+  },
+  "aerial_optics": {
+    "neutral": 622.3650901263906,
+    "soft": 31.410470952241944
+  },
+  "focus_render": {
+    "off": 186.3188026031676,
+    "defocused": 1.9434672057823126
+  },
+  "lidar": {
+    "points": 576,
+    "scan_sequence": 822,
+    "capture_time": 87.3432417017757
+  },
+  "events": {
+    "count": 4000,
+    "actual_sample_hz": 14.999969881088413,
+    "hardware_timing": false
+  },
+  "material_compile_errors": [],
+  "material_runtime_errors": [],
+  "source_preview_material_sha256": {
+    "M_IR_Facade.uasset": "ea93edd669bf7ea4f1a6f194c116ea6e3d30b3f2d5e926addd758969d5b8930c",
+    "M_VisibleCamera.uasset": "be3f27f16db278b8e51becee37744531d351d0aefc788b06f4c6ea3124e509e4"
+  },
+  "python_qt_tests_passed": 35,
+  "native_thermal_and_event_invariants_passed": true,
+  "packaged": false,
+  "pushed": false
+}

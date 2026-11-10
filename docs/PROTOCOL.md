@@ -1,5 +1,11 @@
 # 本机控制协议 v1
 
+v1.1.0（2026-11-10）：协议实现随插件/源码版本发布；SDK 保留 /Script/test，与桌面及飞控客户端应使用同版。源码插件不会自动安装或启动 Python 桌面/飞控服务，接入自己的地图见 [插件指南](PLUGIN_DISTRIBUTION.md)。PointCloud2/EventCD 为格式转换，不声明兼容厂商 RAW/驱动；事件仍为帧驱动，航拍尚无自动 GT。
+
+## 2026-11-05 航拍与自动人车
+
+新增aerial.get_state/configure（device_id指向无人机）、population.get_state/configure、observation.save，均返回完整仿真状态。每机配置在devices[].aerial；camera.stream_frame支持AERIAL，原生1920×1080、按需渲染，无RTSP地址。population密度为0..1的生成预算比例，非实际可见数量；population.get_agents为独立诊断回复，最多每类256个带run/index/serial目标ID的位置样本，不是同帧2D GT。字段及限制见 [航拍与自动人车接口](AERIAL_POPULATION_20261105.md#接口)。
+
 ## 2026-11-02 环境诊断
 
 environment新增rain_active_particles（现有本地体积中Rain组件活动粒子总数）、night_amount[0,1]和day_sky_meshes。rain_supported只表资源能力，不代表粒子已产生；雨量为视觉强度，不是毫米降水量。night_amount是当前艺术性太阳路径的夜间响应系数，不是日照/辐射标定。可见光曝光不套用于红外；光学相机显示缩放仅桌面视图，不改变FOV或GT。见[实现与验证](WORKBENCH_WEATHER_20261102.md)。
@@ -231,3 +237,20 @@ runner 每 100 ms 查询内部 `flight.get_local_control`，读取有界一次�
 # 2026-11-02 增补：事件相机
 
 云台 `sensors.event` 为独立640×480 HDR事件采样，默认停用。`sensor.set_enabled`、`sensor.configure`新增`event`；`sensor.event.get_packet`按每订阅者游标返回`[x,y,t_us,p]`原始数据，`sensor.event.capture`保存最新有界窗口。时间为UE world time插值，非硬件微秒精度。参数、完整报文、缓冲上限、丢弃计数及会话处理见 [事件相机与天气说明](EVENT_CAMERA_WEATHER_20261102.md)。天气新增`rain_active_streaks`、`rain_model`，不能再仅用旧`rain_active_particles>0`判断下雨。
+
+
+## 2026-11-07 航拍红外与原图训练接口
+
+详[AERIAL_IR_TRAINING_20261107.md](AERIAL_IR_TRAINING_20261107.md)。新增 AERIAL_IR 预览和 aerial.configure 的 ir_enabled / ir_sample_hz / ir_fov_deg / ir_black_hot / ir_blur_px / ir_noise；返回捕获tick元数据。航拍无自动GT，不能调用云台样本接口冒充标注。
+
+2026-11-07成像更新：`devices[].aerial.infrared`在捕获资源分配时可返回`agc_low/high`、`readout_ms`、`readout_sequence`、`class_pixels`，资源释放后允许缺省。它们是归一化信号/覆盖诊断，不是温度。航拍背景曲线独立适配昼夜；云台背景默认保留。可见光现有模糊/噪声/对比/饱和度字段不变，夜间噪声增益由环境控制。详[IMAGING_REALISM_20261107.md](IMAGING_REALISM_20261107.md)。
+
+## 2026-11-09：对焦、完整点云和窗口
+
+- `sensor.configure` 的visible、`aerial.configure`：可选 `focus_mode=auto/manual/infinity/off`, `focus_distance_m=0.2..10000`, `aperture_f=1..22`；航拍另有 `vis_blur_px=0..3`。回读focus_supported、actual_focus_distance_m和dof_near_m/dof_far_m（-1无穷远），景深为参考宽度13.2mm/两像素弥散圆估计，不是标定。
+- `sensor.lidar.get_scan`：完整命中点及按束排列lidar_ranges_m、无回波-1；lidar_capture_time_s为扫描时刻，lidar_scan_sequence为扫描序号；坐标为米制X前Y右Z上。get_points最多768点，新增lidar_downsampled标识，不能作为完整扫描。PointCloud2适配须Y反号。
+- `sensor.event.get_packet`保持x,y,t_us,p，新增显式极性/像素原点/时间单位/hardware_timing=false；插值微秒不是硬件微秒性能。max_events≤20000；EventCD转换为p=0/1，不是EVT RAW编码。
+- `sim.window.set_visible {visible:bool}`：仅本进程UnrealWindow，返回ue_window_visible/ue_window_control_supported；隐藏仍渲染。
+- `population.get_agents`可选from_camera=<无人机ID>返回碰撞射线los_clear诊断，非像素GT。
+
+详见 [SENSOR_UPGRADE_20261109.md](SENSOR_UPGRADE_20261109.md)。

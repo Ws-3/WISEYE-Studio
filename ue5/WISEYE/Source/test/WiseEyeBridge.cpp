@@ -1,4 +1,6 @@
 #include "WiseEyeBridge.h"
+#include "Components/PrimitiveComponent.h"
+#include "EngineUtils.h"
 #include "WiseEyeDemo.h"
 #include "WiseEyeStreaming.h"
 #include "WiseEyeEventCamera.h"
@@ -49,6 +51,11 @@ namespace
     }
 }
 
+void FWiseEyeSlotLease::Restore() {
+    for (int32 I=0;I<Components.Num();++I) if (Components[I].IsValid()) Components[I]->SetCollisionEnabled(Modes[I]);
+    if (Actor.IsValid()) Actor->SetActorEnableCollision(ActorCollision);
+}
+
 void FWiseEyeBridge::Close(FWiseEyeClient& C)
 {
     if (C.Socket)
@@ -60,6 +67,7 @@ void FWiseEyeBridge::Close(FWiseEyeClient& C)
 }
 FWiseEyeBridge::~FWiseEyeBridge()
 {
+    for (auto& Pair:SlotLeases) Pair.Value.Restore();
     for (auto& C : Clients) Close(C);
     if (Listener)
     {
@@ -89,8 +97,12 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
 {
     auto R=MakeShared<FJsonObject>();
     R->SetStringField(TEXT("application"),TEXT("WISEYE Studio"));
+    R->SetObjectField(TEXT("population"),Demo.PopulationState());
+    if (Demo.OwnsDrone) R->SetObjectField(TEXT("aerial"),Demo.AerialState());
     R->SetStringField(TEXT("scene_id"),Demo.SceneId);
     R->SetStringField(TEXT("run_id"),Demo.PlaySessionId);
+    R->SetBoolField(TEXT("ue_window_control_supported"),PLATFORM_WINDOWS!=0);
+    R->SetBoolField(TEXT("ue_window_visible"),(Demo.FleetRoot?Demo.FleetRoot.Get():&Demo)->SimulationWindowVisible);
     R->SetBoolField(TEXT("training_samples_supported"),true);
     R->SetBoolField(TEXT("paired_training_samples_supported"),true);
     R->SetNumberField(TEXT("gt_max_fps_supported"),20);
@@ -184,6 +196,8 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
     R->SetBoolField(TEXT("paused"),Demo.Paused);
     R->SetNumberField(TEXT("simulation_time_s"),Demo.SimulationTime);
     R->SetStringField(TEXT("flight_mode"),Demo.AutomaticFlight?TEXT("auto"):TEXT("manual"));
+    R->SetBoolField(TEXT("fleet_live_edit_supported"),true);
+    R->SetNumberField(TEXT("fleet_revision"),(Demo.FleetRoot?Demo.FleetRoot.Get():&Demo)->RuntimeFleetRevision);
     R->SetStringField(TEXT("flight_backend"),Demo.FlightBackend==EWiseEyeFlightBackend::ProjectAirSim?TEXT("projectairsim"):TEXT("kinematic"));
     R->SetStringField(TEXT("drone_model"),Demo.DroneModel);
     R->SetArrayField(TEXT("drone_models_available"),{
@@ -254,6 +268,12 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::State() const
             Settings->SetArrayField(TEXT("camera_position_cm"),Vector(Source->GetComponentLocation()));
             const auto WorldRotation=Source->GetComponentRotation();
             Settings->SetArrayField(TEXT("camera_rotation_pitch_yaw_roll_deg"),Vector(FVector(WorldRotation.Pitch,WorldRotation.Yaw,WorldRotation.Roll)));
+        }
+        if (!IR && !Lidar) {
+            Settings->SetBoolField(TEXT("appearance_available"),IsValid(Demo.VisibleInstance));
+            Settings->SetNumberField(TEXT("blur_px"),Demo.VisibleBlur);Settings->SetNumberField(TEXT("noise"),Demo.VisibleNoise);
+            Demo.VisibleFocus.Write(Settings,Demo.VisibleFOV);
+            Settings->SetNumberField(TEXT("contrast"),Demo.VisibleContrast);Settings->SetNumberField(TEXT("saturation"),Demo.VisibleSaturation);
         }
         if (IR) {
             Settings->SetStringField(TEXT("palette"),Demo.BlackHot?TEXT("black_hot"):TEXT("white_hot")); Settings->SetNumberField(TEXT("noise"),Demo.ThermalNoise);
@@ -335,11 +355,31 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         if (!Args->TryGetStringField(TEXT("device_id"),DeviceId)) return Fail(TEXT("device_id must be a string"));
         AWiseEyeDemo* Target=Demo.FindDevice(DeviceId);
         if (!Target) return Fail(TEXT("Unknown device_id"));
-        const bool GimbalCommand=Command.StartsWith(TEXT("gimbal.")) || Command.StartsWith(TEXT("sensor.")) || Command.StartsWith(TEXT("camera."));
+        FString RequestedChannel;Args->TryGetStringField(TEXT("channel"),RequestedChannel);
+        const bool AerialCommand=Command.StartsWith(TEXT("aerial.")) || (Command==TEXT("camera.stream_frame") && (RequestedChannel==TEXT("AERIAL") || RequestedChannel==TEXT("AERIAL_IR")));
+        const bool GimbalCommand=!AerialCommand && (Command.StartsWith(TEXT("gimbal.")) || Command.StartsWith(TEXT("sensor.")) || Command.StartsWith(TEXT("camera.")));
         const bool DroneCommand=Command.StartsWith(TEXT("drone.")) || Command.StartsWith(TEXT("rotors.")) || Command.StartsWith(TEXT("flight.")) || Command==TEXT("sim.pause") || Command==TEXT("sim.resume") || Command==TEXT("sim.reset");
         if (GimbalCommand && DeviceId!=Target->GimbalId) return Fail(TEXT("Command requires a gimbal device_id"));
-        if (DroneCommand && (!Target->OwnsDrone || DeviceId!=Target->DroneId)) return Fail(TEXT("Command requires a drone device_id"));
-        if (Target!=&Demo && Command!=TEXT("flight.get_local_control") && (GimbalCommand || DroneCommand || Command==TEXT("sim.get_state") || Command==TEXT("sim.ping"))) return Target->DispatchDevice(Request);
+        if ((DroneCommand || AerialCommand) && (!Target->OwnsDrone || DeviceId!=Target->DroneId)) return Fail(TEXT("Command requires a drone device_id"));
+        if (Target!=&Demo && Command!=TEXT("flight.get_local_control") && (GimbalCommand || DroneCommand || AerialCommand || Command==TEXT("sim.get_state") || Command==TEXT("sim.ping"))) return Target->DispatchDevice(Request);
+    }
+    if (Command==TEXT("aerial.configure")) {
+        FString Error;if (!Demo.ConfigureAerial(Args,Error)) return Fail(Error);
+        return Reply(Id,State());
+    }
+    if (Command==TEXT("aerial.get_state")) return Reply(Id,State());
+    if (Command==TEXT("population.get_state")) return Reply(Id,State());
+    if (Command==TEXT("population.get_agents")) {
+        FString Camera;if (Args->HasField(TEXT("from_camera")) && !Args->TryGetStringField(TEXT("from_camera"),Camera)) return Fail(TEXT("from_camera must be a drone ID"));
+        return Reply(Id,Demo.PopulationAgents(Camera));
+    }
+    if (Command==TEXT("population.configure")) {
+        FString Error;if (!Demo.ConfigurePopulation(Args,Error)) return Fail(Error);
+        return Reply(Id,State());
+    }
+    if (Command==TEXT("observation.save")) {
+        FString Error;if (!Demo.SaveObservation(Error)) return Fail(Error);
+        return Reply(Id,State());
     }
     if (Command==TEXT("input.select_drone") || Command==TEXT("input.select_gimbal")) {
         FString TargetId;const bool Drone=Command==TEXT("input.select_drone");
@@ -356,7 +396,45 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         auto* Target=Demo.FindDevice(TargetId);if (!Target || !Target->OwnsDrone || Target->DroneId!=TargetId) return Fail(TEXT("Unknown drone target"));
         Demo.TrackingTargetId=TargetId;Demo.TrackingDrone=Target->Drone;return Reply(Id,State());
     }
+    if (Command==TEXT("flight.prepare_slot") || Command==TEXT("flight.finish_slot")) {
+        FString Run,Slot,Token;
+        if (!Args->TryGetStringField(TEXT("run_id"),Run) || Run!=Demo.PlaySessionId || !Args->TryGetStringField(TEXT("slot"),Slot) ||
+            (Slot!=TEXT("Drone1") && Slot!=TEXT("Drone2") && Slot!=TEXT("Drone3") && Slot!=TEXT("Drone4")) || !Args->TryGetStringField(TEXT("token"),Token) || Token.IsEmpty() || Token.Len()>64) return Fail(TEXT("Current run, flight slot and lease token required"));
+        if (Command==TEXT("flight.prepare_slot")) {
+            if (SlotLeases.Contains(Slot)) return Fail(TEXT("Flight slot placement already pending"));
+            for (auto Rig:Demo.FleetRigs) if (Rig->OwnsDrone && Rig->DroneModel!=TEXT("fixedwing") && Rig->DynamicsActorName.ToString()==Slot && Rig->RotorsRunning) return Fail(TEXT("Land and stop motors before teleporting this slot"));
+            AActor* Source=nullptr;for (TActorIterator<AActor> It(Demo.GetWorld());It;++It) if (It->GetName()==Slot) {Source=*It;break;}
+            if (!Source) return Fail(TEXT("Flight slot actor unavailable"));
+            FWiseEyeSlotLease Lease;Lease.Actor=Source;Lease.ActorCollision=Source->GetActorEnableCollision();Lease.Token=Token;Lease.Expires=FPlatformTime::Seconds()+5;
+            TArray<UPrimitiveComponent*> Components;Source->GetComponents(Components);
+            for (auto* Component:Components) {Lease.Components.Add(Component);Lease.Modes.Add(Component->GetCollisionEnabled());Component->SetCollisionEnabled(ECollisionEnabled::NoCollision);}
+            Source->SetActorEnableCollision(false);SlotLeases.Add(Slot,MoveTemp(Lease));
+        } else {
+            auto* Lease=SlotLeases.Find(Slot);
+            if (!Lease || Lease->Token!=Token) return Fail(TEXT("Placement lease expired or changed"));
+            Lease->Restore();SlotLeases.Remove(Slot);
+        }
+        return Reply(Id,State());
+    }
+    if (Command==TEXT("fleet.patch")) {
+        FString Error;
+        if (!Demo.EditLiveFleet(Args,Error)) return Fail(Error);
+        return Reply(Id,State());
+    }
+    if (Command==TEXT("flight.hide_reserves")) {
+        for (TActorIterator<AActor> It(Demo.GetWorld());It;++It) {
+            const FString Name=It->GetName();
+            if (Name==TEXT("Drone1") || Name==TEXT("Drone2") || Name==TEXT("Drone3") || Name==TEXT("Drone4")) It->SetActorHiddenInGame(true);
+        }
+        return Reply(Id,State());
+    }
     if (Command==TEXT("sim.ping") || Command==TEXT("sim.get_state")) return Reply(Id,State());
+    if (Command==TEXT("sim.window.set_visible")) {
+        bool Visible=false;
+        if (!Args->TryGetBoolField(TEXT("visible"),Visible)) return Fail(TEXT("Boolean visible required"));
+        if (!(Demo.FleetRoot?Demo.FleetRoot.Get():&Demo)->SetSimulationWindowVisible(Visible)) return Fail(TEXT("Simulation window unavailable"));
+        return Reply(Id,State());
+    }
     if (Command==TEXT("environment.configure") || Command==TEXT("environment.reset")) {
         auto& Root=Demo.FleetRoot?*Demo.FleetRoot:Demo;
         if (Command==TEXT("environment.reset")) Root.ResetEnvironment();
@@ -610,7 +688,17 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
                 Demo.ThermalDetector=Detector;Demo.ThermalAutoGain=AutoGain;Demo.ThermalGainResponse=Response;Demo.ThermalSamplingScale=int32(Scale);
                 Demo.ThermalProfile=Profile; Demo.ThermalBlurPixels=Blur; Demo.ThermalContrast=Contrast; Demo.ThermalBackgroundDetail=Detail;
                 Demo.InfraredEnabled=Enabled; Demo.InfraredFOV=Fov; Demo.BlackHot=Palette==TEXT("black_hot"); Demo.ThermalNoise=Noise;
-            } else { Demo.VisibleEnabled=Enabled; Demo.VisibleFOV=Fov; }
+            } else {
+                double Blur=Demo.VisibleBlur,Grain=Demo.VisibleNoise,Contrast=Demo.VisibleContrast,Saturation=Demo.VisibleSaturation;
+                auto Focus=Demo.VisibleFocus;if (!Focus.Read(Args)) return Fail(TEXT("Invalid focus mode, distance or aperture"));
+                auto Number=[&](const TCHAR* Key,double& Value,double Low,double High) {
+                    return !Args->HasField(Key) || (Args->Values[Key]->Type==EJson::Number && Args->TryGetNumberField(Key,Value) && FMath::IsFinite(Value) && Value>=Low && Value<=High);
+                };
+                if (!Number(TEXT("blur_px"),Blur,0,3) || !Number(TEXT("noise"),Grain,0,.08) || !Number(TEXT("contrast"),Contrast,.5,1.5) || !Number(TEXT("saturation"),Saturation,0,1.5)) return Fail(TEXT("Invalid visible appearance parameters"));
+                for (const TCHAR* Key:{TEXT("blur_px"),TEXT("noise"),TEXT("contrast"),TEXT("saturation")}) if (Args->HasField(Key) && !IsValid(Demo.VisibleInstance)) return Fail(TEXT("Visible camera material is not installed"));
+                Demo.VisibleFocus=Focus;Demo.VisibleBlur=Blur;Demo.VisibleNoise=Grain;Demo.VisibleContrast=Contrast;Demo.VisibleSaturation=Saturation;
+                Demo.VisibleEnabled=Enabled; Demo.VisibleFOV=Fov;
+            }
             if (Sensor==TEXT("infrared")) { Demo.InfraredOffsetCm=Offset;Demo.InfraredBoresight=Rotation; }
             else { Demo.VisibleOffsetCm=Offset;Demo.VisibleBoresight=Rotation; }
             Demo.RefreshSensors();
@@ -682,9 +770,16 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         Demo.SetManualInput(float(F),float(R),float(U),float(Y));
         LastManualInput=FPlatformTime::Seconds();
     }
+    else if (Command==TEXT("flight.fixedwing"))
+    {
+        FString Error;
+        if (!Demo.ControlFixedwing(Args,Error)) return Fail(Error);
+    }
     else if (Command==TEXT("drone.set_model"))
     {
         FString Model,Error;
+        Args->TryGetStringField(TEXT("model"),Model);
+        if ((Model==TEXT("fixedwing"))!=(Demo.DroneModel==TEXT("fixedwing"))) return Fail(TEXT("Change airframe in Devices, save and reload the scene"));
         if (!Args->TryGetStringField(TEXT("model"),Model) || !Demo.SetDroneModel(Model,Error))
             return Fail(Error.IsEmpty()?TEXT("model is required"):Error);
     }
@@ -826,8 +921,8 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
     else if (Command==TEXT("camera.stream_frame"))
     {
         FString Channel;
-        if (!Args->TryGetStringField(TEXT("channel"),Channel) || (Channel!=TEXT("CH1") && Channel!=TEXT("CH2") && Channel!=TEXT("OBS")))
-            return Fail(TEXT("channel must be CH1, CH2 or OBS"));
+        if (!Args->TryGetStringField(TEXT("channel"),Channel) || (Channel!=TEXT("CH1") && Channel!=TEXT("CH2") && Channel!=TEXT("OBS") && Channel!=TEXT("AERIAL") && Channel!=TEXT("AERIAL_IR")))
+            return Fail(TEXT("channel must be CH1, CH2, OBS, AERIAL or AERIAL_IR"));
         double RequestedQuality=70;
         Args->TryGetNumberField(TEXT("quality"),RequestedQuality);
         if (!FMath::IsFinite(RequestedQuality) || RequestedQuality<25 || RequestedQuality>95)
@@ -837,13 +932,24 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         int64 StreamFrameNumber=0;
         double StreamSimulationTime=0;
         if ((Channel==TEXT("CH1") && !Demo.VisibleEnabled) || (Channel==TEXT("CH2") && !Demo.InfraredEnabled)) return Reply(Id,Empty,TEXT("sensor_disabled"),TEXT("Sensor disabled"));
-        if (!(Channel==TEXT("OBS")?Demo.GetObserverFrame(Encoded,Width,Height,StreamFrameNumber,StreamSimulationTime):Demo.GetStreamFrame(Channel==TEXT("CH2"),Encoded,Width,Height,StreamFrameNumber,StreamSimulationTime)))
+        if (Channel==TEXT("AERIAL") && (!Demo.OwnsDrone || !Demo.AerialEnabled)) return Reply(Id,Empty,TEXT("sensor_disabled"),TEXT("Aerial camera disabled"));
+        const bool Aerial=Channel==TEXT("AERIAL") || Channel==TEXT("AERIAL_IR");
+        if (Channel==TEXT("AERIAL_IR") && (!Demo.OwnsDrone || !Demo.AerialIREnabled)) return Reply(Id,Empty,TEXT("sensor_disabled"),TEXT("Aerial infrared disabled"));
+        if (!(Aerial?Demo.GetAerialFrame(Encoded,Width,Height,StreamFrameNumber,StreamSimulationTime,Channel==TEXT("AERIAL_IR")):Channel==TEXT("OBS")?Demo.GetObserverFrame(Encoded,Width,Height,StreamFrameNumber,StreamSimulationTime):Demo.GetStreamFrame(Channel==TEXT("CH2"),Encoded,Width,Height,StreamFrameNumber,StreamSimulationTime)))
             return Reply(Id,Empty,TEXT("frame_unavailable"),TEXT("Asynchronous stream frame is warming up"));
         auto R=MakeShared<FJsonObject>();
-        R->SetStringField(TEXT("device_id"),Channel==TEXT("OBS")?TEXT("observer"):Demo.GimbalId);
-        R->SetStringField(TEXT("sensor_id"),Channel==TEXT("OBS")?FString(TEXT("observer/view")):Demo.GimbalId+(Channel==TEXT("CH2")?TEXT("/infrared"):TEXT("/visible")));
+        R->SetStringField(TEXT("device_id"),Aerial?Demo.DroneId:Channel==TEXT("OBS")?TEXT("observer"):Demo.GimbalId);
+        R->SetStringField(TEXT("sensor_id"),Aerial?Demo.DroneId+(Channel==TEXT("AERIAL_IR")?TEXT("/aerial_infrared"):TEXT("/aerial")):Channel==TEXT("OBS")?FString(TEXT("observer/view")):Demo.GimbalId+(Channel==TEXT("CH2")?TEXT("/infrared"):TEXT("/visible")));
         R->SetStringField(TEXT("channel"),Channel);
-        R->SetStringField(TEXT("modality"),Channel==TEXT("OBS")?TEXT("observer"):Channel==TEXT("CH1")?TEXT("visible"):TEXT("infrared"));
+        R->SetStringField(TEXT("modality"),Aerial?(Channel==TEXT("AERIAL_IR")?TEXT("infrared"):TEXT("visible")):Channel==TEXT("OBS")?TEXT("observer"):Channel==TEXT("CH1")?TEXT("visible"):TEXT("infrared"));
+        R->SetStringField(TEXT("run_id"),Demo.PlaySessionId);R->SetStringField(TEXT("scene_id"),Demo.SceneId);
+        if (Aerial) {
+            R->SetStringField(TEXT("annotation_status"),TEXT("unavailable"));R->SetBoolField(TEXT("training_eligible"),false);
+            R->SetStringField(TEXT("annotation_error"),TEXT("Aerial ground-truth labels are not available; raw image requires annotation"));
+            const auto* Context=Demo.AerialContexts[Channel==TEXT("AERIAL_IR")?1:0].Find(StreamSimulationTime);
+            if (Context && Context->IsValid()) for (const auto& Field:(*Context)->Values) R->SetField(Field.Key,Field.Value);
+            else R->SetStringField(TEXT("pose_timing"),TEXT("unavailable"));
+        }
         R->SetNumberField(TEXT("frame_number"),StreamFrameNumber);
         R->SetNumberField(TEXT("simulation_time_s"),StreamSimulationTime);
         R->SetNumberField(TEXT("width"),Width);
@@ -882,11 +988,11 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         R->SetStringField(TEXT("point_cloud_path"),Demo.LastLidarExportPath);
         return Reply(Id,R);
     }
-    else if (Command==TEXT("sensor.lidar.get_points"))
+    else if (Command==TEXT("sensor.lidar.get_points") || Command==TEXT("sensor.lidar.get_scan"))
     {
         auto R=State();
         TArray<TSharedPtr<FJsonValue>> Points;
-        constexpr int32 MaxPreviewPoints=768;
+        const bool Full=Command==TEXT("sensor.lidar.get_scan");const int32 MaxPreviewPoints=Full?8192:768;
         const int32 Count=Demo.LidarEnabled?Demo.LastLidarPointsWorldCm.Num():0;
         const TArray<FVector> Preview=Demo.LidarEnabled?Demo.GetLidarPreviewPoints(MaxPreviewPoints):TArray<FVector>();
         Points.Reserve(Preview.Num());
@@ -900,6 +1006,16 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
         R->SetNumberField(TEXT("lidar_horizontal_fov_deg"),Demo.LidarHorizontalFov);
         R->SetNumberField(TEXT("lidar_vertical_fov_deg"),Demo.LidarVerticalFov);
         R->SetArrayField(TEXT("lidar_points_m"),Points);
+        R->SetNumberField(TEXT("lidar_capture_time_s"),Demo.LastLidarCaptureTime);
+        R->SetNumberField(TEXT("lidar_scan_sequence"),Demo.LidarScanSequence);
+        R->SetStringField(TEXT("lidar_sensor_id"),Demo.GimbalId+TEXT("/lidar"));
+        R->SetStringField(TEXT("lidar_model"),TEXT("ideal rectangular angular-grid snapshot, first collision return; no intensity or rolling scan"));
+        R->SetBoolField(TEXT("lidar_downsampled"),Preview.Num()<Count);
+        if (Full) {
+            TArray<TSharedPtr<FJsonValue>> Ranges;for (float Value:Demo.LastLidarRangesMeters) Ranges.Add(MakeShared<FJsonValueNumber>(Value));
+            R->SetArrayField(TEXT("lidar_ranges_m"),Ranges);R->SetNumberField(TEXT("lidar_no_return_value"),-1);
+            R->SetStringField(TEXT("lidar_ray_order"),TEXT("row-major pitch -vfov/2..+vfov/2, yaw -hfov/2..+hfov/2"));
+        }
         return Reply(Id,R);
     }
     else return Reply(Id,Empty,TEXT("unknown_command"),TEXT("Command is not supported"));
@@ -908,6 +1024,7 @@ TSharedPtr<FJsonObject> FWiseEyeBridge::Execute(const TSharedPtr<FJsonObject>& R
 
 void FWiseEyeBridge::Tick()
 {
+    for (auto It=SlotLeases.CreateIterator();It;++It) if (FPlatformTime::Seconds()>It.Value().Expires) {It.Value().Restore();It.RemoveCurrent();}
     if (!Demo.BridgeReady) return;
     if (LastManualInput>0 && FPlatformTime::Seconds()-LastManualInput>.35)
     {

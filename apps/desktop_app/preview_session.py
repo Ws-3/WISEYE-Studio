@@ -28,13 +28,16 @@ def run(args):
             temporary.replace(status_file)
             report(message)
         def spawn(command, name):
+            startup=None
+            if os.name=='nt' and name=='ue-launch':
+                startup=subprocess.STARTUPINFO();startup.dwFlags|=subprocess.STARTF_USESHOWWINDOW;startup.wShowWindow=0
             with (data/f'logs/{name}.log').open('ab') as output:
                 return job.spawn(command, cwd=root, env=environment, stdin=subprocess.DEVNULL,
-                                 stdout=output, stderr=output, creationflags=subprocess.CREATE_NO_WINDOW)
+                                 stdout=output, stderr=output,startupinfo=startup, creationflags=subprocess.CREATE_NO_WINDOW)
         try:
             status('loading','正在启动 UE，加载场景和着色器…')
             game = spawn([args.editor, args.project, scene['map']+'?game=/Script/test.WiseEyeGameMode?wiseeye_scene='+args.scene,
-                          '-game','-windowed','-ResX=1280','-ResY=720','-nosplash',
+                          '-game','-windowed','-ResX=1280','-ResY=720','-nosplash','-WiseEyeHiddenWindow','-WinX=-32000','-WinY=-32000','-ExecCmds=t.IdleWhenNotForeground 0',
                           '-WiseEyeDataDir='+str(data), '-UserDir='+str(data/'UE'), '-simlogdir='+str(data/'logs')], 'ue-launch')
             flight = spawn([sys.executable,'-m','integrations.ProjectAirSim.run_wiseye_flight','--scene',args.scene,'--loops','0'], 'flight')
             pythonw = str(Path(sys.executable).with_name('pythonw.exe'))

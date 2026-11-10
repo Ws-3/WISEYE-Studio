@@ -5,7 +5,9 @@
 #include "GameFramework/HUD.h"
 #include "ProjectAirSimGameMode.h"
 #include "WiseEyeThermalMath.h"
+#include "WiseEyeFocus.h"
 #include "WiseEyeGroundTruth.h"
+#include "WiseEyeFixedwingEngine.h"
 #include "WiseEyeDemo.generated.h"
 
 class FJsonObject;
@@ -18,9 +20,11 @@ class ACameraActor;
 class UMaterialInterface;
 class UMaterialInstanceDynamic;
 class UStaticMeshComponent;
+class UStaticMesh;
 class UPrimitiveComponent;
 class FWiseEyeBridge;
 class FWiseEyeStreamManager;
+class UWiseEyePopulationWatch;
 struct FWiseEyeThermalReadoutState;
 class UDirectionalLightComponent;
 class USkyLightComponent;
@@ -261,6 +265,15 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE") float MaxPitch = 75;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="WISEYE", meta=(ClampMin="5", ClampMax="120")) float FieldOfView = 45;
     float VisibleFOV = 25;
+    float VisibleBlur=.95f,VisibleNoise=.006f,VisibleContrast=.96f,VisibleSaturation=.88f;
+    FWiseEyeFocus VisibleFocus,AerialFocus;
+    bool SimulationWindowVisible=true,SimulationWindowInitialized=false;
+    bool SetSimulationWindowVisible(bool Visible);
+    void UpdateSimulationWindow();
+    float AerialVisibleBlur=.95f;
+    UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> AerialVisibleMaterial;
+    void ApplyVisibleFocus(USceneCaptureComponent2D* Lens,FWiseEyeFocus& Focus,bool TrackTarget=false);
+    UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> VisibleInstance;
     float InfraredFOV = 25;
     bool VisibleEnabled = true;
     int64 VisibleCaptureSequence=0;
@@ -300,6 +313,25 @@ public:
     bool NavigationNight=false, NavigationRedOn=false, NavigationGreenOn=false;
     UPROPERTY() TArray<TObjectPtr<UStaticMeshComponent>> NavigationLamps;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="WISEYE|Drone") TObjectPtr<UStaticMeshComponent> AlternateDroneMesh;
+    UPROPERTY() TObjectPtr<UStaticMeshComponent> FixedwingMesh;
+    int32 RuntimeFleetRevision=0;
+    bool EditLiveFleet(const TSharedPtr<FJsonObject>& Args,FString& Error);
+    AWiseEyeDemo* SpawnLiveDevice(const TSharedPtr<FJsonObject>& Item,FString& Error);
+    void RemoveLiveDevice(const FString& Id);
+    bool FixedwingActive=false;
+    float FixedwingSpeed=12.f,FixedwingActualSpeed=0,FixedwingYaw=0;
+    float FixedwingHoldAltitude=0;
+    TUniquePtr<FWiseEyeFixedwingEngine> FixedwingEngine;
+    FVector FixedwingInput=FVector::ZeroVector;
+    double FixedwingInputAt=0;
+    TArray<FVector> FixedwingRoute;
+    int32 FixedwingWaypoint=0;
+    bool FixedwingRepeat=false;
+    FString FixedwingRouteStatus=TEXT("idle"),FixedwingError;
+    void InitializeFixedwingVisual();
+    void StepFixedwing(float Dt);
+    bool ControlFixedwing(const TSharedPtr<FJsonObject>& Args,FString& Error);
+    TSharedPtr<FJsonObject> FixedwingState() const;
     UPROPERTY(BlueprintReadOnly, Category="WISEYE") TObjectPtr<ACameraActor> DroneView;
     UPROPERTY(BlueprintReadOnly, Category="WISEYE") float SimulationTime = 0;
     // Last captured frame pixels (processed, for read‑back by user code)
@@ -341,8 +373,8 @@ public:
     UFUNCTION(BlueprintPure, Category="WISEYE|Sensors") UTextureRenderTarget2D* GetSensorTarget() const;
     void RefreshEventSensor();
     TSharedPtr<FJsonObject> EventSensorState() const;
-    bool EventEnabled=false;
-    float EventFOV=25,EventSampleHz=30,EventOn=.2f,EventOff=.2f;
+    bool EventEnabled=true;
+    float EventFOV=25,EventSampleHz=15,EventOn=.2f,EventOff=.2f;
     int64 EventRefractoryUs=100;
     FVector EventOffsetCm=FVector(0,0,2);
     FRotator EventBoresight=FRotator::ZeroRotator;
@@ -353,6 +385,42 @@ public:
     /** Normalized forward/right/up and yaw inputs; keyboard input is added at runtime. */
     UFUNCTION(BlueprintCallable, Category="WISEYE") void SetManualInput(float Forward, float Right, float Up, float Yaw);
     bool SetDroneModel(const FString& ModelId, FString& Error);
+    TSharedPtr<FJsonObject> AerialState() const;
+    bool ConfigureAerial(const TSharedPtr<FJsonObject>& Args,FString& Error);
+    bool GetAerialFrame(TArray64<uint8>& Jpeg,int32& Width,int32& Height,int64& Sequence,double& Time,bool IR=false);
+    void UpdateAerial();
+    UPROPERTY() TObjectPtr<USceneCaptureComponent2D> AerialCapture;
+    UPROPERTY() TObjectPtr<UTextureRenderTarget2D> AerialTarget;
+    UPROPERTY() TObjectPtr<ACameraActor> AerialViewer;
+    void ReleaseAerial();
+    bool AerialEnabled=true,AerialStabilized=true;
+    float AerialPitch=-60,AerialYaw=0,AerialFOV=65,AerialHz=15;
+    double AerialDemandUntil=0,AerialNext=0;
+    FWiseEyeStreamManager* AerialStream=nullptr;
+    bool AerialIREnabled=true,AerialIRBlackHot=false;
+    float AerialIRFOV=65,AerialIRBlur=.8f,AerialIRNoise=.008f,AerialIRHz=15;
+    double AerialIRDemandUntil=0,AerialIRNext=0;
+    UPROPERTY() TObjectPtr<USceneCaptureComponent2D> AerialIRCapture;
+    UPROPERTY() TObjectPtr<UTextureRenderTarget2D> AerialIRSignal;
+    UPROPERTY() TObjectPtr<UTextureRenderTarget2D> AerialIRTarget;
+    UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> AerialIRMaterial;
+    FWiseEyeStreamManager* AerialIRStream=nullptr;
+    TMap<double,TSharedPtr<FJsonObject>> AerialContexts[2];
+    void RecordAerialContext(bool IR);
+    void InitializeObservation();
+    void UpdatePopulation();
+    TSharedPtr<FJsonObject> PopulationState() const;
+    TSharedPtr<FJsonObject> PopulationAgents(const FString& FromCamera=TEXT("")) const;
+    bool ConfigurePopulation(const TSharedPtr<FJsonObject>& Args,FString& Error);
+    bool SaveObservation(FString& Error) const;
+    bool PopulationVehicles=true,PopulationPedestrians=true;
+    float PopulationVehicleDensity=.25f,PopulationPedestrianDensity=.25f;
+    double PopulationNextScan=0,PopulationApplyAt=0,PopulationWarmup=0;
+    UPROPERTY() TArray<TObjectPtr<UWiseEyePopulationWatch>> PopulationWatches;
+    TMap<TWeakObjectPtr<UStaticMesh>,uint8> PopulationThermalMeshes;
+    double PopulationThermalNext=0;
+    int32 PopulationThermalComponents=0;
+    int32 PopulationThermalPeople=0,PopulationThermalVehicles=0;
     bool GetStreamFrame(bool bInfrared, TArray64<uint8>& Jpeg, int32& Width, int32& Height,
                         int64& StreamFrameNumber, double& StreamSimulationTime) const;
     void GetStreamStatistics(bool bInfrared, int64& Sequence, int64& Completed, double& CaptureTime) const;
@@ -385,6 +453,7 @@ private:
     float TelemetryClock = 0;
     float LidarClock = 0;
     FTransform LastLidarPose;
+    double LastLidarCaptureTime=0;
     int32 FrameNumber = 0;
     int32 ViewMode = 0;
     FString OutputDirectory;

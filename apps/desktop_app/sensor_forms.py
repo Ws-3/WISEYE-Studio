@@ -8,8 +8,8 @@ from core.infrared_presets import DETECTOR_FIELDS
 EXTRINSIC_FIELDS=('mount_x_cm','mount_y_cm','mount_z_cm','boresight_pitch_deg','boresight_yaw_deg','boresight_roll_deg')
 
 DEFINITIONS = {
-    'event':[('fov_deg','水平视场',5,120,25,'°',1,.5),('sample_hz','渲染采样上限',1,120,30,'Hz',0,1),('positive_threshold','正事件阈值',.01,1,.2,'ln',3,.01),('negative_threshold','负事件阈值',.01,1,.2,'ln',3,.01),('refractory_us','像素不应期',0,100000,100,'µs',0,10)],
-    'visible': [('fov_deg','水平视场',5,120,25,'°',1,.5)],
+    'event':[('fov_deg','水平视场',5,120,25,'°',1,.5),('sample_hz','渲染采样上限',1,120,15,'Hz',0,1),('positive_threshold','正事件阈值',.01,1,.2,'ln',3,.01),('negative_threshold','负事件阈值',.01,1,.2,'ln',3,.01),('refractory_us','像素不应期',0,100000,100,'µs',0,10)],
+    'visible': [('fov_deg','水平视场',5,120,25,'°',1,.5),('blur_px','光学模糊半径',0,3,.95,'px',2,.05),('noise','成像噪声',0,.08,.006,'',3,.001),('contrast','明暗对比',.5,1.5,.96,'',2,.02),('saturation','色彩饱和度',0,1.5,.88,'',2,.02),('focus_distance_m','手动对焦距离',.2,10000,100,'m',2,1),('aperture_f','光圈 f/',1,22,2.8,'',1,.1)],
     'infrared': [('fov_deg','水平视场',5,120,25,'°',1,.5), ('noise','传感器噪声',0,.1,.008,'',3,.001),
                  ('blur_px','光学模糊',0,2,.8,'px',2,.1), ('contrast','明暗对比',.3,3,1.35,'',2,.05),
                  ('background_detail','背景层次',0,1,.65,'',2,.05),
@@ -35,8 +35,8 @@ class SensorSettings(QTabWidget):
         for ident, title in [('visible','可见光'), ('infrared','红外'), ('lidar','激光雷达'),('event','事件相机')]:
             page = QWidget(); page.setObjectName('sensorPage'); layout = QVBoxLayout(page); layout.setContentsMargins(0,10,0,0)
             source_label = QLabel(self.device_id + ' / ' + ident); source_label.setWordWrap(True); source_label.setObjectName('section'); layout.addWidget(source_label)
-            label = QLabel({'visible':'1920×1080 · 原始可见光', 'infrared':'640×512 · 合成热成像，无温度标定', 'lidar':'48×12 射线 · 单帧米制点云', 'event':'640×480 · 独立光心、帧驱动事件近似；时间戳插值，不代表硬件微秒精度'}[ident]); label.setWordWrap(True);label.setObjectName('muted');layout.addWidget(label)
-            enabled = QCheckBox('启用采集与输出'); enabled.setChecked(ident!='event'); layout.addWidget(enabled)
+            label = QLabel({'visible':'1920×1080 · 独立可见光；模糊与噪声作用于源图像，不改变视场或标注几何', 'infrared':'640×512 · 合成热成像，无温度标定', 'lidar':'48×12 射线 · 单帧米制点云', 'event':'640×480 · 独立光心、帧驱动事件近似；时间戳插值，不代表硬件微秒精度'}[ident]); label.setWordWrap(True);label.setObjectName('muted');layout.addWidget(label)
+            enabled = QCheckBox('启用采集与输出'); enabled.setChecked(True); layout.addWidget(enabled)
             hint=QLabel('启停也需应用；停用将中断此传感器的外部输出。');hint.setWordWrap(True);hint.setObjectName('hint');layout.addWidget(hint)
             fields = {'enabled':enabled}; form = QFormLayout()
             for key, text, low, high, default, unit, decimals, step in DEFINITIONS[ident]:
@@ -46,6 +46,11 @@ class SensorSettings(QTabWidget):
                     ('boresight_pitch_deg','视轴俯仰偏差',15,.1 if ident=='infrared' else 0,'°'),('boresight_yaw_deg','视轴偏航偏差',15,.2 if ident=='infrared' else 0,'°'),('boresight_roll_deg','视轴滚转偏差',15,0,'°')]
                 for key,title,limit,default,unit in definitions:
                     widget=NumberInput(-limit,limit,unit,2,.1);widget.setValue(default);fields[key]=widget;form.addRow(title,widget)
+            if ident == 'visible':
+                focus=ChoiceInput()
+                for title,value in [('自动对焦','auto'),('手动距离','manual'),('无穷远','infinity'),('关闭景深','off')]:focus.addItem(title,value)
+                fields['focus_mode']=focus;form.addRow('对焦方式',focus)
+                note=QLabel('自动对焦跟随跟踪目标；未跟踪时测画面中心。光圈与距离共同决定景深，广角远景通常仍较清楚。');note.setWordWrap(True);layout.addWidget(note)
             if ident == 'infrared':
                 profile=ChoiceInput();profile.addItem('红外','facade');profile.hide();fields['thermal_profile']=profile
                 palette=ChoiceInput();palette.addItem('白热','white_hot');palette.addItem('黑热','black_hot');fields['palette']=palette;form.addRow('显示极性',palette)
@@ -102,6 +107,10 @@ class SensorSettings(QTabWidget):
         values={key:widget.isChecked() if isinstance(widget,QCheckBox) else widget.currentData() if isinstance(widget,QComboBox) else widget.value() for key,widget in panel['fields'].items()}
         if not (panel['confirmed'] or {}).get('extrinsics_supported'):
             for key in EXTRINSIC_FIELDS:values.pop(key,None)
+        if ident=='visible' and not (panel['confirmed'] or {}).get('appearance_available'):
+            for key in ('blur_px','noise','contrast','saturation'):values.pop(key,None)
+        if ident=='visible' and not (panel['confirmed'] or {}).get('focus_supported'):
+            for key in ('focus_mode','focus_distance_m','aperture_f'):values.pop(key,None)
         if ident=='infrared' and panel['confirmed'] is not None and not panel['confirmed'].get('enhanced_available',False):
             for key in ('thermal_profile','blur_px','contrast','background_detail'):values.pop(key,None)
         if ident=='infrared' and not (panel['confirmed'] or {}).get('facade_available'):
@@ -136,7 +145,8 @@ class SensorSettings(QTabWidget):
             panel['confirmed']=copy.deepcopy(saved.get('confirmed'));panel['dirty']=saved.get('dirty',False)
             # Unknown devices start with defaults rather than the previously inspected values.
             defaults={key:default for key,_,_,_,default,_,_,_ in DEFINITIONS[ident]}
-            defaults['enabled']=ident!='event'
+            defaults['enabled']=True
+            if ident=='visible':defaults['focus_mode']='auto'
             if ident=='event':defaults.update(mount_x_cm=0,mount_y_cm=0,mount_z_cm=2,boresight_pitch_deg=0,boresight_yaw_deg=0,boresight_roll_deg=0)
             if ident=='infrared':defaults.update(palette='white_hot',thermal_profile='facade',agc_enabled=True,sampling_scale=1,gain_mode='auto',stable_agc=True)
             self.fill(ident,saved.get('values',defaults));panel['source'].setText(device+' / '+ident)
@@ -259,6 +269,8 @@ class SensorSettings(QTabWidget):
                     if actual.get('thermal_profile') in ('classified','facade') and len(counts)==7 and sum(counts)>0:
                         info+=f' · 材料覆盖 {100*sum(counts[1:])/sum(counts):.0f}%'
                 if ident=='event':info+=f" · {actual.get('actual_sample_hz',0):.1f} Hz · {actual.get('events_total',0)} 事件"
+                if ident=='visible' and actual.get('focus_supported'):
+                    info+=f" · 对焦 {actual.get('actual_focus_distance_m',0):.1f} m · f/{actual.get('aperture_f',2.8):.1f}"
                 panel['actual'].setText('实际生效：'+info)
                 panel['actual'].setToolTip('材料覆盖表示当前视角中被材料规则覆盖的像素占比；其余使用默认背景，不代表分类准确率。' if ident=='infrared' and actual.get('thermal_profile') in ('classified','facade') else '')
             index=('visible','infrared','lidar','event').index(ident)
@@ -268,6 +280,12 @@ class SensorSettings(QTabWidget):
             color='#ff9292' if any(word in status for word in ('失败','超时','待确认：')) else '#f3c66a' if panel['dirty'] else '#b4bcc8'
             panel['status'].setStyleSheet('color:'+color+';')
             for key,widget in panel['fields'].items():
+                if ident=='visible' and key in ('focus_mode','focus_distance_m','aperture_f'):
+                    widget.setEnabled(bool(actual and actual.get('focus_supported')))
+                    if actual and key=='focus_distance_m':widget.setEnabled(actual.get('focus_supported',False) and panel['fields']['focus_mode'].currentData()=='manual')
+                if ident=='visible' and key in ('blur_px','noise','contrast','saturation'):
+                    widget.setEnabled(bool(actual and actual.get('appearance_available')))
+                    widget.setToolTip('作用于可见光源画面、导出与训练样本；0模糊/0噪声/1对比/1饱和度为中性。参数仅本次运行有效。')
                 if key in EXTRINSIC_FIELDS:
                     widget.setEnabled(bool(actual and actual.get('extrinsics_supported')))
                     widget.setToolTip('相对云台镜头头部的安装位置（X前/Y右/Z上，厘米）和视轴偏差；两相机独立成像，参数仅本次运行有效。')

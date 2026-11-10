@@ -1,0 +1,127 @@
+{
+  "passed": true,
+  "run_id": "A186392D4611DD37CDAA89A2D2FE0D10",
+  "population_heat_components": 3,
+  "population_people_heat": 2,
+  "population_vehicle_heat": 1,
+  "independent_cameras": {
+    "visible": {
+      "device_id": "uav-01",
+      "sensor_id": "uav-01/aerial",
+      "channel": "AERIAL",
+      "modality": "visible",
+      "run_id": "A186392D4611DD37CDAA89A2D2FE0D10",
+      "scene_id": "city",
+      "annotation_status": "unavailable",
+      "training_eligible": false,
+      "annotation_error": "Aerial ground-truth labels are not available; raw image requires annotation",
+      "camera_position_cm": [
+        -27400,
+        -2599.999999999999,
+        4062.26806640625
+      ],
+      "camera_rotation_pitch_yaw_roll_deg": [
+        -59.99999999999996,
+        89.99999237060548,
+        0
+      ],
+      "horizontal_fov_deg": 65,
+      "pose_timing": "capture_tick",
+      "environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "rain_active_particles": 0,
+        "rain_active_streaks": 0,
+        "rain_model": "world_space_depth_tested_streaks",
+        "night_amount": 0,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / bounded world rain; no weather physics or thermal calibration"
+      },
+      "carrier_model_id": "mavic3",
+      "frame_number": 3,
+      "simulation_time_s": 40.15687709202757,
+      "width": 1920,
+      "height": 1080,
+      "encoding": "jpeg",
+      "quality": 90
+    },
+    "infrared": {
+      "device_id": "uav-01",
+      "sensor_id": "uav-01/aerial_infrared",
+      "channel": "AERIAL_IR",
+      "modality": "infrared",
+      "run_id": "A186392D4611DD37CDAA89A2D2FE0D10",
+      "scene_id": "city",
+      "annotation_status": "unavailable",
+      "training_eligible": false,
+      "annotation_error": "Aerial ground-truth labels are not available; raw image requires annotation",
+      "camera_position_cm": [
+        -27406,
+        -2599.9999992010507,
+        4062.26806640625
+      ],
+      "camera_rotation_pitch_yaw_roll_deg": [
+        -59.9993954063328,
+        90.39998750280571,
+        -0.346405242407574
+      ],
+      "horizontal_fov_deg": 65,
+      "pose_timing": "capture_tick",
+      "environment": {
+        "time_supported": true,
+        "fog_supported": true,
+        "rain_supported": true,
+        "rain_unavailable_reason": "",
+        "time_override": false,
+        "hour": 12,
+        "fog": 0,
+        "rain": 0,
+        "clouds_supported": true,
+        "clouds": 0,
+        "cloud_layer_active": false,
+        "cloud_atmosphere_created": false,
+        "rain_view_volumes": 0,
+        "rain_active_particles": 0,
+        "rain_active_streaks": 0,
+        "rain_model": "world_space_depth_tested_streaks",
+        "night_amount": 0,
+        "day_sky_meshes": 1,
+        "model": "visual daylight / exponential fog / bounded world rain; no weather physics or thermal calibration"
+      },
+      "carrier_model_id": "mavic3",
+      "frame_number": 3,
+      "simulation_time_s": 40.34605919470778,
+      "width": 640,
+      "height": 512,
+      "encoding": "jpeg",
+      "quality": 90
+    }
+  },
+  "ground_view_target": {
+    "entity_index": 992,
+    "entity_serial": 3,
+    "target_id": "A186392D4611DD37CDAA89A2D2FE0D10/vehicle/992/3",
+    "class_name": "vehicle",
+    "position_cm": [
+      -24860.305589601187,
+      2003.280334164373,
+      62.58164445497172
+    ]
+  },
+  "raw_samples": 4,
+  "manual_review_workflow": true,
+  "test_box_is_synthetic": true,
+  "gimbal_gt_preserved": true,
+  "owned_session_stopped": true
+}

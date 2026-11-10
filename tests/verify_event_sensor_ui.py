@@ -28,11 +28,27 @@ class EventSensorTests(unittest.TestCase):
                 self.assertEqual(call.call_args.args,('sensor.set_enabled',dict(device_id='ptz-01',sensor='event',enabled=True)))
             settings.select_device('ptz-02')
             self.assertEqual(settings.panels['event']['fields']['mount_z_cm'].value(),2)
-            self.assertFalse(settings.values('event')['enabled'])
+            self.assertTrue(settings.values('event')['enabled'])
         finally:power.close();settings.close()
-    def test_event_is_not_rtsp_or_default_gpu_subscription(self):
+    def test_default_event_preview_is_independent_not_rtsp(self):
         self.assertEqual(Source.parse('ptz-01/event').url('127.0.0.1',AppConfig()),'')
-        self.assertNotIn('ptz-01/event',DEFAULT_SOURCES)
+        self.assertIn('ptz-01/event',DEFAULT_SOURCES)
+    def test_visible_response_requires_capability_and_is_device_addressed(self):
+        client=UEClient(AppConfig());client.ready=True
+        settings=SensorSettings(SimpleNamespace(selected_gimbal='ptz-01',client=client,capture_source=lambda *a:None))
+        try:
+            neutral=dict(enabled=True,fov_deg=25,appearance_available=True,blur_px=.55,noise=.006,contrast=.96,saturation=.88)
+            settings.update_state(dict(run_id='run',gimbal_id='ptz-01',sensor_power_supported=True,sensors=dict(visible=neutral)))
+            settings.panels['visible']['fields']['blur_px'].setValue(1.2)
+            with patch.object(client,'request',return_value='visible-request') as call:
+                settings.submit('visible')
+                self.assertEqual(call.call_args.args[0],'sensor.configure')
+                payload=call.call_args.args[1]
+                self.assertEqual(payload['device_id'],'ptz-01');self.assertEqual(payload['blur_px'],1.2)
+                self.assertEqual(payload['saturation'],.88)
+            settings.select_device('ptz-02')
+            self.assertNotIn('blur_px',settings.values('visible'))
+        finally:settings.close()
     def test_worker_can_finish_after_qobject_destruction(self):
         from apps.desktop_app.event_preview_client import EventPreviewClient
         import shiboken6

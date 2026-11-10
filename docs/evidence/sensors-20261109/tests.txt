@@ -1,0 +1,40 @@
+test_new_camera_has_manual_lens_controls (tests.test_sensor_upgrade_ui.SensorUpgradeUI.test_new_camera_has_manual_lens_controls) ... ok
+test_old_aerial_does_not_send_focus_fields (tests.test_sensor_upgrade_ui.SensorUpgradeUI.test_old_aerial_does_not_send_focus_fields) ... ok
+test_pair_is_left_right_with_optional_scene (tests.test_sensor_upgrade_ui.SensorUpgradeUI.test_pair_is_left_right_with_optional_scene) ... ok
+test_window_button_is_one_reversible_command (tests.test_sensor_upgrade_ui.SensorUpgradeUI.test_window_button_is_one_reversible_command) ... ok
+test_bad_point_rejected (tests.test_sensor_formats.SensorFormatTests.test_bad_point_rejected) ... ok
+test_empty_scan_is_valid (tests.test_sensor_formats.SensorFormatTests.test_empty_scan_is_valid) ... ok
+test_event_layout_and_polarity (tests.test_sensor_formats.SensorFormatTests.test_event_layout_and_polarity) ... ok
+test_event_time_reversal_rejected (tests.test_sensor_formats.SensorFormatTests.test_event_time_reversal_rejected) ... ok
+test_invalid_coordinate_rejected (tests.test_sensor_formats.SensorFormatTests.test_invalid_coordinate_rejected) ... ok
+test_pixel_preview_is_not_event_stream (tests.test_sensor_formats.SensorFormatTests.test_pixel_preview_is_not_event_stream) ... ok
+test_preview_cannot_masquerade_as_full_scan (tests.test_sensor_formats.SensorFormatTests.test_preview_cannot_masquerade_as_full_scan) ... ok
+test_ros_handedness_and_timestamp (tests.test_sensor_formats.SensorFormatTests.test_ros_handedness_and_timestamp) ... ok
+test_enhanced_parameters_are_device_scoped (tests.verify_infrared_settings.InfraredSettingsTests.test_enhanced_parameters_are_device_scoped) ... ok
+test_facade_is_disabled_on_older_materials_and_keeps_device_drafts (tests.verify_infrared_settings.InfraredSettingsTests.test_facade_is_disabled_on_older_materials_and_keeps_device_drafts) ... ok
+test_material_mode_requires_capability_and_reports_pixel_coverage (tests.verify_infrared_settings.InfraredSettingsTests.test_material_mode_requires_capability_and_reports_pixel_coverage) ... ok
+test_old_ue_does_not_receive_unsupported_fields (tests.verify_infrared_settings.InfraredSettingsTests.test_old_ue_does_not_receive_unsupported_fields) ... ok
+test_reference_controls_follow_capability_and_keep_device_drafts (tests.verify_infrared_settings.InfraredSettingsTests.test_reference_controls_follow_capability_and_keep_device_drafts) ... ok
+test_aerial_is_embedded_and_does_not_take_over_flight (tests.verify_mission_workspace.MissionTests.test_aerial_is_embedded_and_does_not_take_over_flight) ... ok
+test_capture_is_disabled_without_a_current_frame (tests.verify_mission_workspace.MissionTests.test_capture_is_disabled_without_a_current_frame) ... ok
+test_context_keyboard_and_fullscreen (tests.verify_mission_workspace.MissionTests.test_context_keyboard_and_fullscreen) ... ok
+test_layout_restore_reference_and_camera_switch (tests.verify_mission_workspace.MissionTests.test_layout_restore_reference_and_camera_switch) ... ok
+test_aerial_has_no_fake_rtsp_endpoint (tests.verify_observation_ui.ObservationTests.test_aerial_has_no_fake_rtsp_endpoint) ... ok
+test_continuous_aim_keeps_latest_edit_across_ack (tests.verify_observation_ui.ObservationTests.test_continuous_aim_keeps_latest_edit_across_ack) ... ok
+test_density_normalized_and_save_requires_applied_state (tests.verify_observation_ui.ObservationTests.test_density_normalized_and_save_requires_applied_state) ... ok
+test_disconnection_and_scene_change_invalidate_controls (tests.verify_observation_ui.ObservationTests.test_disconnection_and_scene_change_invalidate_controls) ... ok
+test_manual_aim_and_close_do_not_send_queued_changes (tests.verify_observation_ui.ObservationTests.test_manual_aim_and_close_do_not_send_queued_changes) ... ok
+test_no_commands_before_read_and_addressed_preset (tests.verify_observation_ui.ObservationTests.test_no_commands_before_read_and_addressed_preset) ... ok
+test_old_camera_ack_cannot_change_new_device (tests.verify_observation_ui.ObservationTests.test_old_camera_ack_cannot_change_new_device) ... ok
+test_default_event_preview_is_independent_not_rtsp (tests.verify_event_sensor_ui.EventSensorTests.test_default_event_preview_is_independent_not_rtsp) ... ok
+test_independent_controls_and_addressed_parameters (tests.verify_event_sensor_ui.EventSensorTests.test_independent_controls_and_addressed_parameters) ... ok
+test_visible_response_requires_capability_and_is_device_addressed (tests.verify_event_sensor_ui.EventSensorTests.test_visible_response_requires_capability_and_is_device_addressed) ... ok
+test_worker_can_finish_after_qobject_destruction (tests.verify_event_sensor_ui.EventSensorTests.test_worker_can_finish_after_qobject_destruction) ... ok
+test_worker_does_not_signal_after_stop_during_rpc (tests.verify_event_sensor_ui.EventSensorTests.test_worker_does_not_signal_after_stop_during_rpc) ... ok
+test_invalid_locale_and_unchanged_wire_values (tests.test_localization.LocalizationTests.test_invalid_locale_and_unchanged_wire_values) ... ok
+test_switch_is_reversible_and_keeps_values (tests.test_localization.LocalizationTests.test_switch_is_reversible_and_keeps_values) ... ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 8.557s
+
+OK

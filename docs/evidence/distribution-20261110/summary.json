@@ -1,0 +1,54 @@
+{
+  "date": "2026-11-10",
+  "regression_tests_passed": 39,
+  "reports": {
+    "custom-host-flight": {
+      "passed": true,
+      "report": "builds/plugin-validation/live-flight/report.json",
+      "sha256": "356994f0870ee629b18cce5241701c0c5194bfdaadebf97fa66aeb21f3335555",
+      "checks": []
+    },
+    "source-big-city": {
+      "passed": true,
+      "report": "builds/consolidation/big-city-live/report.json",
+      "sha256": "ee2a95691d26fc4e9a6344ae30783a5a170afd0a78a765b42fa7e72802737d35",
+      "checks": []
+    },
+    "release-city": {
+      "passed": true,
+      "report": "builds/live-tests/city-1794300431519841400/\u7528\u6237\u6570\u636e \u6d4b\u8bd5/report.json",
+      "sha256": "40e7bf8a338903be6e4ca6b4b8f3a6ec2f596609e68fb943ea9e8ac985b9b44c",
+      "checks": [
+        "Game and frozen flight worker ready with matching run ID",
+        "Native resolution visible, infrared and observer previews",
+        "Gimbal velocity control changes actual angle",
+        "Nonempty LIDAR points",
+        "Real takeoff, rotor telemetry, manual ascent, landing and stopped motors"
+      ]
+    },
+    "release-big-city": {
+      "passed": true,
+      "report": "builds/live-tests/city_large-1794300651869214400/\u7528\u6237\u6570\u636e \u6d4b\u8bd5/report.json",
+      "sha256": "09b47e2504ece5ae0ddac5c51366f9fd543493bc402f57e8bb7471e92d7ba965",
+      "checks": [
+        "Game and frozen flight worker ready with matching run ID",
+        "Native resolution visible, infrared and observer previews",
+        "Gimbal velocity control changes actual angle",
+        "Nonempty LIDAR points",
+        "Real takeoff, rotor telemetry, manual ascent, landing and stopped motors"
+      ]
+    },
+    "frozen-ui": {
+      "passed": true,
+      "report": "builds/consolidation/frozen-ui/report.json",
+      "sha256": "38ac2b8944ea3d102b3662f51b599eeee5fda05bedc24d57ceddf82d4842c9b2",
+      "checks": []
+    }
+  },
+  "limitations": [
+    "No clean-machine verification",
+    "Custom host Shipping compiled but not cooked/live packaged",
+    "Third-party M_Crowd_Head_v2 Nanite shader SRV limit 65/64 causes fallback",
+    "No GitHub upload"
+  ]
+}

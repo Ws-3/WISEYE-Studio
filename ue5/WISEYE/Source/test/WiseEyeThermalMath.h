@@ -11,16 +11,16 @@ struct DetectorSettings
 {
     int Mode=0; // 0 auto, 1 hold current window, 2 manual normalized signal range
     bool Stable=false,SensorNoise=false,Facade=false;
-    float Low=0,High=1,Brightness=0,Denoise=0,Noise=0;
+    float Low=0,High=1,Brightness=0,Denoise=0,Noise=0,BackgroundMid=.68f,BackgroundSlope=8.f;
     uint32_t Seed=1337;
     bool operator==(const DetectorSettings& D) const {
-        return Mode==D.Mode && Stable==D.Stable && SensorNoise==D.SensorNoise && Facade==D.Facade && Low==D.Low && High==D.High && Brightness==D.Brightness && Denoise==D.Denoise && Noise==D.Noise && Seed==D.Seed;
+        return Mode==D.Mode && Stable==D.Stable && SensorNoise==D.SensorNoise && Facade==D.Facade && Low==D.Low && High==D.High && Brightness==D.Brightness && Denoise==D.Denoise && Noise==D.Noise && BackgroundMid==D.BackgroundMid && BackgroundSlope==D.BackgroundSlope && Seed==D.Seed;
     }
 };
 struct PixelLabels
 {
-    bool Sky=true,Target=false,Motor=false;
-    void Add(float B) { Sky=Sky && B>.06f && B<.2f;Target=Target || B>.25f;Motor=Motor || B>.75f; }
+    bool Sky=true,Target=false,Motor=false,Population=false;
+    void Add(float B) { Sky=Sky && B>.06f && B<.2f;Target=Target || B>.25f;Motor=Motor || B>.75f;Population=Population || (B>.205f && B<.245f); }
 };
 // Historical signal scaling for replay flag 1; runtime uses FacadeDisplayValue.
 inline float FacadeDisplaySignal(float Signal,float Low,bool Sky,bool Target) {
@@ -28,7 +28,7 @@ inline float FacadeDisplaySignal(float Signal,float Low,bool Sky,bool Target) {
 }
 // Display-domain tone, after the common AGC. Keep sky dark, lift background
 // midtone contrast, and reduce the whole-target white silhouette without flattening heat.
-inline float FacadeDisplayValue(float Value,bool Sky,bool Target,float Signal=-1.f) {
+inline float FacadeDisplayValue(float Value,bool Sky,bool Target,float Signal=-1.f,float BackgroundMid=.68f,float BackgroundSlope=8.f) {
     Value=std::clamp(Value,0.f,1.f);
     if (Sky) return Value;
     if (Target) {
@@ -40,7 +40,7 @@ inline float FacadeDisplayValue(float Value,bool Sky,bool Target,float Signal=-1
     }
     // Spread the middle of the background range; soft shoulders preserve roofs
     // and shaded walls instead of flattening the whole city to one grey level.
-    return .08f+.76f*(.5f+.5f*std::tanh((Value-.68f)*8.f));
+    return .08f+.76f*(.5f+.5f*std::tanh((Value-BackgroundMid)*BackgroundSlope));
 }
 // A weak final optical low-pass tames tone-expanded outlines. Protect targets
 // and their immediate neighbours so tiny drone heat does not bleed into sky.
