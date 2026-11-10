@@ -2,7 +2,7 @@
 
 **v1.1.0 · 2026-11-10 · 源码插件与完整运行包双交付**
 
-WISEYE 基于 Unreal Engine、Project AirSim 与 JSBSim，提供无人机飞行、光电云台、地面/机载双光传感器和数据采集工作台。支持中文、English。感谢 YZE、ZWT 的大力支持！
+WISEYE 基于 Unreal Engine、Project AirSim 与 JSBSim，提供无人机飞行、光电云台、地面/机载双光传感器和数据采集工作台。支持中文、English。
 
 ## 下载哪一个？
 
