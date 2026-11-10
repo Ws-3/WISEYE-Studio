@@ -48,7 +48,12 @@
   "limitations": [
     "No clean-machine verification",
     "Custom host Shipping compiled but not cooked/live packaged",
-    "Third-party M_Crowd_Head_v2 Nanite shader SRV limit 65/64 causes fallback",
-    "No GitHub upload"
-  ]
+    "Third-party M_Crowd_Head_v2 Nanite shader SRV limit 65/64 causes fallback"
+  ],
+  "publication": {
+    "tag": "v1.1.0",
+    "url": "https://github.com/Ws-3/WISEYE-Studio/releases/tag/v1.1.0",
+    "evidence": "github-v1.1.0.json",
+    "complete_city_package_uploaded": false
+  }
 }

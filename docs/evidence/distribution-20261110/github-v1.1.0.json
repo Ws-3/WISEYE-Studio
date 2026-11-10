@@ -1,0 +1,26 @@
+{
+  "tag": "v1.1.0",
+  "target_commit": "119e8272b8f3fa44911ffe4e5d540e70bf11a0ad",
+  "release_url": "https://github.com/Ws-3/WISEYE-Studio/releases/tag/v1.1.0",
+  "published_at": "2026-11-10T10:14:02Z",
+  "draft": false,
+  "latest_verified": true,
+  "assets": [
+    {
+      "name": "WISEYE-Plugin-v1.1.0-UE5.8-Win64.zip",
+      "size": 554789718,
+      "state": "uploaded",
+      "digest": "sha256:4986152b3ac632db6f18352b4b09eff72a73abf9eb578505b181e2798ce6d1a5",
+      "browser_download_url": "https://github.com/Ws-3/WISEYE-Studio/releases/download/v1.1.0/WISEYE-Plugin-v1.1.0-UE5.8-Win64.zip"
+    },
+    {
+      "name": "WISEYE-Plugin-v1.1.0-UE5.8-Win64.zip.sha256",
+      "size": 104,
+      "state": "uploaded",
+      "digest": "sha256:5dbe043fe21b3ee043e8e584541fb3b8ac4611d5bfc6cff5a1b11a562a81a439",
+      "browser_download_url": "https://github.com/Ws-3/WISEYE-Studio/releases/download/v1.1.0/WISEYE-Plugin-v1.1.0-UE5.8-Win64.zip.sha256"
+    }
+  ],
+  "public_checksum_download_verified": true,
+  "server_archive_digest_matches_local": true
+}

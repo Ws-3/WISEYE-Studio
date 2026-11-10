@@ -1,5 +1,9 @@
 # 插件接入包、完整运行包与目录整合
 
+## GitHub 发布结果
+
+v1.1.0 已公开发布为 GitHub 最新发行版：https://github.com/Ws-3/WISEYE-Studio/releases/tag/v1.1.0 。源码及主要 README/安装/使用/训练/打包/依赖文档已推送 main；插件 ZIP 554789718 字节（约529 MiB）与 SHA256 附件均上传成功，GitHub 服务端 ZIP digest 与本地 SHA256 一致，公开校验文件下载读回通过。标签指向 119e8272b8f3fa44911ffe4e5d540e70bf11a0ad；后续 main 只补文档和发布证据，不移动已发布标签。发布前171项回归通过。完整城市包本地保留，未上传；未发表论文保留本地。发布记录 docs/evidence/distribution-20261110/github-v1.1.0.json。下方日期记录中的“未上传”仅为当时状态。
+
 日期：2026-11-10。源码唯一入口 E:/Projects/WISEYE，UE 工程唯一入口 ue5/WISEYE/test.uproject。本轮源码插件与完整 Shipping 运行目录均已完成，传输 ZIP 的哈希见各 ZIP 旁的校验文件。
 
 ## 已完成
@@ -31,7 +35,7 @@
 
 城市完整包明确采用已测试的 DX12/SM6，移除未验收 DX11/SM5 的额外 Cook 目标；不限制源码插件宿主自行配置渲染平台。未在其他 GPU/干净 Windows 验收，不把本机通过当成普遍兼容。
 
-完整 Cook 中第三方 M_Crowd_Head_v2 的 Nanite BasePass 计算着色器超过 SRV 上限（65/64），存在默认材质回退，可能影响部分人物头部外观；本轮没有修改原始城市资产解决它。仍有上游未使用 CVar、无 SunSky，以及既有城市 Mass CustomData ensure 等诊断；独立基础地图无 SunSky 不影响已测飞控/双光，但不意味着完整真实天气支持。在线更新、公开上传、资产再分发授权确认不在本次已完成声明中。尚未完成干净 Windows、其他 GPU 和自定义宿主完整打包的验收。
+完整 Cook 中第三方 M_Crowd_Head_v2 的 Nanite BasePass 计算着色器超过 SRV 上限（65/64），存在默认材质回退，可能影响部分人物头部外观；本轮没有修改原始城市资产解决它。仍有上游未使用 CVar、无 SunSky，以及既有城市 Mass CustomData ensure 等诊断；独立基础地图无 SunSky 不影响已测飞控/双光，但不意味着完整真实天气支持。源码插件已公开上传；在线更新和完整城市包的资产再分发授权确认不在本次已完成声明中。尚未完成干净 Windows、其他 GPU 和自定义宿主完整打包的验收。
 
 ## 产物与使用
 
