@@ -25,6 +25,8 @@ python .\install.py --project 'D:\MyScene\MyScene.uproject' --map /Game/Maps/MyM
 
 先预检，再安装；编译宿主 Editor，打开指定地图，按[插件接入指南](docs/PLUGIN_DISTRIBUTION.md)初始化设备并连接桌面端。当前包保留 `/Script/test` 和历史资产路径，安装器会同时放置 Plugins 与宿主资源；不是仅复制一个裸插件目录。宿主已有 `test` 模块或冲突资产时会拒绝写入。SDK 不包含桌面 Python 环境，桌面端使用完整源码仓库。
 
+感谢YZE、ZWT的大力支持！
+
 ## 当前功能
 
 - 场景编排、模型放置预览、设备实时增删/修改与单独保存初始设置；大小城市分别加载。
